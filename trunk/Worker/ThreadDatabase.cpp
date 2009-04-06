@@ -8,6 +8,7 @@
 ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
 {
+	m_tempMsg = NULL;
 	#ifdef D_DEMO
 	stuffList.clear();
 	Stuff temp;
@@ -29,8 +30,10 @@ ThreadDatabase::ThreadDatabase(QObject *parent)
 #endif
 }
 
-ThreadDatabase::~ThreadDatabase(void)
+ThreadDatabase::~ThreadDatabase()
 {
+	if(NULL != m_tempMsg)
+		delete m_tempMsg;
 }
 
 void ThreadDatabase::run() {
@@ -45,32 +48,13 @@ void ThreadDatabase::run() {
 		m_listActionBuffer.pop_front();
 		mutex.unlock();
 		
-		Message uiEv;
-
 		switch(Action.type()) {
 			case ACTION_LOGIN:
 			{
-//				LOGIN para;
-//				memcpy(&para, ev.data(), sizeof(LOGIN));
-
 				if(static_cast<Stuff*>(Action.data())->ID() == "333") {
-					/*
-					STUFF para;
-					ev.setType(EVENT_LOGGEDIN);
-					memcpy(&para.descrp, stuffList.front().Descrp().c_str(), DESCRP_MAX_LEN);
-					memcpy(&para.id, stuffList.front().ID().c_str(), ID_MAX_LEN);
-					para.level = stuffList.front().Level();
-					memcpy(&para.name, stuffList.front().Name().c_str(), STUFFNAME_MAX_LEN);
-					para.type = stuffList.front().Type();
-					memcpy(&para.pw, stuffList.front().Password().c_str(), PW_MAX_LEN);
-					Action.setData((byte*)&para, sizeof(STUFF));
-//					if (receivers(SIGNAL(hasEvent(Message&))) > 0) {
-*/					uiEv.setType(EVENT_LOGGEDIN);
-					uiEv.setData((void*)(&(stuffList.back())));
-					TEvent* ev = new TEvent(static_cast<QEvent::Type>(WorkerEventType::Db));
-						ev->setData(&uiEv);
-						QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
-//					}
+					m_tempMsg = new Message(EVENT_LOGGEDIN, (void*)(&(stuffList.back())));
+					QEvent* ev = new TEvent(static_cast<QEvent::Type>(WorkerEventType::Db), m_tempMsg);
+					QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				}
 				break;
 			}
@@ -95,8 +79,8 @@ void ThreadDatabase::run() {
 	}
 }
 
-void ThreadDatabase::QueueAction(Message& Action) {
-//	QMutexLocker locker(&mutex);
+void ThreadDatabase::QueueAction(Message& Action)
+{
 	if(!isRunning()) {
 		start(LowPriority);
 	}
