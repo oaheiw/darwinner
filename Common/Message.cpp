@@ -12,14 +12,18 @@ Message::Message(){
 	m_data = NULL;
 	m_length = 0;
 	m_type = 0;
-	m_id = 0;
 }
 
 Message::Message(void* data){
 	m_data = data;
 	m_length = 0;
 	m_type = 0;
-	m_id = 0;
+}
+
+Message::Message(uint32 type, void* data){
+	m_data = data;
+	m_length = 0;
+	m_type = type;
 }
 
 Message::~Message(){
@@ -58,12 +62,6 @@ void Message::setType(uint32 type){
 uint32 Message::type(){
 
 	return  m_type;
-}
-
-
-uint32 Message::ID(){
-
-	return  m_id;
 }
 /*
 Message::Message(const Message &rs)  
