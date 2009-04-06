@@ -15,7 +15,6 @@
 #include "WorkerFactory.h"
 #include "Stuff.h"
 
-//MainDispatcher* MainDispatcher::m_instance = 0;
 MainDispatcher::MainDispatcher(){
 	m_entryWindow	=	new entry();
 	m_mainWindow = new DarwinMain();	
@@ -30,30 +29,14 @@ MainDispatcher::~MainDispatcher(){
 void MainDispatcher::Start(){
 	m_entryWindow->show();
 }
-/*
-MainDispatcher* MainDispatcher::instance(){
 
-	if (0 == m_instance) {
-		m_instance = new MainDispatcher;
-	}
-	return m_instance;
-//	
-//	return 0;
-}
-*/
-void MainDispatcher::Login(string& id, string& pw){
-/*
-	LOGIN para;
-	memset(&para, 0, sizeof(LOGIN));
-	memcpy(para.id, id.c_str(), ID_MAX_LEN);
-	memcpy(para.pw, pw.c_str(), PW_MAX_LEN);
-*/
+void MainDispatcher::Login(string& id, string& pw)
+{
 	Stuff* stu = new Stuff();
 	stu->SetID(id);
 	stu->SetPassword(pw);
 	Message* action = new Message(stu);
 	action->setType(ACTION_LOGIN);
-//	action->setData((byte*)(&para),sizeof(para));
 	m_handler->StartAction(*action);
 	delete action;
 }
@@ -65,7 +48,6 @@ void MainDispatcher::StuffMgnt(){
 
 	Message* action = new Message();
 	action->setType(ACTION_STUFFMGNT);
-//	action->setData((byte*)NULL, 0);
 	m_handler->StartAction(*action);
 	delete action;
 }
@@ -73,7 +55,6 @@ void MainDispatcher::StuffMgnt(){
 void MainDispatcher::Logoff(){
 	Message* action = new Message();
 	action->setType(ACTION_LOGOFF);
-//	action->setData((byte*)NULL, 0);
 	m_handler->StartAction(*action);
 	delete action;
 
@@ -86,10 +67,6 @@ void MainDispatcher::OnEvent(Message& Msg) {
 	switch(Msg.type()) {
 		case EVENT_LOGGEDIN:
 			{
-				/*
-				STUFF para;
-				memcpy(&para, Msg.data(), sizeof(STUFF));
-				*/
 				Stuff* Logged = (Stuff*)(Msg.data());
 				Singleton<Stuff>::instance()->SetName(Logged->Name());
 				m_entryWindow->close();
