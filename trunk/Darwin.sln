@@ -30,6 +30,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Worker", "Worker\Worker.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcproj", "{F6FC6084-EF54-45C9-B87A-60F43C4BEDDA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F4C82E2-D255-4C4E-B200-4DEC73BBA232}"
+	ProjectSection(SolutionItems) = preProject
+		doc\DarwinDesignModel.eap = doc\DarwinDesignModel.eap
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
