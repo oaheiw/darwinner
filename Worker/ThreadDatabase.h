@@ -3,13 +3,14 @@
 
 #include "common.h"
 #include "worker_global.h"
-#include "Message.h"
+
 #ifdef D_DEMO
 #include "Stuff.h"
 #endif
-#include "QThread.h"
+#include <QThread.>
 #include <QMutex>
 #include <QWaitCondition>
+class Message;
 #include <list>
 using namespace std;
 
@@ -25,13 +26,11 @@ public:
 protected:
 	void run();
 
-signals:
-	void hasEvent(Message & ev);
-
 protected:
 	QMutex mutex;
     QWaitCondition bufferEmpty;
 	list<Message> m_listActionBuffer;
+	Message* m_tempMsg;
 
  private:
 #ifdef D_DEMO

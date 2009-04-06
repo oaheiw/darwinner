@@ -8,6 +8,7 @@ class Message;
 class WORKER_EXPORT TEvent : public QEvent
 {
 public:
+	TEvent(QEvent::Type, Message* data);
 	TEvent(QEvent::Type);
 	~TEvent();
 	void setData(Message* data);
