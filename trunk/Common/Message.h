@@ -18,6 +18,7 @@ class DLL_EXPORT Message
 public:
 	Message();
 	Message(void* data);
+	Message(uint32 type, void* data);
 	/*
 	Message(const Message&);  
 	Message &operator = (const Message&);   
@@ -30,7 +31,6 @@ public:
 	void setLength(uint32 length);
 	void setType(uint32 type);
 	uint32 type();
-	uint32 ID();
 
 private:
 	void* m_data;
