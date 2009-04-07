@@ -1,25 +1,30 @@
 ///////////////////////////////////////////////////////////
 //  DUIHandler.h
 //  Implementation of the Class DUIHandler
-//  Created on:      07-ËÄÔÂ-2009 16:59:38
+//  Created on:      07-Apr-2009 5:06:43 PM
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_88D0FA99_BDAF_4c41_95F4_B315A47F585F__INCLUDED_)
-#define EA_88D0FA99_BDAF_4c41_95F4_B315A47F585F__INCLUDED_
+#if !defined(EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_)
+#define EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_
 
-class DUIHandler
+#include "Common.h"
+class Message;
+class DUIObserver;
+
+class DLL_EXPORT DUIHandler
 {
 
 public:
 	DUIHandler();
 	virtual ~DUIHandler();
 
-	void SetObserver()(DUIObserver* observer);
-	virtual void startAction(Message& act);
+	void SetObserver(DUIObserver* observer);
+	virtual void StartAction(Message& act) = 0;
+	DUIObserver* GetObserver();
 
 protected:
-	DUIObserver m_uiObserver;
+	DUIObserver* m_uiObserver;
 
 };
-#endif // !defined(EA_88D0FA99_BDAF_4c41_95F4_B315A47F585F__INCLUDED_)
+#endif // !defined(EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_)

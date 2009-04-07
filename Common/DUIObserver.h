@@ -1,27 +1,30 @@
 ///////////////////////////////////////////////////////////
 //  DUIObserver.h
 //  Implementation of the Class DUIObserver
-//  Created on:      07-ËÄÔÂ-2009 16:59:42
+//  Created on:      07-Apr-2009 5:06:43 PM
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_83F8E378_5998_48c9_9510_20344DB3D52D__INCLUDED_)
-#define EA_83F8E378_5998_48c9_9510_20344DB3D52D__INCLUDED_
+#if !defined(EA_3C747DAE_7CEE_409c_B90E_4E51C6EBAC51__INCLUDED_)
+#define EA_3C747DAE_7CEE_409c_B90E_4E51C6EBAC51__INCLUDED_
 
-#include "DUIHandler.h"
+#include "Common.h"
+class DUIHandler;
+class Message;
 
-class DUIObserver
+class DLL_EXPORT DUIObserver
 {
 
 public:
 	DUIObserver();
 	virtual ~DUIObserver();
 
-	virtual void OnEvent(Message& ev);
+	virtual void OnEvent(Message& ev) = 0;
 	void SetHandler(DUIHandler* handler);
+	DUIHandler* GetHandler();
 
-private:
-	DUIHandler m_uiHandler;
+protected:
+	DUIHandler* m_uiHandler;
 
 };
-#endif // !defined(EA_83F8E378_5998_48c9_9510_20344DB3D52D__INCLUDED_)
+#endif // !defined(EA_3C747DAE_7CEE_409c_B90E_4E51C6EBAC51__INCLUDED_)
