@@ -1,15 +1,12 @@
+= 用户需求：登录及权限管理 =
 #summary 用户需求：登录及权限管理
 
-= 用户需求：登录及权限管理 =
 这份用户需求描述了用户在登录系统时，系统的运作情况。
 
-== 用户登录 ==
+== 基本流程 ==
 
-  * A list
-  * Of bulleted items
-    # This is a numbered sublist
-    # Which is done by indenting further
-  * And back to the main bulleted list
+  # === 登录 ===
+  用户输入用户名及密码登录系统，系统查询用户数据，如果用户名及密码吻合*{登录失败}*，系统提示用户登录成功，并且开放用户权限允许的功能，该流程结束。
 
  * This is also a list
  * With a single leading space
@@ -17,3 +14,11 @@
   # At the same levels
   # As the above lists.
  * Despite the different indentation levels.
+
+== 异常流程 ==
+  # === 登录失败 ===
+  如果用户名不存在，或者用户名和密码不吻合，系统提示用户登录失败，该流程结束。
+
+== 术语 ==
+  # 用户数据
+  指系统存储的所有使用该系统用户的个人信息。在本系统的基础版本中采用SQLite数据库，在高级网络版中采用MySQL数据库，用以存贮用户数据。
