@@ -19,11 +19,7 @@ enum MESSAGE_TYPE {
 	RESPONSE = 100,
 	EVENT = 200
 };
-/*
-const int ACTIONGROUP = 1<<16 + ACTION<<16;
-#define RESPONSEGROUP (1<<32 + RESPONSE<<16)
-#define EVENTGROUP (1<<32 + EVENT<<16)
-*/
+
 enum ACTION{
 	ACTION_LOGIN = ACTION + 1,
 	ACTION_LOGOFF,
@@ -45,6 +41,7 @@ enum EVENT{
 enum TYPE {
 	TYPE_BOSS = 0,
 	TYPE_SHOP_MANAGER,
+	TYPE_CASHER,
 	TYPE_BARBER,
 	TYPE_WASHER,
 	TYPE_BEAUTICIAN,
@@ -57,21 +54,6 @@ enum LEVEL {
 	LEVEL_SKILLED,
 	LEVEL_ADVANCED,
 	LEVEL_MASTER
-};
-
-//Transfer Data Definition
-struct LOGIN {
-	byte id[ID_MAX_LEN];
-	byte pw[PW_MAX_LEN];
-};
-
-struct STUFF {
-	byte descrp[DESCRP_MAX_LEN];
-	byte id[ID_MAX_LEN];
-	uint32 level;
-	byte name[STUFFNAME_MAX_LEN];
-	byte pw[PW_MAX_LEN];
-	uint32 type;
 };
 
 namespace WorkerEventType {
