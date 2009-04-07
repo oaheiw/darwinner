@@ -9,6 +9,9 @@
 #define EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_
 
 #include "Common.h"
+#include <list>
+using namespace std;
+
 class Message;
 class DUIObserver;
 
@@ -24,7 +27,8 @@ public:
 	DUIObserver* GetObserver();
 
 protected:
-	DUIObserver* m_uiObserver;
+	void BroadcastEvent(Message& ev);
+	list<DUIObserver*> m_listUiObserver;
 
 };
 #endif // !defined(EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_)

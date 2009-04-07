@@ -1,6 +1,6 @@
 #include "StuffManagement.h"
 #include "Message.h"
-#include "IActionHandler.h"
+#include "DUIHandler.h"
 
 StuffManagement::StuffManagement()
 {
@@ -33,7 +33,6 @@ void StuffManagement::OnEvent(Message & Msg){
 		}
 		case EVENT_LOGGEDOFF:
 		{
-//			m_handler->DeregisterObserver(this);
 			close();
 			break;
 		}
@@ -59,7 +58,7 @@ void StuffManagement::on_pushButtonLogoff_clicked()
 	Message* action = new Message();
 	action->setType(ACTION_LOGOFF);
 //	action->setData((byte*)NULL, 0);
-	m_handler->StartAction(*action);
+	m_uiHandler->StartAction(*action);
 	delete action;
 }
 
@@ -68,6 +67,6 @@ void StuffManagement::on_pushButtonExit_clicked()
 	Message* action = new Message();
 	action->setType(ACTION_EXIT);
 //	action->setData((byte*)NULL, 0);
-	m_handler->StartAction(*action);
+	m_uiHandler->StartAction(*action);
 	delete action;
 }
