@@ -4,9 +4,10 @@
 #include "stuffmanagement_global.h"
 #include "IEventObserver.h"
 #include "ui_StuffMainWindow.h"
+#include "DUIObserver.h"
 #include <QtGui>
 
-class STUFFMANAGEMENT_EXPORT StuffManagement : public QMainWindow, public IEventObserver
+class STUFFMANAGEMENT_EXPORT StuffManagement : public QMainWindow, public DUIObserver
 {
 	Q_OBJECT
 public:

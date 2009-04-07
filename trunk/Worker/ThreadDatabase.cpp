@@ -60,7 +60,9 @@ void ThreadDatabase::run() {
 			}
 			case ACTION_STUFFMGNT:
 			{
-				Action.setType(EVENT_STUFFMGNT);
+				m_tempMsg = new Message(EVENT_STUFFMGNT);
+				QEvent* ev = new TEvent(static_cast<QEvent::Type>(WorkerEventType::Db), m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
 			case ACTION_LOGOFF:

@@ -4,13 +4,18 @@
 #include <QDialog>
 #include "ui_DarwinMain.h"
 
-class DarwinMain : public QDialog
+#include "DUIObserver.h"
+
+class DarwinMain : public QDialog, public DUIObserver
 {
 	Q_OBJECT
 
 public:
-	DarwinMain(QWidget *parent = 0);
+	DarwinMain(QWidget *parent = 0, DUIHandler* handler = 0);
 	~DarwinMain();
+	void OnEvent(Message& ev) ;
+
+private:
 	Ui::DarwinMainClass ui;
 
 

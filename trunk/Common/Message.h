@@ -18,7 +18,7 @@ class DLL_EXPORT Message
 public:
 	Message();
 	Message(void* data);
-	Message(uint32 type, void* data);
+	Message(uint32 type, void* data = 0);
 	/*
 	Message(const Message&);  
 	Message &operator = (const Message&);   

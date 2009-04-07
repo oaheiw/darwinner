@@ -16,7 +16,6 @@ void IActionHandler::SetObserver(IEventObserver* observer){
 		it++;
 	}
 	m_listObserver.push_back(observer);
-	int size = m_listObserver.size();
 }
 
 void IActionHandler::BroadcastEvent(Message& ev){
@@ -31,11 +30,5 @@ void IActionHandler::BroadcastEvent(Message& ev){
 }
 
 void IActionHandler::DeregisterObserver(IEventObserver* observer){
-//	list<IEventObserver*>::iterator it = m_listObserver.begin();
-//	while(m_listObserver.end() != it) {
-//		if(*it == observer) {
-			m_listObserver.remove(observer);
-//		}
-//		it++;
-//	}
+	m_listObserver.remove(observer);
 }
