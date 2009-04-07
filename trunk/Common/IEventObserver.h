@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////
 //  IEventObserver.h
 //  Implementation of the Class IEventObserver
-//  Created on:      02-ËÄÔÂ-2009 18:03:01
-//  Original author: Sunlight Kuo
+//  Created on:      02-Apr-2009 18:03:01
+//  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
 #if !defined(EA_714FDA6F_77D3_4c14_91EA_D516282D9A93__INCLUDED_)

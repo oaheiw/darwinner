@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////
 //  IActionHandler.cpp
 //  Implementation of the Class IActionHandler
-//  Created on:      02-ËÄÔÂ-2009 18:09:50
-//  Original author: Sunlight Kuo
+//  Created on:      02-Apr-2009 18:09:50
+//  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
 #include "IActionHandler.h"

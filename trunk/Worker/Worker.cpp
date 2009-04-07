@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////
 //  Processer.cpp
 //  Implementation of the Class Processer
-//  Created on:      02-ËÄÔÂ-2009 18:10:13
-//  Original author: Sunlight Kuo
+//  Created on:      02-Apr-2009 18:10:13
+//  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 #include "common.h"
 #include "Worker.h"
