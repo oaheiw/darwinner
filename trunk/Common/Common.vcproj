@@ -164,6 +164,14 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\DUIHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DUIObserver.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IActionHandler.cpp"
 				>
 			</File>
@@ -191,6 +199,14 @@
 			>
 			<File
 				RelativePath=".\common.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DUIHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DUIObserver.h"
 				>
 			</File>
 			<File

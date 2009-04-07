@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////
 //  DUIHandler.cpp
 //  Implementation of the Class DUIHandler
-//  Created on:      07-ËÄÔÂ-2009 16:59:38
+//  Created on:      07-Apr-2009 5:06:43 PM
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
@@ -9,7 +9,7 @@
 
 
 DUIHandler::DUIHandler(){
-
+	m_uiObserver = NULL;
 }
 
 
@@ -18,15 +18,11 @@ DUIHandler::~DUIHandler(){
 
 }
 
-
-
-
-
-void DUIHandler::SetObserver()(DUIObserver* observer){
-
+void DUIHandler::SetObserver(DUIObserver* observer){
+	m_uiObserver = observer;
 }
 
+DUIObserver* DUIHandler::GetObserver(){
 
-void DUIHandler::startAction(Message& act){
-
+	return  m_uiObserver;
 }

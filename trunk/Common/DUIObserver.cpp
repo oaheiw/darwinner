@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////
 //  DUIObserver.cpp
 //  Implementation of the Class DUIObserver
-//  Created on:      07-ËÄÔÂ-2009 16:59:42
+//  Created on:      07-Apr-2009 5:06:44 PM
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
@@ -9,7 +9,7 @@
 
 
 DUIObserver::DUIObserver(){
-
+	m_uiHandler = NULL;
 }
 
 
@@ -18,15 +18,12 @@ DUIObserver::~DUIObserver(){
 
 }
 
-
-
-
-
-void DUIObserver::OnEvent(Message& ev){
-
+void DUIObserver::SetHandler(DUIHandler* handler){
+	m_uiHandler = handler;
 }
 
 
-void DUIObserver::SetHandler(DUIHandler* handler){
+DUIHandler* DUIObserver::GetHandler(){
 
+	return  m_uiHandler;
 }
