@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////
 //  MainDispatcher.h
 //  Implementation of the Class MainDispatcher
-//  Created on:      02-ËÄÔÂ-2009 18:03:22
-//  Original author: Sunlight Kuo
+//  Created on:      02-Apr-2009 18:03:22
+//  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
 #if !defined(EA_AC4D55BE_D1FE_4dc3_80A8_DB54062F56FB__INCLUDED_)

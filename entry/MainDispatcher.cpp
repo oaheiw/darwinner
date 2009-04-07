@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////
 //  MainDispatcher.cpp
 //  Implementation of the Class MainDispatcher
-//  Created on:      02-ËÄÔÂ-2009 18:03:22
-//  Original author: Sunlight Kuo
+//  Created on:      02-Apr-2009 18:03:22
+//  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
 #include "MainDispatcher.h"

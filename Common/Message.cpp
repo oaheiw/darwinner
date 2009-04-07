@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////
 //  Message.cpp
 //  Implementation of the Class Message
-//  Created on:      02-ËÄÔÂ-2009 18:03:38
-//  Original author: Sunlight Kuo
+//  Created on:      02-Apr-2009 18:03:38
+//  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
 #include "Message.h"

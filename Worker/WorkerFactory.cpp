@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////
 //  WorkerFactory.cpp
 //  Implementation of the Class WorkerFactory
-//  Created on:      03-ËÄÔÂ-2009 15:42:33
+//  Created on:      03-Apr-2009 15:42:33
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 #include "common.h"

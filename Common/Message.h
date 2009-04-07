@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////
 //  Message.h
 //  Implementation of the Class Message
-//  Created on:      02-ËÄÔÂ-2009 18:03:38
-//  Original author: Sunlight Kuo
+//  Created on:      02-Apr-2009 18:03:38
+//  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 
 #if !defined(EA_DFF946BC_B0FA_4688_A3B1_8556052D1F43__INCLUDED_)

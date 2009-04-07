@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////
 //  ProcesserFactory.h
 //  Implementation of the Class ProcesserFactory
-//  Created on:      03-ËÄÔÂ-2009 15:42:32
+//  Created on:      03-Apr-2009 15:42:32
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 

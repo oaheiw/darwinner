@@ -1,22 +1,16 @@
 ///////////////////////////////////////////////////////////
-//  Singleton.h
+//  Singleton.cpp
 //  Implementation of the Class Singleton
-//  Created on:      02-四月-2009 21:26:26
-//  Original author: Sunlight Kuo
+//  Created on:      02-Apr-2009 21:26:26
+//  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
+
 
 #if !defined(EA_7651E40F_B1AE_46ba_BB3B_F8AE8EFBF7C8__INCLUDED_)
 #define EA_7651E40F_B1AE_46ba_BB3B_F8AE8EFBF7C8__INCLUDED_
 
-///////////////////////////////////////////////////////////
-//  Singleton.cpp
-//  Implementation of the Class Singleton
-//  Created on:      02-四月-2009 21:26:26
-//  Original author: Sunlight Kuo
-///////////////////////////////////////////////////////////
 #include "common.h"
 
-//#include "Singleton.h"
 template<class T> class DLL_EXPORT Singleton
 {
 
