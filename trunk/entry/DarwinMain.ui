@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>DarwinMain</string>
+   <string>功能菜单</string>
   </property>
   <widget class="QPushButton" name="pushButtonPersonal" >
    <property name="geometry" >
@@ -84,7 +84,7 @@
     <string>店面运营系统</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButtonStuffMgnt" >
+  <widget class="QPushButton" name="pushButtonStaffMgnt" >
    <property name="geometry" >
     <rect>
      <x>210</x>

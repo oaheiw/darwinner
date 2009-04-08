@@ -2,10 +2,13 @@
 #define STAFFMANAGEMENT_H
 
 #include "staffmanagement_global.h"
-#include "IEventObserver.h"
 #include "ui_StaffMainWindow.h"
 #include "DUIObserver.h"
+#include "Staff.h"
 #include <QtGui>
+#include <QEvent>
+#include <list>
+using namespace std;
 
 class STAFFMANAGEMENT_EXPORT StaffManagementUI : public QMainWindow, public DUIObserver
 {
@@ -15,16 +18,25 @@ public:
 	~StaffManagementUI();
 	void OnEvent(Message& Msg);
 
+protected:
+	void showEvent ( QShowEvent * event );
+	void closeEvent ( QCloseEvent * event );
+
 private:
 	Ui::MainWindow ui;
 	QAbstractItemModel* m_stuffDataModel;
 	QSortFilterProxyModel* m_sortProxyModel;
-
+	void addStaff(list<Staff> *staffList);
+	void SettingFont();
 
 private slots:
-	void on_pushButtonExit_clicked();
-	void on_pushButtonLogoff_clicked();
-	void on_pushButtonBack_clicked();
+	void Exit();
+	void Logoff();
+	void Menu();
+
+     void filterRegExpChanged();
+     void filterColumnChanged();
+     void sortChanged();
 };
 
 #endif // STUFFMANAGEMENT_H

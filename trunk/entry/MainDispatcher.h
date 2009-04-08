@@ -20,12 +20,12 @@ class MainDispatcher : public IEventObserver, public DUIHandler
 public:
 	MainDispatcher();
 	virtual ~MainDispatcher();
-	void Login(string& id, string& pw);
-	void Logoff();
-	void SelfService(string& id, string& pw);
+//	void Login(string& id, string& pw);
+//	void Logoff();
+//	void SelfService(string& id, string& pw);
 	void OnEvent(Message& Msg);
 	void Start();
-	void StaffMgnt();
+//	void StaffMgnt();
 	void StartAction(Message & act);
 
 private:

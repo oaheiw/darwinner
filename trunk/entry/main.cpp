@@ -1,18 +1,30 @@
 #include <QtGui/QApplication>
-#include "Singleton.cpp"
-#include "MainDispatcher.h"
-#include "WorkerFactory.h"
-#include "IActionHandler.h"
-#include "Worker.h"
 #include "Message.h"
+#include "messagedef.h"
+#include "Singleton.cpp"
+
+#include "WorkerFactory.h"
+
+//Logic Hanlders
+#include "MainDispatcher.h"
+#include "SMHandler.h"
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	IActionHandler* dataworker = Singleton<WorkerFactory>::instance()->CreateWorker();
-	MainDispatcher* dispathcer = Singleton<MainDispatcher>::instance();
-	dispathcer->SetHandler(dataworker);
-	dataworker->SetObserver(dispathcer);
-	dispathcer->Start();
+
+	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
+	MainDispatcher* login = Singleton<MainDispatcher>::instance();
+	IEventObserver* sm = Singleton<SMHandler>::instance();
+	
+	login->SetHandler(worker);
+	sm->SetHandler(worker);
+	worker->SetObserver(login);
+	worker->SetObserver(sm);
+
+	Message* StartUp = new Message(ACTION_SYSTEM_START);
+	worker->StartAction(*StartUp);
+	delete StartUp;
+	
 	return a.exec();
 }

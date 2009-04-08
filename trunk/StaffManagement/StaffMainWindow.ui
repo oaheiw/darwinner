@@ -18,8 +18,19 @@
     <verstretch>1</verstretch>
    </sizepolicy>
   </property>
+  <property name="font" >
+   <font>
+    <family>Tahoma</family>
+    <pointsize>11</pointsize>
+    <weight>50</weight>
+    <italic>false</italic>
+    <bold>false</bold>
+    <underline>false</underline>
+    <strikeout>false</strikeout>
+   </font>
+  </property>
   <property name="windowTitle" >
-   <string>MainWindow</string>
+   <string>员工管理系统</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <widget class="QGroupBox" name="groupBox" >
@@ -205,45 +216,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButtonBack" >
-    <property name="geometry" >
-     <rect>
-      <x>360</x>
-      <y>250</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>返回主菜单</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonLogoff" >
-    <property name="geometry" >
-     <rect>
-      <x>360</x>
-      <y>280</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>注销</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonExit" >
-    <property name="geometry" >
-     <rect>
-      <x>360</x>
-      <y>310</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>退出</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
@@ -254,8 +226,40 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu_File" >
+    <property name="title" >
+     <string>文件(&amp;F)</string>
+    </property>
+    <addaction name="separator" />
+    <addaction name="actionExport" />
+    <addaction name="separator" />
+    <addaction name="actionMenu" />
+    <addaction name="actionLogOff" />
+    <addaction name="actionExit" />
+   </widget>
+   <addaction name="menu_File" />
   </widget>
   <widget class="QStatusBar" name="statusbar" />
+  <action name="actionExport" >
+   <property name="text" >
+    <string>Export</string>
+   </property>
+  </action>
+  <action name="actionMenu" >
+   <property name="text" >
+    <string>Menu</string>
+   </property>
+  </action>
+  <action name="actionLogOff" >
+   <property name="text" >
+    <string>LogOff</string>
+   </property>
+  </action>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
