@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////
-//  Stuff.h
-//  Implementation of the Class Stuff
+//  Staff.h
+//  Implementation of the Class Staff
 //  Created on:      03-Apr-2009 18:24:52
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
@@ -12,12 +12,12 @@
 #include <string>
 using namespace std;
 
-class DLL_EXPORT Stuff
+class DLL_EXPORT Staff
 {
 
 public:
-	Stuff();
-	virtual ~Stuff();
+	Staff();
+	virtual ~Staff();
 
 	string Descrp();
 	string  ID();
