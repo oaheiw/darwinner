@@ -11,7 +11,7 @@
 #include "Worker.h"
 #include "Message.h"
 #include "Singleton.cpp"
-#include "StaffManagement.h"
+#include "StaffManagementUI.h"
 #include "WorkerFactory.h"
 #include "Staff.h"
 #include "IActionHandler.h"
@@ -45,7 +45,7 @@ void MainDispatcher::StartAction(Message & act)
 	switch(act.type()) {
 		case ACTION_STUFFMGNT:
 		{
-			DUIObserver* StaffMgnt = Singleton<StaffManagement>::instance();
+			DUIObserver* StaffMgnt = Singleton<StaffManagementUI>::instance();
 			StaffMgnt->SetHandler(this);
 			SetObserver(StaffMgnt);			
 
