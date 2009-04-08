@@ -25,7 +25,7 @@ public:
 	void SelfService(string& id, string& pw);
 	void OnEvent(Message& Msg);
 	void Start();
-	void StuffMgnt();
+	void StaffMgnt();
 	void StartAction(Message & act);
 
 private:

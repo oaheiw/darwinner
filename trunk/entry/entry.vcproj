@@ -126,7 +126,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtSqld4.lib Worker.lib Common.lib StuffManagement.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtSqld4.lib Worker.lib Common.lib StaffManagement.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;F:\Darwin\lib&quot;;&quot;$(QTDIR)\lib&quot;"
 				GenerateDebugInformation="true"
@@ -362,18 +362,6 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_DarwinMain.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Release\moc_DarwinMain.cpp"
 				>
 				<FileConfiguration
@@ -386,7 +374,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_entry.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_DarwinMain.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -402,6 +390,18 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_entry.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool

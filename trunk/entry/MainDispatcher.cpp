@@ -11,10 +11,11 @@
 #include "Worker.h"
 #include "Message.h"
 #include "Singleton.cpp"
-#include "StuffManagement.h"
+#include "StaffManagement.h"
 #include "WorkerFactory.h"
-#include "Stuff.h"
+#include "Staff.h"
 #include "IActionHandler.h"
+#include "messagedef.h"
 
 MainDispatcher::MainDispatcher()
 {
@@ -44,9 +45,9 @@ void MainDispatcher::StartAction(Message & act)
 	switch(act.type()) {
 		case ACTION_STUFFMGNT:
 		{
-			DUIObserver* StuffMgnt = Singleton<StuffManagement>::instance();
-			StuffMgnt->SetHandler(this);
-			SetObserver(StuffMgnt);			
+			DUIObserver* StaffMgnt = Singleton<StaffManagement>::instance();
+			StaffMgnt->SetHandler(this);
+			SetObserver(StaffMgnt);			
 
 		}
 	}
@@ -57,7 +58,7 @@ void MainDispatcher::Login(string& id, string& pw)
 
 }
 
-void MainDispatcher::StuffMgnt(){
+void MainDispatcher::StaffMgnt(){
 
 }
 

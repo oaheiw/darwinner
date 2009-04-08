@@ -2,7 +2,9 @@
 #include "Singleton.cpp"
 #include "MainDispatcher.h"
 #include "Message.h"
-#include "Stuff.h"
+#include "Staff.h"
+#include "messagedef.h"
+
 DarwinMain::DarwinMain(QWidget *parent, DUIHandler* handler)
 : QDialog(parent)
 {
@@ -20,7 +22,7 @@ void DarwinMain::OnEvent(Message& ev)
 	switch(ev.type()) {
 		case EVENT_LOGGEDIN:
 		{
-			Stuff* Logged = (Stuff*)(ev.data());
+			Staff* Logged = (Staff*)(ev.data());
 			ui.labelInfo->setText(QString::fromLocal8Bit("ÄúºÃ£¬") + QString::fromLocal8Bit(Logged->Name().c_str()));
 			show();
 			break;
@@ -52,7 +54,7 @@ void DarwinMain::on_pushButtonLogoff_clicked()
 	delete action;
 }
 
-void DarwinMain::on_pushButtonStuffMgnt_clicked()
+void DarwinMain::on_pushButtonStaffMgnt_clicked()
 {
 	Message* action = new Message();
 	action->setType(ACTION_STUFFMGNT);
