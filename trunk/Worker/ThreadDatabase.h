@@ -5,7 +5,7 @@
 #include "worker_global.h"
 
 #ifdef D_DEMO
-#include "Stuff.h"
+#include "Staff.h"
 #endif
 #include <QThread.>
 #include <QMutex>
@@ -34,7 +34,7 @@ protected:
 
  private:
 #ifdef D_DEMO
-	list<Stuff> stuffList;
+	list<Staff> stuffList;
 #endif
 
 };

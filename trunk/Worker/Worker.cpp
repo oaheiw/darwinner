@@ -5,9 +5,9 @@
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
 #include "common.h"
+#include "messagedef.h"
 #include "Worker.h"
-#include "Message.h"
-#include "Stuff.h"
+#include "Staff.h"
 #include "ThreadDatabase.h"
 #include <QThread>
 #include "TEvent.h"
@@ -37,7 +37,7 @@ void Worker::IncomingEvent(Message& ev) {
 
 bool Worker::event ( QEvent * e ) {
 	switch(e->type()) {
-		case WorkerEventType::Db:
+		case EventDb:
 			{
 				Message* ev = dynamic_cast<TEvent*>(e)->data();
 				BroadcastEvent(*ev);
