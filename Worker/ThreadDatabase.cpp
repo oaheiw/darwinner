@@ -59,9 +59,10 @@ void ThreadDatabase::run() {
 				}
 				break;
 			}
-			case ACTION_STUFFMGNT:
+			case ACTION_GETSTAFF:
 			{
-				m_tempMsg = new Message(EVENT_STUFFMGNT);
+//				list<Staff> tempList = stuffList;
+				m_tempMsg = new Message(EVENT_STAFFS, (void*)(&stuffList));
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
@@ -71,14 +72,11 @@ void ThreadDatabase::run() {
 				Action.setType(EVENT_LOGGEDOFF);
 				break;
 			}
-			case ACTION_EXIT:
-			{
-				Action.setType(EVENT_EXIT);
-				break;
-			}
 			default:
 				break;	
 		}
+//		delete m_tempMsg;
+//		m_tempMsg = NULL;
 	}
 }
 

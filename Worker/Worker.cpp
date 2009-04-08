@@ -11,6 +11,7 @@
 #include "ThreadDatabase.h"
 #include <QThread>
 #include "TEvent.h"
+#include "Message.h"
 
 Worker::Worker(QObject *parent )
 :QObject(parent)
@@ -28,7 +29,50 @@ Worker::~Worker(){
 }
 
 void Worker::StartAction(Message& Action) {
-	m_databaseThread->QueueAction(Action);
+	switch(Action.type()) {
+		case ACTION_SYSTEM_START:
+		{
+			Message* ev = new Message(EVENT_SYSTEM_START);
+			BroadcastEvent(*ev);
+			delete ev;
+			break;
+		}
+		case ACTION_STAFFMGNT:
+		{
+			Message* ev = new Message(EVENT_STAFFMGNT);
+			BroadcastEvent(*ev);
+			delete ev;
+			break;
+		}
+		case ACTION_LOGOFF:
+		{
+			Message* ev = new Message(EVENT_LOGGEDOFF);
+			BroadcastEvent(*ev);
+			delete ev;
+			break;
+		}
+		case ACTION_EXIT:
+		{
+			m_databaseThread->quit();
+			Message* ev = new Message(EVENT_EXIT);
+			BroadcastEvent(*ev);
+			delete ev;
+			break;
+		}
+		case ACTION_MAINMENU:
+		{
+			m_databaseThread->quit();
+			Message* ev = new Message(EVENT_MAINMENU);
+			BroadcastEvent(*ev);
+			delete ev;
+			break;
+		}
+		default:
+		{
+			m_databaseThread->QueueAction(Action);
+			break;
+		}
+	}
 }
 
 void Worker::IncomingEvent(Message& ev) {

@@ -8,24 +8,15 @@
 #include "MainDispatcher.h"
 #include "entry.h"
 #include "DarwinMain.h"
-#include "Worker.h"
 #include "Message.h"
-#include "Singleton.cpp"
-#include "StaffManagementUI.h"
-#include "WorkerFactory.h"
-#include "Staff.h"
-#include "IActionHandler.h"
 #include "messagedef.h"
+#include "IActionHandler.h"
+#include "Singleton.cpp"
 
 MainDispatcher::MainDispatcher()
 {
-	m_entryWindow = new entry();
-	m_entryWindow->SetHandler(this);
-	SetObserver(m_entryWindow);
-	
-	m_mainWindow = new DarwinMain();
-	m_mainWindow->SetHandler(this);
-	SetObserver(m_mainWindow);
+	m_entryWindow = NULL;
+	m_mainWindow = NULL;
 }
 
 
@@ -34,42 +25,32 @@ MainDispatcher::~MainDispatcher(){
 
 }
 
-void MainDispatcher::Start(){
-	Message start;
-	start.setType(EVENT_SYSTEM_START);
-	BroadcastEvent(start);
-}
-
 void MainDispatcher::StartAction(Message & act)
 {
 	switch(act.type()) {
-		case ACTION_STUFFMGNT:
-		{
-			DUIObserver* StaffMgnt = Singleton<StaffManagementUI>::instance();
-			StaffMgnt->SetHandler(this);
-			SetObserver(StaffMgnt);			
 
-		}
 	}
 	m_handler->StartAction(act);
-}
-void MainDispatcher::Login(string& id, string& pw)
-{
-
-}
-
-void MainDispatcher::StaffMgnt(){
-
-}
-
-void MainDispatcher::Logoff(){
-
-}
-void MainDispatcher::SelfService(string& id, string& pw){
-
 }
 
 void MainDispatcher::OnEvent(Message& Msg)
 {
+	switch(Msg.type()) {
+		case EVENT_SYSTEM_START: 
+		{
+			if(NULL == m_entryWindow) {
+				m_entryWindow = Singleton<entry>::instance();
+				m_entryWindow->SetHandler(this);
+				SetObserver(m_entryWindow);
+			}
+			if(NULL == m_mainWindow) {
+				m_mainWindow =  Singleton<DarwinMain>::instance();
+				m_mainWindow->SetHandler(this);
+				SetObserver(m_mainWindow);
+			}
+		}
+	}
+
 	BroadcastEvent(Msg);
 }
+

@@ -27,9 +27,9 @@ void DarwinMain::OnEvent(Message& ev)
 			show();
 			break;
 		}
-		case EVENT_LOGGEDOFF:
+		case EVENT_MAINMENU:
 		{
-			hide();
+			show();
 			break;
 		}
 		case EVENT_EXIT:
@@ -37,6 +37,7 @@ void DarwinMain::OnEvent(Message& ev)
 			close();
 			break;
 		}
+		case EVENT_LOGGEDOFF:
 		default:
 		{
 			hide();
@@ -57,7 +58,7 @@ void DarwinMain::on_pushButtonLogoff_clicked()
 void DarwinMain::on_pushButtonStaffMgnt_clicked()
 {
 	Message* action = new Message();
-	action->setType(ACTION_STUFFMGNT);
+	action->setType(ACTION_STAFFMGNT);
 	m_uiHandler->StartAction(*action);
 	delete action;
 }
