@@ -1,30 +1,31 @@
-#include "StuffManagement.h"
+#include "StaffManagement.h"
+#include "messagedef.h"
 #include "Message.h"
 #include "DUIHandler.h"
 
-StuffManagement::StuffManagement()
+StaffManagement::StaffManagement()
 {
 	ui.setupUi(this);
 	m_stuffDataModel = new QStandardItemModel(0, 3, this);
 	m_sortProxyModel = new QSortFilterProxyModel;
 	m_sortProxyModel->setDynamicSortFilter(true);
 
-     ui.treeViewStuff->setRootIsDecorated(false);
-     ui.treeViewStuff->setAlternatingRowColors(true);
-     ui.treeViewStuff->setModel(m_sortProxyModel);
-     ui.treeViewStuff->setSortingEnabled(true);
+     ui.treeViewStaff->setRootIsDecorated(false);
+     ui.treeViewStaff->setAlternatingRowColors(true);
+     ui.treeViewStaff->setModel(m_sortProxyModel);
+     ui.treeViewStaff->setSortingEnabled(true);
 
 	 ui.comboBoxPattern->addItem(QString::fromLocal8Bit("正则表达式"), QRegExp::RegExp);
      ui.comboBoxPattern->addItem(QString::fromLocal8Bit("模糊匹配"), QRegExp::Wildcard);
 	 ui.comboBoxPattern->addItem(QString::fromLocal8Bit("精确匹配"), QRegExp::FixedString);
 }
 
-StuffManagement::~StuffManagement()
+StaffManagement::~StaffManagement()
 {
 
 }
 
-void StuffManagement::OnEvent(Message & Msg){
+void StaffManagement::OnEvent(Message & Msg){
 	switch(Msg.type()) {
 		case EVENT_STUFFMGNT:
 		{
@@ -47,12 +48,12 @@ void StuffManagement::OnEvent(Message & Msg){
 }
 
 
-void StuffManagement::on_pushButtonBack_clicked()
+void StaffManagement::on_pushButtonBack_clicked()
 {
 
 }
 
-void StuffManagement::on_pushButtonLogoff_clicked()
+void StaffManagement::on_pushButtonLogoff_clicked()
 {
 //	m_handler->DeregisterObserver(this);
 	Message* action = new Message();
@@ -62,7 +63,7 @@ void StuffManagement::on_pushButtonLogoff_clicked()
 	delete action;
 }
 
-void StuffManagement::on_pushButtonExit_clicked()
+void StaffManagement::on_pushButtonExit_clicked()
 {
 	Message* action = new Message();
 	action->setType(ACTION_EXIT);

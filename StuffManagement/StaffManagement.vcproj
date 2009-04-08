@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="StuffManagement"
+	Name="StaffManagement"
 	ProjectGUID="{4C2C6DD5-FD46-471A-8F6E-602F339B08AF}"
-	RootNamespace="StuffManagement"
+	RootNamespace="StaffManagement"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
 	>
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="F:\Darwin\common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;"
-				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB,STUFFMANAGEMENT_LIB"
+				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB,StaffMANAGEMENT_LIB"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="0"
@@ -110,7 +110,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="F:\Darwin\DataWorker;F:\Darwin\common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;"
-				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_CORE_LIB,QT_GUI_LIB,STUFFMANAGEMENT_LIB"
+				PreprocessorDefinitions="UNICODE;WIN32;QT_THREAD_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;STAFFMANAGEMENT_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="3"
@@ -165,7 +165,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\StuffManagement.cpp"
+				RelativePath=".\StaffManagement.cpp"
 				>
 			</File>
 		</Filter>
@@ -175,17 +175,17 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\StuffManagement.h"
+				RelativePath=".\StaffManagement.h"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing StuffManagement.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DSTUFFMANAGEMENT_LIB -D_WINDLL  -I&quot;F:\Darwin\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\StuffManagement.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_StuffManagement.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\StuffManagement.h"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_StuffManagement.cpp&quot;"
+						Description="Moc&apos;ing StaffManagement.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DStaffMANAGEMENT_LIB -D_WINDLL  -I&quot;F:\Darwin\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\StaffManagement.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_StaffManagement.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\StaffManagement.h"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_StaffManagement.cpp&quot;"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -193,15 +193,15 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing StuffManagement.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DSTUFFMANAGEMENT_LIB -D_WINDLL  -I&quot;F:\Darwin\DataWorker\.&quot; -I&quot;F:\Darwin\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\StuffManagement.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_StuffManagement.cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\StuffManagement.h"
-						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_StuffManagement.cpp&quot;"
+						Description="Moc&apos;ing StaffManagement.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DSTAFFMANAGEMENT_LIB -D_WINDLL  -I&quot;F:\Darwin\DataWorker\.&quot; -I&quot;F:\Darwin\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\StaffManagement.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_StaffManagement.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\StaffManagement.h"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_StaffManagement.cpp&quot;"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\stuffmanagement_global.h"
+				RelativePath=".\staffmanagement_global.h"
 				>
 			</File>
 		</Filter>
@@ -211,7 +211,7 @@
 			UniqueIdentifier="{99349809-55BA-4b9d-BF79-8FDBB0286EB3}"
 			>
 			<File
-				RelativePath=".\StuffMainWindow.ui"
+				RelativePath=".\StaffMainWindow.ui"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -219,9 +219,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_StuffMainWindow.h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_StaffMainWindow.h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
-						Outputs="&quot;.\GeneratedFiles\ui_StuffMainWindow.h&quot;"
+						Outputs="&quot;.\GeneratedFiles\ui_StaffMainWindow.h&quot;"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -230,9 +230,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_StuffMainWindow.h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_StaffMainWindow.h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
-						Outputs="&quot;.\GeneratedFiles\ui_StuffMainWindow.h&quot;"
+						Outputs="&quot;.\GeneratedFiles\ui_StaffMainWindow.h&quot;"
 					/>
 				</FileConfiguration>
 			</File>
@@ -251,7 +251,7 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_StuffManagement.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_StaffManagement.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -263,7 +263,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_StuffManagement.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_StaffManagement.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -275,7 +275,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\ui_StuffMainWindow.h"
+				RelativePath=".\GeneratedFiles\ui_StaffMainWindow.h"
 				>
 			</File>
 		</Filter>

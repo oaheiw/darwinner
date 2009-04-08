@@ -195,7 +195,7 @@
      </layout>
     </widget>
    </widget>
-   <widget class="QTreeView" name="treeViewStuff" >
+   <widget class="QTreeView" name="treeViewStaff" >
     <property name="geometry" >
      <rect>
       <x>40</x>
