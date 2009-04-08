@@ -20,7 +20,7 @@ private:
 
 
 private slots:
-	void on_pushButtonStuffMgnt_clicked();
+	void on_pushButtonStaffMgnt_clicked();
 	void on_pushButtonLogoff_clicked();
 };
 

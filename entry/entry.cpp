@@ -2,8 +2,8 @@
 #include "MainDispatcher.h"
 #include <string>
 #include "Singleton.cpp"
-#include "common.h"
-#include "Stuff.h"
+#include "messagedef.h"
+#include "Staff.h"
 #include "Message.h"
 
 entry::entry(QWidget *parent, Qt::WFlags flags , DUIHandler* handler)
@@ -47,7 +47,7 @@ void entry::OnEvent(Message& ev)
 
 void entry::on_pushButtonLogin_clicked()
 {
-	Stuff* stu = new Stuff();
+	Staff* stu = new Staff();
 	stu->SetID(ui.lineEditID->text().toStdString());
 	stu->SetPassword(ui.lineEditPW->text().toStdString());
 	Message* action = new Message(stu);
