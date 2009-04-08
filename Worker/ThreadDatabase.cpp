@@ -1,9 +1,10 @@
 #include "ThreadDatabase.h"
 #include "common.h"
+#include "messagedef.h"
 #include "Message.h"
 #include <QCoreApplication>
 #include "TEvent.h"
-#include "Stuff.h"
+#include "Staff.h"
 
 ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
@@ -11,7 +12,7 @@ ThreadDatabase::ThreadDatabase(QObject *parent)
 	m_tempMsg = NULL;
 	#ifdef D_DEMO
 	stuffList.clear();
-	Stuff temp;
+	Staff temp;
 	temp.SetID("111");
 	temp.SetPassword("111");
 	temp.SetDescrp("込込込込");
@@ -51,9 +52,9 @@ void ThreadDatabase::run() {
 		switch(Action.type()) {
 			case ACTION_LOGIN:
 			{
-				if(static_cast<Stuff*>(Action.data())->ID() == "333") {
+				if(static_cast<Staff*>(Action.data())->ID() == "333") {
 					m_tempMsg = new Message(EVENT_LOGGEDIN, (void*)(&(stuffList.back())));
-					QEvent* ev = new TEvent(static_cast<QEvent::Type>(WorkerEventType::Db), m_tempMsg);
+					QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 					QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				}
 				break;
@@ -61,7 +62,7 @@ void ThreadDatabase::run() {
 			case ACTION_STUFFMGNT:
 			{
 				m_tempMsg = new Message(EVENT_STUFFMGNT);
-				QEvent* ev = new TEvent(static_cast<QEvent::Type>(WorkerEventType::Db), m_tempMsg);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
