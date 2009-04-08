@@ -1,18 +1,18 @@
 #ifndef STUFFMANAGEMENT_H
 #define STUFFMANAGEMENT_H
 
-#include "stuffmanagement_global.h"
+#include "staffmanagement_global.h"
 #include "IEventObserver.h"
-#include "ui_StuffMainWindow.h"
+#include "ui_StaffMainWindow.h"
 #include "DUIObserver.h"
 #include <QtGui>
 
-class STUFFMANAGEMENT_EXPORT StuffManagement : public QMainWindow, public DUIObserver
+class STAFFMANAGEMENT_EXPORT StaffManagement : public QMainWindow, public DUIObserver
 {
 	Q_OBJECT
 public:
-	StuffManagement();
-	~StuffManagement();
+	StaffManagement();
+	~StaffManagement();
 	void OnEvent(Message& Msg);
 
 private:
