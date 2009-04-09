@@ -15,7 +15,7 @@ ThreadDatabase::ThreadDatabase(QObject *parent)
 	Staff temp;
 	temp.SetID("111");
 	temp.SetPassword("111");
-	temp.SetDescrp("¹þ¹þ¹þ¹þ");
+	temp.SetDescrp("Ñî³óÍÞÌ«³óÁË¡£¡£¡£");
 	temp.SetName("¹ùêØ");
 	temp.SetType(TYPE_BOSS);
 	temp.SetLevel(LEVEL_MASTER);
@@ -27,6 +27,10 @@ ThreadDatabase::ThreadDatabase(QObject *parent)
 	temp.SetType(TYPE_BEAUTICIAN);
 	temp.SetID("333");
 	temp.SetName("Ò¶Ï×ÃÏ");
+	stuffList.push_back(temp);
+	temp.SetType(TYPE_BEAUTICIAN);
+	temp.SetID("444");
+	temp.SetName("Ñî³óÍÞ");
 	stuffList.push_back(temp);
 #endif
 }

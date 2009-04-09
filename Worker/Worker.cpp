@@ -16,10 +16,7 @@
 Worker::Worker(QObject *parent )
 :QObject(parent)
 {
-//	QEvent::registerEventType(WorkerEventType::Db);
-//	QEvent::registerEventType(WorkerEventType::Net);
 	m_databaseThread = new ThreadDatabase(this); 
-	int r = connect(m_databaseThread, SIGNAL(hasEvent(Message &)), this, SLOT(IncomingEvent(Message &)));//, Qt::DirectConnection);
 }
 
 
