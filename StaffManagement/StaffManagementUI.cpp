@@ -6,7 +6,9 @@
 
 StaffManagementUI::StaffManagementUI()
 {
-	ui.setupUi(this);
+	setupUi();
+	QFont font = QFont("SimSun", 9);
+	SettingFont(font);
 
 	m_stuffDataModel = new QStandardItemModel(0, 6, this);
 	m_stuffDataModel->setHeaderData(0, Qt::Horizontal, QString::fromLocal8Bit("员工编号"));
@@ -20,36 +22,22 @@ StaffManagementUI::StaffManagementUI()
 	m_sortProxyModel->setSourceModel(m_stuffDataModel);
 	m_sortProxyModel->setDynamicSortFilter(true);
 	m_sortProxyModel->setFilterKeyColumn(-1);
+	
+	treeViewStaff->setModel(m_sortProxyModel);
+	treeViewStaff->sortByColumn(0, Qt::AscendingOrder);
+    comboBoxItem->setCurrentIndex(0);
+    checkBoxSort->setChecked(true);
+    checkBoxSearch->setChecked(true);
 
-	SettingFont();
-
-	ui.treeViewStaff->setRootIsDecorated(false);
-	ui.treeViewStaff->setAlternatingRowColors(true);
-	ui.treeViewStaff->setModel(m_sortProxyModel);
-	ui.treeViewStaff->setSortingEnabled(true);
-	ui.treeViewStaff->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-	ui.comboBoxPattern->addItem(QString::fromLocal8Bit("正则表达式"), QRegExp::RegExp);
-	ui.comboBoxPattern->addItem(QString::fromLocal8Bit("模糊匹配"), QRegExp::Wildcard);
-	ui.comboBoxPattern->addItem(QString::fromLocal8Bit("精确匹配"), QRegExp::FixedString);
-
-	ui.comboBoxItem->addItem(QString::fromLocal8Bit("全部项目"));
-	ui.comboBoxItem->addItem(QString::fromLocal8Bit("员工编号"));
-	ui.comboBoxItem->addItem(QString::fromLocal8Bit("姓名"));
-	ui.comboBoxItem->addItem(QString::fromLocal8Bit("性别"));
-	ui.comboBoxItem->addItem(QString::fromLocal8Bit("职务"));
-	ui.comboBoxItem->addItem(QString::fromLocal8Bit("级别"));
-	ui.comboBoxItem->addItem(QString::fromLocal8Bit("描述"));
-
-	connect(ui.lineEditKeyword, SIGNAL(textChanged(const QString &)), this, SLOT(filterRegExpChanged()));
-	connect(ui.comboBoxPattern, SIGNAL(currentIndexChanged(int)),this, SLOT(filterRegExpChanged()));
-	connect(ui.comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(filterColumnChanged()));
-	connect(ui.checkBoxSearch, SIGNAL(toggled(bool)), this, SLOT(filterRegExpChanged()));
-	connect(ui.checkBoxSort, SIGNAL(toggled(bool)), this, SLOT(sortChanged()));
-	//connect(ui.actionExport, SIGNAL(ui.actionExport->triggered)
-	connect(ui.actionMenu, SIGNAL(triggered(bool)), this, SLOT(Menu()));
-	connect(ui.actionLogOff, SIGNAL(triggered(bool)), this, SLOT(Logoff()));
-	connect(ui.actionExit, SIGNAL(triggered(bool)), this, SLOT(Exit()));
+	connect(lineEditKeyword, SIGNAL(textChanged(const QString &)), this, SLOT(filterRegExpChanged()));
+	connect(comboBoxPattern, SIGNAL(currentIndexChanged(int)),this, SLOT(filterRegExpChanged()));
+	connect(comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(filterColumnChanged()));
+	connect(checkBoxSearch, SIGNAL(toggled(bool)), this, SLOT(filterRegExpChanged()));
+	connect(checkBoxSort, SIGNAL(toggled(bool)), this, SLOT(sortChanged()));
+	//connect(actionExport, SIGNAL(actionExport->triggered)
+	connect(actionMenu, SIGNAL(triggered(bool)), this, SLOT(Menu()));
+	connect(actionLogOff, SIGNAL(triggered(bool)), this, SLOT(Logoff()));
+	connect(actionExit, SIGNAL(triggered(bool)), this, SLOT(Exit()));
 }
 
 StaffManagementUI::~StaffManagementUI()
@@ -112,16 +100,15 @@ void StaffManagementUI::Exit()
 
 void StaffManagementUI::showEvent ( QShowEvent * event )
 {
-//	switch(e->type()) {
-//		case QEvent::Show:
-//		{
+	switch(event->type()) {
+		case QEvent::Show:
+		{
 				Message* action = new Message();
 				action->setType(ACTION_GETSTAFF);
 				m_uiHandler->StartAction(*action);
 				delete action;
-//		}
-//	}
-//	return true;
+		}
+	}
 }
 
 void StaffManagementUI::closeEvent ( QCloseEvent * event )
@@ -148,42 +135,138 @@ void StaffManagementUI::addStaff(list<Staff>* staff)
  void StaffManagementUI::filterRegExpChanged()
  {
      QRegExp::PatternSyntax syntax =
-		 QRegExp::PatternSyntax(ui.comboBoxPattern->itemData(ui.comboBoxPattern->currentIndex()).toInt());
+		 QRegExp::PatternSyntax(comboBoxPattern->itemData(comboBoxPattern->currentIndex()).toInt());
      Qt::CaseSensitivity caseSensitivity =
-		 ui.checkBoxSearch->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
+		 checkBoxSearch->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
 
-	 QRegExp regExp(ui.lineEditKeyword->text(), caseSensitivity, syntax);
+	 QRegExp regExp(lineEditKeyword->text(), caseSensitivity, syntax);
      m_sortProxyModel->setFilterRegExp(regExp);
  }
 
  void StaffManagementUI::filterColumnChanged()
  {
-	 m_sortProxyModel->setFilterKeyColumn(ui.comboBoxItem->currentIndex()-1);
+	 m_sortProxyModel->setFilterKeyColumn(comboBoxItem->currentIndex()-1);
  }
 
  void StaffManagementUI::sortChanged()
  {
-     m_sortProxyModel->setSortCaseSensitivity( ui.checkBoxSort->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+     m_sortProxyModel->setSortCaseSensitivity( checkBoxSort->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
  }
 
- void StaffManagementUI::SettingFont()
+ void StaffManagementUI::SettingFont(QFont& font)
  {
-	 QFont font = QFont("SimSun", 9);
-	 ui.centralwidget->setFont(font);
-	 ui.checkBoxSearch->setFont(font);
-	 ui.checkBoxSort->setFont(font);
-	 ui.comboBoxItem->setFont(font);
-	 ui.comboBoxPattern->setFont(font);
-	 ui.label->setFont(font);
-	 ui.label_3->setFont(font);
-	 ui.labelKeyword->setFont(font);
-	 ui.layoutWidget->setFont(font);
-	 ui.lineEditKeyword->setFont(font);
-	 ui.menu_File->setFont(font);
-	 ui.menubar->setFont(font);
-	 ui.statusbar->setFont(font);
-	 ui.treeViewStaff->setFont(font);
-	 ui.groupBox->setFont(font);
 	 font.setBold(true);
-	 ui.treeViewStaff->header()->setFont(font);
+	 treeViewStaff->header()->setFont(font);
+	 staffGroupBox->setFont(font);
+	 optionGroupBox->setFont(font);
+	 font.setBold(false);
+	 checkBoxSearch->setFont(font);
+	 checkBoxSort->setFont(font);
+	 comboBoxItem->setFont(font);
+	 comboBoxPattern->setFont(font);
+	 labelSearchItem->setFont(font);
+	 labelSearchPattern->setFont(font);
+	 labelKeyword->setFont(font);
+	 lineEditKeyword->setFont(font);
+	 menu_File->setFont(font);
+	 menubar->setFont(font);
+	 statusbar->setFont(font);
+	 treeViewStaff->setFont(font);
+
+ }
+
+ void StaffManagementUI::setupUi() {
+	customCentralWidget = new QWidget(this);
+
+	staffGroupBox = new QGroupBox(QString::fromLocal8Bit("员工浏览"), customCentralWidget);
+	treeViewStaff = new QTreeView(staffGroupBox);
+	treeViewStaff->setRootIsDecorated(false);
+	treeViewStaff->setAlternatingRowColors(true);
+	treeViewStaff->setSortingEnabled(true);
+	treeViewStaff->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	treeViewStaff->show();	
+
+	optionGroupBox = new QGroupBox(QString::fromLocal8Bit("浏览方式"), customCentralWidget);
+	comboBoxPattern = new QComboBox(customCentralWidget);
+	labelSearchPattern = new QLabel(QString::fromLocal8Bit("匹配方式(&P)"), optionGroupBox);
+	labelSearchPattern->setBuddy(comboBoxPattern);
+	comboBoxPattern->addItem(QString::fromLocal8Bit("正则表达式"), QRegExp::RegExp);
+	comboBoxPattern->addItem(QString::fromLocal8Bit("模糊匹配"), QRegExp::Wildcard);
+	comboBoxPattern->addItem(QString::fromLocal8Bit("精确匹配"), QRegExp::FixedString);
+
+	lineEditKeyword = new QLineEdit(customCentralWidget);
+	labelKeyword = new QLabel(QString::fromLocal8Bit("关键词(&K)"), optionGroupBox);
+	labelKeyword->setBuddy(lineEditKeyword);
+
+	comboBoxItem = new QComboBox(customCentralWidget);
+	labelSearchItem = new QLabel(QString::fromLocal8Bit("搜索项(&I)"), optionGroupBox);
+	labelSearchItem->setBuddy(comboBoxItem);
+	comboBoxItem->addItem(QString::fromLocal8Bit("全部项目"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("员工编号"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("姓名"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("性别"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("职务"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("级别"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("描述"));
+
+	checkBoxSort = new QCheckBox(QString::fromLocal8Bit("搜索忽略大小写(&F)"), optionGroupBox);
+	checkBoxSearch = new QCheckBox(QString::fromLocal8Bit("排序忽略大小写(&S)"), optionGroupBox);
+
+	actionExport = new QAction(this);
+	actionMenu = new QAction(this);
+	actionLogOff = new QAction(this);
+	actionExit = new QAction(this);
+
+	menubar = new QMenuBar(this);
+	menu_File = new QMenu(QString::fromLocal8Bit("文件(&F)"), menubar);
+	menu_Display = new QMenu(QString::fromLocal8Bit("设置(&S)"), menubar);
+	menu_Setting = new QMenu(QString::fromLocal8Bit("显示(&D)"), menubar);
+	menu_About = new QMenu(QString::fromLocal8Bit("关于(&A)"), menubar);
+	setMenuBar(menubar);
+
+
+	menubar->addAction(menu_File->menuAction());
+	menu_File->addSeparator();
+	menu_File->addAction(actionExport);
+	menu_File->addSeparator();
+	menu_File->addAction(actionMenu);
+	menu_File->addAction(actionLogOff);
+	menu_File->addAction(actionExit);
+	actionExport->setText(QString::fromLocal8Bit("导出(&E)"));
+    actionMenu->setText(QString::fromLocal8Bit("主菜单(&M)"));
+    actionLogOff->setText(QString::fromLocal8Bit("注销(&L)"));
+    actionExit->setText(QString::fromLocal8Bit("退出(&X)"));
+	menu_File->setTitle(QString::fromLocal8Bit("文件(&F)"));
+
+	menubar->addAction(menu_Display->menuAction());
+	menubar->addAction(menu_Setting->menuAction());
+	menubar->addAction(menu_About->menuAction());
+
+
+	statusbar = new QStatusBar(this);
+	setStatusBar(statusbar);
+
+	QHBoxLayout *staffLayout = new QHBoxLayout(staffGroupBox);
+	staffLayout->addWidget(treeViewStaff);
+	staffGroupBox->setLayout(staffLayout);
+
+	
+	QGridLayout *layout = new QGridLayout(optionGroupBox);
+	layout->addWidget(labelKeyword, 0, 0);
+	layout->addWidget(lineEditKeyword, 0, 1, 1, 2);
+	layout->addWidget(labelSearchPattern, 1, 0);
+	layout->addWidget(comboBoxPattern, 1, 1, 1, 2);
+	layout->addWidget(labelSearchItem, 2, 0);
+	layout->addWidget(comboBoxItem, 2, 1, 1, 2);
+	layout->addWidget(checkBoxSearch, 3, 0, 1, 2);
+	layout->addWidget(checkBoxSort, 3, 2);
+	optionGroupBox->setLayout(layout);
+
+	QVBoxLayout *mainLayout = new QVBoxLayout(customCentralWidget);
+	mainLayout->addWidget(staffGroupBox);
+	mainLayout->addWidget(optionGroupBox);
+	customCentralWidget->setLayout(mainLayout);
+	setCentralWidget(customCentralWidget);
+	setWindowTitle(QString::fromLocal8Bit("员工管理"));
+	resize(800, 600);
  }
