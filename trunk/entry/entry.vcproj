@@ -21,6 +21,8 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
+			ManagedExtensions="1"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -39,10 +41,17 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="F:\Darwin\StuffManagement\GeneratedFiles;F:\Darwin\StuffManagement;F:\Darwin\Processer;F:\Darwin\common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtSql&quot;"
+				Optimization="0"
+				EnableIntrinsicFunctions="false"
+				FavorSizeOrSpeed="0"
+				EnableFiberSafeOptimizations="false"
+				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories=".\..\StaffManagement;.\..\Worker;.\..\common;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSql"
 				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB,QT_SQL_LIB"
 				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="false"
 				TreatWChar_tAsBuiltInType="false"
+				WarningLevel="0"
 				DebugInformationFormat="0"
 			/>
 			<Tool
@@ -56,11 +65,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib QtSql4.lib Processer.lib StuffManagement.lib"
+				IgnoreImportLibrary="true"
+				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib QtSql4.lib Worker.lib StaffManagement.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="F:\Darwin\lib;&quot;$(QTDIR)\lib&quot;"
 				GenerateDebugInformation="false"
 				SubSystem="2"
+				OptimizeReferences="0"
+				EnableCOMDATFolding="0"
+				LinkTimeCodeGeneration="0"
+				TargetMachine="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -108,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\StaffManagement;..\Worker;..\common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtSql&quot;"
+				AdditionalIncludeDirectories=".\..\StaffManagement;.\..\Worker;.\..\common;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSql"
 				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_CORE_LIB,QT_GUI_LIB,QT_SQL_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -127,6 +141,76 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtSqld4.lib Worker.lib Common.lib StaffManagement.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				AdditionalLibraryDirectories="&quot;F:\Darwin\lib&quot;;&quot;$(QTDIR)\lib&quot;"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="test|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories=".\..\StaffManagement;.\..\Worker;.\..\common;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtSql"
+				PreprocessorDefinitions="UNICODE;WIN32;QT_THREAD_SUPPORT;QT_NO_DEBUG;NODEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB"
+				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="false"
+				WarningLevel="0"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib QtSql4.lib Worker.lib Common.lib StaffManagement.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;F:\Darwin\lib&quot;;&quot;$(QTDIR)\lib&quot;"
 				GenerateDebugInformation="true"
@@ -194,7 +278,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing DarwinMain.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;F:\Darwin\StuffManagement\GeneratedFiles\.&quot; -I&quot;F:\Darwin\StuffManagement\.&quot; -I&quot;F:\Darwin\Processer\.&quot; -I&quot;F:\Darwin\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\DarwinMain.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_DarwinMain.cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -I&quot;.\..\StaffManagement\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\DarwinMain.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_DarwinMain.cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\DarwinMain.h"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_DarwinMain.cpp&quot;"
 					/>
@@ -205,7 +289,18 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing DarwinMain.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\..\StaffManagement\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\DarwinMain.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_DarwinMain.cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -I&quot;.\..\StaffManagement\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\DarwinMain.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_DarwinMain.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\DarwinMain.h"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_DarwinMain.cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing DarwinMain.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNODEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\..\StaffManagement\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\DarwinMain.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_DarwinMain.cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\DarwinMain.h"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_DarwinMain.cpp&quot;"
 					/>
@@ -220,7 +315,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing entry.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;F:\Darwin\StuffManagement\GeneratedFiles\.&quot; -I&quot;F:\Darwin\StuffManagement\.&quot; -I&quot;F:\Darwin\Processer\.&quot; -I&quot;F:\Darwin\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\entry.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_entry.cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -I&quot;.\..\StaffManagement\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\entry.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_entry.cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\entry.h"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_entry.cpp&quot;"
 					/>
@@ -231,7 +326,18 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing entry.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\..\StaffManagement\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\entry.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_entry.cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -I&quot;.\..\StaffManagement\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\entry.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_entry.cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\entry.h"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_entry.cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing entry.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNODEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\..\StaffManagement\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;$(QTDIR)\include\QtSql\.&quot; &quot;.\entry.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_entry.cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;.\entry.h"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_entry.cpp&quot;"
 					/>
@@ -253,6 +359,17 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -294,6 +411,17 @@
 						Outputs="&quot;.\GeneratedFiles\ui_DarwinMain.h&quot;"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputPath)..."
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_DarwinMain.h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+						Outputs="&quot;.\GeneratedFiles\ui_DarwinMain.h&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\entry.ui"
@@ -311,6 +439,17 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputPath)..."
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_entry.h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+						Outputs="&quot;.\GeneratedFiles\ui_entry.h&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -353,6 +492,17 @@
 						Outputs=""
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -362,10 +512,18 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_DarwinMain.cpp"
+				RelativePath=".\GeneratedFiles\test\moc_DarwinMain.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -384,12 +542,48 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_entry.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_DarwinMain.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\test\moc_entry.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -402,6 +596,34 @@
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_entry.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="test|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
