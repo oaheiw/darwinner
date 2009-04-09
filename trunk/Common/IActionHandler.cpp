@@ -15,12 +15,12 @@ void IActionHandler::SetObserver(IEventObserver* observer){
 		if(*it == observer) return;
 		it++;
 	}
+	
 	m_listObserver.push_back(observer);
 }
 
 void IActionHandler::BroadcastEvent(Message& ev){
 	list<IEventObserver*>::const_iterator it = m_listObserver.begin();
-	int size = m_listObserver.size();
 	while(m_listObserver.end() != it) {
 		if(NULL != *it) {
 			(*it)->OnEvent(ev);
