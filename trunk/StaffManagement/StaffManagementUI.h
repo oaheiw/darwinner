@@ -2,11 +2,11 @@
 #define STAFFMANAGEMENT_H
 
 #include "staffmanagement_global.h"
-#include "ui_StaffMainWindow.h"
 #include "DUIObserver.h"
 #include "Staff.h"
 #include <QtGui>
 #include <QEvent>
+#include <QFont>
 #include <list>
 using namespace std;
 
@@ -17,17 +17,43 @@ public:
 	StaffManagementUI();
 	~StaffManagementUI();
 	void OnEvent(Message& Msg);
+	void SettingFont(QFont& font);
 
 protected:
 	void showEvent ( QShowEvent * event );
 	void closeEvent ( QCloseEvent * event );
+	void setupUi();
 
 private:
-	Ui::MainWindow ui;
+	void addStaff(list<Staff> *staffList);
+
+//ui items
+	QAction *actionExport;
+    QAction *actionMenu;
+    QAction *actionLogOff;
+    QAction *actionExit;
+    QTreeView *treeViewStaff;
+    QComboBox *comboBoxPattern;
+    QLabel *labelSearchPattern;
+    QLineEdit *lineEditKeyword;
+    QLabel *labelKeyword;
+    QComboBox *comboBoxItem;
+    QLabel *labelSearchItem;
+    QCheckBox *checkBoxSort;
+    QCheckBox *checkBoxSearch;
+    QMenuBar *menubar;
+    QMenu *menu_File;
+	QMenu *menu_Display;
+	QMenu *menu_Setting;
+	QMenu *menu_About;
+    QStatusBar *statusbar;
+	QGroupBox *staffGroupBox;
+	QGroupBox *optionGroupBox;
+	QWidget *customCentralWidget;
+
+//data items;
 	QAbstractItemModel* m_stuffDataModel;
 	QSortFilterProxyModel* m_sortProxyModel;
-	void addStaff(list<Staff> *staffList);
-	void SettingFont();
 
 private slots:
 	void Exit();
