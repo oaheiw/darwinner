@@ -7,7 +7,7 @@
 
 #if !defined(EA_E00DDA3D_9ED8_47b4_8128_B3398B0D9178__INCLUDED_)
 #define EA_E00DDA3D_9ED8_47b4_8128_B3398B0D9178__INCLUDED_
-
+#include "staffmanagement_global.h"
 #include "DUIHandler.h"
 #include "IEventObserver.h"
 #include "Staff.h"
