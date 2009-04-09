@@ -3,11 +3,13 @@
 #include "Message.h"
 #include "DUIHandler.h"
 #include <QFont>
+#include <QPoint>
 
 StaffManagementUI::StaffManagementUI()
 {
 	setupUi();
-	QFont font = QFont("SimSun", 9);
+	started = false;
+	font = QFont("SimSun", 9);
 	SettingFont(font);
 
 	m_stuffDataModel = new QStandardItemModel(0, 6, this);
@@ -38,6 +40,9 @@ StaffManagementUI::StaffManagementUI()
 	connect(actionMenu, SIGNAL(triggered(bool)), this, SLOT(Menu()));
 	connect(actionLogOff, SIGNAL(triggered(bool)), this, SLOT(Logoff()));
 	connect(actionExit, SIGNAL(triggered(bool)), this, SLOT(Exit()));
+	connect(actionStaffDetail, SIGNAL(triggered(bool)), this, SLOT(staffDetail()));
+	connect(actionDeleteStaff, SIGNAL(triggered(bool)), this, SLOT(removeStaff()));
+	connect(actionCasher4Client, SIGNAL(triggered(bool)), this, SLOT(cash4Client()));
 }
 
 StaffManagementUI::~StaffManagementUI()
@@ -98,23 +103,54 @@ void StaffManagementUI::Exit()
 	delete action;
 }
 
-void StaffManagementUI::showEvent ( QShowEvent * event )
+bool StaffManagementUI::eventFilter(QObject * obj, QEvent * ev)
+{	
+	if(treeViewStaff == obj) {
+		switch(ev->type()) {
+			case QEvent::ContextMenu:
+			{
+				QMenu menu(treeViewStaff);
+				menu.addAction(actionStaffDetail);
+				menu.addAction(actionDeleteStaff);
+				menu.addAction(actionCasher4Client);
+				menu.setFont(font);
+				menu.exec(dynamic_cast<QContextMenuEvent*>(ev)->globalPos());
+				return true;
+				break;
+			}
+		}
+	}
+	return QMainWindow::eventFilter(obj, ev);
+}
+
+bool StaffManagementUI::event(QEvent * ev)
 {
-	switch(event->type()) {
+
+	switch(ev->type()) {
 		case QEvent::Show:
 		{
+			if(!started) {
+				started = true;
 				Message* action = new Message();
 				action->setType(ACTION_GETSTAFF);
 				m_uiHandler->StartAction(*action);
 				delete action;
+			}
+			break;
+		}
+		case QEvent::ContextMenu:
+		{
+			QMenu menu(this);
+			menu.addAction(actionMenu);
+			menu.addAction(actionLogOff);
+			menu.addAction(actionExit);
+			menu.setFont(font);
+			QPoint pos = dynamic_cast<QContextMenuEvent*>(ev)->globalPos();
+			menu.exec(pos);
+			break;
 		}
 	}
-}
-
-void StaffManagementUI::closeEvent ( QCloseEvent * event )
-{
-	int row = m_stuffDataModel->rowCount();
-	m_stuffDataModel->removeRows(0 , row);
+	return QMainWindow::event(ev);
 }
 
 void StaffManagementUI::addStaff(list<Staff>* staff) 
@@ -153,6 +189,24 @@ void StaffManagementUI::addStaff(list<Staff>* staff)
      m_sortProxyModel->setSortCaseSensitivity( checkBoxSort->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
  }
 
+void StaffManagementUI::staffDetail()
+{
+	QModelIndex currentIndex = treeViewStaff->currentIndex();
+	QModelIndex dataIndex = currentIndex.sibling(currentIndex.row(), 0);
+	QString id = dataIndex.data().toString();
+}
+
+void StaffManagementUI::removeStaff()	
+{
+	
+}
+
+void StaffManagementUI::cash4Client()
+{
+
+}
+
+
  void StaffManagementUI::SettingFont(QFont& font)
  {
 	 font.setBold(true);
@@ -184,7 +238,8 @@ void StaffManagementUI::addStaff(list<Staff>* staff)
 	treeViewStaff->setAlternatingRowColors(true);
 	treeViewStaff->setSortingEnabled(true);
 	treeViewStaff->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	treeViewStaff->show();	
+	treeViewStaff->setContextMenuPolicy(Qt::DefaultContextMenu);
+	treeViewStaff->installEventFilter(this);
 
 	optionGroupBox = new QGroupBox(QString::fromLocal8Bit("浏览方式"), customCentralWidget);
 	comboBoxPattern = new QComboBox(customCentralWidget);
@@ -216,6 +271,9 @@ void StaffManagementUI::addStaff(list<Staff>* staff)
 	actionMenu = new QAction(this);
 	actionLogOff = new QAction(this);
 	actionExit = new QAction(this);
+	actionStaffDetail = new QAction(this); 
+	actionDeleteStaff = new QAction(this);
+	actionCasher4Client = new QAction(this);
 
 	menubar = new QMenuBar(this);
 	menu_File = new QMenu(QString::fromLocal8Bit("文件(&F)"), menubar);
@@ -233,10 +291,13 @@ void StaffManagementUI::addStaff(list<Staff>* staff)
 	menu_File->addAction(actionLogOff);
 	menu_File->addAction(actionExit);
 	actionExport->setText(QString::fromLocal8Bit("导出(&E)"));
-    actionMenu->setText(QString::fromLocal8Bit("主菜单(&M)"));
-    actionLogOff->setText(QString::fromLocal8Bit("注销(&L)"));
-    actionExit->setText(QString::fromLocal8Bit("退出(&X)"));
+	actionMenu->setText(QString::fromLocal8Bit("主菜单(&M)"));
+	actionLogOff->setText(QString::fromLocal8Bit("注销(&L)"));
+	actionExit->setText(QString::fromLocal8Bit("退出(&X)"));
 	menu_File->setTitle(QString::fromLocal8Bit("文件(&F)"));
+	actionStaffDetail->setText(QString::fromLocal8Bit("详细信息(&D)"));
+	actionDeleteStaff->setText(QString::fromLocal8Bit("删除员工(&R)"));
+	actionCasher4Client->setText(QString::fromLocal8Bit("为用户充值(&C)"));
 
 	menubar->addAction(menu_Display->menuAction());
 	menubar->addAction(menu_Setting->menuAction());
@@ -250,7 +311,7 @@ void StaffManagementUI::addStaff(list<Staff>* staff)
 	staffLayout->addWidget(treeViewStaff);
 	staffGroupBox->setLayout(staffLayout);
 
-	
+
 	QGridLayout *layout = new QGridLayout(optionGroupBox);
 	layout->addWidget(labelKeyword, 0, 0);
 	layout->addWidget(lineEditKeyword, 0, 1, 1, 2);
