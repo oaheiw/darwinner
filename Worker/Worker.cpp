@@ -27,13 +27,13 @@ Worker::~Worker(){
 
 void Worker::StartAction(Message& Action) {
 	switch(Action.type()) {
-		case ACTION_SYSTEM_START:
+/*		case ACTION_SYSTEM_START:
 		{
 			Message ev = Message(EVENT_SYSTEM_START);
 			BroadcastEvent(ev);
 			//delete ev;
 			break;
-		}
+		}*/
 		case ACTION_STAFFMGNT:
 		{
 			Message* ev = new Message(EVENT_STAFFMGNT);

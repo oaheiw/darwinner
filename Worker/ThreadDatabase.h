@@ -35,6 +35,7 @@ protected:
 
  private:
 	QSqlDatabase db;
+	bool initDb();
 #ifdef D_DEMO
 	vector<Staff> stuffList;
 #endif

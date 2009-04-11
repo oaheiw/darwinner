@@ -10,33 +10,25 @@
 
 Staff::Staff(){
 	m_descrp.clear();
-	m_id.clear();
+	m_id= 0;
 	m_level = 0;
 	m_name.clear();
 	m_password.clear();
 	m_type = 0;
-	m_sex = 0;
+	m_sex = '0';
+	m_address.clear();
+	m_cell.clear();
+	m_phone.clear();
+	m_status = '0';
 }
-
-
 
 Staff::~Staff(){
 
 }
 
-
-
-
-
 string Staff::Descrp(){
 
 	return  m_descrp;
-}
-
-
-string Staff::ID(){
-
-	return  m_id;
 }
 
 
@@ -53,7 +45,6 @@ string Staff::Name(){
 
 
 string Staff::Password(){
-
 	return  m_password;
 }
 
@@ -62,12 +53,7 @@ void Staff::SetDescrp(string descrp){
 	m_descrp = descrp;
 }
 
-void Staff::SetDescrp(const char* descrp)
-{
-	m_descrp = string(descrp);
-}
-
-void Staff::SetID(string id){
+void Staff::SetID(uint32 id){
 	m_id = id;
 }
 
@@ -92,6 +78,9 @@ void Staff::SetType(uint32 type){
 	m_type = type;
 }
 
+uint32 Staff::ID(){
+	return m_id;
+}
 
 uint32 Staff::Type(){
 
@@ -106,4 +95,35 @@ void Staff::SetSex(byte sex){
 byte Staff::Sex(){
 
 	return  m_sex;
+}
+
+string Staff::address(){
+
+	return  m_address;
+}
+
+
+string Staff::cell(){
+
+	return  m_cell;
+}
+
+
+string Staff::phone(){
+
+	return  m_phone;
+}
+
+
+void Staff::SetAddress(string address){
+		m_address = address;
+}
+
+
+void Staff::SetCell(string cell){
+	m_cell = cell;
+}
+
+void Staff::SetPhone(string phone){
+		m_phone = phone;
 }
