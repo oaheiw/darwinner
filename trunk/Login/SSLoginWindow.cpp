@@ -49,7 +49,7 @@ void SSLoginWindow::OnEvent(Message& ev)
 void SSLoginWindow::on_pushButtonLogin_clicked()
 {
 	Staff* stu = new Staff();
-	stu->SetID(ui.lineEditID->text().toStdString());
+	stu->SetID(ui.lineEditID->text().toUInt());
 	stu->SetPassword(ui.lineEditPW->text().toStdString());
 	Message* action = new Message(stu);
 	action->setType(ACTION_LOGIN);

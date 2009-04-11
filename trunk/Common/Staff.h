@@ -18,30 +18,41 @@ class DLL_EXPORT Staff
 public:
 	Staff();
 	~Staff();
-
+	string address();
+	string cell();
 	string Descrp();
-	string  ID();
+	uint32 ID();
 	uint32 Level();
 	string Name();
 	string Password();
+	string phone();
+	byte Sex();
+	uint32 Type();
+	void SetAddress(string descrp);
+	void SetCell(string cell);
 	void SetDescrp(string descrp);
-	void SetDescrp(const char* descrp);
-	void SetID(string id);
+	void SetID(uint32 id);
 	void SetLevel(uint32 level);
 	void SetName(string name);
 	void SetPassword(string pw);
-	void SetType(uint32 type);
-	uint32 Type();
+	void SetPhone(string phone);
 	void SetSex(byte sex);
-	byte Sex();
+	void SetType(uint32 type);
+
 
 private:
+	string m_address;
+	string m_cell;
 	string m_descrp;
-	string m_id;
+	uint32 m_id;
 	uint32 m_level;
 	string m_name;
 	string m_password;
-	uint32 m_type;
+	string m_phone;
 	byte m_sex;
+	uint32 m_type;
+	byte m_status;
 };
+
+
 #endif // !defined(EA_D930C676_5D00_4035_86CC_873B36ABF8DE__INCLUDED_)

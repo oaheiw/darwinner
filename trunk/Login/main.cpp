@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
 	IEventObserver* sm = Singleton<SMHandler>::instance();
-	
+
 	login->SetHandler(worker);
 	sm->SetHandler(worker);
 	worker->SetObserver(login);

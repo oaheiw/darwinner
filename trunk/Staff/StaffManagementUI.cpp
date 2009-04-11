@@ -38,8 +38,8 @@ StaffManagementUI::StaffManagementUI()
 	connect(lineEditKeyword, SIGNAL(textChanged(const QString &)), this, SLOT(filterRegExpChanged()));
 	connect(comboBoxPattern, SIGNAL(currentIndexChanged(int)),this, SLOT(filterRegExpChanged()));
 	connect(comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(filterColumnChanged()));
-	connect(checkBoxSort, SIGNAL(toggled(bool)), this, SLOT(filterRegExpChanged()));
-	connect(checkBoxSearch, SIGNAL(toggled(bool)), this, SLOT(sortChanged()));
+	connect(checkBoxSearch, SIGNAL(toggled(bool)), this, SLOT(filterRegExpChanged()));
+	connect(checkBoxSort, SIGNAL(toggled(bool)), this, SLOT(sortChanged()));
 	//connect(actionExport, SIGNAL(actionExport->triggered)
 	connect(actionMenu, SIGNAL(triggered(bool)), this, SLOT(Menu()));
 	connect(actionLogOff, SIGNAL(triggered(bool)), this, SLOT(Logoff()));
@@ -162,7 +162,7 @@ void StaffManagementUI::addStaff(vector<Staff>* staff)
 	vector<Staff>::iterator it = staff->begin();
 	while(staff->end() != it) {
 		m_stuffDataModel->insertRow(0);
-		m_stuffDataModel->setData(m_stuffDataModel->index(0, 0), QString::fromLocal8Bit(it->ID().c_str()));
+		m_stuffDataModel->setData(m_stuffDataModel->index(0, 0), it->ID());
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 1), QString::fromLocal8Bit(it->Name().c_str()));
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 2), QString::fromLocal8Bit(StaffSex[it->Sex()]));
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 3), QString::fromLocal8Bit(StaffType[it->Type()]));
@@ -177,7 +177,7 @@ void StaffManagementUI::addStaff(vector<Staff>* staff)
      QRegExp::PatternSyntax syntax =
 		 QRegExp::PatternSyntax(comboBoxPattern->itemData(comboBoxPattern->currentIndex()).toInt());
      Qt::CaseSensitivity caseSensitivity =
-		 checkBoxSearch->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
+		 checkBoxSearch->isChecked() ? Qt::CaseInsensitive : Qt::CaseSensitive;
 
 	 QRegExp regExp(lineEditKeyword->text(), caseSensitivity, syntax);
      m_sortProxyModel->setFilterRegExp(regExp);
@@ -190,7 +190,7 @@ void StaffManagementUI::addStaff(vector<Staff>* staff)
 
  void StaffManagementUI::sortChanged()
  {
-     m_sortProxyModel->setSortCaseSensitivity( checkBoxSort->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+     m_sortProxyModel->setSortCaseSensitivity( checkBoxSort->isChecked() ? Qt::CaseInsensitive : Qt::CaseSensitive);
  }
 
 void StaffManagementUI::staffDetail()
@@ -268,8 +268,8 @@ void StaffManagementUI::cash4Client()
 	comboBoxItem->addItem(QString::fromLocal8Bit("级别"));
 	comboBoxItem->addItem(QString::fromLocal8Bit("描述"));
 
-	checkBoxSort = new QCheckBox(QString::fromLocal8Bit("搜索忽略大小写(&F)"), optionGroupBox);
-	checkBoxSearch = new QCheckBox(QString::fromLocal8Bit("排序忽略大小写(&S)"), optionGroupBox);
+	checkBoxSort = new QCheckBox(QString::fromLocal8Bit("排序忽略大小写(&F)"), optionGroupBox);
+	checkBoxSearch = new QCheckBox(QString::fromLocal8Bit("搜索忽略大小写(&S)"), optionGroupBox);
 
 	actionExport = new QAction(this);
 	actionMenu = new QAction(this);
