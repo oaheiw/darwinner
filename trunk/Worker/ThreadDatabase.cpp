@@ -10,6 +10,7 @@ ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
 {
 	m_tempMsg = NULL;
+	db = QSqlDatabase::addDatabase("QSQLITE");
 	#ifdef D_DEMO
 	stuffList.clear();
 	Staff temp;

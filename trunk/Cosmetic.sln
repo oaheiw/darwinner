@@ -10,16 +10,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Login", "Login\Login.vcproj
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcproj", "{A950C423-FD2C-4817-9801-F605605C63AD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Worker", "Worker\Worker.vcproj", "{9C0D327C-7CB2-4274-8B5C-012381CDE098}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A950C423-FD2C-4817-9801-F605605C63AD} = {A950C423-FD2C-4817-9801-F605605C63AD}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Staff", "Staff\Staff.vcproj", "{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A950C423-FD2C-4817-9801-F605605C63AD} = {A950C423-FD2C-4817-9801-F605605C63AD}
 		{9C0D327C-7CB2-4274-8B5C-012381CDE098} = {9C0D327C-7CB2-4274-8B5C-012381CDE098}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Worker", "Worker\Worker.vcproj", "{9C0D327C-7CB2-4274-8B5C-012381CDE098}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +32,14 @@ Global
 		{A950C423-FD2C-4817-9801-F605605C63AD}.Debug|Win32.Build.0 = Debug|Win32
 		{A950C423-FD2C-4817-9801-F605605C63AD}.Release|Win32.ActiveCfg = Release|Win32
 		{A950C423-FD2C-4817-9801-F605605C63AD}.Release|Win32.Build.0 = Release|Win32
-		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Debug|Win32.Build.0 = Debug|Win32
-		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Release|Win32.ActiveCfg = Release|Win32
-		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Release|Win32.Build.0 = Release|Win32
 		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.Debug|Win32.Build.0 = Debug|Win32
 		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.Release|Win32.ActiveCfg = Release|Win32
 		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.Release|Win32.Build.0 = Release|Win32
+		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Debug|Win32.Build.0 = Debug|Win32
+		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Release|Win32.ActiveCfg = Release|Win32
+		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

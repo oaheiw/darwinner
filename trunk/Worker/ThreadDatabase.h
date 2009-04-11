@@ -10,6 +10,7 @@
 #include <QThread.>
 #include <QMutex>
 #include <QWaitCondition>
+#include <QSqlDatabase>
 class Message;
 #include <list>
 using namespace std;
@@ -33,6 +34,7 @@ protected:
 	Message* m_tempMsg;
 
  private:
+	QSqlDatabase db;
 #ifdef D_DEMO
 	vector<Staff> stuffList;
 #endif
