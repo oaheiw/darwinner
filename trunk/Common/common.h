@@ -27,7 +27,4 @@ typedef unsigned char byte;
 #define STUFFNAME_MAX_LEN (32)
 #define DESCRP_MAX_LEN (2048-128)
 
-#define DBNAME "cosmeticdb"
-#define CREATE_STAFF_TABLE "CREATE TABLE staff (id INTEGER PRIMARY KEY, password TEXT, name TEXT, jobId INTEGER REFERENCES jobTitle(id), levelId INTEGER REFERENCES level(id), sex CHAR DEFAULT '0', status CHAR DEFAULT '0', cell TEXT, phone TEXT, address TEXT, descrption TEXT)"
-#define INSERTINTO_STAFF_TABLE "INSERT INTO staff (password, name, jobId, levelId, sex, status, cell, phone, address, descrption) " "VALUES (:password, :name, :jobId, :levelId, :sex, :status, :cell, :phone, :address, :descrption)"
 #endif

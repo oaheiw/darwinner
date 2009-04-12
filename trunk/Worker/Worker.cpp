@@ -12,6 +12,8 @@
 #include <QThread>
 #include "TEvent.h"
 #include "Message.h"
+#include <fstream>
+#include "dbquery.h"
 
 Worker::Worker(QObject *parent )
 :QObject(parent)
@@ -27,13 +29,12 @@ Worker::~Worker(){
 
 void Worker::StartAction(Message& Action) {
 	switch(Action.type()) {
-/*		case ACTION_SYSTEM_START:
-		{
-			Message ev = Message(EVENT_SYSTEM_START);
-			BroadcastEvent(ev);
-			//delete ev;
-			break;
-		}*/
+//		case ACTION_SYSTEM_START:
+//		{
+
+
+//			break;
+//		}
 		case ACTION_STAFFMGNT:
 		{
 			Message* ev = new Message(EVENT_STAFFMGNT);

@@ -7,6 +7,8 @@
 #include "Staff.h"
  #include <QSqlQuery>
 #include <QVariant>
+#include "dbquery.h"
+#include <fstream>
 
 ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
@@ -74,7 +76,15 @@ void ThreadDatabase::run() {
 		switch(Action.type()) {
 			case ACTION_SYSTEM_START:
 			{
-				bool r = initDb();
+				ifstream fin(DBNAME);
+				if (!fin.is_open()) {
+					fin.close();
+					m_tempMsg = new Message(EVENT_INIT);
+					QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+					QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+					initDb();
+				}
+				fin.close();
 				m_tempMsg = new Message(EVENT_SYSTEM_START);
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
@@ -94,7 +104,7 @@ void ThreadDatabase::run() {
 			}
 			case ACTION_GETSTAFF:
 			{
-					db.open();
+					bool re =db.open();
 					QSqlQuery q = QSqlQuery(db);
 					q.exec("SELECT * FROM staff");
 					Staff temp;
@@ -127,9 +137,6 @@ void ThreadDatabase::run() {
 			default:
 				break;	
 		}
-		
-//		delete m_tempMsg;
-//		m_tempMsg = NULL;
 	}
 }
 
@@ -154,28 +161,30 @@ void ThreadDatabase::QueueAction(Message& Action)
 
 bool ThreadDatabase::initDb()
 {
-		db.setDatabaseName(DBNAME);
-		bool r = db.open();
-		QSqlQuery q = QSqlQuery(db);
-		q.exec(CREATE_STAFF_TABLE);
+	db.setDatabaseName(DBNAME);
+	if(!db.open()) {
+		return false;
+	}
+	QSqlQuery q = QSqlQuery(db);
+	q.exec(CREATE_STAFF_TABLE);
 //		q.exec("ALTER TABLE staff AUTO_INCREMENT=1000");
-		q.prepare(INSERTINTO_STAFF_TABLE);
-		vector<Staff>::iterator it = stuffList.begin();
-		while(it != stuffList.end()) {
-//			q.bindValue(":id", it->ID());
-			q.bindValue(":password", it->Password().c_str());
-			q.bindValue(":name", it->Name().c_str());
-			q.bindValue(":jobId", it->Type());
-			q.bindValue(":levelId", it->Level());
-			q.bindValue(":sex", it->Sex());
-			q.bindValue(":status", '1');
-			q.bindValue(":cell", it->cell().c_str());
-			q.bindValue(":phone", it->phone().c_str());
-			q.bindValue(":address", it->address().c_str());
-			q.bindValue(":descrption", it->Descrp().c_str());
-			q.exec();
-			it++;
-		}
-		db.close();
-		return true;
+	q.prepare(INSERTINTO_STAFF_TABLE);
+	vector<Staff>::iterator it = stuffList.begin();
+	while(it != stuffList.end()) {
+//		q.bindValue(":id", it->ID());
+		q.bindValue(":password", it->Password().c_str());
+		q.bindValue(":name", it->Name().c_str());
+		q.bindValue(":jobId", it->Type());
+		q.bindValue(":levelId", it->Level());
+		q.bindValue(":sex", it->Sex());
+		q.bindValue(":status", '1');
+		q.bindValue(":cell", it->cell().c_str());
+		q.bindValue(":phone", it->phone().c_str());
+		q.bindValue(":address", it->address().c_str());
+		q.bindValue(":descrption", it->Descrp().c_str());
+		q.exec();
+		it++;
+	}
+//	db.close();
+	return true;
 }

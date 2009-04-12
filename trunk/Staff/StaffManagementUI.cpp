@@ -246,18 +246,18 @@ void StaffManagementUI::cash4Client()
 	treeViewStaff->installEventFilter(this);
 
 	optionGroupBox = new QGroupBox(QString::fromLocal8Bit("浏览方式"), customCentralWidget);
-	comboBoxPattern = new QComboBox(customCentralWidget);
+	comboBoxPattern = new QComboBox(optionGroupBox);
 	labelSearchPattern = new QLabel(QString::fromLocal8Bit("匹配方式(&P)"), optionGroupBox);
 	labelSearchPattern->setBuddy(comboBoxPattern);
 	comboBoxPattern->addItem(QString::fromLocal8Bit("正则表达式"), QRegExp::RegExp);
 	comboBoxPattern->addItem(QString::fromLocal8Bit("模糊匹配"), QRegExp::Wildcard);
 	comboBoxPattern->addItem(QString::fromLocal8Bit("精确匹配"), QRegExp::FixedString);
 
-	lineEditKeyword = new QLineEdit(customCentralWidget);
+	lineEditKeyword = new QLineEdit(optionGroupBox);
 	labelKeyword = new QLabel(QString::fromLocal8Bit("关键词(&K)"), optionGroupBox);
 	labelKeyword->setBuddy(lineEditKeyword);
 
-	comboBoxItem = new QComboBox(customCentralWidget);
+	comboBoxItem = new QComboBox(optionGroupBox);
 	labelSearchItem = new QLabel(QString::fromLocal8Bit("搜索项(&I)"), optionGroupBox);
 	labelSearchItem->setBuddy(comboBoxItem);
 	comboBoxItem->addItem(QString::fromLocal8Bit("全部项目"));

@@ -15,8 +15,8 @@ TEvent::TEvent(QEvent::Type type, Message* data)
 
 TEvent::~TEvent()
 {
-//	if(NULL != m_data)
-//		delete m_data;
+	if(NULL != m_data)
+		delete m_data;
 }
 
 void TEvent::setData(Message* data)
