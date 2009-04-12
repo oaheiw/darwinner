@@ -17,7 +17,11 @@ typedef unsigned char byte;
 #define NULL 0
 #endif
 
-
+#define F_OK (0)
+#define W_OK (2)
+#define R_OK (4)
+#define RW_OK (6)
+  
 //#define DLL_EXPORT  __declspec (dllexport)
 #define DLL_EXPORT 
 

@@ -12,8 +12,8 @@
 #include <QThread>
 #include "TEvent.h"
 #include "Message.h"
-#include <fstream>
 #include "dbquery.h"
+#include <io.h>
 
 Worker::Worker(QObject *parent )
 :QObject(parent)
@@ -29,12 +29,21 @@ Worker::~Worker(){
 
 void Worker::StartAction(Message& Action) {
 	switch(Action.type()) {
-//		case ACTION_SYSTEM_START:
-//		{
+	case ACTION_SYSTEM_START:
+		{
 
-
-//			break;
-//		}
+				if(-1 == access(DBNAME, F_OK)) {//first time running
+					Message* ev = new Message(ACTION_INIT);
+					m_databaseThread->QueueAction(*ev);
+					delete ev;
+					break;
+				} else {//database exists
+					Message* ev = new Message(EVENT_SYSTEM_START);
+					BroadcastEvent(*ev);
+					delete ev;
+				}
+			break;
+		}
 		case ACTION_STAFFMGNT:
 		{
 			Message* ev = new Message(EVENT_STAFFMGNT);

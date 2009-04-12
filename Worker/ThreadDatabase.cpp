@@ -8,7 +8,6 @@
  #include <QSqlQuery>
 #include <QVariant>
 #include "dbquery.h"
-#include <fstream>
 
 ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
@@ -74,20 +73,15 @@ void ThreadDatabase::run() {
 		mutex.unlock();
 
 		switch(Action.type()) {
-			case ACTION_SYSTEM_START:
+			case ACTION_INIT:
 			{
-				ifstream fin(DBNAME);
-				if (!fin.is_open()) {
-					fin.close();
-					m_tempMsg = new Message(EVENT_INIT);
-					QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
-					QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
-					initDb();
-				}
-				fin.close();
+				m_tempMsg = new Message(EVENT_INIT);
+				QEvent* ev1 = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev1,Qt::HighEventPriority);
+				initDb();
 				m_tempMsg = new Message(EVENT_SYSTEM_START);
-				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
-				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				QEvent* ev2 = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev2,Qt::HighEventPriority);
 				break;
 			}
 			case ACTION_LOGIN:
@@ -104,25 +98,27 @@ void ThreadDatabase::run() {
 			}
 			case ACTION_GETSTAFF:
 			{
-					bool re =db.open();
-					QSqlQuery q = QSqlQuery(db);
-					q.exec("SELECT * FROM staff");
-					Staff temp;
-					vector<Staff>* r = new vector<Staff>;
-					while (q.next()) {
-						temp.SetID(q.value(0).toUInt());
-						temp.SetPassword(q.value(1).toByteArray().data());
-						temp.SetName(q.value(2).toByteArray().data());
-						temp.SetType(q.value(3).toUInt());
-						temp.SetLevel(q.value(4).toUInt());
-						temp.SetSex((byte)(q.value(5).toUInt()));
-						//temp.SetStatus(q.value(6).toChar().toAscii());
-						temp.SetCell(q.value(7).toByteArray().data());
-						temp.SetPhone(q.value(8).toByteArray().data());
-						temp.SetAddress(q.value(9).toByteArray().data());
-						temp.SetDescrp(q.value(10).toByteArray().data());
-						r->push_back(temp);
-					}
+				db.setDatabaseName(DBNAME);
+				bool re =db.open();
+				QSqlQuery q = QSqlQuery(db);
+				q.exec(SELECT_STAFF_NOIMAGE);
+				Staff temp;
+				vector<Staff>* r = new vector<Staff>;
+				while (q.next()) {
+					temp.SetID(q.value(0).toUInt());
+					temp.SetPassword(q.value(1).toByteArray().data());
+					temp.SetName(q.value(2).toByteArray().data());
+					temp.SetType(q.value(3).toUInt());
+					temp.SetLevel(q.value(4).toUInt());
+					temp.SetSex((byte)(q.value(5).toUInt()));
+					//temp.SetStatus(q.value(6).toChar().toAscii());
+					temp.SetCell(q.value(7).toByteArray().data());
+					temp.SetPhone(q.value(8).toByteArray().data());
+					temp.SetAddress(q.value(9).toByteArray().data());
+					temp.SetDescrp(q.value(10).toByteArray().data());
+					r->push_back(temp);
+				}
+				db.close();
 
 				m_tempMsg = new Message(EVENT_STAFFS, (void*)(r));
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
@@ -167,11 +163,17 @@ bool ThreadDatabase::initDb()
 	}
 	QSqlQuery q = QSqlQuery(db);
 	q.exec(CREATE_STAFF_TABLE);
-//		q.exec("ALTER TABLE staff AUTO_INCREMENT=1000");
-	q.prepare(INSERTINTO_STAFF_TABLE);
+	q.exec(CREATE_JOB_TABLE);
+	q.exec(CREATE_LEVET_TABLE);
+	q.exec(CREATE_ORDERS_TABLE);
+	q.exec(CREATE_GOODS_TABLE);
+//	q.exec(CREATE_);
+	
+
+	
+	q.prepare(INSERTINTO_STAFF);
 	vector<Staff>::iterator it = stuffList.begin();
 	while(it != stuffList.end()) {
-//		q.bindValue(":id", it->ID());
 		q.bindValue(":password", it->Password().c_str());
 		q.bindValue(":name", it->Name().c_str());
 		q.bindValue(":jobId", it->Type());
@@ -182,9 +184,10 @@ bool ThreadDatabase::initDb()
 		q.bindValue(":phone", it->phone().c_str());
 		q.bindValue(":address", it->address().c_str());
 		q.bindValue(":descrption", it->Descrp().c_str());
+		q.bindValue(":image", "");
 		q.exec();
 		it++;
 	}
-//	db.close();
+	db.close();
 	return true;
 }
