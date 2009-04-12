@@ -14,6 +14,7 @@ public:
 	SSMainMenu(QWidget *parent = 0, DUIHandler* handler = 0);
 	~SSMainMenu();
 	void OnEvent(Message& ev) ;
+	void SettingFont(QFont& font);
 
 private:
 	Ui::SSMenuWindowClass ui;

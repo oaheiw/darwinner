@@ -9,11 +9,13 @@
 //Logic Hanlders
 #include "SSMainHandler.h"
 #include "SMHandler.h"
+#include "systeminfo.h"
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-		
+//	systeminfo* info = new systeminfo();
+//	info->getCPUID();		
 	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
 	IEventObserver* sm = Singleton<SMHandler>::instance();
