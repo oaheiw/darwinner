@@ -21,30 +21,48 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		DebugStatic|Win32 = DebugStatic|Win32
 		Release|Win32 = Release|Win32
+		ReleaseStatic|Win32 = ReleaseStatic|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C79DCD96-9A4E-413D-BC39-D5AEC53011F3}.Debug|Win32.ActiveCfg = Debug|Win32
 		{C79DCD96-9A4E-413D-BC39-D5AEC53011F3}.Debug|Win32.Build.0 = Debug|Win32
+		{C79DCD96-9A4E-413D-BC39-D5AEC53011F3}.DebugStatic|Win32.ActiveCfg = DebugStatic|Win32
+		{C79DCD96-9A4E-413D-BC39-D5AEC53011F3}.DebugStatic|Win32.Build.0 = DebugStatic|Win32
 		{C79DCD96-9A4E-413D-BC39-D5AEC53011F3}.Release|Win32.ActiveCfg = Release|Win32
 		{C79DCD96-9A4E-413D-BC39-D5AEC53011F3}.Release|Win32.Build.0 = Release|Win32
+		{C79DCD96-9A4E-413D-BC39-D5AEC53011F3}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{C79DCD96-9A4E-413D-BC39-D5AEC53011F3}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 		{A950C423-FD2C-4817-9801-F605605C63AD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{A950C423-FD2C-4817-9801-F605605C63AD}.Debug|Win32.Build.0 = Debug|Win32
+		{A950C423-FD2C-4817-9801-F605605C63AD}.DebugStatic|Win32.ActiveCfg = DebugStatic|Win32
+		{A950C423-FD2C-4817-9801-F605605C63AD}.DebugStatic|Win32.Build.0 = DebugStatic|Win32
 		{A950C423-FD2C-4817-9801-F605605C63AD}.Release|Win32.ActiveCfg = Release|Win32
 		{A950C423-FD2C-4817-9801-F605605C63AD}.Release|Win32.Build.0 = Release|Win32
+		{A950C423-FD2C-4817-9801-F605605C63AD}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{A950C423-FD2C-4817-9801-F605605C63AD}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.Debug|Win32.Build.0 = Debug|Win32
+		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.DebugStatic|Win32.ActiveCfg = DebugStatic|Win32
+		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.DebugStatic|Win32.Build.0 = DebugStatic|Win32
 		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.Release|Win32.ActiveCfg = Release|Win32
 		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.Release|Win32.Build.0 = Release|Win32
+		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{BC54FF69-60F9-49F7-B80C-28B8972CD8B5}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Debug|Win32.ActiveCfg = Debug|Win32
 		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Debug|Win32.Build.0 = Debug|Win32
+		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.DebugStatic|Win32.ActiveCfg = DebugStatic|Win32
+		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.DebugStatic|Win32.Build.0 = DebugStatic|Win32
 		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Release|Win32.ActiveCfg = Release|Win32
 		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Release|Win32.Build.0 = Release|Win32
+		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		QtVersion = 4.4.3
+		QtVersion = 4.5.0
 	EndGlobalSection
 EndGlobal
