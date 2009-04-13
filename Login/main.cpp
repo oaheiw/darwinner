@@ -10,10 +10,14 @@
 #include "SSMainHandler.h"
 #include "SMHandler.h"
 #include "systeminfo.h"
+ #include <QCleanlooksStyle>
+#include <QPlastiqueStyle>
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
+	QApplication* app = new QApplication(argc, argv);
+	QCleanlooksStyle* style = new QCleanlooksStyle();
+	app->setStyle(style);
 //	systeminfo* info = new systeminfo();
 //	info->getCPUID();		
 	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
@@ -29,5 +33,8 @@ int main(int argc, char *argv[])
 	worker->StartAction(*StartUp);
 	delete StartUp;
 	
-	return a.exec();
+	app->exec();
+	delete app;
+
+	return 1;
 }

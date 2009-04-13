@@ -8,6 +8,7 @@
  #include <QSqlQuery>
 #include <QVariant>
 #include "dbquery.h"
+#include <iostream>
 
 ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
@@ -96,7 +97,7 @@ void ThreadDatabase::run() {
 				delete staff;
 				break;
 			}
-			case ACTION_GETSTAFF:
+			case ACTION_GEALLSTAFF:
 			{
 				db.setDatabaseName(DBNAME);
 				bool re =db.open();
@@ -119,8 +120,37 @@ void ThreadDatabase::run() {
 					r->push_back(temp);
 				}
 				db.close();
-
-				m_tempMsg = new Message(EVENT_STAFFS, (void*)(r));
+				cout<<"get staffs"<<endl;
+				m_tempMsg = new Message(EVENT_ALLSTAFF, (void*)(r));
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				break;
+			}
+			case ACTION_GETSTAFF:
+			{
+				uint32* id = static_cast<uint32*>(Action.data());
+				db.setDatabaseName(DBNAME);
+				bool re =db.open();
+				QSqlQuery q = QSqlQuery(db);
+				QString query = QString("SELECT * FROM staff WHERE id = %1").arg(*id);
+				q.exec(query);
+				Staff* temp = new Staff();
+				while (q.next()) {
+					temp->SetID(q.value(0).toUInt());
+					temp->SetPassword(q.value(1).toByteArray().data());
+					temp->SetName(q.value(2).toByteArray().data());
+					temp->SetType(q.value(3).toUInt());
+					temp->SetLevel(q.value(4).toUInt());
+					temp->SetSex((byte)(q.value(5).toUInt()));
+//					temp->SetStatus((byte)(q.value(5).toUInt());
+					temp->SetCell(q.value(7).toByteArray().data());
+					temp->SetPhone(q.value(8).toByteArray().data());
+					temp->SetAddress(q.value(9).toByteArray().data());
+					temp->SetDescrp(q.value(10).toByteArray().data());
+				}
+				db.close();
+				cout<<"get one staff completed"<<endl;
+				m_tempMsg = new Message(EVENT_STAFF, (void*)(temp));
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
@@ -161,6 +191,7 @@ bool ThreadDatabase::initDb()
 	if(!db.open()) {
 		return false;
 	}
+	cout<<"init db"<<endl;
 	QSqlQuery q = QSqlQuery(db);
 	q.exec(CREATE_STAFF_TABLE);
 	q.exec(CREATE_JOB_TABLE);

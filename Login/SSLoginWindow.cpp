@@ -62,7 +62,7 @@ void SSLoginWindow::Login()
 void SSLoginWindow::setupUi()
 {
 	const QIcon icon = QIcon(QString::fromUtf8(":/icons/Resources/Cosmetic.png"));
-	logoLabel = new QLabel();
+	logoLabel = new QLabel(this);
 //	logoLabel->setGeometry(QRect(0, 0, 128, 128));
 	logoLabel->setPixmap(QPixmap(":/icons/Resources/cosmetic-text.png").scaled(100, 100,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
 //	setTitle(QString::fromLocal8Bit("<i>Cosmetic（科思美）美容美发业运营系统</i>&trade;"));

@@ -4,6 +4,7 @@
 #include "DUIHandler.h"
 #include <QFont>
 #include <QPoint>
+#include "StaffDetail.h"
 
 const char* StaffType[] = {"超级用户",  "老板", "店长", "收银员", "美发师", "洗发师", "美容师", "按摩师"};
 const char* StaffLevel[] = {"新手","熟练工","经验工","高级工","大师"};
@@ -11,6 +12,8 @@ const char* StaffSex[] = {"未知","男","女"};
 
 StaffManagementUI::StaffManagementUI()
 {
+//	StaffDetail *test = new StaffDetail(0);
+//	test->show();
 	setupUi();
 	started = false;
 	font = QFont("SimSun", 9);
@@ -47,6 +50,8 @@ StaffManagementUI::StaffManagementUI()
 	connect(actionStaffDetail, SIGNAL(triggered(bool)), this, SLOT(staffDetail()));
 	connect(actionDeleteStaff, SIGNAL(triggered(bool)), this, SLOT(removeStaff()));
 	connect(actionCasher4Client, SIGNAL(triggered(bool)), this, SLOT(cash4Client()));
+	connect(treeViewStaff, SIGNAL(activated(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
+	connect(treeViewStaff, SIGNAL(clicked(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
 }
 
 StaffManagementUI::~StaffManagementUI()
@@ -74,7 +79,14 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			close();
 			break;
 		}
-		case EVENT_STAFFS:
+		case EVENT_STAFF:
+		{
+			Staff* sta = static_cast<Staff*>(Msg.data());
+			staffDetailWidget->pushStaff(sta);
+			delete sta;
+			break;
+		}
+		case EVENT_ALLSTAFF:
 		{
 			addStaff((vector<Staff>*)(Msg.data()));
 		}
@@ -109,6 +121,7 @@ void StaffManagementUI::Exit()
 
 bool StaffManagementUI::eventFilter(QObject * obj, QEvent * ev)
 {	
+	int type = ev->type();
 	if(treeViewStaff == obj) {
 		switch(ev->type()) {
 			case QEvent::ContextMenu:
@@ -122,6 +135,11 @@ bool StaffManagementUI::eventFilter(QObject * obj, QEvent * ev)
 				return true;
 				break;
 			}
+			case QEvent::MouseButtonPress:
+			{
+//				staffDetail();
+			break;
+		}
 		}
 	}
 	return QMainWindow::eventFilter(obj, ev);
@@ -136,7 +154,7 @@ bool StaffManagementUI::event(QEvent * ev)
 			if(!started) {
 				started = true;
 				Message* action = new Message();
-				action->setType(ACTION_GETSTAFF);
+				action->setType(ACTION_GEALLSTAFF);
 				m_uiHandler->StartAction(*action);
 				delete action;
 			}
@@ -193,12 +211,21 @@ void StaffManagementUI::addStaff(vector<Staff>* staff)
      m_sortProxyModel->setSortCaseSensitivity( checkBoxSort->isChecked() ? Qt::CaseInsensitive : Qt::CaseSensitive);
  }
 
-void StaffManagementUI::staffDetail()
+void StaffManagementUI::staffActivated(const QModelIndex& item)
 {
-	QModelIndex currentIndex = treeViewStaff->currentIndex();
-	QModelIndex dataIndex = currentIndex.sibling(currentIndex.row(), 0);
-	QString id = dataIndex.data().toString();
+	QModelIndex currentIndex = item.sibling(item.row(), 0);
+	staffDetail(currentIndex.data().toUInt());
 }
+
+void StaffManagementUI::staffDetail(uint32 id) {
+	uint32* staffid = new uint32(id);
+	Message* action = new Message();
+	action->setType(ACTION_GETSTAFF);
+	action->setData(staffid);
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
+
 
 void StaffManagementUI::removeStaff()	
 {
@@ -230,20 +257,28 @@ void StaffManagementUI::cash4Client()
 	 menubar->setFont(font);
 	 statusbar->setFont(font);
 	 treeViewStaff->setFont(font);
+	 staffDetailWidget->SettingFont(font);
 
  }
 
  void StaffManagementUI::setupUi() {
+	setMouseTracking(true);
+
 	customCentralWidget = new QWidget(this);
+	customCentralWidget->setMouseTracking(true);
 
 	staffGroupBox = new QGroupBox(QString::fromLocal8Bit("员工浏览"), customCentralWidget);
+	staffGroupBox->setMouseTracking(true);
 	treeViewStaff = new QTreeView(staffGroupBox);
+	treeViewStaff->setMouseTracking(true);
 	treeViewStaff->setRootIsDecorated(false);
 	treeViewStaff->setAlternatingRowColors(true);
 	treeViewStaff->setSortingEnabled(true);
 	treeViewStaff->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	treeViewStaff->setContextMenuPolicy(Qt::DefaultContextMenu);
 	treeViewStaff->installEventFilter(this);
+	staffDetailWidget = new StaffDetail(staffGroupBox);
+
 
 	optionGroupBox = new QGroupBox(QString::fromLocal8Bit("浏览方式"), customCentralWidget);
 	comboBoxPattern = new QComboBox(optionGroupBox);
@@ -312,7 +347,8 @@ void StaffManagementUI::cash4Client()
 	setStatusBar(statusbar);
 
 	QHBoxLayout *staffLayout = new QHBoxLayout(staffGroupBox);
-	staffLayout->addWidget(treeViewStaff);
+	staffLayout->addWidget(treeViewStaff, 10);
+	staffLayout->addWidget(staffDetailWidget,2);
 	staffGroupBox->setLayout(staffLayout);
 
 

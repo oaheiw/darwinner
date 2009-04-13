@@ -7,6 +7,8 @@
 #include <QEvent>
 #include <QFont>
 #include <vector>
+class StaffDetail;
+class QModelIndex;
 using namespace std;
 
 class StaffManagementUI : public QMainWindow, public DUIObserver
@@ -22,6 +24,7 @@ public:
 protected:
 	void setupUi();
 	virtual bool eventFilter ( QObject * obj, QEvent * ev );
+	void staffDetail(uint32 id);
 
 private:
 	void addStaff(std::vector<Staff> *staffList);
@@ -52,6 +55,7 @@ private:
 	QGroupBox *staffGroupBox;
 	QGroupBox *optionGroupBox;
 	QWidget *customCentralWidget;
+	StaffDetail* staffDetailWidget;
 
 //data items;
 	bool started;
@@ -67,7 +71,7 @@ private slots:
 	void filterRegExpChanged();
 	void filterColumnChanged();
 	void sortChanged();
-	void staffDetail();
+	void staffActivated(const QModelIndex& item);
 	void removeStaff();
 	void cash4Client();
 };

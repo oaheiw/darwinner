@@ -30,5 +30,7 @@ typedef unsigned char byte;
 #define PW_MAX_LEN (16)
 #define STUFFNAME_MAX_LEN (32)
 #define DESCRP_MAX_LEN (2048-128)
-
+#define DBFILE "./cosmeticdb"
+#define SQLITEMARK "SQLite format 3"
+#define SQLITEMARKLEN (15)
 #endif
