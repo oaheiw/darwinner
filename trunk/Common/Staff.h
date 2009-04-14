@@ -38,7 +38,7 @@ public:
 	void SetPhone(string phone);
 	void SetSex(byte sex);
 	void SetType(uint32 type);
-
+	void clear();
 
 private:
 	string m_address;

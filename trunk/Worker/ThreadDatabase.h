@@ -3,15 +3,12 @@
 
 #include "common.h"
 
-#ifdef D_DEMO
-#include "Staff.h"
-#include <vector>
-#endif
 #include <QThread.>
 #include <QMutex>
 #include <QWaitCondition>
 #include <QSqlDatabase>
 class Message;
+class Staff;
 #include <list>
 using namespace std;
 
@@ -36,10 +33,8 @@ protected:
  private:
 	QSqlDatabase db;
 	bool initDb();
-#ifdef D_DEMO
-	vector<Staff> stuffList;
-#endif
-
+	Staff* getStaff(uint32 id);
+	bool addStaff(Staff* staff);
 };
 
 #endif

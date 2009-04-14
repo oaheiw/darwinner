@@ -4,7 +4,6 @@
 //  Created on:      02-Apr-2009 18:09:50
 //  Original author: Tim Kuo
 ///////////////////////////////////////////////////////////
-
 #include "IActionHandler.h"
 #include "IEventObserver.h"
 
@@ -17,6 +16,7 @@ void IActionHandler::SetObserver(IEventObserver* observer){
 	}
 	
 	m_listObserver.push_back(observer);
+	DBINFO("one observer inserted!");
 }
 
 void IActionHandler::BroadcastEvent(Message& ev){
@@ -24,6 +24,7 @@ void IActionHandler::BroadcastEvent(Message& ev){
 	while(m_listObserver.end() != it) {
 		if(NULL != *it) {
 			(*it)->OnEvent(ev);
+			DBINFO("one message broadcasted!");
 		}
 		it++;
 	}

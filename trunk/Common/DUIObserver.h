@@ -12,7 +12,7 @@
 class DUIHandler;
 class Message;
 
-class DLL_EXPORT DUIObserver
+class DUIObserver
 {
 
 public:

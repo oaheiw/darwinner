@@ -28,7 +28,7 @@ private:
 };
 
 
-template<class T> T* Singleton<T>::m_instance = 0;
+template<class T> T* Singleton<T>::m_instance = NULL;
 
 
 template<class T> Singleton<T>::~Singleton(){
@@ -41,8 +41,10 @@ template<class T> Singleton<T>::Singleton(){
 
 
 template<class T>  T* Singleton<T>::instance(){
-	if (0 == m_instance) {
+	if (NULL == m_instance) {
 		m_instance = new T();
+		DBINFO("create a singleton instance @");
+		DBINFO((int*)m_instance);
 	}
 	return m_instance;
 }

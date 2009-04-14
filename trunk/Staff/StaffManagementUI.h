@@ -6,7 +6,7 @@
 #include <QtGui>
 #include <QEvent>
 #include <QFont>
-#include <vector>
+#include <list>
 class StaffDetail;
 class QModelIndex;
 using namespace std;
@@ -20,6 +20,7 @@ public:
 	void OnEvent(Message& Msg);
 	void SettingFont(QFont& font);
 	bool event(QEvent * ev);
+	void getAllStaff();
 
 protected:
 	void setupUi();
@@ -27,7 +28,7 @@ protected:
 	void staffDetail(uint32 id);
 
 private:
-	void addStaff(std::vector<Staff> *staffList);
+	void addStaff(std::list<Staff> *staffList);
 
 //ui items
 	QAction *actionExport;
@@ -54,9 +55,13 @@ private:
 	QStatusBar *statusbar;
 	QGroupBox *staffGroupBox;
 	QGroupBox *optionGroupBox;
+	QGroupBox *infoGroupBox;
 	QWidget *customCentralWidget;
 	StaffDetail* staffDetailWidget;
 
+	QPushButton *deletePushButton;
+    QPushButton *addPushButton;
+    QCheckBox *seletCheckBox;
 //data items;
 	bool started;
 	QFont font;
@@ -67,6 +72,8 @@ private slots:
 	void Exit();
 	void Logoff();
 	void Menu();
+	void addStaff(Staff* staff);
+	void modifyStaff(Staff* staff);
 
 	void filterRegExpChanged();
 	void filterColumnChanged();

@@ -26,6 +26,21 @@ Staff::~Staff(){
 
 }
 
+
+void Staff::clear(){
+	m_descrp.clear();
+	m_id= 0;
+	m_level = 0;
+	m_name.clear();
+	m_password.clear();
+	m_type = 0;
+	m_sex = '0';
+	m_address.clear();
+	m_cell.clear();
+	m_phone.clear();
+	m_status = '0';
+}
+
 string Staff::Descrp(){
 
 	return  m_descrp;
