@@ -15,19 +15,23 @@
 
 int main(int argc, char *argv[])
 {
-	QApplication* app = new QApplication(argc, argv);
-	QCleanlooksStyle* style = new QCleanlooksStyle();
-	app->setStyle(style);
-//	systeminfo* info = new systeminfo();
-//	info->getCPUID();		
 	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
+	DBINFO("worker created!");
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
+	DBINFO("login created!");
 	IEventObserver* sm = Singleton<SMHandler>::instance();
-
-	login->SetHandler(worker);
-	sm->SetHandler(worker);
+	DBINFO("sm created!");
+	
 	worker->SetObserver(login);
 	worker->SetObserver(sm);
+	login->SetHandler(worker);
+	sm->SetHandler(worker);
+
+	QApplication* app = new QApplication(argc, argv);
+	DBINFO("app newed!");
+	QCleanlooksStyle* style = new QCleanlooksStyle();
+	app->setStyle(style);
+	DBINFO("style changed!");
 
 	Message* StartUp = new Message(ACTION_SYSTEM_START);
 	worker->StartAction(*StartUp);

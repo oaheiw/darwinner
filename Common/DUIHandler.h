@@ -15,7 +15,7 @@ using namespace std;
 class Message;
 class DUIObserver;
 
-class DLL_EXPORT DUIHandler
+class DUIHandler
 {
 
 public:

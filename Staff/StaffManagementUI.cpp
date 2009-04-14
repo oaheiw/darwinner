@@ -12,8 +12,6 @@ const char* StaffSex[] = {"未知","男","女"};
 
 StaffManagementUI::StaffManagementUI()
 {
-//	StaffDetail *test = new StaffDetail(0);
-//	test->show();
 	setupUi();
 	started = false;
 	font = QFont("SimSun", 9);
@@ -31,12 +29,12 @@ StaffManagementUI::StaffManagementUI()
 	m_sortProxyModel->setSourceModel(m_stuffDataModel);
 	m_sortProxyModel->setDynamicSortFilter(true);
 	m_sortProxyModel->setFilterKeyColumn(-1);
-	
+
 	treeViewStaff->setModel(m_sortProxyModel);
 	treeViewStaff->sortByColumn(0, Qt::AscendingOrder);
-    comboBoxItem->setCurrentIndex(0);
-    checkBoxSort->setChecked(true);
-    checkBoxSearch->setChecked(true);
+	comboBoxItem->setCurrentIndex(0);
+	checkBoxSort->setChecked(true);
+	checkBoxSearch->setChecked(true);
 
 	connect(lineEditKeyword, SIGNAL(textChanged(const QString &)), this, SLOT(filterRegExpChanged()));
 	connect(comboBoxPattern, SIGNAL(currentIndexChanged(int)),this, SLOT(filterRegExpChanged()));
@@ -47,11 +45,14 @@ StaffManagementUI::StaffManagementUI()
 	connect(actionMenu, SIGNAL(triggered(bool)), this, SLOT(Menu()));
 	connect(actionLogOff, SIGNAL(triggered(bool)), this, SLOT(Logoff()));
 	connect(actionExit, SIGNAL(triggered(bool)), this, SLOT(Exit()));
-	connect(actionStaffDetail, SIGNAL(triggered(bool)), this, SLOT(staffDetail()));
+	//	connect(actionStaffDetail, SIGNAL(triggered(bool)), this, SLOT(staffDetail()));
 	connect(actionDeleteStaff, SIGNAL(triggered(bool)), this, SLOT(removeStaff()));
 	connect(actionCasher4Client, SIGNAL(triggered(bool)), this, SLOT(cash4Client()));
 	connect(treeViewStaff, SIGNAL(activated(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
 	connect(treeViewStaff, SIGNAL(clicked(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
+	connect(addPushButton, SIGNAL(clicked()), staffDetailWidget, SLOT(newStaff()));
+	connect(staffDetailWidget, SIGNAL(addedStaff(Staff*)), this, SLOT(addStaff(Staff*)));
+	connect(staffDetailWidget, SIGNAL(modifiedStaff(Staff*)), this, SLOT(modifyStaff(Staff*)));
 }
 
 StaffManagementUI::~StaffManagementUI()
@@ -79,16 +80,22 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			close();
 			break;
 		}
+		case EVENT_ALLSTAFF:
+		{
+			addStaff((list<Staff>*)(Msg.data()));
+			break;
+		}
+		case EVENT_STAFFADDED:
+		{
+			staffDetailWidget->changeMode(SINFO_BROWSE);
+			getAllStaff();
+		}
 		case EVENT_STAFF:
 		{
 			Staff* sta = static_cast<Staff*>(Msg.data());
-			staffDetailWidget->pushStaff(sta);
+			staffDetailWidget->browseStaff(sta);
 			delete sta;
 			break;
-		}
-		case EVENT_ALLSTAFF:
-		{
-			addStaff((vector<Staff>*)(Msg.data()));
 		}
 		default:
 			break;
@@ -121,7 +128,6 @@ void StaffManagementUI::Exit()
 
 bool StaffManagementUI::eventFilter(QObject * obj, QEvent * ev)
 {	
-	int type = ev->type();
 	if(treeViewStaff == obj) {
 		switch(ev->type()) {
 			case QEvent::ContextMenu:
@@ -135,11 +141,6 @@ bool StaffManagementUI::eventFilter(QObject * obj, QEvent * ev)
 				return true;
 				break;
 			}
-			case QEvent::MouseButtonPress:
-			{
-//				staffDetail();
-			break;
-		}
 		}
 	}
 	return QMainWindow::eventFilter(obj, ev);
@@ -153,10 +154,7 @@ bool StaffManagementUI::event(QEvent * ev)
 		{
 			if(!started) {
 				started = true;
-				Message* action = new Message();
-				action->setType(ACTION_GEALLSTAFF);
-				m_uiHandler->StartAction(*action);
-				delete action;
+				getAllStaff();
 			}
 			break;
 		}
@@ -175,9 +173,9 @@ bool StaffManagementUI::event(QEvent * ev)
 	return QMainWindow::event(ev);
 }
 
-void StaffManagementUI::addStaff(vector<Staff>* staff) 
+void StaffManagementUI::addStaff(list<Staff>* staff) 
 {
-	vector<Staff>::iterator it = staff->begin();
+	list<Staff>::iterator it = staff->begin();
 	while(staff->end() != it) {
 		m_stuffDataModel->insertRow(0);
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 0), it->ID());
@@ -236,28 +234,53 @@ void StaffManagementUI::cash4Client()
 {
 
 }
+void StaffManagementUI::getAllStaff()
+{
+	m_stuffDataModel->removeRows(0, m_stuffDataModel->rowCount());
+	Message* action = new Message();
+	action->setType(ACTION_GEALLSTAFF);
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
 
+void StaffManagementUI::addStaff(Staff* staff)
+{
+	Message* action = new Message();
+	action->setType(ACTION_ADDSTAFF);
+	action->setData(staff);
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
+void StaffManagementUI::modifyStaff(Staff* staff)
+{
 
+}
  void StaffManagementUI::SettingFont(QFont& font)
  {
-	 font.setBold(true);
-	 treeViewStaff->header()->setFont(font);
-	 staffGroupBox->setFont(font);
-	 optionGroupBox->setFont(font);
-	 font.setBold(false);
-	 checkBoxSearch->setFont(font);
-	 checkBoxSort->setFont(font);
-	 comboBoxItem->setFont(font);
-	 comboBoxPattern->setFont(font);
-	 labelSearchItem->setFont(font);
-	 labelSearchPattern->setFont(font);
-	 labelKeyword->setFont(font);
-	 lineEditKeyword->setFont(font);
-	 menu_File->setFont(font);
-	 menubar->setFont(font);
-	 statusbar->setFont(font);
-	 treeViewStaff->setFont(font);
-	 staffDetailWidget->SettingFont(font);
+	font.setBold(true);
+	treeViewStaff->header()->setFont(font);
+	staffGroupBox->setFont(font);
+	optionGroupBox->setFont(font);
+	infoGroupBox->setFont(font);
+
+	font.setBold(false);
+	checkBoxSearch->setFont(font);
+	checkBoxSort->setFont(font);
+	comboBoxItem->setFont(font);
+	comboBoxPattern->setFont(font);
+	labelSearchItem->setFont(font);
+	labelSearchPattern->setFont(font);
+	labelKeyword->setFont(font);
+	lineEditKeyword->setFont(font);
+	menu_File->setFont(font);
+	menubar->setFont(font);
+	statusbar->setFont(font);
+	treeViewStaff->setFont(font);
+	staffDetailWidget->SettingFont(font);
+	statusbar->setFont(font);
+	deletePushButton->setFont(font);
+	addPushButton->setFont(font);
+	seletCheckBox->setFont(font);
 
  }
 
@@ -268,8 +291,11 @@ void StaffManagementUI::cash4Client()
 	customCentralWidget->setMouseTracking(true);
 
 	staffGroupBox = new QGroupBox(QString::fromLocal8Bit("员工浏览"), customCentralWidget);
+	QBoxLayout* staffLayout = new QBoxLayout(QBoxLayout::LeftToRight, staffGroupBox);
 	staffGroupBox->setMouseTracking(true);
 	treeViewStaff = new QTreeView(staffGroupBox);
+	staffLayout->addWidget(treeViewStaff);
+	staffGroupBox->setLayout(staffLayout);
 	treeViewStaff->setMouseTracking(true);
 	treeViewStaff->setRootIsDecorated(false);
 	treeViewStaff->setAlternatingRowColors(true);
@@ -277,10 +303,15 @@ void StaffManagementUI::cash4Client()
 	treeViewStaff->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	treeViewStaff->setContextMenuPolicy(Qt::DefaultContextMenu);
 	treeViewStaff->installEventFilter(this);
-	staffDetailWidget = new StaffDetail(staffGroupBox);
+
+	infoGroupBox = new QGroupBox(QString::fromLocal8Bit("员工资料"), customCentralWidget);
+	QBoxLayout* infoLayout = new QBoxLayout(QBoxLayout::LeftToRight, infoGroupBox);
+	staffDetailWidget = new StaffDetail(infoGroupBox, SINFO_BROWSE);
+	infoLayout->addWidget(staffDetailWidget);
+	infoGroupBox->setLayout(infoLayout);
 
 
-	optionGroupBox = new QGroupBox(QString::fromLocal8Bit("浏览方式"), customCentralWidget);
+	optionGroupBox = new QGroupBox(QString::fromLocal8Bit("操作"), customCentralWidget);
 	comboBoxPattern = new QComboBox(optionGroupBox);
 	labelSearchPattern = new QLabel(QString::fromLocal8Bit("匹配方式(&P)"), optionGroupBox);
 	labelSearchPattern->setBuddy(comboBoxPattern);
@@ -303,8 +334,18 @@ void StaffManagementUI::cash4Client()
 	comboBoxItem->addItem(QString::fromLocal8Bit("级别"));
 	comboBoxItem->addItem(QString::fromLocal8Bit("描述"));
 
-	checkBoxSort = new QCheckBox(QString::fromLocal8Bit("排序忽略大小写(&F)"), optionGroupBox);
-	checkBoxSearch = new QCheckBox(QString::fromLocal8Bit("搜索忽略大小写(&S)"), optionGroupBox);
+	checkBoxSort = new QCheckBox(QString::fromLocal8Bit("排序忽略大小写(&N)"), optionGroupBox);
+	checkBoxSearch = new QCheckBox(QString::fromLocal8Bit("搜索忽略大小写(&M)"), optionGroupBox);
+	deletePushButton = new QPushButton(QString::fromLocal8Bit("删除员工(&R)"), optionGroupBox);
+    addPushButton = new QPushButton(QString::fromLocal8Bit("添加员工(&T)"), optionGroupBox);
+    seletCheckBox = new QCheckBox(QString::fromLocal8Bit("全选(&A)"), optionGroupBox);
+	deletePushButton->setMinimumHeight(30);
+	addPushButton->setMinimumHeight(30);
+	deletePushButton->setMaximumHeight(50);
+	addPushButton->setMaximumHeight(50);
+	deletePushButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+	addPushButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+
 
 	actionExport = new QAction(this);
 	actionMenu = new QAction(this);
@@ -346,31 +387,37 @@ void StaffManagementUI::cash4Client()
 	statusbar = new QStatusBar(this);
 	setStatusBar(statusbar);
 
-	QHBoxLayout *staffLayout = new QHBoxLayout(staffGroupBox);
-	staffLayout->addWidget(treeViewStaff, 10);
-	staffLayout->addWidget(staffDetailWidget,2);
-	staffGroupBox->setLayout(staffLayout);
+	QHBoxLayout *optinonButtonlayout = new QHBoxLayout();
+	optinonButtonlayout->addWidget(seletCheckBox, 1);
+	optinonButtonlayout->addWidget(deletePushButton, 10);
+	optinonButtonlayout->addWidget(addPushButton, 10);
+
+	QGridLayout *optionLayout = new QGridLayout(optionGroupBox);
+	optionLayout->addWidget(labelKeyword, 0, 0 ,1 ,1);
+	optionLayout->addWidget(lineEditKeyword, 0, 1, 1, 2);
+	optionLayout->addWidget(labelSearchPattern, 1, 0, 1, 1);
+	optionLayout->addWidget(comboBoxPattern, 1, 1, 1, 2);
+	optionLayout->addWidget(labelSearchItem, 2, 0, 1, 1);
+	optionLayout->addWidget(comboBoxItem, 2, 1, 1, 2);
+	optionLayout->addWidget(checkBoxSearch, 3, 0, 1, 2);
+	optionLayout->addWidget(checkBoxSort, 3, 2);
+	optionLayout->addLayout(optinonButtonlayout, 4 , 0, 1, 3);
+	optionLayout->setRowStretch(4, 1);
+	optionGroupBox->setLayout(optionLayout);
+
+	QVBoxLayout *rightLayout = new QVBoxLayout();
+	rightLayout->addWidget(infoGroupBox, 2);
+	rightLayout->addWidget(optionGroupBox, 1);
 
 
-	QGridLayout *layout = new QGridLayout(optionGroupBox);
-	layout->addWidget(labelKeyword, 0, 0);
-	layout->addWidget(lineEditKeyword, 0, 1, 1, 2);
-	layout->addWidget(labelSearchPattern, 1, 0);
-	layout->addWidget(comboBoxPattern, 1, 1, 1, 2);
-	layout->addWidget(labelSearchItem, 2, 0);
-	layout->addWidget(comboBoxItem, 2, 1, 1, 2);
-	layout->addWidget(checkBoxSearch, 3, 0, 1, 2);
-	layout->addWidget(checkBoxSort, 3, 2);
-	optionGroupBox->setLayout(layout);
+	QHBoxLayout *mainLayout = new QHBoxLayout(customCentralWidget);
+	mainLayout->addWidget(staffGroupBox, 10);
+	mainLayout->addLayout(rightLayout, 1);
 
-	QVBoxLayout *mainLayout = new QVBoxLayout(customCentralWidget);
-	mainLayout->addWidget(staffGroupBox);
-	mainLayout->addWidget(optionGroupBox);
+
 	customCentralWidget->setLayout(mainLayout);
 	setCentralWidget(customCentralWidget);
 	setWindowTitle(QString::fromLocal8Bit("员工管理"));
 
-	const QIcon icon = QIcon(QString::fromUtf8(":/icons/Resources/staff.png"));
-    setWindowIcon(icon);
 	resize(800, 600);
  }

@@ -14,7 +14,7 @@ class Message;
 class IEventObserver;
 using namespace std;
 
-class DLL_EXPORT IActionHandler
+class IActionHandler
 {
 
 public:

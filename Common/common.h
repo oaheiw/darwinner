@@ -8,7 +8,13 @@
 #ifndef EA_9F454DB8_A969_4830_9B7B_1DCC06D3333D6__INCLUDED_
 #define EA_9F454DB8_A969_4830_9B7B_1DCC06D3333D6__INCLUDED_
 
-#define D_DEMO
+#ifdef _CONSOLE_DEBUG
+#include <iostream>
+using namespace std;
+#define DBINFO(info) std::cout<<info<<endl;
+#else
+#define DBINFO(info) {}
+#endif
 
 typedef unsigned int uint32;
 typedef unsigned char byte;
@@ -33,4 +39,11 @@ typedef unsigned char byte;
 #define DBFILE "./cosmeticdb"
 #define SQLITEMARK "SQLite format 3"
 #define SQLITEMARKLEN (15)
+
+enum SINFO {
+	SINFO_BROWSE = 0,
+	SINFO_MODIFY,
+	SINFO_NEW
+};
+
 #endif

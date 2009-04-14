@@ -9,4 +9,5 @@
 
 void IEventObserver::SetHandler(IActionHandler* handler){
 	m_handler = handler;
+	DBINFO("hanlder setted!");
 }

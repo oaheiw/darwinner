@@ -15,7 +15,8 @@ ThreadDatabase::ThreadDatabase(QObject *parent)
 {
 	m_tempMsg = NULL;
 	db = QSqlDatabase::addDatabase("QSQLITE");
-	#ifdef D_DEMO
+/*
+#ifdef D_DEMO
 	stuffList.clear();
 	Staff temp;
 	temp.SetID(1);
@@ -52,7 +53,8 @@ ThreadDatabase::ThreadDatabase(QObject *parent)
 	temp.SetSex(SEX_UNDEFINED);
 	temp.SetLevel(LEVEL_ROOKIE);
 	stuffList.push_back(temp);
-#endif
+
+#endif	*/
 }
 
 ThreadDatabase::~ThreadDatabase()
@@ -87,14 +89,16 @@ void ThreadDatabase::run() {
 			}
 			case ACTION_LOGIN:
 			{
-				Staff* staff = static_cast<Staff*>(Action.data());
-				int id = staff->ID();
-				if(id >= 1 && id <= 6  ) {
-					m_tempMsg = new Message(EVENT_LOGGEDIN, (void*)(&(stuffList[id-1])));
+				Staff* staffIncome = static_cast<Staff*>(Action.data());
+				Staff* staffDb = getStaff(staffIncome->ID());
+				if(staffDb->ID() != 0 &&
+					staffIncome->Password() == staffDb->Password() &&
+					staffIncome->ID() == staffDb->ID()) {
+					m_tempMsg = new Message(EVENT_LOGGEDIN, staffDb);
 					QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 					QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				}
-				delete staff;
+				delete staffIncome;
 				break;
 			}
 			case ACTION_GEALLSTAFF:
@@ -104,7 +108,7 @@ void ThreadDatabase::run() {
 				QSqlQuery q = QSqlQuery(db);
 				q.exec(SELECT_STAFF_NOIMAGE);
 				Staff temp;
-				vector<Staff>* r = new vector<Staff>;
+				list<Staff>* r = new list<Staff>;
 				while (q.next()) {
 					temp.SetID(q.value(0).toUInt());
 					temp.SetPassword(q.value(1).toByteArray().data());
@@ -129,35 +133,20 @@ void ThreadDatabase::run() {
 			case ACTION_GETSTAFF:
 			{
 				uint32* id = static_cast<uint32*>(Action.data());
-				db.setDatabaseName(DBNAME);
-				bool re =db.open();
-				QSqlQuery q = QSqlQuery(db);
-				QString query = QString("SELECT * FROM staff WHERE id = %1").arg(*id);
-				q.exec(query);
-				Staff* temp = new Staff();
-				while (q.next()) {
-					temp->SetID(q.value(0).toUInt());
-					temp->SetPassword(q.value(1).toByteArray().data());
-					temp->SetName(q.value(2).toByteArray().data());
-					temp->SetType(q.value(3).toUInt());
-					temp->SetLevel(q.value(4).toUInt());
-					temp->SetSex((byte)(q.value(5).toUInt()));
-//					temp->SetStatus((byte)(q.value(5).toUInt());
-					temp->SetCell(q.value(7).toByteArray().data());
-					temp->SetPhone(q.value(8).toByteArray().data());
-					temp->SetAddress(q.value(9).toByteArray().data());
-					temp->SetDescrp(q.value(10).toByteArray().data());
-				}
-				db.close();
-				cout<<"get one staff completed"<<endl;
-				m_tempMsg = new Message(EVENT_STAFF, (void*)(temp));
+				m_tempMsg = new Message(EVENT_STAFF, getStaff(*id));
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				delete id;
 				break;
 			}
-			case ACTION_LOGOFF:
+			case ACTION_ADDSTAFF:
 			{
-				Action.setType(EVENT_LOGGEDOFF);
+				Staff* staff = static_cast<Staff*>(Action.data());
+				addStaff(staff);
+				delete staff;
+				m_tempMsg = new Message(EVENT_STAFFADDED);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
 			default:
@@ -194,31 +183,82 @@ bool ThreadDatabase::initDb()
 	cout<<"init db"<<endl;
 	QSqlQuery q = QSqlQuery(db);
 	q.exec(CREATE_STAFF_TABLE);
+	
+	DBINFO("creating super user...");
+	q.prepare(INSERTINTO_STAFF);
+	q.bindValue(":password", "111");
+	q.bindValue(":name", "科思美管理员");
+	q.bindValue(":jobId", 0);
+	q.bindValue(":levelId", 4);
+	q.bindValue(":sex", 0);
+	q.bindValue(":status", '1');
+	q.bindValue(":cell", "88888888");
+	q.bindValue(":phone", "66666666");
+	q.bindValue(":address", "中华人民共和国");
+	q.bindValue(":descrption", "我是科思美系统超级管理员");
+	q.bindValue(":image", "");
+	q.exec();
+	DBINFO("create super user complete!");
+
 	q.exec(CREATE_JOB_TABLE);
 	q.exec(CREATE_LEVET_TABLE);
 	q.exec(CREATE_ORDERS_TABLE);
 	q.exec(CREATE_GOODS_TABLE);
 //	q.exec(CREATE_);
 	
-
-	
-	q.prepare(INSERTINTO_STAFF);
-	vector<Staff>::iterator it = stuffList.begin();
-	while(it != stuffList.end()) {
-		q.bindValue(":password", it->Password().c_str());
-		q.bindValue(":name", it->Name().c_str());
-		q.bindValue(":jobId", it->Type());
-		q.bindValue(":levelId", it->Level());
-		q.bindValue(":sex", it->Sex());
-		q.bindValue(":status", '1');
-		q.bindValue(":cell", it->cell().c_str());
-		q.bindValue(":phone", it->phone().c_str());
-		q.bindValue(":address", it->address().c_str());
-		q.bindValue(":descrption", it->Descrp().c_str());
-		q.bindValue(":image", "");
-		q.exec();
-		it++;
-	}
 	db.close();
 	return true;
+}
+
+Staff* ThreadDatabase::getStaff(uint32 id) 
+{
+	db.setDatabaseName(DBNAME);
+	db.open();
+	QSqlQuery q = QSqlQuery(db);
+	QString query = QString("SELECT * FROM staff WHERE id = %1").arg(id);
+	q.exec(query);
+	Staff* temp = new Staff();
+	if(q.next()) {
+		temp->SetID(q.value(0).toUInt());
+		temp->SetPassword(q.value(1).toByteArray().data());
+		temp->SetName(q.value(2).toByteArray().data());
+		temp->SetType(q.value(3).toUInt());
+		temp->SetLevel(q.value(4).toUInt());
+		temp->SetSex((byte)(q.value(5).toUInt()));
+		//	temp->SetStatus((byte)(q.value(5).toUInt());
+		temp->SetCell(q.value(7).toByteArray().data());
+		temp->SetPhone(q.value(8).toByteArray().data());
+		temp->SetAddress(q.value(9).toByteArray().data());
+		temp->SetDescrp(q.value(10).toByteArray().data());
+	}
+	db.close();
+	cout<<"get one staff completed"<<endl;
+	return temp;
+}
+bool ThreadDatabase::addStaff(Staff* staff)
+{
+					db.setDatabaseName(DBNAME);
+				if(!db.open()) {
+					return false;
+				}
+				DBINFO("adding satff...");
+				QSqlQuery q = QSqlQuery(db);
+
+				q.prepare(INSERTINTO_STAFF);
+
+				q.bindValue(":password", staff->Password().c_str());
+				q.bindValue(":name", staff->Name().c_str());
+				q.bindValue(":jobId", staff->Type());
+				q.bindValue(":levelId", staff->Level());
+				q.bindValue(":sex", staff->Sex());
+				q.bindValue(":status", '1');
+				q.bindValue(":cell", staff->cell().c_str());
+				q.bindValue(":phone", staff->phone().c_str());
+				q.bindValue(":address", staff->address().c_str());
+				q.bindValue(":descrption", staff->Descrp().c_str());
+				q.bindValue(":image", "");
+				q.exec();
+				db.close();
+				DBINFO("add satff complete");
+				return true;
 }

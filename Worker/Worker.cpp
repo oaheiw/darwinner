@@ -57,7 +57,7 @@ void Worker::StartAction(Message& Action) {
 			  
 			if(!exist | 0 == length | 0 != isSQLite) {//first time running
 					remove(DBFILE);
-					cout<<"remove dbfile"<<endl;
+					cout<<"dbfile corrupt or not exists. create a brand new one."<<endl;
 					Message* ev = new Message(ACTION_INIT);
 					m_databaseThread->QueueAction(*ev);
 					delete ev;
