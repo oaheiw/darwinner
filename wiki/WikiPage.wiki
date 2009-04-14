@@ -1,4 +1,4 @@
-#labels 123Featured
+#labels Featured
 =业务需求=
 
 = Introduction =
