@@ -1,11 +1,10 @@
-#include "SSLoginWindow.h"
 #include <string>
 #include "messagedef.h"
 #include "Staff.h"
 #include "Message.h"
 #include "DUIHandler.h"
-//#include <QString>
-//#include <QLabel>
+#include "SSLoginWindow.h"
+
 
 SSLoginWindow::SSLoginWindow(QWidget *parent, DUIHandler* handler)
 	: QDialog(parent)
@@ -63,15 +62,16 @@ void SSLoginWindow::setupUi()
 {
 	const QIcon icon = QIcon(QString::fromUtf8(":/icons/Resources/Cosmetic.png"));
 	logoLabel = new QLabel(this);
-//	logoLabel->setGeometry(QRect(0, 0, 128, 128));
-	logoLabel->setPixmap(QPixmap(":/icons/Resources/cosmetic-text.png").scaled(100, 100,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
-//	setTitle(QString::fromLocal8Bit("<i>Cosmetic（科思美）美容美发业运营系统</i>&trade;"));
-//	setSubTitle(QString::fromLocal8Bit("请录入您的用户名和密码，以登录系统。"));
+	logoLabel->setAlignment(Qt::AlignCenter);
+	logoLabel->setFrameShape(QFrame::StyledPanel);
+	logoLabel->setFrameShadow(QFrame::Raised);
+	logoLabel->setFixedSize(126, 126);
+	logoLabel->setPixmap(QPixmap(":/icons/Resources/cosmetic-text.png").scaled(120, 120,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
 	setWindowTitle(QString::fromLocal8Bit("Cosmetic（科思美）美容美发业运营系统"));
 
 	loginGroupBox = new QGroupBox(QString::fromLocal8Bit("员工入口"), this);
 
-	idLabel = new QLabel(QString::fromLocal8Bit("用户名(&N)"), loginGroupBox);
+	idLabel = new QLabel(QString::fromLocal8Bit("工号(&N)"), loginGroupBox);
 	idLineEdit = new QLineEdit(loginGroupBox);
 	idLabel->setBuddy(idLineEdit);
 	idLineEdit->setValidator(new QIntValidator(idLineEdit));
@@ -83,28 +83,28 @@ void SSLoginWindow::setupUi()
 
 	pushButtonLogin = new QPushButton(this);
 	pushButtonLogin->setText(QString::fromLocal8Bit("登录(&L)"));
+	pushButtonLogin->setMinimumHeight(30);
 	pushButtonExit = new QPushButton(this);
 	pushButtonExit->setText(QString::fromLocal8Bit("退出(&X)"));
+	pushButtonExit->setMinimumHeight(30);
+	QHBoxLayout *buttonLayout = new QHBoxLayout();
+	buttonLayout->addWidget(pushButtonLogin);
+	buttonLayout->addWidget(pushButtonExit);
 
-
-//	buttonLayout->setAlignment(pushButtonLogin, Qt::AlignCenter);
-//	buttonLayout->setAlignment(pushButtonExit, Qt::AlignCenter);
-	
 	QGridLayout *loginLayout = new QGridLayout(loginGroupBox);
 	loginLayout->addWidget(idLabel, 0, 0, 1, 1);
 	loginLayout->addWidget(idLineEdit, 0, 1, 1, 3);
 	loginLayout->addWidget(pwLabel, 1, 0, 1, 1);
 	loginLayout->addWidget(pwLineEdit, 1, 1, 1, 3);
-	loginLayout->addWidget(pushButtonLogin, 3, 1, Qt::AlignCenter);
-	loginLayout->addWidget(pushButtonExit, 3, 3, Qt::AlignCenter);
+	loginLayout->addLayout(buttonLayout, 2, 0, 1, 4);
 	loginGroupBox->setLayout(loginLayout);
 
 	QHBoxLayout *mainLayout = new QHBoxLayout(this);
-	mainLayout->addWidget(logoLabel);
-	mainLayout->addWidget(loginGroupBox);
+	mainLayout->addWidget(logoLabel, 1);
+	mainLayout->addWidget(loginGroupBox, 10);
 	setLayout(mainLayout);
 
-	setFixedSize(380, 128);
+	setFixedSize(400, 150);
 
 	connect(pushButtonExit, SIGNAL(clicked()), this, SLOT(close()));
 	connect(pushButtonLogin, SIGNAL(clicked()), this, SLOT(Login()));

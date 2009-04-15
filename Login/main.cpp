@@ -11,16 +11,15 @@
 #include "SMHandler.h"
 #include "systeminfo.h"
  #include <QCleanlooksStyle>
-#include <QPlastiqueStyle>
 
 int main(int argc, char *argv[])
 {
 	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
-	DBINFO("worker created!");
+	DBINFO("worker created @", (int*)worker);
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
-	DBINFO("login created!");
+	DBINFO("login created @", (int*)login);
 	IEventObserver* sm = Singleton<SMHandler>::instance();
-	DBINFO("sm created!");
+	DBINFO("sm created @", (int*)sm);
 	
 	worker->SetObserver(login);
 	worker->SetObserver(sm);
@@ -28,10 +27,10 @@ int main(int argc, char *argv[])
 	sm->SetHandler(worker);
 
 	QApplication* app = new QApplication(argc, argv);
-	DBINFO("app newed!");
+	DBINFO("qt application created @", (int*)app);
 	QCleanlooksStyle* style = new QCleanlooksStyle();
 	app->setStyle(style);
-	DBINFO("style changed!");
+	DBINFO("style changed to:", "QCleanlooksStyle");
 
 	Message* StartUp = new Message(ACTION_SYSTEM_START);
 	worker->StartAction(*StartUp);

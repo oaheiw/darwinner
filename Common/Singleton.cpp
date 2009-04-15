@@ -11,7 +11,7 @@
 
 #include "common.h"
 
-template<class T> class DLL_EXPORT Singleton
+template<class T> class Singleton
 {
 
 public:
@@ -43,9 +43,8 @@ template<class T> Singleton<T>::Singleton(){
 template<class T>  T* Singleton<T>::instance(){
 	if (NULL == m_instance) {
 		m_instance = new T();
-		DBINFO("create a singleton instance @");
-		DBINFO((int*)m_instance);
 	}
+	DBINFO("create a singleton instance @", (int*)m_instance);
 	return m_instance;
 }
 

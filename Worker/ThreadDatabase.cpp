@@ -8,53 +8,14 @@
  #include <QSqlQuery>
 #include <QVariant>
 #include "dbquery.h"
-#include <iostream>
+#include <fstream>
+#include <QSqlRecord>
 
 ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
 {
 	m_tempMsg = NULL;
 	db = QSqlDatabase::addDatabase("QSQLITE");
-/*
-#ifdef D_DEMO
-	stuffList.clear();
-	Staff temp;
-	temp.SetID(1);
-	temp.SetSex(SEX_MALE);
-	temp.SetDescrp("SeaShore（思索）软件");
-	temp.SetName("郭曦");
-	temp.SetType(TYPE_SUPPER);
-	temp.SetLevel(LEVEL_MASTER);
-	stuffList.push_back(temp);
-	temp.SetType(TYPE_BOSS);
-	temp.SetID(2);
-	temp.SetName("刘盛");
-	temp.SetLevel(LEVEL_ADVANCED);
-	stuffList.push_back(temp);	
-	temp.SetType(TYPE_SHOP_MANAGER);
-	temp.SetID(3);
-	temp.SetName("叶献孟");
-	temp.SetLevel(LEVEL_SKILLED);
-	stuffList.push_back(temp);	
-	temp.SetType(TYPE_CASHER);
-	temp.SetID(4);
-	temp.SetName("江泽名");
-	temp.SetLevel(LEVEL_EXPERIENCED);
-	temp.SetSex(SEX_FEMALE);
-	stuffList.push_back(temp);
-	temp.SetType(TYPE_BARBER);
-	temp.SetID(5);
-	temp.SetName("胡金涛");
-	temp.SetLevel(LEVEL_MASTER);
-	stuffList.push_back(temp);
-	temp.SetType(TYPE_BEAUTICIAN);
-	temp.SetID(6);
-	temp.SetName("习金瓶");
-	temp.SetSex(SEX_UNDEFINED);
-	temp.SetLevel(LEVEL_ROOKIE);
-	stuffList.push_back(temp);
-
-#endif	*/
 }
 
 ThreadDatabase::~ThreadDatabase()
@@ -76,15 +37,15 @@ void ThreadDatabase::run() {
 		mutex.unlock();
 
 		switch(Action.type()) {
-			case ACTION_INIT:
+			case ACTION_SYSTEM_START:
 			{
-				m_tempMsg = new Message(EVENT_INIT);
-				QEvent* ev1 = new TEvent((QEvent::Type)EventDb, m_tempMsg);
-				QCoreApplication::postEvent(this->parent(), ev1,Qt::HighEventPriority);
-				initDb();
-				m_tempMsg = new Message(EVENT_SYSTEM_START);
-				QEvent* ev2 = new TEvent((QEvent::Type)EventDb, m_tempMsg);
-				QCoreApplication::postEvent(this->parent(), ev2,Qt::HighEventPriority);
+				if(checkDd()) {
+					m_tempMsg = new Message(EVENT_SYSTEM_START);	
+				}else{
+					m_tempMsg = new Message(EVENT_WIZARD);
+				}
+				QEvent* ev= new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
 			case ACTION_LOGIN:
@@ -124,7 +85,7 @@ void ThreadDatabase::run() {
 					r->push_back(temp);
 				}
 				db.close();
-				cout<<"get staffs"<<endl;
+				DBINFO("get all staffs. amount: ", r->size())
 				m_tempMsg = new Message(EVENT_ALLSTAFF, (void*)(r));
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
@@ -173,19 +134,20 @@ void ThreadDatabase::QueueAction(Message& Action)
 
 }
 
-
 bool ThreadDatabase::initDb()
 {
+	
 	db.setDatabaseName(DBNAME);
 	if(!db.open()) {
 		return false;
 	}
-	cout<<"init db"<<endl;
+	DBINFO("initializing database...", "");
 	QSqlQuery q = QSqlQuery(db);
 	q.exec(CREATE_STAFF_TABLE);
 	
-	DBINFO("creating super user...");
-	q.prepare(INSERTINTO_STAFF);
+	DBINFO("creating super user...", "");
+	q.prepare(INSERTINTO_STAFF_SUPER);
+	q.bindValue(":id", SUPERUSERID);
 	q.bindValue(":password", "111");
 	q.bindValue(":name", "科思美管理员");
 	q.bindValue(":jobId", 0);
@@ -198,16 +160,68 @@ bool ThreadDatabase::initDb()
 	q.bindValue(":descrption", "我是科思美系统超级管理员");
 	q.bindValue(":image", "");
 	q.exec();
-	DBINFO("create super user complete!");
+	DBINFO("create super user complete!", "");
 
 	q.exec(CREATE_JOB_TABLE);
 	q.exec(CREATE_LEVET_TABLE);
 	q.exec(CREATE_ORDERS_TABLE);
 	q.exec(CREATE_GOODS_TABLE);
-//	q.exec(CREATE_);
+	q.exec(CREATE_SEX_TABLE);
+	q.exec(CREATE_STATUS_TABLE);
+	q.exec(CREATE_TASKS_TABLE);
+	q.exec(CREATE_GOOSTYPE_TABLE);
 	
 	db.close();
+	DBINFO("databese initialized.", "");
 	return true;
+}
+
+bool ThreadDatabase::checkDd()
+{
+	bool re = false;
+	bool exist;
+	int length= 0;
+	char* SQLiteMark;
+	int isSQLite = -1;
+	fstream testfile;
+	testfile.open (DBFILE, fstream::in | fstream::out | fstream::app | fstream::binary);
+	exist = testfile.is_open();
+	if(exist) {
+	  testfile.seekg (0, ios::end);
+	  length = testfile.tellg();
+	  testfile.seekg (0, ios::beg);
+
+	  SQLiteMark = new char[SQLITEMARKLEN];
+	  memset(SQLiteMark, 0, SQLITEMARKLEN);
+	  testfile.read(SQLiteMark, SQLITEMARKLEN);
+	  isSQLite = memcmp(SQLiteMark, SQLITEMARK, SQLITEMARKLEN);
+	  testfile.close();
+	}
+	  
+	if(!exist | 0 == length | 0 != isSQLite) {//first time running
+		remove(DBFILE);
+		m_tempMsg = new Message(EVENT_INIT);
+		QEvent* ev1 = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+		QCoreApplication::postEvent(this->parent(), ev1,Qt::HighEventPriority);
+		initDb();
+		m_tempMsg = new Message(EVENT_INIT_FINISHED);
+		QEvent* ev2 = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+		QCoreApplication::postEvent(this->parent(), ev2,Qt::HighEventPriority);
+		re = false;
+	} else {//database exists. check super user
+		testfile.close();
+		db.setDatabaseName(DBNAME);
+		db.open();
+		QSqlQuery q = QSqlQuery(db);
+		QString query = QString("SELECT * FROM staff WHERE id = %1").arg(SUPERUSERID);
+		q.exec(query);
+		if(!q.next())
+			re = false;
+		else
+			re = true;
+		db.close();
+	}
+	return re;
 }
 
 Staff* ThreadDatabase::getStaff(uint32 id) 
@@ -232,33 +246,35 @@ Staff* ThreadDatabase::getStaff(uint32 id)
 		temp->SetDescrp(q.value(10).toByteArray().data());
 	}
 	db.close();
-	cout<<"get one staff completed"<<endl;
+	DBINFO("get one staff completed:", temp->Name())
 	return temp;
 }
 bool ThreadDatabase::addStaff(Staff* staff)
 {
-					db.setDatabaseName(DBNAME);
-				if(!db.open()) {
-					return false;
-				}
-				DBINFO("adding satff...");
-				QSqlQuery q = QSqlQuery(db);
+	bool r =false;
+	db.setDatabaseName(DBNAME);
+	r = db.open();
+	if(!r) {
+		return r;
+	}
+	DBINFO("adding satff...", "");
+	QSqlQuery q = QSqlQuery(db);
 
-				q.prepare(INSERTINTO_STAFF);
+	q.prepare(INSERTINTO_STAFF);
 
-				q.bindValue(":password", staff->Password().c_str());
-				q.bindValue(":name", staff->Name().c_str());
-				q.bindValue(":jobId", staff->Type());
-				q.bindValue(":levelId", staff->Level());
-				q.bindValue(":sex", staff->Sex());
-				q.bindValue(":status", '1');
-				q.bindValue(":cell", staff->cell().c_str());
-				q.bindValue(":phone", staff->phone().c_str());
-				q.bindValue(":address", staff->address().c_str());
-				q.bindValue(":descrption", staff->Descrp().c_str());
-				q.bindValue(":image", "");
-				q.exec();
-				db.close();
-				DBINFO("add satff complete");
-				return true;
+	q.bindValue(":password", staff->Password().c_str());
+	q.bindValue(":name", staff->Name().c_str());
+	q.bindValue(":jobId", staff->Type());
+	q.bindValue(":levelId", staff->Level());
+	q.bindValue(":sex", staff->Sex());
+	q.bindValue(":status", 1);
+	q.bindValue(":cell", staff->cell().c_str());
+	q.bindValue(":phone", staff->phone().c_str());
+	q.bindValue(":address", staff->address().c_str());
+	q.bindValue(":descrption", staff->Descrp().c_str());
+	q.bindValue(":image", "");
+	r = q.exec();
+	db.close();
+	DBINFO("add satff complete", "");
+	return r;
 }

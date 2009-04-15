@@ -35,6 +35,7 @@ protected:
 	bool initDb();
 	Staff* getStaff(uint32 id);
 	bool addStaff(Staff* staff);
+	bool checkDd();
 };
 
 #endif
