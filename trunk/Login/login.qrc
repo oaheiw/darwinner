@@ -3,5 +3,7 @@
     <qresource prefix="/icons" >
         <file>Resources/cosmetic.png</file>
         <file>Resources/cosmetic-text.png</file>
+        <file>Resources/banner.png</file>
+        <file>Resources/watermark.png</file>
     </qresource>
 </RCC>

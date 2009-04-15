@@ -6,6 +6,7 @@
 ///////////////////////////////////////////////////////////
 #include "IActionHandler.h"
 #include "IEventObserver.h"
+#include "Message.h"
 
 void IActionHandler::SetObserver(IEventObserver* observer){
 	list<IEventObserver*>::iterator it = m_listObserver.begin();
@@ -16,7 +17,7 @@ void IActionHandler::SetObserver(IEventObserver* observer){
 	}
 	
 	m_listObserver.push_back(observer);
-	DBINFO("one observer inserted!");
+	DBINFO("one observer inserted:", (int*)observer);
 }
 
 void IActionHandler::BroadcastEvent(Message& ev){
@@ -24,7 +25,7 @@ void IActionHandler::BroadcastEvent(Message& ev){
 	while(m_listObserver.end() != it) {
 		if(NULL != *it) {
 			(*it)->OnEvent(ev);
-			DBINFO("one message broadcasted!");
+			DBINFO("one message broadcasted to:", (int*)(*it));
 		}
 		it++;
 	}

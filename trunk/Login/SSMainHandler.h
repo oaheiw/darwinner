@@ -31,6 +31,7 @@ public:
 private:
 	DUIObserver* m_entryWindow;
 	DUIObserver* m_mainWindow;
+	DUIObserver* m_Wizard;
 
 };
 #endif // !defined(EA_AC4D55BE_D1FE_4dc3_80A8_DB54062F56FB__INCLUDED_)

@@ -12,11 +12,13 @@
 #include "messagedef.h"
 #include "IActionHandler.h"
 #include "Singleton.cpp"
+#include "Guide.h"
 
 SSMainHandler::SSMainHandler()
 {
 	m_entryWindow = NULL;
 	m_mainWindow = NULL;
+	m_Wizard = NULL;
 }
 
 
@@ -48,6 +50,16 @@ void SSMainHandler::OnEvent(Message& Msg)
 				m_mainWindow->SetHandler(this);
 				SetObserver(m_mainWindow);
 			}
+			break;
+		}
+		case EVENT_WIZARD: 
+		{
+			if(NULL == m_Wizard) {
+				m_Wizard =  Singleton<Guide>::instance();
+				m_Wizard->SetHandler(this);
+				SetObserver(m_Wizard);
+			}
+			break;
 		}
 	}
 

@@ -12,7 +12,7 @@
 #include <string>
 using namespace std;
 
-class DLL_EXPORT Staff
+class Staff
 {
 
 public:

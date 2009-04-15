@@ -245,6 +245,10 @@ void StaffManagementUI::getAllStaff()
 
 void StaffManagementUI::addStaff(Staff* staff)
 {
+	if(staff->Name().empty()) {
+		QToolTip::showText(QPoint(staffGroupBox->geometry().width(), 100), QString("TTTTTTTTTTTTT"), this);
+		return;
+	}
 	Message* action = new Message();
 	action->setType(ACTION_ADDSTAFF);
 	action->setData(staff);
@@ -413,6 +417,7 @@ void StaffManagementUI::modifyStaff(Staff* staff)
 	QHBoxLayout *mainLayout = new QHBoxLayout(customCentralWidget);
 	mainLayout->addWidget(staffGroupBox, 10);
 	mainLayout->addLayout(rightLayout, 1);
+	mainLayout->setMargin(2);
 
 
 	customCentralWidget->setLayout(mainLayout);

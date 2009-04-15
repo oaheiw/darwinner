@@ -278,9 +278,9 @@ void StaffDetail::selectPic()
 void StaffDetail::submit()
 {
 	if(lineEditName->text().isEmpty()) {
-		QToolTip::showText(lineEditName->pos(), QString::fromLocal8Bit("姓名不能为空"), pushButtonSubmmit, QRect(0, 0 , 200,200));
-		lineEditName->setToolTip(QString::fromLocal8Bit("姓名不能为空"));
-		return;
+//		QToolTip::showText(lineEditName->pos(), QString::fromLocal8Bit("姓名不能为空"), pushButtonSubmmit, QRect(0, 0 , 200,200));
+//		lineEditName->setToolTip(QString::fromLocal8Bit("姓名不能为空"));
+//		return;
 	}
 	Staff* staff = new Staff();
 	staff->SetAddress(plainTextEditAddress->toPlainText().toLocal8Bit().data());

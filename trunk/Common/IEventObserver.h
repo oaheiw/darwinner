@@ -12,7 +12,7 @@
 class Message; 
 class IActionHandler;
 
-class DLL_EXPORT IEventObserver
+class IEventObserver
 {
 
 public:
