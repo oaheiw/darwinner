@@ -36,6 +36,7 @@ protected:
 	Staff* getStaff(uint32 id);
 	bool addStaff(Staff* staff);
 	bool checkDd();
+	bool addSupperStaff(Staff* staff);
 };
 
 #endif

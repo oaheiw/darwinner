@@ -11,6 +11,7 @@
 #include "IActionHandler.h"
 #include "StaffManagementUI.h"
 #include "Singleton.cpp"
+#include "JobTypeWidget.h"
 
 
 SMHandler::SMHandler(){

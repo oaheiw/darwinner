@@ -142,3 +142,20 @@ void Staff::SetCell(string cell){
 void Staff::SetPhone(string phone){
 		m_phone = phone;
 }
+
+void Staff::SetStatus(byte status){
+		m_status = status;
+}
+byte Staff::status(){
+
+	return  m_status;
+}
+void Staff::SetBaseSalary(uint32 salary){
+		m_baseSalary = salary;
+}
+uint32 Staff::baseSalary(){
+
+	return  m_baseSalary;
+}
+
+

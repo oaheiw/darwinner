@@ -110,6 +110,13 @@ void ThreadDatabase::run() {
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
+			case ACTION_SETSUPERUSER:
+			{
+				Staff* staff = static_cast<Staff*>(Action.data());
+				addSupperStaff(staff);
+				delete staff;
+				break;
+			}
 			default:
 				break;	
 		}
@@ -144,24 +151,6 @@ bool ThreadDatabase::initDb()
 	DBINFO("initializing database...", "");
 	QSqlQuery q = QSqlQuery(db);
 	q.exec(CREATE_STAFF_TABLE);
-	
-	DBINFO("creating super user...", "");
-	q.prepare(INSERTINTO_STAFF_SUPER);
-	q.bindValue(":id", SUPERUSERID);
-	q.bindValue(":password", "111");
-	q.bindValue(":name", "科思美管理员");
-	q.bindValue(":jobId", 0);
-	q.bindValue(":levelId", 4);
-	q.bindValue(":sex", 0);
-	q.bindValue(":status", '1');
-	q.bindValue(":cell", "88888888");
-	q.bindValue(":phone", "66666666");
-	q.bindValue(":address", "中华人民共和国");
-	q.bindValue(":descrption", "我是科思美系统超级管理员");
-	q.bindValue(":image", "");
-	q.exec();
-	DBINFO("create super user complete!", "");
-
 	q.exec(CREATE_JOB_TABLE);
 	q.exec(CREATE_LEVET_TABLE);
 	q.exec(CREATE_ORDERS_TABLE);
@@ -170,7 +159,6 @@ bool ThreadDatabase::initDb()
 	q.exec(CREATE_STATUS_TABLE);
 	q.exec(CREATE_TASKS_TABLE);
 	q.exec(CREATE_GOOSTYPE_TABLE);
-	
 	db.close();
 	DBINFO("databese initialized.", "");
 	return true;
@@ -277,4 +265,31 @@ bool ThreadDatabase::addStaff(Staff* staff)
 	db.close();
 	DBINFO("add satff complete", "");
 	return r;
+}
+
+bool ThreadDatabase::addSupperStaff(Staff* staff)
+{
+	db.setDatabaseName(DBNAME);
+	if(!db.open()) {
+		return false;
+	}
+	QSqlQuery q = QSqlQuery(db);
+	
+	DBINFO("creating super user...", "");
+	q.prepare(INSERTINTO_STAFF_SUPER);
+	q.bindValue(":id", SUPERUSERID);
+	q.bindValue(":password", staff->Password().c_str());
+	q.bindValue(":name", "科思美管理员");
+	q.bindValue(":jobId", 0);
+	q.bindValue(":levelId", 4);
+	q.bindValue(":sex", 0);
+	q.bindValue(":status", 1);
+	q.bindValue(":cell", "88888888");
+	q.bindValue(":phone", "66666666");
+	q.bindValue(":address", "中华人民共和国");
+	q.bindValue(":descrption", "我是科思美系统超级管理员");
+	q.bindValue(":image", "");
+	q.exec();
+	DBINFO("create super user complete!", "");
+	return true;
 }

@@ -27,6 +27,7 @@ Worker::~Worker(){
 }
 
 void Worker::StartAction(Message& Action) {
+	DBINFO("Catch one message:", Action.type());
 	switch(Action.type()) {
 		case ACTION_STAFFMGNT:
 		{
