@@ -246,7 +246,7 @@ void StaffManagementUI::getAllStaff()
 void StaffManagementUI::addStaff(Staff* staff)
 {
 	if(staff->Name().empty()) {
-		QToolTip::showText(QPoint(staffGroupBox->geometry().width(), 100), QString("TTTTTTTTTTTTT"), this);
+		QToolTip::showText(QPoint(staffGroupBox->geometry().width(), 100), QString("员工姓名不能留空"), this);
 		return;
 	}
 	Message* action = new Message();

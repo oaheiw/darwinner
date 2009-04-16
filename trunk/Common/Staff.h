@@ -38,6 +38,10 @@ public:
 	void SetPhone(string phone);
 	void SetSex(byte sex);
 	void SetType(uint32 type);
+	void SetStatus(byte status);
+	byte status();
+	void SetBaseSalary(uint32 salary);
+	uint32 baseSalary();
 	void clear();
 
 private:
@@ -52,6 +56,7 @@ private:
 	byte m_sex;
 	uint32 m_type;
 	byte m_status;
+	uint32 m_baseSalary;
 };
 
 
