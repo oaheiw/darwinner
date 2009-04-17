@@ -56,6 +56,7 @@ void SSLoginWindow::Login()
 	action->setType(ACTION_LOGIN);
 	m_uiHandler->StartAction(*action);
 	delete action;
+	pwLineEdit->clear();
 }
 
 void SSLoginWindow::setupUi()
