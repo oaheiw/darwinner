@@ -31,7 +31,10 @@ public:
 	void setLength(uint32 length);
 	void setType(uint32 type);
 	uint32 type();
-
+	uint32 group();
+	uint32 subgroup();
+	bool isAction();
+	bool isEvent();
 private:
 	void* m_data;
 	uint32 m_length;

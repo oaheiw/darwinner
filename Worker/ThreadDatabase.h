@@ -9,6 +9,8 @@
 #include <QSqlDatabase>
 class Message;
 class Staff;
+class Job;
+class Level;
 #include <list>
 using namespace std;
 
@@ -37,6 +39,8 @@ protected:
 	bool addStaff(Staff* staff);
 	bool checkDd();
 	bool addSupperStaff(Staff* staff);
+	bool addJobType(Job* job);
+	bool addLevelType(Level* level);
 };
 
 #endif

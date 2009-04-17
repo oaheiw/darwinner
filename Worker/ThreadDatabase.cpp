@@ -10,6 +10,8 @@
 #include "dbquery.h"
 #include <fstream>
 #include <QSqlRecord>
+#include "Job.h"
+#include "Level.h"
 
 ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
@@ -25,6 +27,7 @@ ThreadDatabase::~ThreadDatabase()
 }
 
 void ThreadDatabase::run() {
+	DBINFO("database thread start @", this);
 	for(;;) {
 		mutex.lock();
 		if(m_listActionBuffer.empty())
@@ -117,6 +120,28 @@ void ThreadDatabase::run() {
 				delete staff;
 				break;
 			}
+			case ACTION_SETJOBTYPE:
+			{
+				list<Job>* jobList = static_cast<list<Job>*>(Action.data());
+				list<Job>::iterator it = jobList->begin();
+				while(jobList->end() != it) {
+					addJobType(&(*it));
+					it++;
+				}
+				delete jobList;
+				break;
+			}
+			case ACTION_SETLEVELTYPE:
+			{
+				list<Level>* levelList = static_cast<list<Level>*>(Action.data());
+				list<Level>::iterator it = levelList->begin();
+				while(levelList->end() != it) {
+					addLevelType(&(*it));
+					it++;
+				}
+				delete levelList;
+				break;
+			}
 			default:
 				break;	
 		}
@@ -187,6 +212,7 @@ bool ThreadDatabase::checkDd()
 	}
 	  
 	if(!exist | 0 == length | 0 != isSQLite) {//first time running
+		DBINFO("database file not exist or corrupt, creat new one.", "")
 		remove(DBFILE);
 		m_tempMsg = new Message(EVENT_INIT);
 		QEvent* ev1 = new TEvent((QEvent::Type)EventDb, m_tempMsg);
@@ -217,7 +243,7 @@ Staff* ThreadDatabase::getStaff(uint32 id)
 	db.setDatabaseName(DBNAME);
 	db.open();
 	QSqlQuery q = QSqlQuery(db);
-	QString query = QString("SELECT * FROM staff WHERE id = %1").arg(id);
+	QString query = QString(SELECT_STAFF_BYID_NOIMAGE).arg(id);
 	q.exec(query);
 	Staff* temp = new Staff();
 	if(q.next()) {
@@ -226,12 +252,13 @@ Staff* ThreadDatabase::getStaff(uint32 id)
 		temp->SetName(q.value(2).toByteArray().data());
 		temp->SetType(q.value(3).toUInt());
 		temp->SetLevel(q.value(4).toUInt());
-		temp->SetSex((byte)(q.value(5).toUInt()));
-		//	temp->SetStatus((byte)(q.value(5).toUInt());
-		temp->SetCell(q.value(7).toByteArray().data());
-		temp->SetPhone(q.value(8).toByteArray().data());
-		temp->SetAddress(q.value(9).toByteArray().data());
-		temp->SetDescrp(q.value(10).toByteArray().data());
+		temp->SetSex(q.value(5).toUInt());
+		temp->SetBaseSalary(q.value(6).toUInt());
+		temp->SetStatus(q.value(7).toUInt());
+		temp->SetCell(q.value(8).toByteArray().data());
+		temp->SetPhone(q.value(9).toByteArray().data());
+		temp->SetAddress(q.value(10).toByteArray().data());
+		temp->SetDescrp(q.value(11).toByteArray().data());
 	}
 	db.close();
 	DBINFO("get one staff completed:", temp->Name())
@@ -292,4 +319,66 @@ bool ThreadDatabase::addSupperStaff(Staff* staff)
 	q.exec();
 	DBINFO("create super user complete!", "");
 	return true;
+}
+
+bool ThreadDatabase::addJobType(Job* job)
+{
+	bool r = false;
+	db.setDatabaseName(DBNAME);
+	if(!db.open()) {
+		return false;
+	}
+	QSqlQuery q = QSqlQuery(db);
+	QString qstring = QString(SELECT_JOB_BYID).arg(job->id());
+	q.exec(qstring);
+	if (q.next()) 
+	{
+		q.prepare(UPDATA_JOB);
+		q.bindValue(":id", job->id());
+		q.bindValue(":name", job->name().c_str());
+		q.bindValue(":profit", job->profit());
+		q.bindValue(":descrption", job->description().c_str());
+		r = q.exec();
+	}
+	else
+	{
+		q.prepare(INSERTINTO_JOB_TABLE);
+		q.bindValue(":name", job->name().c_str());
+		q.bindValue(":profit", job->profit());
+		q.bindValue(":descrption", job->description().c_str());
+		r = q.exec();
+	}
+	db.close();
+	return r;
+}
+
+bool ThreadDatabase::addLevelType(Level* level)
+{
+	bool r = false;
+	db.setDatabaseName(DBNAME);
+	if(!db.open()) {
+		return false;
+	}
+	QSqlQuery q = QSqlQuery(db);
+	QString qstring = QString(SELECT_LEVEL_BYID).arg(level->id());
+	q.exec(qstring);
+	if (q.next()) 
+	{
+		q.prepare(UPDATA_JOB);
+		q.bindValue(":id", level->id());
+		q.bindValue(":name", level->name().c_str());
+		q.bindValue(":profit", level->profit());
+		q.bindValue(":descrption", level->description().c_str());
+		r = q.exec();
+	}
+	else
+	{
+		q.prepare(INSERTINTO_LEVEL_TABLE);
+		q.bindValue(":name", level->name().c_str());
+		q.bindValue(":profit", level->profit());
+		q.bindValue(":descrption", level->description().c_str());
+		r = q.exec();
+	}
+	db.close();
+	return r;
 }

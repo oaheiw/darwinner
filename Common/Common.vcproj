@@ -286,6 +286,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Job.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Level.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Message.cpp"
 				>
 			</File>
@@ -321,6 +329,14 @@
 			</File>
 			<File
 				RelativePath=".\IEventObserver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Job.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Level.h"
 				>
 			</File>
 			<File

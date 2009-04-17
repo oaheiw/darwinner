@@ -18,7 +18,7 @@ StaffManagementUI::StaffManagementUI()
 	SettingFont(font);
 
 	m_stuffDataModel = new QStandardItemModel(0, 6, this);
-	m_stuffDataModel->setHeaderData(0, Qt::Horizontal, QString::fromLocal8Bit("员工编号"));
+	m_stuffDataModel->setHeaderData(0, Qt::Horizontal, QString::fromLocal8Bit("工号"));
 	m_stuffDataModel->setHeaderData(1, Qt::Horizontal, QString::fromLocal8Bit("姓名"));
 	m_stuffDataModel->setHeaderData(2, Qt::Horizontal, QString::fromLocal8Bit("性别"));
 	m_stuffDataModel->setHeaderData(3, Qt::Horizontal, QString::fromLocal8Bit("职务"));

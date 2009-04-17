@@ -44,7 +44,7 @@ template<class T>  T* Singleton<T>::instance(){
 	if (NULL == m_instance) {
 		m_instance = new T();
 	}
-	DBINFO("create a singleton instance @", (int*)m_instance);
+	DBINFO("create one singleton instance @", m_instance);
 	return m_instance;
 }
 

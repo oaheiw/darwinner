@@ -16,7 +16,7 @@
 #include <iomanip>
 #define DBINFO(info, para)\
 					{\
-					std::cout<<__FILE__<<"@"<<std::dec<<__LINE__<<"@"<<__TIME__<<": "<<info<<" "<<std::hex<<para<<std::endl;\
+					std::cout<<__FILE__<<"@ Line: "<<std::dec<<__LINE__<<": "<<info<<" "<<std::hex<<para<<std::endl;\
 					}
 #else
 #define DBINFO(info, para) {}
@@ -39,15 +39,18 @@ typedef unsigned char byte;
 #define PW_MAX_LEN (16)
 #define STUFFNAME_MAX_LEN (32)
 #define DESCRP_MAX_LEN (2048-128)
-#define MESSAGE_FLAG (0x80)
+#define ACTION_FLAG (0x80)
+#define EVENT_FLAG (0x00)
+
 
 //GROUP should be less than 127
 enum GROUP {
-	GROUP_COMMON = MESSAGE_FLAG,
-	GROUP_STAFFMGNT = MESSAGE_FLAG | 1,
-	GROUP_GOODSMGNT = MESSAGE_FLAG | 2,
-	GROUP_SHOPMGNT = MESSAGE_FLAG | 3,
-	GROUP_CLIENTMGNT = MESSAGE_FLAG | 4
+	GROUP_COMMON = 0,
+	GROUP_STAFFMGNT = 1,
+	GROUP_GOODSMGNT = 2,
+	GROUP_SHOPMGNT = 3,
+	GROUP_CLIENTMGNT = 4,
+	GROUP_END
 };
 
 //SUBGROUP should be less than 255
@@ -55,13 +58,16 @@ enum SUBGROUP_SF {
 	SUBGROUP_SF_STAFFBROWSE = 1,
 	SUBGROUP_SF_INFOMGNT, // 2
 	SUBGROUP_SF_SALARYMGNT, // 3
-	SUBGROUP_SF_PASSWORDMGNT // 4
+	SUBGROUP_SF_PASSWORDMGNT, // 4
+	SUBGROUP_SF_ADVANCEDMGNT, // 5
+	SUBGROUP_SF_END
 };
 
 enum SINFO {
 	SINFO_BROWSE = 0,
 	SINFO_MODIFY,
-	SINFO_NEW
+	SINFO_NEW,
+	SINFO_END
 };
 
 #endif
