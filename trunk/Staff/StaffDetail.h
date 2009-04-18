@@ -2,6 +2,11 @@
 #define STAFFDETAIL_H
 class Staff;
 #include <QtGui>
+#include <list>
+class Job;
+class Level;
+class Status;
+using namespace std;
 
 class StaffDetail : public QWidget
 {
@@ -14,6 +19,9 @@ public:
 	void browseStaff(Staff* staff);
 	void modifyStaff(Staff* staff);
 	void changeMode(int mode);
+	void setJob(list<Job>* jobList);
+	void setLevel(list<Level>* levelList);
+	void setStatus(list<Status>* levelList);
 
 private:
 	int m_mode;

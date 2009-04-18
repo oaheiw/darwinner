@@ -2,11 +2,16 @@
 #define STAFFMANAGEMENT_H
 
 #include "DUIObserver.h"
-#include "Staff.h"
+class Staff;
 #include <QtGui>
-#include <QEvent>
+class QEvent;
 #include <QFont>
 #include <list>
+#include <map>
+#include <string>
+class Job;
+class Level;
+class Status;
 class StaffDetail;
 class QModelIndex;
 using namespace std;
@@ -20,17 +25,20 @@ public:
 	void OnEvent(Message& Msg);
 	void SettingFont(QFont& font);
 	bool event(QEvent * ev);
-	void getAllStaff();
 
 protected:
 	void setupUi();
 	virtual bool eventFilter ( QObject * obj, QEvent * ev );
 	void staffDetail(uint32 id);
+	void getAllStaff();
+	void getJobType();
+	void getLevelType();
+	void getStatusType();
 
 private:
 	void addStaff(std::list<Staff> *staffList);
 
-//ui items
+	//ui items
 	QAction *actionExport;
 	QAction *actionMenu;
 	QAction *actionLogOff;
@@ -58,15 +66,18 @@ private:
 	QGroupBox *infoGroupBox;
 	QWidget *customCentralWidget;
 	StaffDetail* staffDetailWidget;
-
 	QPushButton *deletePushButton;
-    QPushButton *addPushButton;
-    QCheckBox *seletCheckBox;
-//data items;
+	QPushButton *addPushButton;
+	QCheckBox *seletCheckBox;
+	
+	//data items;
 	bool started;
 	QFont font;
 	QAbstractItemModel* m_stuffDataModel;
 	QSortFilterProxyModel* m_sortProxyModel;
+	map<uint32, string> m_staffLevel;
+	map<uint32, string> m_staffType;
+	map<uint32, string> m_staffState;
 
 private slots:
 	void Exit();

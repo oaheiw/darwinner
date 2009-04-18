@@ -5,9 +5,13 @@
 #include <QFont>
 #include <QPoint>
 #include "StaffDetail.h"
+#include "Job.h"
+#include "Level.h"
+#include "Status.h"
+#include "Staff.h"
 
-const char* StaffType[] = {"超级用户",  "老板", "店长", "收银员", "美发师", "洗发师", "美容师", "按摩师"};
-const char* StaffLevel[] = {"新手","熟练工","经验工","高级工","大师"};
+//const char* StaffType[] = {"超级用户",  "老板", "店长", "收银员", "美发师", "洗发师", "美容师", "按摩师"};
+//const char* StaffLevel[] = {"新手","熟练工","经验工","高级工","大师"};
 const char* StaffSex[] = {"未知","男","女"};
 
 StaffManagementUI::StaffManagementUI()
@@ -17,13 +21,14 @@ StaffManagementUI::StaffManagementUI()
 	font = QFont("SimSun", 9);
 	SettingFont(font);
 
-	m_stuffDataModel = new QStandardItemModel(0, 6, this);
+	m_stuffDataModel = new QStandardItemModel(0, 7, this);
 	m_stuffDataModel->setHeaderData(0, Qt::Horizontal, QString::fromLocal8Bit("工号"));
 	m_stuffDataModel->setHeaderData(1, Qt::Horizontal, QString::fromLocal8Bit("姓名"));
 	m_stuffDataModel->setHeaderData(2, Qt::Horizontal, QString::fromLocal8Bit("性别"));
 	m_stuffDataModel->setHeaderData(3, Qt::Horizontal, QString::fromLocal8Bit("职务"));
 	m_stuffDataModel->setHeaderData(4, Qt::Horizontal, QString::fromLocal8Bit("级别"));
-	m_stuffDataModel->setHeaderData(5, Qt::Horizontal, QString::fromLocal8Bit("描述"));
+	m_stuffDataModel->setHeaderData(5, Qt::Horizontal, QString::fromLocal8Bit("状态"));
+	m_stuffDataModel->setHeaderData(6, Qt::Horizontal, QString::fromLocal8Bit("手机"));
 
 	m_sortProxyModel = new QSortFilterProxyModel;
 	m_sortProxyModel->setSourceModel(m_stuffDataModel);
@@ -87,16 +92,63 @@ void StaffManagementUI::OnEvent(Message & Msg){
 		}
 		case EVENT_STAFFADDED:
 		{
-			staffDetailWidget->changeMode(SINFO_BROWSE);
-			getAllStaff();
-		}
-		case EVENT_STAFF:
-		{
-			Staff* sta = static_cast<Staff*>(Msg.data());
-			staffDetailWidget->browseStaff(sta);
-			delete sta;
+			if(NULL != Msg.data()) {
+				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
+				getAllStaff();
+			} else {
+			}
 			break;
 		}
+		case EVENT_STAFFMODIFIED:
+		{
+			if(NULL != Msg.data()) {
+				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
+				getAllStaff();
+			} else {
+			}
+			break;
+		}
+
+		case EVENT_STAFF:
+		{
+			if(NULL != Msg.data()) {
+				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
+			} else {
+			}
+			break;
+
+		}
+		case EVENT_JOBTYPE:
+		{	
+			m_staffType.clear();
+			list<Job>* jobs = static_cast<list<Job>*>(Msg.data());
+			staffDetailWidget->setJob(jobs);
+			for(list<Job>::iterator it = jobs->begin() ; it != jobs->end() ; it++) {
+				m_staffType[it->id()] = it->name();
+			}
+			break;
+		}
+		case EVENT_LEVELTYPE: 
+		{
+			m_staffLevel.clear();
+			list<Level>* levels = static_cast<list<Level>*>(Msg.data());
+			staffDetailWidget->setLevel(levels);
+			for(list<Level>::iterator it = levels->begin() ; it != levels->end() ; it++) {
+				m_staffLevel[it->id()] = it->name();
+			}
+			break;
+		}
+		case EVENT_STATUSTYPE: 
+		{
+			m_staffState.clear();
+			list<Status>* status = static_cast<list<Status>*>(Msg.data());
+			staffDetailWidget->setStatus(status);
+			for(list<Status>::iterator it = status->begin() ; it != status->end() ; it++) {
+				m_staffState[it->id()] = it->name();
+			}
+			break;
+		}
+
 		default:
 			break;
 	}
@@ -154,6 +206,9 @@ bool StaffManagementUI::event(QEvent * ev)
 		{
 			if(!started) {
 				started = true;
+				getJobType();
+				getLevelType();
+				getStatusType();
 				getAllStaff();
 			}
 			break;
@@ -181,9 +236,10 @@ void StaffManagementUI::addStaff(list<Staff>* staff)
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 0), it->ID());
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 1), QString::fromLocal8Bit(it->Name().c_str()));
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 2), QString::fromLocal8Bit(StaffSex[it->Sex()]));
-		m_stuffDataModel->setData(m_stuffDataModel->index(0, 3), QString::fromLocal8Bit(StaffType[it->Type()]));
-		m_stuffDataModel->setData(m_stuffDataModel->index(0, 4), QString::fromLocal8Bit(StaffLevel[it->Level()]));
-		m_stuffDataModel->setData(m_stuffDataModel->index(0, 5), QString::fromLocal8Bit(it->Descrp().c_str()));
+		m_stuffDataModel->setData(m_stuffDataModel->index(0, 3), QString::fromLocal8Bit(m_staffType[it->Type()].c_str()));
+		m_stuffDataModel->setData(m_stuffDataModel->index(0, 4), QString::fromLocal8Bit(m_staffLevel[it->Level()].c_str()));
+		m_stuffDataModel->setData(m_stuffDataModel->index(0, 5), QString::fromLocal8Bit(m_staffState[it->status()].c_str()));
+		m_stuffDataModel->setData(m_stuffDataModel->index(0, 6), QString::fromLocal8Bit(it->cell().c_str()));
 		it++;
 	}
 }
@@ -223,7 +279,25 @@ void StaffManagementUI::staffDetail(uint32 id) {
 	m_uiHandler->StartAction(*action);
 	delete action;
 }
+void StaffManagementUI::getJobType() {
+	Message* action = new Message();
+	action->setType(ACTION_GETJOBTYPE);
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
+void StaffManagementUI::getLevelType() {
+	Message* action = new Message();
+	action->setType(ACTION_GETLEVELTYPE);
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
 
+void StaffManagementUI::getStatusType() {
+	Message* action = new Message();
+	action->setType(ACTION_GETSTATUSTYPE);
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
 
 void StaffManagementUI::removeStaff()	
 {
@@ -257,6 +331,15 @@ void StaffManagementUI::addStaff(Staff* staff)
 }
 void StaffManagementUI::modifyStaff(Staff* staff)
 {
+	if(staff->Name().empty()) {
+		QToolTip::showText(QPoint(staffGroupBox->geometry().width(), 100), QString("员工姓名不能留空"), this);
+		return;
+	}
+	Message* action = new Message();
+	action->setType(ACTION_MODIFYSTAFF);
+	action->setData(staff);
+	m_uiHandler->StartAction(*action);
+	delete action;
 
 }
  void StaffManagementUI::SettingFont(QFont& font)

@@ -11,6 +11,7 @@ class Message;
 class Staff;
 class Job;
 class Level;
+class Status;
 #include <list>
 using namespace std;
 
@@ -37,10 +38,16 @@ protected:
 	bool initDb();
 	Staff* getStaff(uint32 id);
 	bool addStaff(Staff* staff);
+	bool modifyStaff(Staff* staff);
 	bool checkDd();
 	bool addSupperStaff(Staff* staff);
 	bool addJobType(Job* job);
 	bool addLevelType(Level* level);
+	bool addStatusType(Status* status);
+	list<Staff>* getAllStaffs();
+	list<Job>* getJobs();
+	list<Level>* getLevels();
+	list<Status>* getStatus();
 };
 
 #endif

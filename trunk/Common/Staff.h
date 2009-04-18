@@ -26,7 +26,7 @@ public:
 	string Name();
 	string Password();
 	string phone();
-	byte Sex();
+	uint32 Sex();
 	uint32 Type();
 	void SetAddress(string descrp);
 	void SetCell(string cell);
@@ -39,10 +39,36 @@ public:
 	void SetSex(byte sex);
 	void SetType(uint32 type);
 	void SetStatus(byte status);
-	byte status();
+	uint32 status();
 	void SetBaseSalary(uint32 salary);
 	uint32 baseSalary();
 	void clear();
+
+	friend bool operator==(const Staff &x, const Staff &y) {
+		return (	y.m_descrp == x.m_descrp &&
+					y.m_id == x.m_id &&
+					y.m_level == x.m_level &&
+					y.m_name == x.m_name &&
+					y.m_password ==x.m_password &&
+					y.m_type == x.m_type &&
+					y.m_sex == x.m_sex &&
+					y.m_address == x.m_address &&
+					y.m_cell == x.m_cell &&
+					y.m_phone == x.m_phone &&
+					y.m_status == x.m_status &&
+					y.m_baseSalary == x.m_baseSalary);
+	}
+
+	class idMatcher {
+	public:
+		idMatcher(uint32 id) { m_val = id; }
+		bool operator()(Staff& x) 
+		{
+			return 0 == x.ID() || x.ID() == m_val;
+		}
+	private:
+		uint32 m_val;
+	};
 
 private:
 	string m_address;
@@ -53,9 +79,9 @@ private:
 	string m_name;
 	string m_password;
 	string m_phone;
-	byte m_sex;
+	uint32 m_sex;
 	uint32 m_type;
-	byte m_status;
+	uint32 m_status;
 	uint32 m_baseSalary;
 };
 
