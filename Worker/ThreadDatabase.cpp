@@ -12,6 +12,8 @@
 #include <QSqlRecord>
 #include "Job.h"
 #include "Level.h"
+#include "Status.h"
+
 
 ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
@@ -67,29 +69,7 @@ void ThreadDatabase::run() {
 			}
 			case ACTION_GEALLSTAFF:
 			{
-				db.setDatabaseName(DBNAME);
-				bool re =db.open();
-				QSqlQuery q = QSqlQuery(db);
-				q.exec(SELECT_STAFF_NOIMAGE);
-				Staff temp;
-				list<Staff>* r = new list<Staff>;
-				while (q.next()) {
-					temp.SetID(q.value(0).toUInt());
-					temp.SetPassword(q.value(1).toByteArray().data());
-					temp.SetName(q.value(2).toByteArray().data());
-					temp.SetType(q.value(3).toUInt());
-					temp.SetLevel(q.value(4).toUInt());
-					temp.SetSex((byte)(q.value(5).toUInt()));
-					//temp.SetStatus(q.value(6).toChar().toAscii());
-					temp.SetCell(q.value(7).toByteArray().data());
-					temp.SetPhone(q.value(8).toByteArray().data());
-					temp.SetAddress(q.value(9).toByteArray().data());
-					temp.SetDescrp(q.value(10).toByteArray().data());
-					r->push_back(temp);
-				}
-				db.close();
-				DBINFO("get all staffs. amount: ", r->size())
-				m_tempMsg = new Message(EVENT_ALLSTAFF, (void*)(r));
+				m_tempMsg = new Message(EVENT_ALLSTAFF, getAllStaffs());
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
@@ -106,9 +86,12 @@ void ThreadDatabase::run() {
 			case ACTION_ADDSTAFF:
 			{
 				Staff* staff = static_cast<Staff*>(Action.data());
-				addStaff(staff);
+				Staff* addedStaff = NULL;
+				if(addStaff(staff)) {
+					addedStaff = getStaff(staff->ID());
+				}
 				delete staff;
-				m_tempMsg = new Message(EVENT_STAFFADDED);
+				m_tempMsg = new Message(EVENT_STAFFADDED, addedStaff);
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
@@ -142,6 +125,41 @@ void ThreadDatabase::run() {
 				delete levelList;
 				break;
 			}
+			case ACTION_GETJOBTYPE:
+			{
+				m_tempMsg = new Message(EVENT_JOBTYPE, getJobs());
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				break;
+			}
+			case ACTION_GETLEVELTYPE:
+			{
+				m_tempMsg = new Message(EVENT_LEVELTYPE, getLevels());
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				break;
+			}
+			case ACTION_GETSTATUSTYPE:
+			{
+				m_tempMsg = new Message(EVENT_STATUSTYPE, getStatus());
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				break;
+			}
+			case ACTION_MODIFYSTAFF:
+			{
+				Staff* staff = static_cast<Staff*>(Action.data());
+				Staff* modifieddStaff = NULL;
+				if(modifyStaff(staff)) {
+					modifieddStaff = getStaff(staff->ID());
+				}
+				delete staff;
+				m_tempMsg = new Message(EVENT_STAFFMODIFIED, modifieddStaff);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				break;
+			}
+
 			default:
 				break;	
 		}
@@ -184,6 +202,38 @@ bool ThreadDatabase::initDb()
 	q.exec(CREATE_STATUS_TABLE);
 	q.exec(CREATE_TASKS_TABLE);
 	q.exec(CREATE_GOOSTYPE_TABLE);
+
+	q.prepare(INSERTINTO_SEX_TABLE);
+	q.bindValue(":id", 0);
+	q.bindValue(":name", "未设定");
+	q.exec();
+	q.bindValue(":id", 1);
+	q.bindValue(":name", "男");
+	q.exec();
+	q.bindValue(":id", 2);
+	q.bindValue(":name", "女");
+	q.exec();
+
+	q.prepare("INSERT INTO job (id, name, profit, descrption) " "VALUES (:id, :name, :profit, :descrption)");
+	q.bindValue(":id", 1);
+	q.bindValue(":name", ("未设定"));
+	q.bindValue(":profit", 0);
+	q.bindValue(":descrption", ("系统默认空职务"));
+	q.exec();
+
+	q.prepare("INSERT INTO level (id, name, profit, descrption) " "VALUES (:id, :name, :profit, :descrption)");
+	q.bindValue(":id", 1);
+	q.bindValue(":name", ("未设定"));
+	q.bindValue(":profit", 0);
+	q.bindValue(":descrption", ("系统默认空级别"));
+	q.exec();
+
+	q.prepare("INSERT INTO status (id, name, descrption) " "VALUES (:id, :name, :descrption)");
+	q.bindValue(":id", 1);
+	q.bindValue(":name", ("未设定"));
+	q.bindValue(":descrption", ("系统默认空状态"));
+	q.exec();
+
 	db.close();
 	DBINFO("databese initialized.", "");
 	return true;
@@ -282,15 +332,53 @@ bool ThreadDatabase::addStaff(Staff* staff)
 	q.bindValue(":jobId", staff->Type());
 	q.bindValue(":levelId", staff->Level());
 	q.bindValue(":sex", staff->Sex());
-	q.bindValue(":status", 1);
+	q.bindValue(":baseSalary", staff->baseSalary());
+	q.bindValue(":status", staff->status());
 	q.bindValue(":cell", staff->cell().c_str());
 	q.bindValue(":phone", staff->phone().c_str());
 	q.bindValue(":address", staff->address().c_str());
 	q.bindValue(":descrption", staff->Descrp().c_str());
-	q.bindValue(":image", "");
 	r = q.exec();
+	if(r) {
+		q.exec("SELECT MAX(id) FROM staff");
+		if(q.next()) staff->SetID(q.value(0).toUInt());
+		QString setpw = QString("UPDATE staff SET password=%1 WHERE id = %2").arg(staff->ID()).arg(staff->ID());
+		r = q.exec(setpw);
+	}
 	db.close();
-	DBINFO("add satff complete", "");
+	DBINFO("add satff complete", r);
+	return r;
+}
+
+bool ThreadDatabase::modifyStaff(Staff* staff)
+{
+	bool r =false;
+	db.setDatabaseName(DBNAME);
+	r = db.open();
+	if(!r) {
+		return r;
+	}
+	DBINFO("modifying satff...", "");
+	QSqlQuery q = QSqlQuery(db);
+
+	QString modifstr = QString(UPDATA_STAFF_BASIC).arg(staff->Name().c_str()).arg(staff->Type()).arg(staff->Level()).arg(staff->Sex()).arg(staff->baseSalary()).arg(staff->status()).arg(staff->cell().c_str()).arg(staff->phone().c_str()).arg(staff->address().c_str()).arg(staff->Descrp().c_str()).arg(staff->ID());
+/*
+	q.prepare(modifstr);
+
+	q.bindValue(":name", staff->Name().c_str());
+	q.bindValue(":jobId", staff->Type());
+	q.bindValue(":levelId", staff->Level());
+	q.bindValue(":sex", staff->Sex());
+	q.bindValue(":baseSalary", staff->baseSalary());
+	q.bindValue(":status", staff->status());
+	q.bindValue(":cell", staff->cell().c_str());
+	q.bindValue(":phone", staff->phone().c_str());
+	q.bindValue(":address", staff->address().c_str());
+	q.bindValue(":descrption", staff->Descrp().c_str());
+	*/
+	r = q.exec(modifstr);
+	db.close();
+	DBINFO("modify satff complete", r);
 	return r;
 }
 
@@ -307,9 +395,9 @@ bool ThreadDatabase::addSupperStaff(Staff* staff)
 	q.bindValue(":id", SUPERUSERID);
 	q.bindValue(":password", staff->Password().c_str());
 	q.bindValue(":name", "科思美管理员");
-	q.bindValue(":jobId", 0);
-	q.bindValue(":levelId", 4);
-	q.bindValue(":sex", 0);
+	q.bindValue(":jobId", 1);
+	q.bindValue(":levelId", 1);
+	q.bindValue(":sex", 1);
 	q.bindValue(":status", 1);
 	q.bindValue(":cell", "88888888");
 	q.bindValue(":phone", "66666666");
@@ -382,3 +470,125 @@ bool ThreadDatabase::addLevelType(Level* level)
 	db.close();
 	return r;
 }
+
+bool ThreadDatabase::addStatusType(Status* status)
+{
+	bool r = false;
+	db.setDatabaseName(DBNAME);
+	if(!db.open()) {
+		return false;
+	}
+	QSqlQuery q = QSqlQuery(db);
+	QString qstring = QString(SELECT_STATUS_BYID).arg(status->id());
+	q.exec(qstring);
+	if (q.next()) 
+	{
+		q.prepare(UPDATA_STATUS);
+		q.bindValue(":id", status->id());
+		q.bindValue(":name", status->name().c_str());
+		q.bindValue(":descrption", status->description().c_str());
+		r = q.exec();
+	}
+	else
+	{
+		q.prepare(INSERTINTO_STATUS_TABLE);
+		q.bindValue(":name", status->name().c_str());
+		q.bindValue(":descrption", status->description().c_str());
+		r = q.exec();
+	}
+	db.close();
+	return r;
+}
+
+
+list<Staff>* ThreadDatabase::getAllStaffs()
+{
+	db.setDatabaseName(DBNAME);
+	db.open();
+	QSqlQuery q = QSqlQuery(db);
+	q.exec(SELECT_STAFF_NOIMAGE);
+	Staff temp;
+	list<Staff>* r = new list<Staff>;
+	r->clear();
+	while (q.next()) {
+		temp.SetID(q.value(0).toUInt());
+		temp.SetPassword(q.value(1).toByteArray().data());
+		temp.SetName(q.value(2).toByteArray().data());
+		temp.SetType(q.value(3).toUInt());
+		temp.SetLevel(q.value(4).toUInt());
+		temp.SetSex((byte)(q.value(5).toUInt()));
+		temp.SetBaseSalary(q.value(6).toInt());
+		temp.SetStatus(q.value(7).toUInt());
+		temp.SetCell(q.value(8).toByteArray().data());
+		temp.SetPhone(q.value(9).toByteArray().data());
+		temp.SetAddress(q.value(10).toByteArray().data());
+		temp.SetDescrp(q.value(11).toByteArray().data());
+		r->push_back(temp);
+	}
+	db.close();
+	DBINFO("get all staffs. amount: ", r->size());
+	return r;
+}
+
+list<Job>* ThreadDatabase::getJobs()
+{
+	db.setDatabaseName(DBNAME);
+	db.open();
+	QSqlQuery q = QSqlQuery(db);
+	q.exec(SELECT_JOB_ALL);
+	Job temp;
+	list<Job>* r = new list<Job>;
+	r->clear();
+	while (q.next()) {
+		temp.setId(q.value(0).toUInt());
+		temp.setName(q.value(1).toByteArray().data());
+		temp.setProfit(q.value(2).toUInt());
+		temp.setDescription(q.value(3).toByteArray().data());
+		r->push_back(temp);
+	}
+	db.close();
+	DBINFO("get all jobs. amount: ", r->size());
+	return r;
+}
+
+list<Level>* ThreadDatabase::getLevels()
+{
+	db.setDatabaseName(DBNAME);
+	db.open();
+	QSqlQuery q = QSqlQuery(db);
+	q.exec(SELECT_LEVEL_ALL);
+	Level temp;
+	list<Level>* r = new list<Level>;
+	r->clear();
+	while (q.next()) {
+		temp.setId(q.value(0).toUInt());
+		temp.setName(q.value(1).toByteArray().data());
+		temp.setProfit(q.value(2).toUInt());
+		temp.setDescription(q.value(3).toByteArray().data());
+		r->push_back(temp);
+	}
+	db.close();
+	DBINFO("get all levels. amount: ", r->size());
+	return r;
+}
+
+list<Status>* ThreadDatabase::getStatus()
+{
+	db.setDatabaseName(DBNAME);
+	db.open();
+	QSqlQuery q = QSqlQuery(db);
+	q.exec(SELECT_STATUS_ALL);
+	Status temp;
+	list<Status>* r = new list<Status>;
+	r->clear();
+	while (q.next()) {
+		temp.setId(q.value(0).toUInt());
+		temp.setName(q.value(1).toByteArray().data());
+		temp.setDescription(q.value(2).toByteArray().data());
+		r->push_back(temp);
+	}
+	db.close();
+	DBINFO("get all status. amount: ", r->size());
+	return r;
+}
+

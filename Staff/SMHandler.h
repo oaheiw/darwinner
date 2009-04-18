@@ -14,6 +14,9 @@
 #include <list>
 #include <map>
 #include <string>
+class Job;
+class Level;
+class Status;
 using namespace std;
 
 class SMHandler : public DUIHandler, public IEventObserver
@@ -29,9 +32,9 @@ public:
 
 private:
 	list<Staff> m_staffCache;
-	map<uint32, string> m_staffLevel;
-	map<uint32, string> m_staffType;
-	map<uint32, string> m_taskState;
+	list<Level> m_staffLevel;
+	list<Job> m_staffType;
+	list<Status> m_staffState;
 	map<uint32, string> m_taskType;
 	DUIObserver* m_mainWindow;
 };

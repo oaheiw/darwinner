@@ -5,6 +5,9 @@
 #include "Message.h"
 #include "messagedef.h"
 #include "DUIHandler.h"
+#include "Job.h"
+#include "Level.h"
+#include "Status.h"
 #include "Staff.h"
 
 StaffDetail::StaffDetail(QWidget *parent, int mode)
@@ -70,6 +73,15 @@ StaffDetail::~StaffDetail()
 	pushButtonPix->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	pushButtonModify->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	pushButtonSubmmit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+//	comboBoxJob->addItem(QString::fromLocal8Bit("未设置"), 0);
+//	comboBoxJob->setCurrentIndex(1);
+//	comboBoxLevel->addItem(QString::fromLocal8Bit("未设置"), 0);
+//	comboBoxLevel->setCurrentIndex(1);
+//	comboBoxStatus->setCurrentIndex(1);
+	comboBoxSex->addItem(QString::fromLocal8Bit("未设定"), 0);
+	comboBoxSex->addItem(QString::fromLocal8Bit("男"), 1);
+	comboBoxSex->addItem(QString::fromLocal8Bit("女"), 2);
+//	comboBoxSex->setCurrentIndex(0);
 
 
 	labelId->setBuddy(lineEditId);
@@ -108,7 +120,7 @@ StaffDetail::~StaffDetail()
 	layout->addWidget(labelDescrption, 9, 0, 1, 1);
 	layout->addWidget(plainTextEditDescrption, 9, 1, 1, 7);
 
-	QHBoxLayout* horizontalLayout = new QHBoxLayout(this);
+	QHBoxLayout* horizontalLayout = new QHBoxLayout();
 	horizontalLayout->addWidget(pushButtonModify);
 	horizontalLayout->addWidget(pushButtonPix);
 	horizontalLayout->addWidget(pushButtonSubmmit);
@@ -118,7 +130,7 @@ StaffDetail::~StaffDetail()
 	layout->setRowStretch(9, 1);
 	layout->setRowStretch(8, 1);
 	layout->setMargin(0);
-//	setLayout(layout);
+	setLayout(layout);
   }
 
   void StaffDetail::SettingFont(QFont& font)
@@ -151,36 +163,50 @@ StaffDetail::~StaffDetail()
 	pushButtonSubmmit->setFont(font);
 	QToolTip::setFont(font);
  }
-/*
-void StaffDetail::OnEvent(Message & Msg){
-	switch(Msg.type()) {
-		case EVENT_STAFF:
-		{
-			Staff* sta = static_cast<Staff*>(Msg.data());
-			browseStaff(sta);
-			delete sta;
-			break;
-		}
-		case EVENT_STAFFADDED:
-		{
-			changeMode(SINFO_BROWSE);
-			break;
-		}
-		default:
-			break;
+  
+void StaffDetail::setJob(list<Job>* jobList)
+{
+	list<Job>::iterator it = jobList->begin();
+	while(jobList->end() != it)
+	{
+		comboBoxJob->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant::fromValue(it->id()));
+		it++;
 	}
 }
-*/
+
+void StaffDetail::setLevel(list<Level>* levelList)
+{
+	
+	list<Level>::iterator it = levelList->begin();
+	while(levelList->end() != it)
+	{
+		comboBoxLevel->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant::fromValue(it->id()));
+		it++;
+	}
+}
+
+  void StaffDetail::setStatus(list<Status>* statusList)
+  {
+	  
+	  list<Status>::iterator it = statusList->begin();
+	  while(statusList->end() != it)
+	  {
+		  comboBoxStatus->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant::fromValue(it->id()));
+		  it++;
+	  }
+  }
+
+
   void StaffDetail::browseStaff(Staff* staff)
   {
 	if(NULL != staff) {
 		changeMode(SINFO_BROWSE);
 		lineEditId->setText(QString::number(staff->ID()));
 		lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
-		comboBoxSex->setCurrentIndex(staff->Sex());
-		comboBoxStatus->setCurrentIndex(0);
-		comboBoxJob->setCurrentIndex(staff->Type());
-		comboBoxLevel->setCurrentIndex(staff->Level());
+		comboBoxSex->setCurrentIndex(comboBoxSex->findData(staff->Sex()));
+		comboBoxStatus->setCurrentIndex(comboBoxStatus->findData(QVariant::fromValue(staff->status())));
+		comboBoxJob->setCurrentIndex(comboBoxJob->findData(QVariant::fromValue(staff->Type())));
+		comboBoxLevel->setCurrentIndex(comboBoxLevel->findData(QVariant::fromValue(staff->Level())));
 		lineEditPhone->setText(QString::fromLocal8Bit(staff->phone().c_str()));
 		lineEditCell->setText(QString::fromLocal8Bit(staff->cell().c_str()));
 		plainTextEditAddress->setPlainText(QString::fromLocal8Bit(staff->address().c_str()));
@@ -196,10 +222,10 @@ void StaffDetail::OnEvent(Message & Msg){
 		{		 
 			lineEditId->setReadOnly(true);
 			lineEditName->setReadOnly(true);
-			comboBoxJob->setEditable(false);
-			comboBoxLevel->setEditable(false);
-			comboBoxSex->setEditable(false);
-			comboBoxStatus->setEditable(false);
+			comboBoxJob->setEnabled(false);
+			comboBoxLevel->setEnabled(false);
+			comboBoxSex->setEnabled(false);
+			comboBoxStatus->setEnabled(false);
 			lineEditCell->setReadOnly(true);
 			lineEditPhone->setReadOnly(true);
 			plainTextEditAddress->setReadOnly(true);
@@ -214,10 +240,10 @@ void StaffDetail::OnEvent(Message & Msg){
 		{
 			lineEditId->setReadOnly(true);
 			lineEditName->setReadOnly(false);
-			comboBoxJob->setEditable(true);
-			comboBoxLevel->setEditable(true);
-			comboBoxSex->setEditable(true);
-			comboBoxStatus->setEditable(true);
+			comboBoxJob->setEnabled(true);
+			comboBoxLevel->setEnabled(true);
+			comboBoxSex->setEnabled(true);
+			comboBoxStatus->setEnabled(true);
 			lineEditCell->setReadOnly(false);
 			lineEditPhone->setReadOnly(false);
 			plainTextEditAddress->setReadOnly(false);
@@ -237,7 +263,7 @@ void StaffDetail::OnEvent(Message & Msg){
 		lineEditId->setText(QString::number(staff->ID()));
 		lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
 		comboBoxSex->setCurrentIndex(staff->Sex());
-		comboBoxStatus->setCurrentIndex(0);
+		comboBoxStatus->setCurrentIndex(staff->status());
 		comboBoxJob->setCurrentIndex(staff->Type());
 		comboBoxLevel->setCurrentIndex(staff->Level());
 		lineEditPhone->setText(QString::fromLocal8Bit(staff->phone().c_str()));
@@ -254,7 +280,7 @@ void StaffDetail::OnEvent(Message & Msg){
 	lineEditId->setText(QString::number(staff->ID()));
 	lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
 	comboBoxSex->setCurrentIndex(staff->Sex());
-	comboBoxStatus->setCurrentIndex(0);
+	comboBoxStatus->setCurrentIndex(staff->status());
 	comboBoxJob->setCurrentIndex(staff->Type());
 	comboBoxLevel->setCurrentIndex(staff->Level());
 	lineEditPhone->setText(QString::fromLocal8Bit(staff->phone().c_str()));
@@ -287,12 +313,13 @@ void StaffDetail::submit()
 	staff->SetCell(lineEditCell->text().toLocal8Bit().data());
 	staff->SetDescrp(plainTextEditDescrption->toPlainText().toLocal8Bit().data());
 	staff->SetID(lineEditId->text().toUInt());
-	staff->SetLevel(comboBoxLevel->currentIndex());
+	staff->SetLevel(comboBoxLevel->itemData(comboBoxLevel->currentIndex()).toUInt());
 	staff->SetName(lineEditName->text().toLocal8Bit().data());
 	staff->SetPassword("");
 	staff->SetPhone(lineEditPhone->text().toLocal8Bit().data());
-	staff->SetSex(comboBoxSex->currentIndex());
-	staff->SetType(comboBoxJob->currentIndex());
+	staff->SetSex(comboBoxSex->itemData(comboBoxSex->currentIndex()).toUInt());
+	staff->SetType(comboBoxJob->itemData(comboBoxJob->currentIndex()).toUInt());
+	staff->SetStatus(comboBoxStatus->itemData(comboBoxStatus->currentIndex()).toUInt());
 
 	if(SINFO_NEW == m_mode) {
 		emit addedStaff(staff);

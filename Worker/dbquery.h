@@ -8,12 +8,13 @@
 #define SUPERUSERID 10000
 
 #define CREATE_STAFF_TABLE "CREATE TABLE staff (id INTEGER PRIMARY KEY, password TEXT, name TEXT, jobId INTEGER REFERENCES job(id), levelId INTEGER REFERENCES level(id), sex SMALLINT DEFAULT 0, baseSalary INTEGER DEFAULT 0, status SMALLINT DEFAULT 0, cell TEXT, phone TEXT, address TEXT, descrption TEXT, image BLOB)"
-#define INSERTINTO_STAFF "INSERT INTO staff (password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption) " "VALUES (:password, :name, :jobId, :levelId, :sex, :baseSalary, :status,  :cell, :phone, :address, :descrption)"
-#define INSERT_STAFF_IMAGE
+#define INSERTINTO_STAFF "INSERT INTO staff (password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption) " "VALUES (:password, :name, :jobId, :levelId, :sex, :baseSalary, :status, :cell, :phone, :address, :descrption)"
+#define INSERT_STAFF_IMAGE "UPDATE staff SET (image) WHERE (id)" "VALUES (:image, :id)"
 #define SELECT_STAFF_ALL "SELECT * FROM staff"
 #define SELECT_STAFF_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption FROM staff"
 #define SELECT_STAFF_BYID_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption FROM staff WHERE id = %1"
 #define INSERTINTO_STAFF_SUPER "INSERT INTO staff (id, password, name, jobId, levelId, sex, status, cell, phone, address, descrption, image) " "VALUES (:id, :password, :name, :jobId, :levelId, :sex, :status, :cell, :phone, :address, :descrption, :image)"
+#define UPDATA_STAFF_BASIC "UPDATE staff SET name = '%1', jobId = %2, levelId = %3, sex = %4, baseSalary = %5, status = %6, cell = '%7', phone = '%8', address = '%9', descrption = '%10' WHERE id = %11"
 
 #define CREATE_JOB_TABLE "CREATE TABLE job (id INTEGER PRIMARY KEY, name TEXT NOT NULL, profit SMALLINT DEFAULT 0, descrption TEXT)"
 #define INSERTINTO_JOB_TABLE "INSERT INTO job (name, profit, descrption) " "VALUES (:name, :profit, :descrption)"
@@ -27,18 +28,20 @@
 #define SELECT_LEVEL_BYID "SELECT * FROM level WHERE id = %1)"
 #define UPDATA_LEVEL "UPDATE level SET (name, profit, descrption) WHERE (id)" "VALUES (:name, :profit, :descrption, :id)"
 
-#define CREATE_STATUS_TABLE "CREATE TABLE status (id INTEGER PRIMARY KEY, name TEXT NOT NULL)"
-#define INSERTINTO_STATUS_TABLE "INSERT INTO status (name) " "VALUES (:name)"
+#define CREATE_STATUS_TABLE "CREATE TABLE status (id INTEGER PRIMARY KEY, name TEXT NOT NULL, descrption TEXT)"
+#define INSERTINTO_STATUS_TABLE "INSERT INTO status (name, descrption) " "VALUES (:name, :descrption)"
 #define SELECT_STATUS_ALL "SELECT * FROM status"
+#define SELECT_STATUS_BYID "SELECT * FROM status WHERE id = %1)"
+#define UPDATA_STATUS "UPDATE status SET (name, descrption) WHERE (id)" "VALUES (:name, :descrption, :id)"
 
 #define CREATE_SEX_TABLE "CREATE TABLE sex (id INTEGER PRIMARY KEY, name TEXT NOT NULL)"
-#define INSERTINTO_SEX_TABLE "INSERT INTO sex (name) " "VALUES (:name)"
+#define INSERTINTO_SEX_TABLE "INSERT INTO sex (id, name) " "VALUES (:id, :name)"
 #define SELECT_SEX_ALL "SELECT * FROM sex"
-
+/*
 #define CREATE_STATUS_TABLE "CREATE TABLE status (id INTEGER PRIMARY KEY, name TEXT NOT NULL)"
 #define INSERTINTO_STATUS_TABLE "INSERT INTO status (name) " "VALUES (:name)"
 #define SELECT_STATUS_ALL "SELECT * FROM status"
-
+*/
 #define CREATE_ORDERS_TABLE "CREATE TABLE orders (id INTEGER PRIMARY KEY, casherId INTEGER REFERENCES staff(id), discount SMALLINT DEFAULT 100, status SMALLINT DEFAULT 0, dealdate DATETIME)"
 #define INSERTINTO_ORDERS_TABLE "INSERT INTO orders (casherId, discount, status, dealdate) " "VALUES (:casherId, :discount, :status, :dealdate)"
 #define SELECT_ORDERS_ALL "SELECT * FROM orders"

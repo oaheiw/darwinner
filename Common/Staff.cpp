@@ -15,11 +15,12 @@ Staff::Staff(){
 	m_name.clear();
 	m_password.clear();
 	m_type = 0;
-	m_sex = '0';
+	m_sex = 0;
 	m_address.clear();
 	m_cell.clear();
 	m_phone.clear();
-	m_status = '0';
+	m_status = 0;
+	m_baseSalary = 0;
 }
 
 Staff::~Staff(){
@@ -34,11 +35,11 @@ void Staff::clear(){
 	m_name.clear();
 	m_password.clear();
 	m_type = 0;
-	m_sex = '0';
+	m_sex = 0;
 	m_address.clear();
 	m_cell.clear();
 	m_phone.clear();
-	m_status = '0';
+	m_status = 0;
 }
 
 string Staff::Descrp(){
@@ -107,7 +108,7 @@ void Staff::SetSex(byte sex){
 }
 
 
-byte Staff::Sex(){
+uint32 Staff::Sex(){
 
 	return  m_sex;
 }
@@ -146,7 +147,7 @@ void Staff::SetPhone(string phone){
 void Staff::SetStatus(byte status){
 		m_status = status;
 }
-byte Staff::status(){
+uint32 Staff::status(){
 
 	return  m_status;
 }

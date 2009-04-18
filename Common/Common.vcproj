@@ -164,7 +164,6 @@
 				Optimization="4"
 				EnableIntrinsicFunctions="false"
 				WholeProgramOptimization="false"
-				PreprocessorDefinitions="_CONSOLE_DEBUG"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="false"
 				WarningLevel="3"
@@ -305,6 +304,10 @@
 				RelativePath=".\Staff.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Status.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -349,6 +352,10 @@
 			</File>
 			<File
 				RelativePath=".\Staff.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Status.h"
 				>
 			</File>
 		</Filter>

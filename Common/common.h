@@ -12,11 +12,10 @@
 
 #ifdef _CONSOLE_DEBUG
 #include <iostream>
-#include <time.h>
 #include <iomanip>
 #define DBINFO(info, para)\
 					{\
-					std::cout<<__FILE__<<"@ Line: "<<std::dec<<__LINE__<<": "<<info<<" "<<std::hex<<para<<std::endl;\
+					std::cout<<__FILE__<<" Line:"<<std::dec<<__LINE__<<" "<<info<<" "<<std::hex<<para<<std::endl;\
 					}
 #else
 #define DBINFO(info, para) {}
