@@ -105,11 +105,13 @@ using namespace std;
 	passwordLineEdit = new QLineEdit;
 	passwordLineEdit->setEchoMode(QLineEdit::Password);
 	passwordLineEdit->setMaximumWidth(200);
+	passwordLineEdit->setMaxLength(PW_MAX_LEN);
 	passwordLabel->setBuddy(passwordLineEdit);
 
 	confirmLabel = new QLabel(QString::fromLocal8Bit("È·ÈÏÃÜÂë"));
 	confirmLineEdit = new QLineEdit;
 	confirmLineEdit->setEchoMode(QLineEdit::Password);
+	confirmLineEdit->setMaxLength(PW_MAX_LEN);
 	confirmLineEdit->setMaximumWidth(200);
 	confirmLabel->setBuddy(confirmLineEdit);
 

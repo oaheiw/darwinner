@@ -13,6 +13,7 @@ class Job;
 class Level;
 class Status;
 #include <list>
+#include <string>
 using namespace std;
 
 class ThreadDatabase : public QThread
@@ -35,6 +36,7 @@ protected:
 
  private:
 	QSqlDatabase db;
+	Staff* m_loggedstaff;
 	bool initDb();
 	Staff* getStaff(uint32 id);
 	uint32* removeStaff(uint32 id);
@@ -45,6 +47,7 @@ protected:
 	bool addJobType(Job* job);
 	bool addLevelType(Level* level);
 	bool addStatusType(Status* status);
+	bool changePassword(string oldpw, string newpw);
 	list<Staff>* getAllStaffs();
 	list<Job>* getJobs();
 	list<Level>* getLevels();

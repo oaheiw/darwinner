@@ -14,6 +14,7 @@
 #include <QObject>
 #include "ThreadDatabase.h"
 class QEvent;
+class Staff;
 
 class Worker : public QObject, public IActionHandler
 {
@@ -27,6 +28,7 @@ public:
  private:
 	IEventObserver *m_IEventObserver;
 	ThreadDatabase* m_databaseThread;
+	Staff* loggedStaff;
 
 private slots:
 	void IncomingEvent(Message& ev);

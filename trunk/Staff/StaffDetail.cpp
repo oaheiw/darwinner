@@ -14,10 +14,11 @@ StaffDetail::StaffDetail(QWidget *parent, int mode)
 	: QWidget(parent)
 {
 	m_mode = mode;
+	myinfo = false;
 	setupUi();
 	font = QFont("SimSun", 9);
 	SettingFont(font);
-	changeMode(mode);
+	changeMode(m_mode);
 	connect(pushButtonModify, SIGNAL(clicked()), this, SLOT(modify()));
 	connect(pushButtonPix, SIGNAL(clicked()), this, SLOT(selectPic()));
 	connect(pushButtonSubmmit, SIGNAL(clicked()), this, SLOT(submit()));
@@ -161,7 +162,6 @@ StaffDetail::~StaffDetail()
 	pushButtonPix->setFont(font);
 	pushButtonModify->setFont(font);
 	pushButtonSubmmit->setFont(font);
-	QToolTip::setFont(font);
  }
   
 void StaffDetail::setJob(list<Job>* jobList)
@@ -185,20 +185,20 @@ void StaffDetail::setLevel(list<Level>* levelList)
 	}
 }
 
-  void StaffDetail::setStatus(list<Status>* statusList)
-  {
-	  
-	  list<Status>::iterator it = statusList->begin();
-	  while(statusList->end() != it)
-	  {
-		  comboBoxStatus->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant::fromValue(it->id()));
-		  it++;
-	  }
-  }
+void StaffDetail::setStatus(list<Status>* statusList)
+{
+	list<Status>::iterator it = statusList->begin();
+	while(statusList->end() != it)
+	{
+	  comboBoxStatus->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant::fromValue(it->id()));
+	  it++;
+	}
+}
 
 
-  void StaffDetail::browseStaff(Staff* staff)
+  void StaffDetail::browseStaff(Staff* staff, bool flag)
   {
+  	myinfo = flag;
 	if(NULL != staff) {
 		changeMode(SINFO_BROWSE);
 		lineEditId->setText(QString::number(staff->ID()));
@@ -240,10 +240,12 @@ void StaffDetail::setLevel(list<Level>* levelList)
 		{
 			lineEditId->setReadOnly(true);
 			lineEditName->setReadOnly(false);
-			comboBoxJob->setEnabled(true);
-			comboBoxLevel->setEnabled(true);
-			comboBoxSex->setEnabled(true);
-			comboBoxStatus->setEnabled(true);
+			if(!myinfo) {
+				comboBoxJob->setEnabled(true);
+				comboBoxLevel->setEnabled(true);
+				comboBoxSex->setEnabled(true);
+				comboBoxStatus->setEnabled(true);
+			}			
 			lineEditCell->setReadOnly(false);
 			lineEditPhone->setReadOnly(false);
 			plainTextEditAddress->setReadOnly(false);
@@ -275,6 +277,7 @@ void StaffDetail::setLevel(list<Level>* levelList)
 
  void StaffDetail::newStaff()
 {
+	myinfo = false;
 	Staff* staff = new Staff();
 	staff->clear();
 	lineEditId->setText(QString::number(staff->ID()));

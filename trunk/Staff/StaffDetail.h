@@ -16,7 +16,7 @@ public:
 	StaffDetail(QWidget *parent, int mode = 0);
 	~StaffDetail();
 	void SettingFont(QFont& font);
-	void browseStaff(Staff* staff);
+	void browseStaff(Staff* staff, bool myinfo = false);
 	void modifyStaff(Staff* staff);
 	void changeMode(int mode);
 	void setJob(list<Job>* jobList);
@@ -25,6 +25,7 @@ public:
 
 private:
 	int m_mode;
+	bool myinfo;
 	void setupUi();
 	QLabel *labelPortrait;
 	QLineEdit *lineEditId;

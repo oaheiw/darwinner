@@ -18,6 +18,7 @@ Worker::Worker(QObject *parent )
 :QObject(parent)
 {
 	m_databaseThread = new ThreadDatabase(this);
+	loggedStaff = NULL;
 }
 
 
@@ -36,13 +37,13 @@ void Worker::StartAction(Message& Action) {
 			delete ev;
 			break;
 		}
-		case ACTION_LOGOFF:
+	/*	case ACTION_LOGOFF:
 		{
 			Message* ev = new Message(EVENT_LOGGEDOFF);
 			BroadcastEvent(*ev);
 			delete ev;
 			break;
-		}
+		}*/
 		case ACTION_EXIT:
 		{
 			m_databaseThread->quit();
@@ -59,6 +60,14 @@ void Worker::StartAction(Message& Action) {
 			delete ev;
 			break;
 		}
+		case ACTION_GETLOGGEDSTAFF:
+		{
+			Message* ev = new Message(EVENT_LOGGEDSTAFF, loggedStaff);
+			BroadcastEvent(*ev);
+			delete ev;
+			break;
+		}
+
 		default:
 		{
 			m_databaseThread->QueueAction(Action);
@@ -76,6 +85,18 @@ bool Worker::event ( QEvent * e ) {
 		case EventDb:
 			{
 				Message* ev = dynamic_cast<TEvent*>(e)->data();
+				if(!ev->isEvent()) return true;
+				switch(ev->type()) {
+					case EVENT_LOGGEDIN: {
+						loggedStaff = new Staff(*static_cast<Staff*>(ev->data()));
+						break;
+					}
+					case EVENT_LOGGEDOFF: {
+						delete loggedStaff;
+						loggedStaff = NULL;
+						break;
+					}
+				}
 				BroadcastEvent(*ev);
 			}
 	}
