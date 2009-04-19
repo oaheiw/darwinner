@@ -56,6 +56,7 @@ StaffManagementUI::StaffManagementUI()
 	connect(treeViewStaff, SIGNAL(activated(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
 	connect(treeViewStaff, SIGNAL(clicked(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
 	connect(addPushButton, SIGNAL(clicked()), staffDetailWidget, SLOT(newStaff()));
+	connect(deletePushButton, SIGNAL(clicked()), staffDetailWidget, SLOT(removeStaff()));
 	connect(staffDetailWidget, SIGNAL(addedStaff(Staff*)), this, SLOT(addStaff(Staff*)));
 	connect(staffDetailWidget, SIGNAL(modifiedStaff(Staff*)), this, SLOT(modifyStaff(Staff*)));
 }
@@ -99,12 +100,21 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			}
 			break;
 		}
+		case EVENT_STAFFREMOVED:
+		{
+			if(NULL != Msg.data()) {
+				getAllStaff();
+			} else {
+			}
+			break;
+		}
 		case EVENT_STAFFMODIFIED:
 		{
 			if(NULL != Msg.data()) {
 				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
 				getAllStaff();
 			} else {
+				showMessageBox(QMessageBox::Critical, removeStaffError);
 			}
 			break;
 		}
@@ -114,6 +124,7 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			if(NULL != Msg.data()) {
 				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
 			} else {
+
 			}
 			break;
 
@@ -301,8 +312,20 @@ void StaffManagementUI::getStatusType() {
 
 void StaffManagementUI::removeStaff()	
 {
-	
+	QModelIndex currentIndex = treeViewStaff->currentIndex().sibling(treeViewStaff->currentIndex().row(), 0);
+	removeStaff(currentIndex.data().toUInt());
 }
+
+void StaffManagementUI::removeStaff(uint32 id)	
+{
+	uint32* staffid = new uint32(id);
+	Message* action = new Message();
+	action->setType(ACTION_REMOVESTAFF);
+	action->setData(staffid);
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
+
 
 void StaffManagementUI::cash4Client()
 {
@@ -320,7 +343,7 @@ void StaffManagementUI::getAllStaff()
 void StaffManagementUI::addStaff(Staff* staff)
 {
 	if(staff->Name().empty()) {
-		QToolTip::showText(QPoint(staffGroupBox->geometry().width(), 100), QString("员工姓名不能留空"), this);
+		showMessageBox(QMessageBox::Warning, emptyNameWarnning);
 		return;
 	}
 	Message* action = new Message();
@@ -332,7 +355,7 @@ void StaffManagementUI::addStaff(Staff* staff)
 void StaffManagementUI::modifyStaff(Staff* staff)
 {
 	if(staff->Name().empty()) {
-		QToolTip::showText(QPoint(staffGroupBox->geometry().width(), 100), QString("员工姓名不能留空"), this);
+		showMessageBox(QMessageBox::Warning, emptyNameWarnning);
 		return;
 	}
 	Message* action = new Message();
@@ -368,11 +391,16 @@ void StaffManagementUI::modifyStaff(Staff* staff)
 	deletePushButton->setFont(font);
 	addPushButton->setFont(font);
 	seletCheckBox->setFont(font);
-
+	messageBox->setFont(font);
  }
 
- void StaffManagementUI::setupUi() {
+void StaffManagementUI::setupUi() {
 	setMouseTracking(true);
+
+	messageBox = new QMessageBox(this);
+	messageBox->setWindowTitle(QString::fromLocal8Bit("员工管理"));
+	messageBox->setMinimumWidth(300);
+	messageBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 	customCentralWidget = new QWidget(this);
 	customCentralWidget->setMouseTracking(true);
@@ -434,7 +462,7 @@ void StaffManagementUI::modifyStaff(Staff* staff)
 	addPushButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
 
-	actionExport = new QAction(this);
+//	actionExport = new QAction(this);
 	actionMenu = new QAction(this);
 	actionLogOff = new QAction(this);
 	actionExit = new QAction(this);
@@ -444,20 +472,20 @@ void StaffManagementUI::modifyStaff(Staff* staff)
 
 	menubar = new QMenuBar(this);
 	menu_File = new QMenu(QString::fromLocal8Bit("文件(&F)"), menubar);
-	menu_Display = new QMenu(QString::fromLocal8Bit("设置(&S)"), menubar);
-	menu_Setting = new QMenu(QString::fromLocal8Bit("显示(&D)"), menubar);
+	menu_Display = new QMenu(QString::fromLocal8Bit("员工属性(&P)"), menubar);
+	menu_Setting = new QMenu(QString::fromLocal8Bit("个人设置(&D)"), menubar);
 	menu_About = new QMenu(QString::fromLocal8Bit("关于(&A)"), menubar);
 	setMenuBar(menubar);
 
 
 	menubar->addAction(menu_File->menuAction());
-	menu_File->addSeparator();
-	menu_File->addAction(actionExport);
-	menu_File->addSeparator();
+//	menu_File->addSeparator();
+//	menu_File->addAction(actionExport);
+//	menu_File->addSeparator();
 	menu_File->addAction(actionMenu);
 	menu_File->addAction(actionLogOff);
 	menu_File->addAction(actionExit);
-	actionExport->setText(QString::fromLocal8Bit("导出(&E)"));
+//	actionExport->setText(QString::fromLocal8Bit("导出(&E)"));
 	actionMenu->setText(QString::fromLocal8Bit("主菜单(&M)"));
 	actionLogOff->setText(QString::fromLocal8Bit("注销(&L)"));
 	actionExit->setText(QString::fromLocal8Bit("退出(&X)"));
@@ -508,4 +536,15 @@ void StaffManagementUI::modifyStaff(Staff* staff)
 	setWindowTitle(QString::fromLocal8Bit("员工管理"));
 
 	resize(800, 600);
+ }
+
+  QMessageBox::StandardButton StaffManagementUI::showMessageBox(QMessageBox::Icon icon, string title, string info) {
+	messageBox->setIcon(icon);
+	messageBox->setText(QString::fromLocal8Bit(title.c_str()));
+	messageBox->setInformativeText(QString::fromLocal8Bit(info.c_str()));
+	if(QMessageBox::Information == icon) {
+		messageBox->setStandardButtons(QMessageBox::Ok);
+		 messageBox->setDefaultButton(QMessageBox::Ok);
+	}
+	return (QMessageBox::StandardButton)messageBox->exec();
  }

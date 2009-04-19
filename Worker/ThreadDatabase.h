@@ -37,6 +37,7 @@ protected:
 	QSqlDatabase db;
 	bool initDb();
 	Staff* getStaff(uint32 id);
+	uint32* removeStaff(uint32 id);
 	bool addStaff(Staff* staff);
 	bool modifyStaff(Staff* staff);
 	bool checkDd();

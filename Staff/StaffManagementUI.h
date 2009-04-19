@@ -1,6 +1,10 @@
 #ifndef STAFFMANAGEMENT_H
 #define STAFFMANAGEMENT_H
 
+#define emptyNameWarnning "员工姓名不能留空， 请返回并填写员工姓名。"
+#define removeStaffError "未能成功删除选定员工，请重试。"
+
+
 #include "DUIObserver.h"
 class Staff;
 #include <QtGui>
@@ -34,9 +38,11 @@ protected:
 	void getJobType();
 	void getLevelType();
 	void getStatusType();
+	void removeStaff(uint32 id);
 
 private:
 	void addStaff(std::list<Staff> *staffList);
+	QMessageBox::StandardButton showMessageBox(QMessageBox::Icon icon, string title, string info = "");
 
 	//ui items
 	QAction *actionExport;
@@ -69,6 +75,7 @@ private:
 	QPushButton *deletePushButton;
 	QPushButton *addPushButton;
 	QCheckBox *seletCheckBox;
+	QMessageBox * messageBox;
 	
 	//data items;
 	bool started;

@@ -159,6 +159,15 @@ void ThreadDatabase::run() {
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
+			case ACTION_REMOVESTAFF:
+			{
+				uint32* id = static_cast<uint32*>(Action.data());
+				m_tempMsg = new Message(EVENT_STAFFREMOVED, removeStaff(*id));
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				delete id;
+				break;
+			}
 
 			default:
 				break;	
@@ -349,6 +358,27 @@ bool ThreadDatabase::addStaff(Staff* staff)
 	DBINFO("add satff complete", r);
 	return r;
 }
+
+uint32* ThreadDatabase::removeStaff(uint32 id)
+{
+	uint32* r = new uint32(id);
+	db.setDatabaseName(DBNAME);
+	if(!db.open()) {
+		*r = 0;
+		return r;
+	}
+	DBINFO("removing satff...", "");
+	QSqlQuery q = QSqlQuery(db);
+	QString remove = QString(DELETE_STAFF_BYID).arg(id);
+	if(!q.exec(remove)) 
+	{
+		*r = 0;
+	}
+	db.close();
+	DBINFO("remove satff complete", *r);
+	return r;
+}
+
 
 bool ThreadDatabase::modifyStaff(Staff* staff)
 {
