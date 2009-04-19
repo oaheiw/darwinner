@@ -145,7 +145,6 @@ void SMHandler::OnEvent(Message &ev)
 				}
 				break;
 			}
-
 			case EVENT_STAFF:
 			{
 				Staff* staff = static_cast<Staff*>(ev.data());
@@ -159,6 +158,19 @@ void SMHandler::OnEvent(Message &ev)
 				delete staff;
 				break;
 			}
+			case EVENT_STAFFREMOVED:
+			{
+				uint32* id = static_cast<uint32*>(ev.data());
+				list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(*id));
+				if(m_staffCache.end() != it) { 
+					m_staffCache.remove(*it);
+				} else {
+					ev.setData(NULL);
+				}
+				delete id;
+				break;
+			}
+
 		}
 		BroadcastEvent(ev);
 	}

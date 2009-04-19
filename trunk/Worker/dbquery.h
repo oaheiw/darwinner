@@ -15,6 +15,7 @@
 #define SELECT_STAFF_BYID_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption FROM staff WHERE id = %1"
 #define INSERTINTO_STAFF_SUPER "INSERT INTO staff (id, password, name, jobId, levelId, sex, status, cell, phone, address, descrption, image) " "VALUES (:id, :password, :name, :jobId, :levelId, :sex, :status, :cell, :phone, :address, :descrption, :image)"
 #define UPDATA_STAFF_BASIC "UPDATE staff SET name = '%1', jobId = %2, levelId = %3, sex = %4, baseSalary = %5, status = %6, cell = '%7', phone = '%8', address = '%9', descrption = '%10' WHERE id = %11"
+#define DELETE_STAFF_BYID "DELETE FROM staff WHERE id = %1"
 
 #define CREATE_JOB_TABLE "CREATE TABLE job (id INTEGER PRIMARY KEY, name TEXT NOT NULL, profit SMALLINT DEFAULT 0, descrption TEXT)"
 #define INSERTINTO_JOB_TABLE "INSERT INTO job (name, profit, descrption) " "VALUES (:name, :profit, :descrption)"
