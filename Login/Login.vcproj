@@ -59,7 +59,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/NODEFAULTLIB:msvcrt.lib /NODEFAULTLIB:msvcprt.lib"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib Common.lib Worker.lib Staff.lib Imm32.lib Winmm.lib ws2_32.lib"
+				AdditionalDependencies="qtmain.lib QtCore.lib QtGui.lib Common.lib Worker.lib Staff.lib Imm32.lib Winmm.lib ws2_32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).exe"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 				GenerateDebugInformation="false"
@@ -128,7 +128,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib Commond.lib Workerd.lib Staffd.lib"
+				AdditionalDependencies="qtmaind.lib QtCored.lib QtGuid.lib Commond.lib Workerd.lib Staffd.lib"
 				OutputFile="$(OutDir)\$(SolutionName)d.exe"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 				GenerateDebugInformation="true"
@@ -199,7 +199,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/NODEFAULTLIB:msvcrt.lib /NODEFAULTLIB:msvcprt.lib"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib Common.lib Worker.lib Staff.lib Imm32.lib Winmm.lib ws2_32.lib"
+				AdditionalDependencies="qtmain.lib QtCore.lib QtGui.lib Common.lib Worker.lib Staff.lib Imm32.lib Winmm.lib ws2_32.lib"
 				OutputFile="$(OutDir)\$(SolutionName).exe"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 				GenerateDebugInformation="false"
@@ -268,7 +268,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib Commond.lib Workerd.lib Staffd.lib"
+				AdditionalDependencies="qtmaind.lib QtCored.lib QtGuid.lib Commond.lib Workerd.lib Staffd.lib"
 				OutputFile="$(OutDir)\$(SolutionName)d.exe"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 				GenerateDebugInformation="true"
@@ -596,34 +596,6 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_Guide.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugStatic|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\DebugStatic\moc_Guide.cpp"
 				>
 				<FileConfiguration
@@ -691,7 +663,42 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseStatic|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugStatic|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_Guide.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -776,34 +783,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_SSMainMenu.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseStatic|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugStatic|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_SSMainMenu.cpp"
 				>
 				<FileConfiguration
@@ -844,6 +823,34 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\GeneratedFiles\Release\moc_SSMainMenu.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugStatic|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\GeneratedFiles\qrc_login.cpp"
 				>
 			</File>
@@ -872,11 +879,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="4.4.3"
+			Value="4.5.0"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="4.4.3"
+			Value="4.5.0"
 		/>
 		<Global
 			Name="RccDir"

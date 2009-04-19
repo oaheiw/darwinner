@@ -9,6 +9,7 @@
 #include "Level.h"
 #include "Status.h"
 #include "Staff.h"
+#include "PasswordWidget.h"
 
 //const char* StaffType[] = {"超级用户",  "老板", "店长", "收银员", "美发师", "洗发师", "美容师", "按摩师"};
 //const char* StaffLevel[] = {"新手","熟练工","经验工","高级工","大师"};
@@ -19,6 +20,7 @@ StaffManagementUI::StaffManagementUI()
 	setupUi();
 	started = false;
 	font = QFont("SimSun", 9);
+//	setFont(font);
 	SettingFont(font);
 
 	m_stuffDataModel = new QStandardItemModel(0, 7, this);
@@ -59,6 +61,18 @@ StaffManagementUI::StaffManagementUI()
 	connect(deletePushButton, SIGNAL(clicked()), staffDetailWidget, SLOT(removeStaff()));
 	connect(staffDetailWidget, SIGNAL(addedStaff(Staff*)), this, SLOT(addStaff(Staff*)));
 	connect(staffDetailWidget, SIGNAL(modifiedStaff(Staff*)), this, SLOT(modifyStaff(Staff*)));
+	connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
+	connect(actionAboutQt, SIGNAL(triggered()), QCoreApplication::instance(), SLOT(aboutQt()));
+	connect(actionBrowseMyInfo, SIGNAL(triggered()), this, SLOT(browseMyInfo()));
+	connect(actionChangeMyPassword, SIGNAL(triggered()), this, SLOT(changeMyPassword()));
+
+
+//	actionBrowseMyRecords  = new QAction(this);;
+//	actionBrowseMySalary = new QAction(this);
+//	 = new QAction(this);
+//	actionStaffConfig = new QAction(this);
+//	actionAboutQt = new QAction(this);
+//	actionAboutCosmetic = new QAction(this);
 }
 
 StaffManagementUI::~StaffManagementUI()
@@ -129,6 +143,17 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			break;
 
 		}
+		case EVENT_LOGGEDSTAFF:
+		{
+			if(NULL != Msg.data()) {
+				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()), 1);
+			} else {
+
+			}
+			break;
+
+		}
+
 		case EVENT_JOBTYPE:
 		{	
 			m_staffType.clear();
@@ -313,11 +338,14 @@ void StaffManagementUI::getStatusType() {
 void StaffManagementUI::removeStaff()	
 {
 	QModelIndex currentIndex = treeViewStaff->currentIndex().sibling(treeViewStaff->currentIndex().row(), 0);
-	removeStaff(currentIndex.data().toUInt());
+	QModelIndex nameIndex = treeViewStaff->currentIndex().sibling(treeViewStaff->currentIndex().row(), 1);
+	removeStaff(currentIndex.data().toUInt(), nameIndex.data().toString().toLocal8Bit().data());
 }
 
-void StaffManagementUI::removeStaff(uint32 id)	
+void StaffManagementUI::removeStaff(uint32 id, string name)	
 {
+	QString confirm =QString::fromLocal8Bit(removeStaffConfirm).arg(QString::fromLocal8Bit(name.c_str()));
+	if(QMessageBox::No == showMessageBox(QMessageBox::Question, confirm.toLocal8Bit().data())) return;
 	uint32* staffid = new uint32(id);
 	Message* action = new Message();
 	action->setType(ACTION_REMOVESTAFF);
@@ -365,6 +393,33 @@ void StaffManagementUI::modifyStaff(Staff* staff)
 	delete action;
 
 }
+
+ void StaffManagementUI::browseMyInfo()
+ {
+ 	Message* action = new Message();
+	action->setType(ACTION_GETLOGGEDSTAFF);
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
+ 
+void StaffManagementUI::changeMyPassword()
+{
+	PasswordWidget* passwordWindow = new PasswordWidget(this);
+	connect(passwordWindow, SIGNAL(submitPassword(string, string)), this, SLOT(changePasswrod(string, string)));
+	passwordWindow->show();
+}
+
+void StaffManagementUI::changePasswrod(string oldpw, string newpw)
+{
+	list<string>* pwList = new list<string>;
+	pwList->push_back(oldpw);
+	pwList->push_back(newpw);
+	Message* action = new Message(ACTION_CHANGEPASSWORD, pwList);
+	//action->setType();
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
+
  void StaffManagementUI::SettingFont(QFont& font)
  {
 	font.setBold(true);
@@ -383,6 +438,9 @@ void StaffManagementUI::modifyStaff(Staff* staff)
 	labelKeyword->setFont(font);
 	lineEditKeyword->setFont(font);
 	menu_File->setFont(font);
+	menu_About->setFont(font);
+	menu_Personal->setFont(font);
+	menu_Setting->setFont(font);
 	menubar->setFont(font);
 	statusbar->setFont(font);
 	treeViewStaff->setFont(font);
@@ -392,6 +450,7 @@ void StaffManagementUI::modifyStaff(Staff* staff)
 	addPushButton->setFont(font);
 	seletCheckBox->setFont(font);
 	messageBox->setFont(font);
+
  }
 
 void StaffManagementUI::setupUi() {
@@ -399,8 +458,6 @@ void StaffManagementUI::setupUi() {
 
 	messageBox = new QMessageBox(this);
 	messageBox->setWindowTitle(QString::fromLocal8Bit("员工管理"));
-	messageBox->setMinimumWidth(300);
-	messageBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 	customCentralWidget = new QWidget(this);
 	customCentralWidget->setMouseTracking(true);
@@ -469,11 +526,18 @@ void StaffManagementUI::setupUi() {
 	actionStaffDetail = new QAction(this); 
 	actionDeleteStaff = new QAction(this);
 	actionCasher4Client = new QAction(this);
+	actionBrowseMyInfo = new QAction(this);
+	actionBrowseMyRecords  = new QAction(this);;
+	actionBrowseMySalary = new QAction(this);
+	actionChangeMyPassword = new QAction(this);
+	actionStaffConfig = new QAction(this);
+	actionAboutQt = new QAction(this);
+	actionAboutCosmetic = new QAction(this);
 
 	menubar = new QMenuBar(this);
 	menu_File = new QMenu(QString::fromLocal8Bit("文件(&F)"), menubar);
-	menu_Display = new QMenu(QString::fromLocal8Bit("员工属性(&P)"), menubar);
-	menu_Setting = new QMenu(QString::fromLocal8Bit("个人设置(&D)"), menubar);
+	menu_Personal = new QMenu(QString::fromLocal8Bit("个人信息(&P)"), menubar);
+	menu_Setting = new QMenu(QString::fromLocal8Bit("员工属性(&D)"), menubar);
 	menu_About = new QMenu(QString::fromLocal8Bit("关于(&A)"), menubar);
 	setMenuBar(menubar);
 
@@ -485,6 +549,13 @@ void StaffManagementUI::setupUi() {
 	menu_File->addAction(actionMenu);
 	menu_File->addAction(actionLogOff);
 	menu_File->addAction(actionExit);
+	menu_Personal->addAction(actionBrowseMyInfo);
+	menu_Personal->addAction(actionBrowseMyRecords);
+	menu_Personal->addAction(actionBrowseMySalary);
+	menu_Personal->addAction(actionChangeMyPassword);
+	menu_Setting->addAction(actionStaffConfig);
+	menu_About->addAction(actionAboutCosmetic);
+	menu_About->addAction(actionAboutQt);
 //	actionExport->setText(QString::fromLocal8Bit("导出(&E)"));
 	actionMenu->setText(QString::fromLocal8Bit("主菜单(&M)"));
 	actionLogOff->setText(QString::fromLocal8Bit("注销(&L)"));
@@ -493,8 +564,15 @@ void StaffManagementUI::setupUi() {
 	actionStaffDetail->setText(QString::fromLocal8Bit("详情及业绩(&D)"));
 	actionDeleteStaff->setText(QString::fromLocal8Bit("删除员工(&R)"));
 	actionCasher4Client->setText(QString::fromLocal8Bit("为客户储值(&C)"));
+	actionBrowseMyInfo->setText(QString::fromLocal8Bit("基本信息(&B)"));
+	actionBrowseMyRecords->setText(QString::fromLocal8Bit("业绩(&A)"));
+	actionBrowseMySalary->setText(QString::fromLocal8Bit("工资(&S)"));
+	actionChangeMyPassword->setText(QString::fromLocal8Bit("更改密码(&M)"));
+	actionStaffConfig->setText(QString::fromLocal8Bit("员工属性(&X)"));
+	actionAboutQt->setText(QString::fromLocal8Bit("关于Qt(&C)"));
+	actionAboutCosmetic->setText(QString::fromLocal8Bit("关于科思美(&C)"));
 
-	menubar->addAction(menu_Display->menuAction());
+	menubar->addAction(menu_Personal->menuAction());
 	menubar->addAction(menu_Setting->menuAction());
 	menubar->addAction(menu_About->menuAction());
 
@@ -545,6 +623,10 @@ void StaffManagementUI::setupUi() {
 	if(QMessageBox::Information == icon) {
 		messageBox->setStandardButtons(QMessageBox::Ok);
 		 messageBox->setDefaultButton(QMessageBox::Ok);
+	}
+	if(QMessageBox::Question == icon) {
+		messageBox->setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+		 messageBox->setDefaultButton(QMessageBox::No);
 	}
 	return (QMessageBox::StandardButton)messageBox->exec();
  }

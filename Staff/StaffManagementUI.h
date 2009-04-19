@@ -1,7 +1,8 @@
 #ifndef STAFFMANAGEMENT_H
 #define STAFFMANAGEMENT_H
 
-#define emptyNameWarnning "员工姓名不能留空， 请返回并填写员工姓名。"
+#define emptyNameWarnning "员工姓名不能留空， \n请返回并填写员工姓名。"
+#define removeStaffConfirm "确定删除选定员工“%1”？\n如果员工离职，建议您更改该员工状态，而不是在系统中删除该员工。"
 #define removeStaffError "未能成功删除选定员工，请重试。"
 
 
@@ -38,13 +39,20 @@ protected:
 	void getJobType();
 	void getLevelType();
 	void getStatusType();
-	void removeStaff(uint32 id);
+	void removeStaff(uint32 id, string name);
 
 private:
 	void addStaff(std::list<Staff> *staffList);
 	QMessageBox::StandardButton showMessageBox(QMessageBox::Icon icon, string title, string info = "");
 
 	//ui items
+	QAction *actionBrowseMyRecords;
+	QAction *actionBrowseMyInfo;
+	QAction *actionBrowseMySalary;
+	QAction *actionChangeMyPassword;
+	QAction *actionStaffConfig;
+	QAction *actionAboutQt;
+	QAction *actionAboutCosmetic;
 	QAction *actionExport;
 	QAction *actionMenu;
 	QAction *actionLogOff;
@@ -63,7 +71,7 @@ private:
 	QCheckBox *checkBoxSearch;
 	QMenuBar *menubar;
 	QMenu *menu_File;
-	QMenu *menu_Display;
+	QMenu *menu_Personal;
 	QMenu *menu_Setting;
 	QMenu *menu_About;
 	QStatusBar *statusbar;
@@ -99,6 +107,9 @@ private slots:
 	void staffActivated(const QModelIndex& item);
 	void removeStaff();
 	void cash4Client();
+	void browseMyInfo();
+	void changeMyPassword();
+	void changePasswrod(string oldpw, string newpw);
 };
 
 #endif // STUFFMANAGEMENT_H

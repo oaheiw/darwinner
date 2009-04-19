@@ -19,6 +19,7 @@ ThreadDatabase::ThreadDatabase(QObject *parent)
 :QThread(parent)
 {
 	m_tempMsg = NULL;
+	m_loggedstaff = new Staff();
 	db = QSqlDatabase::addDatabase("QSQLITE");
 }
 
@@ -60,11 +61,20 @@ void ThreadDatabase::run() {
 				if(staffDb->ID() != 0 &&
 					staffIncome->Password() == staffDb->Password() &&
 					staffIncome->ID() == staffDb->ID()) {
+					*m_loggedstaff = *staffDb;
 					m_tempMsg = new Message(EVENT_LOGGEDIN, staffDb);
 					QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 					QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				}
 				delete staffIncome;
+				break;
+			}
+			case ACTION_LOGOFF:
+			{
+				m_loggedstaff->clear();
+				m_tempMsg = new Message(EVENT_LOGGEDOFF);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
 			case ACTION_GEALLSTAFF:
@@ -125,6 +135,16 @@ void ThreadDatabase::run() {
 				delete levelList;
 				break;
 			}
+			case ACTION_CHANGEPASSWORD:
+			{
+				list<string>* pwList = static_cast<list<string>*>(Action.data());
+				string oldpw = pwList->front();
+				string newpw = pwList->back();
+				changePassword(oldpw, newpw);
+				delete pwList;
+				break;
+			}
+
 			case ACTION_GETJOBTYPE:
 			{
 				m_tempMsg = new Message(EVENT_JOBTYPE, getJobs());
@@ -619,6 +639,35 @@ list<Status>* ThreadDatabase::getStatus()
 	}
 	db.close();
 	DBINFO("get all status. amount: ", r->size());
+	return r;
+}
+
+bool ThreadDatabase::changePassword(string oldpw, string newpw)
+{
+	bool r =false;
+	db.setDatabaseName(DBNAME);
+	r = db.open();
+	if(!r) {
+		return r;
+	}
+	DBINFO("changing password...", "");
+	QSqlQuery q = QSqlQuery(db);
+
+	QString getold = QString("SELECT password FROM staff WHERE id = %1").arg(m_loggedstaff->ID());
+	if(r = q.exec(getold)) {
+		if(r = q.next()) {
+			if(oldpw != string(q.value(0).toByteArray().data())) return false;
+		}else{
+			return r;
+		}
+	} else {
+		return r;
+	}
+
+	QString setnew = QString("UPDATE staff SET password = '%1' WHERE id = %2").arg(newpw.c_str()).arg(m_loggedstaff->ID());
+	r = q.exec(setnew);
+	db.close();
+	DBINFO("change password complete", r);
 	return r;
 }
 
