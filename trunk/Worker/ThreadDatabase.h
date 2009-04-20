@@ -40,6 +40,8 @@ protected:
 	bool initDb();
 	Staff* getStaff(uint32 id);
 	uint32* removeStaff(uint32 id);
+	bool removeJob(Job* id);
+	bool removeLevel(Level* id);
 	bool addStaff(Staff* staff);
 	bool modifyStaff(Staff* staff);
 	bool checkDd();
@@ -52,6 +54,8 @@ protected:
 	list<Job>* getJobs();
 	list<Level>* getLevels();
 	list<Status>* getStatus();
+	bool setImage(uint32 id, QByteArray& image);
+	QByteArray* getImage(uint32 id);
 };
 
 #endif

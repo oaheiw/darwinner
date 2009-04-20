@@ -10,6 +10,7 @@
 #include "Status.h"
 #include "Staff.h"
 #include "PasswordWidget.h"
+#include "staffconfiguration.h"
 
 //const char* StaffType[] = {"超级用户",  "老板", "店长", "收银员", "美发师", "洗发师", "美容师", "按摩师"};
 //const char* StaffLevel[] = {"新手","熟练工","经验工","高级工","大师"};
@@ -19,6 +20,7 @@ StaffManagementUI::StaffManagementUI()
 {
 	setupUi();
 	started = false;
+	config = NULL;
 	font = QFont("SimSun", 9);
 //	setFont(font);
 	SettingFont(font);
@@ -59,18 +61,18 @@ StaffManagementUI::StaffManagementUI()
 	connect(treeViewStaff, SIGNAL(clicked(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
 	connect(addPushButton, SIGNAL(clicked()), staffDetailWidget, SLOT(newStaff()));
 	connect(deletePushButton, SIGNAL(clicked()), staffDetailWidget, SLOT(removeStaff()));
-	connect(staffDetailWidget, SIGNAL(addedStaff(Staff*)), this, SLOT(addStaff(Staff*)));
-	connect(staffDetailWidget, SIGNAL(modifiedStaff(Staff*)), this, SLOT(modifyStaff(Staff*)));
+	connect(staffDetailWidget, SIGNAL(addedStaff(Staff*, QByteArray&)), this, SLOT(addStaff(Staff*, QByteArray&)));
+	connect(staffDetailWidget, SIGNAL(modifiedStaff(Staff*, QByteArray&)), this, SLOT(modifyStaff(Staff*, QByteArray&)));
 	connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
 	connect(actionAboutQt, SIGNAL(triggered()), QCoreApplication::instance(), SLOT(aboutQt()));
 	connect(actionBrowseMyInfo, SIGNAL(triggered()), this, SLOT(browseMyInfo()));
 	connect(actionChangeMyPassword, SIGNAL(triggered()), this, SLOT(changeMyPassword()));
-
+	connect(actionStaffConfig, SIGNAL(triggered()), this, SLOT(staffConfig()));
 
 //	actionBrowseMyRecords  = new QAction(this);;
 //	actionBrowseMySalary = new QAction(this);
 //	 = new QAction(this);
-//	actionStaffConfig = new QAction(this);
+//	 = new QAction(this);
 //	actionAboutQt = new QAction(this);
 //	actionAboutCosmetic = new QAction(this);
 }
@@ -111,6 +113,7 @@ void StaffManagementUI::OnEvent(Message & Msg){
 				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
 				getAllStaff();
 			} else {
+				showMessageBox(QMessageBox::Critical, addStaffError);
 			}
 			break;
 		}
@@ -119,6 +122,7 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			if(NULL != Msg.data()) {
 				getAllStaff();
 			} else {
+				showMessageBox(QMessageBox::Critical, removeStaffError);
 			}
 			break;
 		}
@@ -128,11 +132,10 @@ void StaffManagementUI::OnEvent(Message & Msg){
 				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
 				getAllStaff();
 			} else {
-				showMessageBox(QMessageBox::Critical, removeStaffError);
+				showMessageBox(QMessageBox::Critical, modifyStaffError);
 			}
 			break;
 		}
-
 		case EVENT_STAFF:
 		{
 			if(NULL != Msg.data()) {
@@ -143,6 +146,17 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			break;
 
 		}
+		case EVENT_GETPICTURE:
+		{
+			if(NULL != Msg.data()) {
+				staffDetailWidget->displayPic(*static_cast<QByteArray*>(Msg.data()));
+			} else {
+
+			}
+			break;
+
+		}
+
 		case EVENT_LOGGEDSTAFF:
 		{
 			if(NULL != Msg.data()) {
@@ -153,14 +167,15 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			break;
 
 		}
-
 		case EVENT_JOBTYPE:
 		{	
 			m_staffType.clear();
 			list<Job>* jobs = static_cast<list<Job>*>(Msg.data());
 			staffDetailWidget->setJob(jobs);
+			if(NULL != config)
+				config->ui.pageJob->pushjobs(jobs);
 			for(list<Job>::iterator it = jobs->begin() ; it != jobs->end() ; it++) {
-				m_staffType[it->id()] = it->name();
+				m_staffType[it->id()] = *it;
 			}
 			break;
 		}
@@ -169,8 +184,10 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			m_staffLevel.clear();
 			list<Level>* levels = static_cast<list<Level>*>(Msg.data());
 			staffDetailWidget->setLevel(levels);
+			if(NULL != config)
+				config->ui.pageLevel->pushLevels(levels);
 			for(list<Level>::iterator it = levels->begin() ; it != levels->end() ; it++) {
-				m_staffLevel[it->id()] = it->name();
+				m_staffLevel[it->id()] = *it;
 			}
 			break;
 		}
@@ -180,11 +197,78 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			list<Status>* status = static_cast<list<Status>*>(Msg.data());
 			staffDetailWidget->setStatus(status);
 			for(list<Status>::iterator it = status->begin() ; it != status->end() ; it++) {
-				m_staffState[it->id()] = it->name();
+				m_staffState[it->id()] = *it;
 			}
 			break;
 		}
-
+		case EVENT_SETJOBTYPE:
+		{
+			list<Job>* error = static_cast<list<Job>*>(Msg.data());
+			getJobType();
+			if(!error->empty()){
+				string errorstr = "职务";
+				for(list<Job>::iterator it = error->begin() ; it != error->end() ; it++) {
+					errorstr += "“";
+					errorstr += it->name();
+					errorstr += "”";
+				}
+				errorstr += "未能成功修改，请重试。";
+				showMessageBox(QMessageBox::Warning, errorstr);
+			}
+			delete error;
+			break;
+		}
+		case EVENT_SETLEVELTYPE:
+		{
+			list<Level>* error = static_cast<list<Level>*>(Msg.data());
+			getLevelType();
+			if(!error->empty()){
+				string errorstr = "等级";
+				for(list<Level>::iterator it = error->begin() ; it != error->end() ; it++) {
+					errorstr += "“";
+					errorstr += it->name();
+					errorstr += "”";
+				}
+				errorstr += "未能成功修改，请重试。";
+				showMessageBox(QMessageBox::Warning, errorstr);
+			}
+			delete error;
+			break;
+		}
+		case EVENT_REMOVEJOBTYPE:
+		{
+			list<Job>* error = static_cast<list<Job>*>(Msg.data());
+			getJobType();
+			if(!error->empty()){
+				string errorstr = "职务";
+				for(list<Job>::iterator it = error->begin() ; it != error->end() ; it++) {
+					errorstr += "“";
+					errorstr += it->name();
+					errorstr += "”";
+				}
+				errorstr += "未能成功删除，可能是还有员工被设置为该职务。";
+				showMessageBox(QMessageBox::Warning, errorstr);
+			}
+			delete error;
+			break;
+		}
+		case EVENT_REMOVELEVELTYPE:
+		{
+			list<Level>* error = static_cast<list<Level>*>(Msg.data());
+			getLevelType();
+			if(!error->empty()){
+				string errorstr = "等级";
+				for(list<Level>::iterator it = error->begin() ; it != error->end() ; it++) {
+					errorstr += "“";
+					errorstr += it->name();
+					errorstr += "”";
+				}
+				errorstr += "未能成功删除，可能是还有员工被设置为该等级。";
+				showMessageBox(QMessageBox::Warning, errorstr);
+			}
+			delete error;
+			break;
+		}
 		default:
 			break;
 	}
@@ -272,9 +356,9 @@ void StaffManagementUI::addStaff(list<Staff>* staff)
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 0), it->ID());
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 1), QString::fromLocal8Bit(it->Name().c_str()));
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 2), QString::fromLocal8Bit(StaffSex[it->Sex()]));
-		m_stuffDataModel->setData(m_stuffDataModel->index(0, 3), QString::fromLocal8Bit(m_staffType[it->Type()].c_str()));
-		m_stuffDataModel->setData(m_stuffDataModel->index(0, 4), QString::fromLocal8Bit(m_staffLevel[it->Level()].c_str()));
-		m_stuffDataModel->setData(m_stuffDataModel->index(0, 5), QString::fromLocal8Bit(m_staffState[it->status()].c_str()));
+		m_stuffDataModel->setData(m_stuffDataModel->index(0, 3), QString::fromLocal8Bit(m_staffType[it->Type()].name().c_str()));
+		m_stuffDataModel->setData(m_stuffDataModel->index(0, 4), QString::fromLocal8Bit(m_staffLevel[it->Level()].name().c_str()));
+		m_stuffDataModel->setData(m_stuffDataModel->index(0, 5), QString::fromLocal8Bit(m_staffState[it->status()].name().c_str()));
 		m_stuffDataModel->setData(m_stuffDataModel->index(0, 6), QString::fromLocal8Bit(it->cell().c_str()));
 		it++;
 	}
@@ -309,11 +393,13 @@ void StaffManagementUI::staffActivated(const QModelIndex& item)
 
 void StaffManagementUI::staffDetail(uint32 id) {
 	uint32* staffid = new uint32(id);
-	Message* action = new Message();
-	action->setType(ACTION_GETSTAFF);
-	action->setData(staffid);
+	uint32* staffid2 = new uint32(id);
+	Message* action = new Message(ACTION_GETSTAFF, staffid);
 	m_uiHandler->StartAction(*action);
 	delete action;
+	Message* action2 = new Message(ACTION_GETPICTURE, staffid2);
+	m_uiHandler->StartAction(*action2);
+	delete action2;
 }
 void StaffManagementUI::getJobType() {
 	Message* action = new Message();
@@ -368,27 +454,28 @@ void StaffManagementUI::getAllStaff()
 	delete action;
 }
 
-void StaffManagementUI::addStaff(Staff* staff)
+void StaffManagementUI::addStaff(Staff* staff, QByteArray& data)
 {
 	if(staff->Name().empty()) {
 		showMessageBox(QMessageBox::Warning, emptyNameWarnning);
 		return;
 	}
-	Message* action = new Message();
-	action->setType(ACTION_ADDSTAFF);
-	action->setData(staff);
+	Message* action = new Message(ACTION_ADDSTAFF, staff);
+	if(!data.isEmpty())
+		action->setData2(&data);
 	m_uiHandler->StartAction(*action);
 	delete action;
+
 }
-void StaffManagementUI::modifyStaff(Staff* staff)
+void StaffManagementUI::modifyStaff(Staff* staff, QByteArray& data)
 {
 	if(staff->Name().empty()) {
 		showMessageBox(QMessageBox::Warning, emptyNameWarnning);
 		return;
 	}
-	Message* action = new Message();
-	action->setType(ACTION_MODIFYSTAFF);
-	action->setData(staff);
+	Message* action = new Message(ACTION_MODIFYSTAFF, staff);
+	if(!data.isEmpty())
+		action->setData2(&data);
 	m_uiHandler->StartAction(*action);
 	delete action;
 
@@ -415,7 +502,31 @@ void StaffManagementUI::changePasswrod(string oldpw, string newpw)
 	pwList->push_back(oldpw);
 	pwList->push_back(newpw);
 	Message* action = new Message(ACTION_CHANGEPASSWORD, pwList);
-	//action->setType();
+	m_uiHandler->StartAction(*action);
+	delete action;
+}
+
+ void StaffManagementUI::staffConfig()
+ {
+ 	config = new StaffConfiguration(this);
+	getJobType();
+	getLevelType();
+	getStatusType();
+	connect(config->ui.pageJob, SIGNAL(submitted(list<Job>*)), this, SLOT(setJobs(list<Job>*)));
+	connect(config->ui.pageLevel, SIGNAL(submitted(list<Level>*)), this, SLOT(setLevels(list<Level>*)));
+	config->show();
+ }
+
+ void StaffManagementUI::setLevels(list<Level>* levels) 
+ {
+ 	Message* action = new Message(ACTION_SETLEVELTYPE, levels);
+	m_uiHandler->StartAction(*action);
+	delete action;
+ }
+
+void StaffManagementUI::setJobs(list<Job>* jobs)
+{
+	 Message* action = new Message(ACTION_SETJOBTYPE, jobs);
 	m_uiHandler->StartAction(*action);
 	delete action;
 }
@@ -612,6 +723,7 @@ void StaffManagementUI::setupUi() {
 	customCentralWidget->setLayout(mainLayout);
 	setCentralWidget(customCentralWidget);
 	setWindowTitle(QString::fromLocal8Bit("员工管理"));
+	this->setWindowIcon(QIcon(":/staff/Resources/people.png"));
 
 	resize(800, 600);
  }

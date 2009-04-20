@@ -13,15 +13,19 @@ class LevelWidget : public QWidget
 	Q_OBJECT
 
 public:
-	LevelWidget(QWidget *parent = 0, int mode = 0);
+	LevelWidget(QWidget *parent = 0, int mode = 1);
 	~LevelWidget();
 	void settingFont(QFont& font);
 	list<Level>* getLevelList();
+	void pushLevels(list<Level>* levels);
 
 private:
-	Ui::Level ui;
+	Ui::LevelUi ui;
 	QAbstractItemModel* m_DataModel;
 	int m_mode;
+
+signals:
+	void submitted(list<Level>* levellist);
 
 private slots:
 	void add();

@@ -10,6 +10,7 @@
 
 Message::Message(){
 	m_data = NULL;
+	m_data2 = NULL;
 	m_length = 0;
 	m_type = 0;
 	m_id = 0;
@@ -17,13 +18,24 @@ Message::Message(){
 
 Message::Message(void* data){
 	m_data = data;
+	m_data2 = NULL;
 	m_length = 0;
 	m_type = 0;
 	m_id = 0;
 }
-
+/*
 Message::Message(uint32 type, void* data){
 	m_data = data;
+	m_data2 = NULL;
+	m_length = 0;
+	m_type = type;
+	m_id = 0;
+}
+*/
+Message::Message(uint32 type, void* data, void* data2)
+{
+	m_data = data;
+	m_data2 = data2;
 	m_length = 0;
 	m_type = type;
 	m_id = 0;
@@ -48,10 +60,17 @@ void Message::setData(void* data){
 	m_data = data;
 }
 
+void Message::setData2(void* data){
+	m_data2 = data;
+}
+
 void* Message::data(){
 	return m_data;
 }
 
+void* Message::data2(){
+	return m_data2;
+}
 void Message::setLength(uint32 length){
 	m_length = length;
 }

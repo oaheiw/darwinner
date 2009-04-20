@@ -96,9 +96,13 @@ void ThreadDatabase::run() {
 			case ACTION_ADDSTAFF:
 			{
 				Staff* staff = static_cast<Staff*>(Action.data());
+				QByteArray* image = static_cast<QByteArray*>(Action.data2());
 				Staff* addedStaff = NULL;
 				if(addStaff(staff)) {
 					addedStaff = getStaff(staff->ID());
+				}
+				if(NULL != image && !image->isEmpty() && addedStaff->ID() != 0) {
+					setImage(addedStaff->ID(), *image);
 				}
 				delete staff;
 				m_tempMsg = new Message(EVENT_STAFFADDED, addedStaff);
@@ -113,26 +117,84 @@ void ThreadDatabase::run() {
 				delete staff;
 				break;
 			}
+			case ACTION_SETSTATUSTYPE:
+			{
+				list<Status>* statusList = static_cast<list<Status>*>(Action.data());
+				list<Status>* result = new list<Status>;
+				list<Status>::iterator it = statusList->begin();
+				while(statusList->end() != it) {
+					if(!addStatusType(&(*it)))
+						result->push_back(*it);
+					it++;
+				}
+				delete statusList;
+				m_tempMsg = new Message(EVENT_SETSTATUSTYPE, result);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				break;
+			}
 			case ACTION_SETJOBTYPE:
 			{
 				list<Job>* jobList = static_cast<list<Job>*>(Action.data());
+				list<Job>* result = new list<Job>;
 				list<Job>::iterator it = jobList->begin();
 				while(jobList->end() != it) {
-					addJobType(&(*it));
+					if(!addJobType(&(*it)))
+						result->push_back(*it);
 					it++;
 				}
 				delete jobList;
+				m_tempMsg = new Message(EVENT_SETJOBTYPE, result);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				break;
+			}
+			case ACTION_REMOVEJOBTYPE:
+			{
+				list<Job>* jobList = static_cast<list<Job>*>(Action.data());
+				list<Job>* result = new list<Job>;
+				list<Job>::iterator it = jobList->begin();
+				while(jobList->end() != it) {
+					if(!removeJob(&(*it)))
+						result->push_back(*it);
+					it++;
+				}
+				delete jobList;
+				m_tempMsg = new Message(EVENT_REMOVEJOBTYPE, result);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
 			case ACTION_SETLEVELTYPE:
 			{
 				list<Level>* levelList = static_cast<list<Level>*>(Action.data());
+				list<Level>* result = new list<Level>;
 				list<Level>::iterator it = levelList->begin();
 				while(levelList->end() != it) {
-					addLevelType(&(*it));
+					if(!addLevelType(&(*it)))
+						result->push_back(*it);
 					it++;
 				}
 				delete levelList;
+				m_tempMsg = new Message(EVENT_SETLEVELTYPE, result);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				break;
+			}
+			case ACTION_REMOVELEVELTYPE:
+			{
+				list<Level>* levelList = static_cast<list<Level>*>(Action.data());
+				list<Level>* result = new list<Level>;
+				list<Level>::iterator it = levelList->begin();
+				while(levelList->end() != it) {
+					if(!removeLevel(&(*it)))
+						result->push_back(*it);
+					it++;
+				}
+				delete levelList;
+				m_tempMsg = new Message(EVENT_REMOVELEVELTYPE, result);
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
 			}
 			case ACTION_CHANGEPASSWORD:
@@ -169,9 +231,13 @@ void ThreadDatabase::run() {
 			case ACTION_MODIFYSTAFF:
 			{
 				Staff* staff = static_cast<Staff*>(Action.data());
+				QByteArray* image = static_cast<QByteArray*>(Action.data2());
 				Staff* modifieddStaff = NULL;
 				if(modifyStaff(staff)) {
 					modifieddStaff = getStaff(staff->ID());
+				}
+				if(NULL != image && !image->isEmpty() && modifieddStaff->ID() != 0) {
+					setImage(modifieddStaff->ID(), *image);
 				}
 				delete staff;
 				m_tempMsg = new Message(EVENT_STAFFMODIFIED, modifieddStaff);
@@ -183,6 +249,15 @@ void ThreadDatabase::run() {
 			{
 				uint32* id = static_cast<uint32*>(Action.data());
 				m_tempMsg = new Message(EVENT_STAFFREMOVED, removeStaff(*id));
+				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
+				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
+				delete id;
+				break;
+			}
+			case ACTION_GETPICTURE:
+			{
+				uint32* id = static_cast<uint32*>(Action.data());
+				m_tempMsg = new Message(EVENT_GETPICTURE, getImage(*id));
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				delete id;
@@ -379,6 +454,48 @@ bool ThreadDatabase::addStaff(Staff* staff)
 	return r;
 }
 
+bool ThreadDatabase::setImage(uint32 id, QByteArray& image)
+{
+	bool r =false;
+	db.setDatabaseName(DBNAME);
+	r = db.open();
+	if(!r) {
+		return r;
+	}
+	DBINFO("setting image for:", id);
+	QSqlQuery q = QSqlQuery(db);
+
+	QString set = QString(SET_PIC).arg(QString::fromLocal8Bit(image.data(), image.size())).arg(id);
+//	r = q.prepare(set);
+//	q.bindValue(":image", image);
+	r = q.exec(set);
+	db.close();
+	DBINFO("set image complete", r);
+	return r;
+
+}
+QByteArray* ThreadDatabase::getImage(uint32 id)
+{
+	QByteArray* image = new QByteArray;
+	image->clear();
+	db.setDatabaseName(DBNAME);
+	if(!db.open()) {
+		return image;
+	}
+	DBINFO("setting image for:", id);
+	QSqlQuery q = QSqlQuery(db);
+
+	QString get = QString(GET_PIC).arg(id);
+	if(q.exec(get)) {
+		if(q.next()) {
+			*image = q.value(0).toByteArray();
+		}
+	}
+	db.close();
+	DBINFO("set image complete", "");
+	return image;
+}
+
 uint32* ThreadDatabase::removeStaff(uint32 id)
 {
 	uint32* r = new uint32(id);
@@ -471,12 +588,8 @@ bool ThreadDatabase::addJobType(Job* job)
 	q.exec(qstring);
 	if (q.next()) 
 	{
-		q.prepare(UPDATA_JOB);
-		q.bindValue(":id", job->id());
-		q.bindValue(":name", job->name().c_str());
-		q.bindValue(":profit", job->profit());
-		q.bindValue(":descrption", job->description().c_str());
-		r = q.exec();
+		QString update = QString(UPDATA_JOB).arg(job->name().c_str()).arg(job->profit()).arg(job->description().c_str()).arg(job->id());
+		r = q.exec(update);
 	}
 	else
 	{
@@ -502,12 +615,8 @@ bool ThreadDatabase::addLevelType(Level* level)
 	q.exec(qstring);
 	if (q.next()) 
 	{
-		q.prepare(UPDATA_JOB);
-		q.bindValue(":id", level->id());
-		q.bindValue(":name", level->name().c_str());
-		q.bindValue(":profit", level->profit());
-		q.bindValue(":descrption", level->description().c_str());
-		r = q.exec();
+		QString update = QString(UPDATA_LEVEL).arg(level->name().c_str()).arg(level->profit()).arg(level->description().c_str()).arg(level->id());
+		r = q.exec(update);
 	}
 	else
 	{
@@ -533,11 +642,8 @@ bool ThreadDatabase::addStatusType(Status* status)
 	q.exec(qstring);
 	if (q.next()) 
 	{
-		q.prepare(UPDATA_STATUS);
-		q.bindValue(":id", status->id());
-		q.bindValue(":name", status->name().c_str());
-		q.bindValue(":descrption", status->description().c_str());
-		r = q.exec();
+		QString update = QString(UPDATA_STATUS).arg(status->name().c_str()).arg(status->description().c_str()).arg(status->id());
+		r = q.exec(update);
 	}
 	else
 	{
@@ -668,6 +774,54 @@ bool ThreadDatabase::changePassword(string oldpw, string newpw)
 	r = q.exec(setnew);
 	db.close();
 	DBINFO("change password complete", r);
+	return r;
+}
+
+bool ThreadDatabase::removeJob(Job* id)
+{
+	bool r =false;
+	db.setDatabaseName(DBNAME);
+	r = db.open();
+	if(!r) {
+		return r;
+	}
+	DBINFO("removing job...", "");
+	QSqlQuery q = QSqlQuery(db);
+
+	QString check = QString(CHECK_JOB_BYID).arg(id->id());
+	if(q.exec(check)) {
+		if(q.next())
+			return false;
+	}
+
+	QString remove = QString(DELETE_JOB_BYID).arg(id->id());
+	r = q.exec(remove);
+	db.close();
+	DBINFO("remove job complete", r);
+	return r;
+}
+
+bool ThreadDatabase::removeLevel(Level* id)
+{
+	bool r =false;
+	db.setDatabaseName(DBNAME);
+	r = db.open();
+	if(!r) {
+		return r;
+	}
+	DBINFO("removing level...", "");
+	QSqlQuery q = QSqlQuery(db);
+
+	QString check = QString(CHECK_LEVEL_BYID).arg(id->id());
+	if(q.exec(check)) {
+		if(q.next())
+			return false;
+	}
+
+	QString remove = QString(DELETE_LEVEL_BYID).arg(id->id());
+	r = q.exec(remove);
+	db.close();
+	DBINFO("remove job complete", r);
 	return r;
 }
 

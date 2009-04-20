@@ -18,16 +18,19 @@ class Message
 public:
 	Message();
 	Message(void* data);
-	Message(uint32 type, void* data = 0);
+	//Message(uint32 type, void* data = NULL);
+	Message(uint32 type, void* data = NULL, void* data2 = NULL);
 	/*
 	Message(const Message&);  
 	Message &operator = (const Message&);   
 	*/
 	~Message();
 	void* data();
+	void* data2();
 	uint32 length();
 	void setData(void* data, uint32 size);
 	void setData(void* data);
+	void setData2(void* data);
 	void setLength(uint32 length);
 	void setType(uint32 type);
 	uint32 type();
@@ -37,6 +40,7 @@ public:
 	bool isEvent();
 private:
 	void* m_data;
+	void* m_data2;
 	uint32 m_length;
 	uint32 m_type;
 	uint32 m_id;

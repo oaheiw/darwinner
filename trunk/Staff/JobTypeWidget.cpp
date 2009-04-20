@@ -6,6 +6,7 @@ JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	ui.addPushButton->setDefault(true);
 	QFont font = QFont("SimSun", 9);
 	settingFont(font);
 	int col = 0;
@@ -66,10 +67,11 @@ void JobTypeWidget::add()
 void JobTypeWidget::remove()
 {
 	int row = ui.jobTableView->currentIndex().row();
-	this->m_DataModel->removeRow(row);
+	m_DataModel->removeRow(row);
 }
 void JobTypeWidget::submit()
 {
+	emit submitted(getJobList());
 }
 
 list<Job>* JobTypeWidget::getJobList()
@@ -92,4 +94,18 @@ list<Job>* JobTypeWidget::getJobList()
 		jobList->push_back(tempJob);
 	}
 	return jobList;
+}
+
+void JobTypeWidget::pushjobs(list<Job>* jobs)
+{
+	m_DataModel->removeRows(0, m_DataModel->rowCount());
+	for(list<Job>::iterator it=jobs->begin() ; jobs->end()!=it ; it++) {
+		m_DataModel->insertRow(0);
+		ui.jobTableView->setRowHeight(0, 20);
+
+		m_DataModel->setData(m_DataModel->index(0, 0), it->id());
+		m_DataModel->setData(m_DataModel->index(0, 1), QString::fromLocal8Bit(it->name().c_str()));
+		m_DataModel->setData(m_DataModel->index(0, 2), it->profit());
+		m_DataModel->setData(m_DataModel->index(0, 3), QString::fromLocal8Bit(it->description().c_str()));
+	}
 }

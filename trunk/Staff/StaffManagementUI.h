@@ -4,7 +4,8 @@
 #define emptyNameWarnning "员工姓名不能留空， \n请返回并填写员工姓名。"
 #define removeStaffConfirm "确定删除选定员工“%1”？\n如果员工离职，建议您更改该员工状态，而不是在系统中删除该员工。"
 #define removeStaffError "未能成功删除选定员工，请重试。"
-
+#define addStaffError "未能成功添加员工，请重试。"
+#define modifyStaffError "未能成功修改员工信息，请重试。"
 
 #include "DUIObserver.h"
 class Staff;
@@ -19,6 +20,7 @@ class Level;
 class Status;
 class StaffDetail;
 class QModelIndex;
+class StaffConfiguration;
 using namespace std;
 
 class StaffManagementUI : public QMainWindow, public DUIObserver
@@ -84,22 +86,23 @@ private:
 	QPushButton *addPushButton;
 	QCheckBox *seletCheckBox;
 	QMessageBox * messageBox;
+	StaffConfiguration* config;
 	
 	//data items;
 	bool started;
 	QFont font;
 	QAbstractItemModel* m_stuffDataModel;
 	QSortFilterProxyModel* m_sortProxyModel;
-	map<uint32, string> m_staffLevel;
-	map<uint32, string> m_staffType;
-	map<uint32, string> m_staffState;
+	map<uint32, Level> m_staffLevel;
+	map<uint32, Job> m_staffType;
+	map<uint32, Status> m_staffState;
 
 private slots:
 	void Exit();
 	void Logoff();
 	void Menu();
-	void addStaff(Staff* staff);
-	void modifyStaff(Staff* staff);
+	void addStaff(Staff* staff, QByteArray& image);
+	void modifyStaff(Staff* staff, QByteArray& image);
 
 	void filterRegExpChanged();
 	void filterColumnChanged();
@@ -110,6 +113,9 @@ private slots:
 	void browseMyInfo();
 	void changeMyPassword();
 	void changePasswrod(string oldpw, string newpw);
+	void setLevels(list<Level>* levels);
+	void setJobs(list<Job>* jobs);
+	void staffConfig();
 };
 
 #endif // STUFFMANAGEMENT_H
