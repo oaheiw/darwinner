@@ -22,6 +22,7 @@ public:
 	void setJob(list<Job>* jobList);
 	void setLevel(list<Level>* levelList);
 	void setStatus(list<Status>* levelList);
+	void displayPic(QByteArray& staff);
 
 private:
 	int m_mode;
@@ -53,10 +54,12 @@ private:
 	QPushButton *pushButtonSubmmit;
 	QToolTip *tip;
 	QFont font;
+	QPixmap noPic;
+	QByteArray userPicData;
 
 signals:
-	void addedStaff(Staff*);
-	void modifiedStaff(Staff*);
+	void addedStaff(Staff* staff, QByteArray& pic);
+	void modifiedStaff(Staff* staff, QByteArray& pic);
 
 private slots:
 	void modify();

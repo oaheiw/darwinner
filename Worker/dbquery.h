@@ -16,24 +16,33 @@
 #define INSERTINTO_STAFF_SUPER "INSERT INTO staff (id, password, name, jobId, levelId, sex, status, cell, phone, address, descrption, image) " "VALUES (:id, :password, :name, :jobId, :levelId, :sex, :status, :cell, :phone, :address, :descrption, :image)"
 #define UPDATA_STAFF_BASIC "UPDATE staff SET name = '%1', jobId = %2, levelId = %3, sex = %4, baseSalary = %5, status = %6, cell = '%7', phone = '%8', address = '%9', descrption = '%10' WHERE id = %11"
 #define DELETE_STAFF_BYID "DELETE FROM staff WHERE id = %1"
+#define SET_PIC "UPDATE staff SET image = '%1' WHERE id = %2"
+#define GET_PIC "SELECT image FROM staff WHERE id = %1"
 
 #define CREATE_JOB_TABLE "CREATE TABLE job (id INTEGER PRIMARY KEY, name TEXT NOT NULL, profit SMALLINT DEFAULT 0, descrption TEXT)"
 #define INSERTINTO_JOB_TABLE "INSERT INTO job (name, profit, descrption) " "VALUES (:name, :profit, :descrption)"
 #define SELECT_JOB_ALL "SELECT * FROM job"
-#define SELECT_JOB_BYID "SELECT * FROM job WHERE id = %1)"
-#define UPDATA_JOB "UPDATE job SET (name, profit, descrption) WHERE (id)" "VALUES (:name, :profit, :descrption, :id)"
+#define SELECT_JOB_BYID "SELECT * FROM job WHERE id = %1"
+#define UPDATA_JOB "UPDATE job SET name = '%1', profit = %2, descrption = '%3' WHERE id = %4"
+#define DELETE_JOB_BYID "DELETE FROM job WHERE id = %1"
+#define CHECK_JOB_BYID "SELECT id FROM staff WHERE jobId = %1"
+
 
 #define CREATE_LEVET_TABLE "CREATE TABLE level (id INTEGER PRIMARY KEY, name TEXT NOT NULL, profit SMALLINT DEFAULT 0, descrption TEXT)" 
 #define INSERTINTO_LEVEL_TABLE "INSERT INTO level (name, profit, descrption) " "VALUES (:name, :profit, :descrption)"
 #define SELECT_LEVEL_ALL "SELECT * FROM level"
-#define SELECT_LEVEL_BYID "SELECT * FROM level WHERE id = %1)"
-#define UPDATA_LEVEL "UPDATE level SET (name, profit, descrption) WHERE (id)" "VALUES (:name, :profit, :descrption, :id)"
+#define SELECT_LEVEL_BYID "SELECT * FROM level WHERE id = %1"
+#define UPDATA_LEVEL "UPDATE level SET name = '%1', profit = %2, descrption = '%3' WHERE id = %4"
+#define DELETE_LEVEL_BYID "DELETE FROM level WHERE id = %1"
+#define CHECK_LEVEL_BYID "SELECT id FROM staff WHERE LevelId = %1"
+
+
 
 #define CREATE_STATUS_TABLE "CREATE TABLE status (id INTEGER PRIMARY KEY, name TEXT NOT NULL, descrption TEXT)"
 #define INSERTINTO_STATUS_TABLE "INSERT INTO status (name, descrption) " "VALUES (:name, :descrption)"
 #define SELECT_STATUS_ALL "SELECT * FROM status"
-#define SELECT_STATUS_BYID "SELECT * FROM status WHERE id = %1)"
-#define UPDATA_STATUS "UPDATE status SET (name, descrption) WHERE (id)" "VALUES (:name, :descrption, :id)"
+#define SELECT_STATUS_BYID "SELECT * FROM status WHERE id = %1"
+#define UPDATA_STATUS "UPDATE status SET SET name = '%1', descrption = '%3' WHERE id = %4"
 
 #define CREATE_SEX_TABLE "CREATE TABLE sex (id INTEGER PRIMARY KEY, name TEXT NOT NULL)"
 #define INSERTINTO_SEX_TABLE "INSERT INTO sex (id, name) " "VALUES (:id, :name)"

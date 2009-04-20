@@ -61,13 +61,13 @@ void SSLoginWindow::Login()
 
 void SSLoginWindow::setupUi()
 {
-	const QIcon icon = QIcon(QString::fromUtf8(":/icons/Resources/Cosmetic.png"));
+	const QIcon icon = QIcon(QString::fromUtf8(":/common/Resources/Cosmetic.png"));
 	logoLabel = new QLabel(this);
 	logoLabel->setAlignment(Qt::AlignCenter);
 	logoLabel->setFrameShape(QFrame::StyledPanel);
 	logoLabel->setFrameShadow(QFrame::Raised);
 	logoLabel->setFixedSize(126, 126);
-	logoLabel->setPixmap(QPixmap(":/icons/Resources/cosmetic-text.png").scaled(120, 120,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
+	logoLabel->setPixmap(QPixmap(":/common/Resources/cosmetic-text.png").scaled(120, 120,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
 	setWindowTitle(QString::fromLocal8Bit("Cosmetic（科思美）美容美发业运营系统"));
 
 	loginGroupBox = new QGroupBox(QString::fromLocal8Bit("员工入口"), this);

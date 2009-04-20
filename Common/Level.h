@@ -27,6 +27,25 @@ public:
 	void setName(string name);
 	void setProfit(uint32 profit);
 
+friend bool operator==(const Level &x, const Level &y) {
+	return (	y.m_description == x.m_description &&
+				y.m_id == x.m_id &&
+				y.m_name == x.m_name &&
+				y.m_profit == x.m_profit);
+}
+
+class idMatcher {
+public:
+	idMatcher(uint32 id) { m_val = id; }
+	bool operator()(Level& x) 
+	{
+		return x.id() == m_val;
+	}
+private:
+	uint32 m_val;
+};
+
+
 private:
 	string m_description;
 	uint32 m_id;

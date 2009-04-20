@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>StaffConfigurationClass</class>
  <widget class="QDialog" name="StaffConfigurationClass">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>396</width>
+    <height>343</height>
    </rect>
   </property>
   <property name="font">
@@ -15,8 +18,18 @@
     <family>宋体</family>
    </font>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>StaffConfiguration</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../Login/login.qrc">
+    <normaloff>:/staff/Resources/staff.png</normaloff>:/staff/Resources/staff.png</iconset>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
    <item>
@@ -33,10 +46,13 @@
        <pointsize>9</pointsize>
       </font>
      </property>
+     <property name="whatsThis">
+      <string notr="true"/>
+     </property>
      <property name="iconSize">
       <size>
-       <width>96</width>
-       <height>96</height>
+       <width>90</width>
+       <height>90</height>
       </size>
      </property>
      <property name="spacing">
@@ -50,16 +66,16 @@
    <item>
     <widget class="QStackedWidget" name="ItemStackedWidget">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Plain</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
-     <widget class="JobTypeWidget" name="page"/>
-     <widget class="LevelWidget" name="page_2"/>
+     <widget class="JobTypeWidget" name="pageJob"/>
+     <widget class="LevelWidget" name="pageLevel"/>
     </widget>
    </item>
   </layout>
@@ -79,6 +95,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="Staff.qrc"/>
+  <include location="../Login/login.qrc"/>
+ </resources>
  <connections/>
 </ui>

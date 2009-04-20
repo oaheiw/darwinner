@@ -5,6 +5,7 @@ LevelWidget::LevelWidget(QWidget *parent, int mode)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	ui.addPushButton->setDefault(true);
 	QFont font = QFont("SimSun", 9);
 	settingFont(font);
 	int col = 0;
@@ -71,10 +72,12 @@ void LevelWidget::remove()
 }
 void LevelWidget::submit()
 {
+	emit submitted(getLevelList());
 }
 
 list<Level>* LevelWidget::getLevelList()
-{	list<Level>* levelList = new list<Level>;
+{
+	list<Level>* levelList = new list<Level>;
 	for (int row=0; row<m_DataModel->rowCount(); row++)
 	{	
 		Level tempLevel;
@@ -94,3 +97,16 @@ list<Level>* LevelWidget::getLevelList()
 	return levelList;
 }
 
+void LevelWidget::pushLevels(list<Level>* levels)
+{
+	m_DataModel->removeRows(0, m_DataModel->rowCount());
+	for(list<Level>::iterator it=levels->begin() ; levels->end()!=it ; it++) {
+		m_DataModel->insertRow(0);
+		ui.levelTableView->setRowHeight(0, 20);
+
+		m_DataModel->setData(m_DataModel->index(0, 0), it->id());
+		m_DataModel->setData(m_DataModel->index(0, 1), QString::fromLocal8Bit(it->name().c_str()));
+		m_DataModel->setData(m_DataModel->index(0, 2), it->profit());
+		m_DataModel->setData(m_DataModel->index(0, 3), QString::fromLocal8Bit(it->description().c_str()));
+	}
+}

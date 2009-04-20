@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Level</class>
- <widget class="QWidget" name="Level">
+ <class>LevelUi</class>
+ <widget class="QWidget" name="LevelUi">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>员工等级管理</string>
+   <string>等级管理</string>
   </property>
   <property name="toolTip">
    <string/>
@@ -38,10 +38,16 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
-      <number>6</number>
+      <number>9</number>
      </property>
      <item>
       <widget class="QPushButton" name="addPushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -55,6 +61,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="removePushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -68,6 +80,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="submitPushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -75,7 +93,7 @@
         </size>
        </property>
        <property name="text">
-        <string>提交</string>
+        <string>提交等级</string>
        </property>
       </widget>
      </item>

@@ -6,6 +6,7 @@
 #include "DUIHandler.h"
 #include "Staff.h"
 #include "JobTypeWidget.h"
+#include "Status.h"
 #include "LevelWidget.h"
 #include <list>
 using namespace std;
@@ -31,8 +32,8 @@ using namespace std;
 	setButtonText(QWizard::CancelButton, QString::fromLocal8Bit("取消"));
 	setButtonText(QWizard::HelpButton, QString::fromLocal8Bit("帮助"));
 
-	setPixmap(QWizard::BannerPixmap, QPixmap(":/icons/Resources/banner.png"));
-	setPixmap(QWizard::LogoPixmap, QPixmap(":/icons/Resources/cosmetic-text.png").scaled(100, 100,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
+	setPixmap(QWizard::BannerPixmap, QPixmap(":/common/Resources/banner.png"));
+	setPixmap(QWizard::LogoPixmap, QPixmap(":/common/Resources/cosmetic-text.png").scaled(100, 100,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
 
 	setWindowTitle(QString::fromLocal8Bit("设置向导"));
  }
@@ -74,6 +75,22 @@ using namespace std;
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
 
+/*add status by Tim Kuo 2009-04-20*/
+	list<Status>* statusList = new list<Status>;
+	Status temp;
+	temp.setName("离职");
+	statusList->push_back(temp);
+	temp.setName("请假");
+	statusList->push_back(temp);
+	temp.setName("忙碌");
+	statusList->push_back(temp);
+	temp.setName("空闲");
+	statusList->push_back(temp);
+	m_message = new Message(ACTION_SETSTATUSTYPE, (void*)statusList);
+	m_uiHandler->StartAction(*m_message);
+	delete m_message;
+
+
 /*system start up by Tim Kuo 2009-04-17*/
 	m_message = new Message(ACTION_SYSTEM_START);
 	m_uiHandler->StartAction(*m_message);
@@ -84,7 +101,7 @@ using namespace std;
      : QWizardPage(parent)
  {
 	 setTitle(QString::fromLocal8Bit("设置向导"));
-	 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/icons/Resources/watermark.png"));
+	 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/common/Resources/watermark.png"));
 
 
 	 label = new QLabel(QString::fromLocal8Bit("这是您第一次运行Cosmetic（科思美）美容美发业运营系统。本向导将会引导您完成系统运行所必须的基础设置。除了“超级用户”相关的内容，其它设置尽可以在日后再次修改。"));
@@ -224,7 +241,7 @@ using namespace std;
      : QWizardPage(parent)
  {
      setTitle(QString::fromLocal8Bit("设置完成"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/icons/Resources/watermark.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/common/Resources/watermark.png"));
 
      label = new QLabel;
      label->setWordWrap(true);

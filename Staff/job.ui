@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Job</class>
- <widget class="QWidget" name="Job">
+ <class>JobUi</class>
+ <widget class="QWidget" name="JobUi">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -37,8 +37,17 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>9</number>
+     </property>
      <item>
       <widget class="QPushButton" name="addPushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -52,6 +61,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="removePushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -65,6 +80,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="submitPushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -72,7 +93,7 @@
         </size>
        </property>
        <property name="text">
-        <string>提交</string>
+        <string>提交职务</string>
        </property>
       </widget>
      </item>

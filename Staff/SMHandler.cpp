@@ -55,7 +55,7 @@ void SMHandler::StartAction(Message& act){
 				uint32* id = static_cast<uint32*>(act.data());
 				list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(*id));
 				if(m_staffCache.end() != it) {
-					Message* ev = new Message(EVENT_STAFF, &m_staffCache);
+					Message* ev = new Message(EVENT_STAFF);
 					ev->setData(&(*it));
 					BroadcastEvent(*ev);
 					delete ev;
@@ -64,6 +64,40 @@ void SMHandler::StartAction(Message& act){
 					break;
 				}	
 			}
+			case ACTION_SETLEVELTYPE:
+			{
+				list<Level>* levels2update = static_cast<list<Level>*>(act.data());
+				list<Level>* levels2remove = new list<Level>;
+				for(list<Level>::iterator it = m_staffLevel.begin() ; m_staffLevel.end()!=it ; it++) {
+					if(levels2update->end() == find_if(levels2update->begin(), levels2update->end(), Level::idMatcher(it->id()))) {
+						levels2remove->push_back(*it);	
+					} 
+				}
+				if(!levels2remove->empty()) {
+					Message* remove = new Message(ACTION_REMOVELEVELTYPE, levels2remove);
+					m_handler->StartAction(*remove);
+					delete remove;
+				}
+				break;
+			}
+			case ACTION_SETJOBTYPE:
+			{
+				list<Job>* jobs2update = static_cast<list<Job>*>(act.data());
+				list<Job>* jobs2remove = new list<Job>;
+				for(list<Job>::iterator it = m_staffType.begin() ; m_staffType.end()!=it ; it++) {
+					if(jobs2update->end() == find_if(jobs2update->begin(), jobs2update->end(), Job::idMatcher(it->id()))) {
+						jobs2remove->push_back(*it);	
+					} 
+				}
+				if(!jobs2remove->empty()) {
+					Message* remove = new Message(ACTION_REMOVEJOBTYPE, jobs2remove);
+					m_handler->StartAction(*remove);
+					delete remove;
+				}
+				break;
+			}
+
+
 		}
 	}
 	m_handler->StartAction(act);

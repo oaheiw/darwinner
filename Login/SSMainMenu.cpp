@@ -10,7 +10,7 @@ SSMainMenu::SSMainMenu(QWidget *parent, DUIHandler* handler)
 {
 	ui.setupUi(this);
 	m_uiHandler = handler;
-	const QIcon icon = QIcon(QString::fromUtf8(":/icons/Resources/Cosmetic.png"));
+	const QIcon icon = QIcon(QString::fromUtf8(":/common/Resources/Cosmetic.png"));
     setWindowIcon(icon);
 }
 

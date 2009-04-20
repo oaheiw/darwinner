@@ -9,6 +9,8 @@
 #include "Level.h"
 #include "Status.h"
 #include "Staff.h"
+ #include <QFileDialog>
+#include <QFile>
 
 StaffDetail::StaffDetail(QWidget *parent, int mode)
 	: QWidget(parent)
@@ -31,7 +33,9 @@ StaffDetail::~StaffDetail()
 
  void StaffDetail::setupUi()
 {
+	noPic = QPixmap(":/staff/Resources/staff.png").scaled(180, 180,Qt::KeepAspectRatio ,Qt::SmoothTransformation);
 	labelPortrait = new QLabel(QString::fromLocal8Bit("没有照片"),this);
+	labelPortrait->setPixmap(noPic);
 	labelPortrait->setFixedSize(180, 240);
 	labelPortrait->setFrameShape(QFrame::StyledPanel);
 	labelPortrait->setFrameShadow(QFrame::Raised);
@@ -166,6 +170,7 @@ StaffDetail::~StaffDetail()
   
 void StaffDetail::setJob(list<Job>* jobList)
 {
+	comboBoxJob->clear();
 	list<Job>::iterator it = jobList->begin();
 	while(jobList->end() != it)
 	{
@@ -176,7 +181,7 @@ void StaffDetail::setJob(list<Job>* jobList)
 
 void StaffDetail::setLevel(list<Level>* levelList)
 {
-	
+	comboBoxLevel->clear();
 	list<Level>::iterator it = levelList->begin();
 	while(levelList->end() != it)
 	{
@@ -187,6 +192,7 @@ void StaffDetail::setLevel(list<Level>* levelList)
 
 void StaffDetail::setStatus(list<Status>* statusList)
 {
+	comboBoxStatus->clear();
 	list<Status>::iterator it = statusList->begin();
 	while(statusList->end() != it)
 	{
@@ -211,6 +217,8 @@ void StaffDetail::setStatus(list<Status>* statusList)
 		lineEditCell->setText(QString::fromLocal8Bit(staff->cell().c_str()));
 		plainTextEditAddress->setPlainText(QString::fromLocal8Bit(staff->address().c_str()));
 		plainTextEditDescrption->setPlainText(QString::fromLocal8Bit(staff->Descrp().c_str()));
+		userPicData.clear();
+		labelPortrait->setPixmap(noPic);
 	}
   }
 
@@ -280,6 +288,7 @@ void StaffDetail::setStatus(list<Status>* statusList)
 	myinfo = false;
 	Staff* staff = new Staff();
 	staff->clear();
+	userPicData.clear();
 	lineEditId->setText(QString::number(staff->ID()));
 	lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
 	comboBoxSex->setCurrentIndex(staff->Sex());
@@ -290,6 +299,7 @@ void StaffDetail::setStatus(list<Status>* statusList)
 	lineEditCell->setText(QString::fromLocal8Bit(staff->cell().c_str()));
 	plainTextEditAddress->setPlainText(QString::fromLocal8Bit(staff->address().c_str()));
 	plainTextEditDescrption->setPlainText(QString::fromLocal8Bit(staff->Descrp().c_str()));
+	labelPortrait->setPixmap(noPic);
 	changeMode(SINFO_NEW);
 	delete staff;
 }
@@ -301,7 +311,28 @@ void StaffDetail::setStatus(list<Status>* statusList)
  
 void StaffDetail::selectPic()
 {
-	
+	 QString fileName = QFileDialog::getOpenFileName(this,
+		 QString::fromLocal8Bit("选择照片"), "./", QString::fromLocal8Bit("图像文件(*.png *.jpg *.bmp)"));
+	 if(!fileName.isEmpty()) {
+		 QFile file(fileName);
+		 file.open(QIODevice::ReadOnly);
+		 userPicData.clear();
+		 userPicData = file.readAll();
+		 file.close();
+		 QPixmap pic;
+		 pic.loadFromData(userPicData);
+		 labelPortrait->setPixmap(pic);
+	 }
+}
+
+void StaffDetail::displayPic(QByteArray& data)
+{
+	if(!data.isEmpty()) {
+		userPicData = data;
+		QPixmap pic;
+		pic.loadFromData(userPicData);
+		labelPortrait->setPixmap(pic);
+	}
 }
 
 void StaffDetail::submit()
@@ -325,9 +356,9 @@ void StaffDetail::submit()
 	staff->SetStatus(comboBoxStatus->itemData(comboBoxStatus->currentIndex()).toUInt());
 
 	if(SINFO_NEW == m_mode) {
-		emit addedStaff(staff);
+		emit addedStaff(staff, userPicData);
 	}
 	else if(SINFO_MODIFY == m_mode) {
-		emit modifiedStaff(staff);
+		emit modifiedStaff(staff, userPicData);
 	}
 }
