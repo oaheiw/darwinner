@@ -22,11 +22,11 @@
    <enum>Qt::StrongFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>StaffConfiguration</string>
+   <string>员工属性设置</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../Login/login.qrc">
-    <normaloff>:/staff/Resources/staff.png</normaloff>:/staff/Resources/staff.png</iconset>
+    <normaloff>:/staff/Resources/people.png</normaloff>:/staff/Resources/people.png</iconset>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -96,7 +96,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="Staff.qrc"/>
   <include location="../Login/login.qrc"/>
  </resources>
  <connections/>

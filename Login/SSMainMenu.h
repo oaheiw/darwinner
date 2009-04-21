@@ -17,12 +17,13 @@ public:
 	void SettingFont(QFont& font);
 
 private:
+	void createIcons();
 	Ui::SSMenuWindowClass ui;
 
 
 private slots:
-	void on_pushButtonStaffMgnt_clicked();
-	void on_pushButtonLogoff_clicked();
+	void startFunction(int x, int y);
+//	void on_pushButtonLogoff_clicked();
 };
 
 #endif // DARWINMAIN_H

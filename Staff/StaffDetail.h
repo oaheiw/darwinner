@@ -25,6 +25,8 @@ public:
 	void displayPic(QByteArray& staff);
 
 private:
+	QMessageBox::StandardButton showMessageBox(QMessageBox::Icon icon, string title, string info = "");
+	QMessageBox* messageBox;
 	int m_mode;
 	bool myinfo;
 	void setupUi();

@@ -27,4 +27,5 @@ void PasswordWidget::checkInput()
 
 void PasswordWidget::submit() {
 	emit submitPassword(oldLineEdit->text().toLocal8Bit().data(), newLineEdit->text().toLocal8Bit().data());
+	close();
 }
