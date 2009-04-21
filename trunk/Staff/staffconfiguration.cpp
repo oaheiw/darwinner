@@ -18,7 +18,7 @@ void StaffConfiguration::createIcons()
  {
      QListWidgetItem *jobButton = new QListWidgetItem(ui.ItemListWidget);
      jobButton->setIcon(QIcon(":/staff/Resources/job.png"));
-	 jobButton->setText(QString::fromLocal8Bit("职务设置"));
+	jobButton->setText(QString::fromLocal8Bit("职务设置"));
      jobButton->setTextAlignment(Qt::AlignCenter);
      jobButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 

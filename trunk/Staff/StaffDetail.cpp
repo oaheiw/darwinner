@@ -33,6 +33,10 @@ StaffDetail::~StaffDetail()
 
  void StaffDetail::setupUi()
 {
+
+	messageBox = new QMessageBox(this);
+	messageBox->setWindowTitle(QString::fromLocal8Bit("员工管理"));
+
 	noPic = QPixmap(":/staff/Resources/staff.png").scaled(180, 180,Qt::KeepAspectRatio ,Qt::SmoothTransformation);
 	labelPortrait = new QLabel(QString::fromLocal8Bit("没有照片"),this);
 	labelPortrait->setPixmap(noPic);
@@ -43,12 +47,17 @@ StaffDetail::~StaffDetail()
 
 	lineEditId = new QLineEdit(this);
 	lineEditName = new QLineEdit(this);
+	lineEditName->setMaxLength(NAME_MAX_LEN);
 	comboBoxSex = new QComboBox(this);
 	comboBoxStatus = new QComboBox(this);
 	comboBoxJob = new QComboBox(this);
 	comboBoxLevel = new QComboBox(this);
 	lineEditPhone = new QLineEdit(this);
+	lineEditPhone->setMaxLength(PHONE_MAX_LEN);
+//	lineEditPhone->setValidator(new QIntValidator(lineEditPhone));
 	lineEditCell = new QLineEdit(this);
+	lineEditCell->setMaxLength(PHONE_MAX_LEN);
+//	lineEditCell->setValidator(new QIntValidator(lineEditCell));
 	plainTextEditAddress = new QPlainTextEdit(this);
 //	plainTextEditAddress->setMaximumHeight(60);
 	plainTextEditAddress->setMinimumHeight(40);
@@ -166,6 +175,7 @@ StaffDetail::~StaffDetail()
 	pushButtonPix->setFont(font);
 	pushButtonModify->setFont(font);
 	pushButtonSubmmit->setFont(font);
+	messageBox->setFont(font);
  }
   
 void StaffDetail::setJob(list<Job>* jobList)
@@ -316,32 +326,37 @@ void StaffDetail::selectPic()
 	 if(!fileName.isEmpty()) {
 		 QFile file(fileName);
 		 file.open(QIODevice::ReadOnly);
-		 userPicData.clear();
-		 userPicData = file.readAll();
+		 if(file.size() > PIC_MAX_SIZE*MB) {
+			 QString warning = QString::fromLocal8Bit("非常抱歉，照片文件大小不能超过") + QString::number(PIC_MAX_SIZE)
+				  + QString::fromLocal8Bit("MB（兆），请重新选择。");
+			 showMessageBox(QMessageBox::Warning, warning.toLocal8Bit().data());
+			 return;
+		 }
+		 displayPic(file.readAll());
 		 file.close();
-		 QPixmap pic;
-		 pic.loadFromData(userPicData);
-		 labelPortrait->setPixmap(pic);
 	 }
 }
 
 void StaffDetail::displayPic(QByteArray& data)
 {
-	if(!data.isEmpty()) {
-		userPicData = data;
+	userPicData = data;
+	if(!userPicData.isEmpty()) {
 		QPixmap pic;
 		pic.loadFromData(userPicData);
-		labelPortrait->setPixmap(pic);
+		if(pic.height() != 0) {
+			if(pic.width()/pic.height() > labelPortrait->width()/labelPortrait->height())
+				pic = pic.scaledToWidth(labelPortrait->width(), Qt::SmoothTransformation);
+			else
+				pic = pic.scaledToHeight(labelPortrait->height(), Qt::SmoothTransformation);
+			labelPortrait->setPixmap(pic);
+		} else {
+			labelPortrait->setPixmap(noPic);
+		}
 	}
 }
 
 void StaffDetail::submit()
 {
-	if(lineEditName->text().isEmpty()) {
-//		QToolTip::showText(lineEditName->pos(), QString::fromLocal8Bit("姓名不能为空"), pushButtonSubmmit, QRect(0, 0 , 200,200));
-//		lineEditName->setToolTip(QString::fromLocal8Bit("姓名不能为空"));
-//		return;
-	}
 	Staff* staff = new Staff();
 	staff->SetAddress(plainTextEditAddress->toPlainText().toLocal8Bit().data());
 	staff->SetCell(lineEditCell->text().toLocal8Bit().data());
@@ -362,3 +377,21 @@ void StaffDetail::submit()
 		emit modifiedStaff(staff, userPicData);
 	}
 }
+
+  QMessageBox::StandardButton StaffDetail::showMessageBox(QMessageBox::Icon icon, string title, string info) {
+	messageBox->setIcon(icon);
+	messageBox->setText(QString::fromLocal8Bit(title.c_str()));
+	messageBox->setInformativeText(QString::fromLocal8Bit(info.c_str()));
+	if(QMessageBox::Information == icon) {
+		messageBox->setStandardButtons(QMessageBox::Ok);
+		 messageBox->setDefaultButton(QMessageBox::Ok);
+		 messageBox->button(QMessageBox::Ok)->setText(QString::fromLocal8Bit("返回"));
+	}
+	if(QMessageBox::Question == icon) {
+		messageBox->setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+		 messageBox->setDefaultButton(QMessageBox::No);
+		 messageBox->button(QMessageBox::Yes)->setText(QString::fromLocal8Bit("确定"));
+		 messageBox->button(QMessageBox::No)->setText(QString::fromLocal8Bit("取消"));
+	}
+	return (QMessageBox::StandardButton)messageBox->exec();
+ }

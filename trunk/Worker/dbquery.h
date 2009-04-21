@@ -16,8 +16,15 @@
 #define INSERTINTO_STAFF_SUPER "INSERT INTO staff (id, password, name, jobId, levelId, sex, status, cell, phone, address, descrption, image) " "VALUES (:id, :password, :name, :jobId, :levelId, :sex, :status, :cell, :phone, :address, :descrption, :image)"
 #define UPDATA_STAFF_BASIC "UPDATE staff SET name = '%1', jobId = %2, levelId = %3, sex = %4, baseSalary = %5, status = %6, cell = '%7', phone = '%8', address = '%9', descrption = '%10' WHERE id = %11"
 #define DELETE_STAFF_BYID "DELETE FROM staff WHERE id = %1"
-#define SET_PIC "UPDATE staff SET image = '%1' WHERE id = %2"
+#define SET_PIC "UPDATE staff SET image=? WHERE id = %1" "VALUES (?)"
 #define GET_PIC "SELECT image FROM staff WHERE id = %1"
+
+#define CREATE_IMAGE_TABLE "CREATE TABLE image (id INTEGER REFERENCES staff(id), data BLOB DEFAULT NULL)" 
+#define INSERT_IMAGE "INSERT INTO image (id, data)" "VALUES (:id, :data)"
+#define DELETE_IMAGE "DELETE FROM image WHERE id = %1"
+#define CHECK_IMAGE_BYID "SELECT id FROM image WHERE id = %1"
+#define GET_IMAGE_BYID "SELECT data FROM image WHERE id = %1"
+
 
 #define CREATE_JOB_TABLE "CREATE TABLE job (id INTEGER PRIMARY KEY, name TEXT NOT NULL, profit SMALLINT DEFAULT 0, descrption TEXT)"
 #define INSERTINTO_JOB_TABLE "INSERT INTO job (name, profit, descrption) " "VALUES (:name, :profit, :descrption)"

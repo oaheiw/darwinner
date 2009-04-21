@@ -101,11 +101,12 @@ void ThreadDatabase::run() {
 				if(addStaff(staff)) {
 					addedStaff = getStaff(staff->ID());
 				}
+				m_tempMsg = new Message(EVENT_STAFFADDED, addedStaff);
 				if(NULL != image && !image->isEmpty() && addedStaff->ID() != 0) {
-					setImage(addedStaff->ID(), *image);
+					if(setImage(addedStaff->ID(), *image))
+						m_tempMsg->setData2(getImage(addedStaff->ID()));
 				}
 				delete staff;
-				m_tempMsg = new Message(EVENT_STAFFADDED, addedStaff);
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
@@ -236,11 +237,12 @@ void ThreadDatabase::run() {
 				if(modifyStaff(staff)) {
 					modifieddStaff = getStaff(staff->ID());
 				}
+				m_tempMsg = new Message(EVENT_STAFFMODIFIED, modifieddStaff);
 				if(NULL != image && !image->isEmpty() && modifieddStaff->ID() != 0) {
-					setImage(modifieddStaff->ID(), *image);
+					if(setImage(modifieddStaff->ID(), *image))
+						m_tempMsg->setData2(getImage(modifieddStaff->ID()));
 				}
 				delete staff;
-				m_tempMsg = new Message(EVENT_STAFFMODIFIED, modifieddStaff);
 				QEvent* ev = new TEvent((QEvent::Type)EventDb, m_tempMsg);
 				QCoreApplication::postEvent(this->parent(), ev,Qt::HighEventPriority);
 				break;
@@ -306,7 +308,8 @@ bool ThreadDatabase::initDb()
 	q.exec(CREATE_STATUS_TABLE);
 	q.exec(CREATE_TASKS_TABLE);
 	q.exec(CREATE_GOOSTYPE_TABLE);
-
+	q.exec(CREATE_IMAGE_TABLE);
+	
 	q.prepare(INSERTINTO_SEX_TABLE);
 	q.bindValue(":id", 0);
 	q.bindValue(":name", "δ�趨");
@@ -465,10 +468,33 @@ bool ThreadDatabase::setImage(uint32 id, QByteArray& image)
 	DBINFO("setting image for:", id);
 	QSqlQuery q = QSqlQuery(db);
 
-	QString set = QString(SET_PIC).arg(QString::fromLocal8Bit(image.data(), image.size())).arg(id);
-//	r = q.prepare(set);
-//	q.bindValue(":image", image);
-	r = q.exec(set);
+
+	QString check = QString(CHECK_IMAGE_BYID).arg(id);
+	if(q.exec(check)) {
+		if(q.next())
+			q.exec(QString(DELETE_IMAGE).arg(id));
+	}
+
+	q.prepare(INSERT_IMAGE);
+	q.bindValue(":id", id);
+	q.bindValue(":data", image, QSql::Binary | QSql::In);
+	r = q.exec();
+	db.close();
+/*
+	 QString out;
+	for(int n = 0; n < (int)image.size(); ++n)
+	  {
+	  QString str;
+	  str.sprintf("%02x", (byte)image[n]);
+	  out.append(str);
+	}
+
+
+	QString set = QString(SET_PIC).arg(id);
+	q.prepare(set);
+	q.bindValue(0, image, QSql::In |QSql::Binary);
+	r = q.exec();
+*/
 	db.close();
 	DBINFO("set image complete", r);
 	return r;
@@ -485,9 +511,10 @@ QByteArray* ThreadDatabase::getImage(uint32 id)
 	DBINFO("setting image for:", id);
 	QSqlQuery q = QSqlQuery(db);
 
-	QString get = QString(GET_PIC).arg(id);
+	QString get = QString(GET_IMAGE_BYID).arg(id);
 	if(q.exec(get)) {
 		if(q.next()) {
+//			*image = QByteArray::fromHex(q.value(0).toByteArray());
 			*image = q.value(0).toByteArray();
 		}
 	}

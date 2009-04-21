@@ -1,4 +1,5 @@
 #include <QtGui/QApplication>
+ #include <QtPlugin>
 #include "Message.h"
 #include "messagedef.h"
 #include "Singleton.cpp"
@@ -13,6 +14,9 @@
 #include "SMHandler.h"
 #include "systeminfo.h"
 
+Q_IMPORT_PLUGIN(qico);
+Q_IMPORT_PLUGIN(qjpeg);
+Q_IMPORT_PLUGIN(qgif);
 
 int main(int argc, char *argv[])
 {

@@ -33,11 +33,13 @@ typedef unsigned char byte;
 #define R_OK (4)
 #define RW_OK (6)
   
+#define MB (1024*1024)
 #define MESSAGE_BUFFER_SIZE (4096)
 #define ID_MAX_LEN (16)
 #define PW_MAX_LEN (16)
-#define STUFFNAME_MAX_LEN (32)
-#define DESCRP_MAX_LEN (2048-128)
+#define NAME_MAX_LEN (32)
+#define PHONE_MAX_LEN (16)
+#define PIC_MAX_SIZE (1.5)
 #define ACTION_FLAG (0x80)
 #define EVENT_FLAG (0x00)
 

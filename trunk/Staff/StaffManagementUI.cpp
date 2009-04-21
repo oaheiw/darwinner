@@ -9,6 +9,7 @@
 #include "Level.h"
 #include "Status.h"
 #include "Staff.h"
+//class ByteArray;
 #include "PasswordWidget.h"
 #include "staffconfiguration.h"
 
@@ -60,7 +61,7 @@ StaffManagementUI::StaffManagementUI()
 	connect(treeViewStaff, SIGNAL(activated(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
 	connect(treeViewStaff, SIGNAL(clicked(const QModelIndex&)), this, SLOT(staffActivated(const QModelIndex&)));
 	connect(addPushButton, SIGNAL(clicked()), staffDetailWidget, SLOT(newStaff()));
-	connect(deletePushButton, SIGNAL(clicked()), staffDetailWidget, SLOT(removeStaff()));
+	connect(deletePushButton, SIGNAL(clicked()), this, SLOT(removeStaff()));
 	connect(staffDetailWidget, SIGNAL(addedStaff(Staff*, QByteArray&)), this, SLOT(addStaff(Staff*, QByteArray&)));
 	connect(staffDetailWidget, SIGNAL(modifiedStaff(Staff*, QByteArray&)), this, SLOT(modifyStaff(Staff*, QByteArray&)));
 	connect(actionAboutQt, SIGNAL(triggered()), this, SLOT(aboutQt()));
@@ -111,6 +112,11 @@ void StaffManagementUI::OnEvent(Message & Msg){
 		{
 			if(NULL != Msg.data()) {
 				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
+				if(NULL != Msg.data2()) {
+					QByteArray* image = static_cast<QByteArray*>(Msg.data2());
+					staffDetailWidget->displayPic(*image);
+					delete image;
+				}
 				getAllStaff();
 			} else {
 				showMessageBox(QMessageBox::Critical, addStaffError);
@@ -120,6 +126,10 @@ void StaffManagementUI::OnEvent(Message & Msg){
 		case EVENT_STAFFREMOVED:
 		{
 			if(NULL != Msg.data()) {
+				Staff* emptyStaff = new Staff;
+				emptyStaff->clear();
+				staffDetailWidget->browseStaff(emptyStaff);
+				delete emptyStaff;
 				getAllStaff();
 			} else {
 				showMessageBox(QMessageBox::Critical, removeStaffError);
@@ -130,6 +140,11 @@ void StaffManagementUI::OnEvent(Message & Msg){
 		{
 			if(NULL != Msg.data()) {
 				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
+				if(NULL != Msg.data2()) {
+					QByteArray* image = static_cast<QByteArray*>(Msg.data2());
+					staffDetailWidget->displayPic(*image);
+					delete image;
+				}
 				getAllStaff();
 			} else {
 				showMessageBox(QMessageBox::Critical, modifyStaffError);
@@ -149,7 +164,9 @@ void StaffManagementUI::OnEvent(Message & Msg){
 		case EVENT_GETPICTURE:
 		{
 			if(NULL != Msg.data()) {
-				staffDetailWidget->displayPic(*static_cast<QByteArray*>(Msg.data()));
+				QByteArray* image = static_cast<QByteArray*>(Msg.data());
+				staffDetailWidget->displayPic(*image);
+				delete image;
 			} else {
 
 			}
@@ -330,6 +347,7 @@ bool StaffManagementUI::event(QEvent * ev)
 				getLevelType();
 				getStatusType();
 				getAllStaff();
+				showMaximized(); 
 			}
 			break;
 		}
@@ -425,7 +443,9 @@ void StaffManagementUI::removeStaff()
 {
 	QModelIndex currentIndex = treeViewStaff->currentIndex().sibling(treeViewStaff->currentIndex().row(), 0);
 	QModelIndex nameIndex = treeViewStaff->currentIndex().sibling(treeViewStaff->currentIndex().row(), 1);
-	removeStaff(currentIndex.data().toUInt(), nameIndex.data().toString().toLocal8Bit().data());
+	if(currentIndex.data().toUInt() != 0) {
+		removeStaff(currentIndex.data().toUInt(), nameIndex.data().toString().toLocal8Bit().data());
+	}
 }
 
 void StaffManagementUI::removeStaff(uint32 id, string name)	
@@ -610,12 +630,13 @@ void StaffManagementUI::setupUi() {
 	labelSearchItem = new QLabel(QString::fromLocal8Bit("搜索项(&I)"), optionGroupBox);
 	labelSearchItem->setBuddy(comboBoxItem);
 	comboBoxItem->addItem(QString::fromLocal8Bit("全部项目"));
-	comboBoxItem->addItem(QString::fromLocal8Bit("员工编号"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("工号"));
 	comboBoxItem->addItem(QString::fromLocal8Bit("姓名"));
 	comboBoxItem->addItem(QString::fromLocal8Bit("性别"));
 	comboBoxItem->addItem(QString::fromLocal8Bit("职务"));
 	comboBoxItem->addItem(QString::fromLocal8Bit("级别"));
-	comboBoxItem->addItem(QString::fromLocal8Bit("描述"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("状态"));
+	comboBoxItem->addItem(QString::fromLocal8Bit("手机"));
 
 	checkBoxSort = new QCheckBox(QString::fromLocal8Bit("排序忽略大小写(&N)"), optionGroupBox);
 	checkBoxSearch = new QCheckBox(QString::fromLocal8Bit("搜索忽略大小写(&M)"), optionGroupBox);
@@ -723,9 +744,9 @@ void StaffManagementUI::setupUi() {
 	customCentralWidget->setLayout(mainLayout);
 	setCentralWidget(customCentralWidget);
 	setWindowTitle(QString::fromLocal8Bit("员工管理"));
-	this->setWindowIcon(QIcon(":/staff/Resources/people.png"));
+	setWindowIcon(QIcon(":/staff/Resources/people.png"));
 
-	resize(800, 600);
+//	resize(maximumWidth(), maximumHeight());
  }
 
   QMessageBox::StandardButton StaffManagementUI::showMessageBox(QMessageBox::Icon icon, string title, string info) {
@@ -735,10 +756,13 @@ void StaffManagementUI::setupUi() {
 	if(QMessageBox::Information == icon) {
 		messageBox->setStandardButtons(QMessageBox::Ok);
 		 messageBox->setDefaultButton(QMessageBox::Ok);
+		 messageBox->button(QMessageBox::Ok)->setText(QString::fromLocal8Bit("返回"));
 	}
 	if(QMessageBox::Question == icon) {
 		messageBox->setStandardButtons(QMessageBox::No | QMessageBox::Yes);
 		 messageBox->setDefaultButton(QMessageBox::No);
+		 messageBox->button(QMessageBox::Yes)->setText(QString::fromLocal8Bit("确定"));
+		 messageBox->button(QMessageBox::No)->setText(QString::fromLocal8Bit("取消"));
 	}
 	return (QMessageBox::StandardButton)messageBox->exec();
  }
