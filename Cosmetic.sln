@@ -19,6 +19,12 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Worker", "Worker\Worker.vcproj", "{9C0D327C-7CB2-4274-8B5C-012381CDE098}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A950C423-FD2C-4817-9801-F605605C63AD} = {A950C423-FD2C-4817-9801-F605605C63AD}
+		{B477176D-8087-4904-A96E-150DBE87452A} = {B477176D-8087-4904-A96E-150DBE87452A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qtcommon", "qtcommon\qtcommon.vcproj", "{B477176D-8087-4904-A96E-150DBE87452A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A950C423-FD2C-4817-9801-F605605C63AD} = {A950C423-FD2C-4817-9801-F605605C63AD}
 	EndProjectSection
 EndProject
 Global
@@ -61,11 +67,19 @@ Global
 		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.Release|Win32.Build.0 = Release|Win32
 		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
 		{9C0D327C-7CB2-4274-8B5C-012381CDE098}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
+		{B477176D-8087-4904-A96E-150DBE87452A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B477176D-8087-4904-A96E-150DBE87452A}.Debug|Win32.Build.0 = Debug|Win32
+		{B477176D-8087-4904-A96E-150DBE87452A}.DebugStatic|Win32.ActiveCfg = Debug|Win32
+		{B477176D-8087-4904-A96E-150DBE87452A}.DebugStatic|Win32.Build.0 = Debug|Win32
+		{B477176D-8087-4904-A96E-150DBE87452A}.Release|Win32.ActiveCfg = Release|Win32
+		{B477176D-8087-4904-A96E-150DBE87452A}.Release|Win32.Build.0 = Release|Win32
+		{B477176D-8087-4904-A96E-150DBE87452A}.ReleaseStatic|Win32.ActiveCfg = Release|Win32
+		{B477176D-8087-4904-A96E-150DBE87452A}.ReleaseStatic|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		QtVersion = 4.5.0
+		QtVersion = 4.5.0-shared
 	EndGlobalSection
 EndGlobal
