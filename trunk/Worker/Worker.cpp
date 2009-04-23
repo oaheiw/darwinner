@@ -17,18 +17,16 @@ using namespace std;
 Worker::Worker(QObject *parent )
 :QObject(parent)
 {
-	m_databaseThread = new ThreadDatabase(this);
+	m_databaseThread = new ThreadDatabase(this, QThread::HighPriority);
 	loggedStaff = NULL;
 }
 
-
-
 Worker::~Worker(){
-
+	delete m_databaseThread;
 }
 
 void Worker::StartAction(Message& Action) {
-	DBINFO("catch one action: ", Action.type());
+	DBINFO("worker catch one action: ", Action.type());
 	switch(Action.type()) {
 		case ACTION_STAFFMGNT:
 		{
@@ -80,7 +78,7 @@ void Worker::IncomingEvent(Message& ev) {
 	BroadcastEvent(ev);
 }
 
-bool Worker::event ( QEvent * e ) {
+bool Worker::event(QEvent * e) {
 	switch(e->type()) {
 		case EventDb:
 			{

@@ -12,7 +12,7 @@
 #include "IActionHandler.h"
 #include "IEventObserver.h"
 #include <QObject>
-#include "ThreadDatabase.h"
+class WorkerThread;
 class QEvent;
 class Staff;
 
@@ -23,11 +23,11 @@ public:
 	Worker(QObject *parent = 0);
 	virtual ~Worker();
 	virtual void StartAction(Message& Action) ;
-	bool event ( QEvent * e );
+	bool event (QEvent * e);
  
  private:
 	IEventObserver *m_IEventObserver;
-	ThreadDatabase* m_databaseThread;
+	WorkerThread* m_databaseThread;
 	Staff* loggedStaff;
 
 private slots:

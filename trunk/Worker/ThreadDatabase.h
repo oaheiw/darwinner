@@ -1,41 +1,23 @@
 #ifndef ThreadDatabase_h
 #define ThreadDatabase_h
 
-#include "common.h"
-
-#include <QThread.>
-#include <QMutex>
-#include <QWaitCondition>
-#include <QSqlDatabase>
+#include "DbThread.h"
 class Message;
 class Staff;
 class Job;
 class Level;
 class Status;
-#include <list>
-#include <string>
-using namespace std;
 
-class ThreadDatabase : public QThread
+class ThreadDatabase : public DbThread
 {
-
-	Q_OBJECT
 public:
-	ThreadDatabase(QObject *parent = 0);
-	~ThreadDatabase();
-	void QueueAction(Message& action);
+	ThreadDatabase(QObject *parent = 0, QThread::Priority priority = QThread::NormalPriority);
+	virtual ~ThreadDatabase();
 
 protected:
-	void run();
-
-protected:
-	QMutex mutex;
-    QWaitCondition bufferEmpty;
-	list<Message> m_listActionBuffer;
-	Message* m_tempMsg;
-
+	virtual void WorkerThreadMain(Message& action);
+	
  private:
-	QSqlDatabase db;
 	Staff* m_loggedstaff;
 	bool initDb();
 	Staff* getStaff(uint32 id);
@@ -49,13 +31,16 @@ protected:
 	bool addJobType(Job* job);
 	bool addLevelType(Level* level);
 	bool addStatusType(Status* status);
-	bool changePassword(string oldpw, string newpw);
+	int* changePassword(string oldpw, string newpw);
 	list<Staff>* getAllStaffs();
 	list<Job>* getJobs();
 	list<Level>* getLevels();
 	list<Status>* getStatus();
 	bool setImage(uint32 id, QByteArray& image);
 	QByteArray* getImage(uint32 id);
+	bool deleteImage(uint32 id);
+//	bool openDb();
+//	void cleseDb();
 };
 
 #endif

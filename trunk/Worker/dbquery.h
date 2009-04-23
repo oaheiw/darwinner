@@ -7,18 +7,15 @@
 #define SQLITEMARKLEN (15)
 #define SUPERUSERID 10000
 
-#define CREATE_STAFF_TABLE "CREATE TABLE staff (id INTEGER PRIMARY KEY, password TEXT, name TEXT, jobId INTEGER REFERENCES job(id), levelId INTEGER REFERENCES level(id), sex SMALLINT DEFAULT 0, baseSalary INTEGER DEFAULT 0, status SMALLINT DEFAULT 0, cell TEXT, phone TEXT, address TEXT, descrption TEXT, image BLOB)"
+#define CREATE_STAFF_TABLE "CREATE TABLE staff (id INTEGER PRIMARY KEY, password TEXT, name TEXT, jobId INTEGER REFERENCES job(id), levelId INTEGER REFERENCES level(id), sex SMALLINT DEFAULT 0, baseSalary INTEGER DEFAULT 0, status SMALLINT DEFAULT 0, cell TEXT, phone TEXT, address TEXT, descrption TEXT)"
 #define INSERTINTO_STAFF "INSERT INTO staff (password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption) " "VALUES (:password, :name, :jobId, :levelId, :sex, :baseSalary, :status, :cell, :phone, :address, :descrption)"
-#define INSERT_STAFF_IMAGE "UPDATE staff SET (image) WHERE (id)" "VALUES (:image, :id)"
 #define SELECT_STAFF_ALL "SELECT * FROM staff"
 #define SELECT_STAFF_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption FROM staff"
 #define SELECT_STAFF_BYID_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption FROM staff WHERE id = %1"
-#define INSERTINTO_STAFF_SUPER "INSERT INTO staff (id, password, name, jobId, levelId, sex, status, cell, phone, address, descrption, image) " "VALUES (:id, :password, :name, :jobId, :levelId, :sex, :status, :cell, :phone, :address, :descrption, :image)"
+#define INSERTINTO_STAFF_SUPER "INSERT INTO staff (id, password, name, jobId, levelId, sex, status, cell, phone, address, descrption) " "VALUES (:id, :password, :name, :jobId, :levelId, :sex, :status, :cell, :phone, :address, :descrption)"
 #define UPDATA_STAFF_BASIC "UPDATE staff SET name = '%1', jobId = %2, levelId = %3, sex = %4, baseSalary = %5, status = %6, cell = '%7', phone = '%8', address = '%9', descrption = '%10' WHERE id = %11"
 #define DELETE_STAFF_BYID "DELETE FROM staff WHERE id = %1"
-#define SET_PIC "UPDATE staff SET image=? WHERE id = %1" "VALUES (?)"
-#define GET_PIC "SELECT image FROM staff WHERE id = %1"
-
+ 
 #define CREATE_IMAGE_TABLE "CREATE TABLE image (id INTEGER REFERENCES staff(id), data BLOB DEFAULT NULL)" 
 #define INSERT_IMAGE "INSERT INTO image (id, data)" "VALUES (:id, :data)"
 #define DELETE_IMAGE "DELETE FROM image WHERE id = %1"
