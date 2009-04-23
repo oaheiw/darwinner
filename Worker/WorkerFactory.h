@@ -14,7 +14,7 @@ class WorkerFactory
 
 public:
 	WorkerFactory();
-	virtual ~WorkerFactory();
+	~WorkerFactory();
 
 	IActionHandler* CreateWorker();
 
