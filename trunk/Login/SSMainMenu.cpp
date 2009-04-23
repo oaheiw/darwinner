@@ -31,8 +31,8 @@ void SSMainMenu::OnEvent(Message& ev)
 		case EVENT_LOGGEDIN:
 		{
 			Staff* Logged = (Staff*)(ev.data());
-			ui.infoLabel->setText(QString::fromLocal8Bit("您好，") + QString::fromLocal8Bit(Logged->Name().c_str()) + 
-				QString::fromLocal8Bit("！\n欢迎使用Cosmetic（科思美）美容美发业运营系统。"));
+//			ui.infoLabel->setText(QString::fromLocal8Bit("您好，") + QString::fromLocal8Bit(Logged->Name().c_str()) + 
+//				QString::fromLocal8Bit("！\n欢迎使用Cosmetic（科思美）美容美发业运营系统。"));
 			show();
 			break;
 		}
