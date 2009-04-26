@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/common" >
+        <file>Resources/cosmetic.png</file>
+        <file>Resources/cosmetic-text.png</file>
+        <file>Resources/banner.png</file>
+        <file>Resources/watermark.png</file>
+    </qresource>
+    <qresource prefix="/staff" >
+        <file>Resources/staff.png</file>
+        <file>Resources/people.png</file>
+        <file>Resources/job.png</file>
+        <file>Resources/level.png</file>
+    </qresource>
+</RCC>
