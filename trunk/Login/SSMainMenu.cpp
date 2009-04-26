@@ -30,10 +30,10 @@ void SSMainMenu::OnEvent(Message& ev)
 	switch(ev.type()) {
 		case EVENT_LOGGEDIN:
 		{
-			Staff* Logged = (Staff*)(ev.data());
-//			ui.infoLabel->setText(QString::fromLocal8Bit("您好，") + QString::fromLocal8Bit(Logged->Name().c_str()) + 
-//				QString::fromLocal8Bit("！\n欢迎使用Cosmetic（科思美）美容美发业运营系统。"));
-			show();
+			int* r = static_cast<int*>(ev.data());
+			if(ERROR_NO_ERROR == *r) {
+				show();
+			}
 			break;
 		}
 		case EVENT_MAINMENU:

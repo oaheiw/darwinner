@@ -88,7 +88,7 @@ uint32 Message::type(){
 
 uint32 Message::group() 
 {
-	return (m_type>>24) & (!(ACTION_FLAG) & 0x000000FF);
+	return (m_type>>24) & (~(ACTION_FLAG) & 0x000000FF);
 }
 uint32 Message::subgroup()
 {

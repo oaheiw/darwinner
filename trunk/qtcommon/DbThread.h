@@ -11,12 +11,12 @@ public:
 	virtual ~DbThread();
 
 protected:
-	void setDbServer(const char* dbtype, const char* hostname, const char* username, const char* password, int port);
+	void setDbServer(const char* dbtype, const char* connection, const char* hostname, const char* username, const char* password, int port);
 	bool openDb(const char* dbname);
 	void closeDb();
-	QSqlDatabase& getDb();
+	QSqlDatabase& getDb(const char* connection);
 
-private:
+//private:
 	QSqlDatabase db;	
 };
 

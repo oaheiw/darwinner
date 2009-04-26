@@ -2,7 +2,7 @@
 #define JOBTYPE_H
 
 class QAbstractItemModel;
-#include <QWidget>
+#include <QtGui>
 #include "ui_job.h"
 #include "Job.h"
 #include <list>

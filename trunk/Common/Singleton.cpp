@@ -16,7 +16,6 @@ template<class T> class Singleton
 
 public:
 	~Singleton();
-
 	static T* instance();
 
 protected:
@@ -24,7 +23,6 @@ protected:
 
 private:
 	static T* m_instance;
-
 };
 
 

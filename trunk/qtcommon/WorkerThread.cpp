@@ -40,7 +40,7 @@ void WorkerThread::run() {
 		mutex.lock();
 		if(m_listActionBuffer.empty())
 			bufferEmpty.wait(&mutex);
-		mutex.unlock();\
+		mutex.unlock();
 
 		mutex.lock();
 		Message Action = m_listActionBuffer.front();

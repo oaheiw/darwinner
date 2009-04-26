@@ -100,8 +100,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
+				Optimization="0"
 				EnableIntrinsicFunctions="false"
+				WholeProgramOptimization="false"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="false"
 				WarningLevel="3"

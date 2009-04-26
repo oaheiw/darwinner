@@ -1,12 +1,6 @@
 #ifndef STAFFMANAGEMENT_H
 #define STAFFMANAGEMENT_H
 
-#define emptyNameWarnning "员工姓名不能留空， \n请返回并填写员工姓名。"
-#define removeStaffConfirm "确定删除选定员工“%1”？\n如果员工离职，建议您更改该员工状态，而不是在系统中删除该员工。"
-#define removeStaffError "未能成功删除选定员工，请重试。"
-#define addStaffError "未能成功添加员工，请重试。"
-#define modifyStaffError "未能成功修改员工信息，请重试。"
-
 #include "DUIObserver.h"
 class Staff;
 #include <QtGui>
@@ -45,7 +39,6 @@ protected:
 
 private:
 	void addStaff(std::list<Staff> *staffList);
-	QMessageBox::StandardButton showMessageBox(QMessageBox::Icon icon, string title, string info = "");
 
 	//ui items
 	QAction *actionBrowseMyRecords;

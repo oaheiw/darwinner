@@ -9,8 +9,9 @@
 #include "Level.h"
 #include "Status.h"
 #include "Staff.h"
- #include <QFileDialog>
+#include <QFileDialog>
 #include <QFile>
+#include "MessageBox.h"
 
 StaffDetail::StaffDetail(QWidget *parent, int mode)
 	: QWidget(parent)
@@ -33,10 +34,6 @@ StaffDetail::~StaffDetail()
 
  void StaffDetail::setupUi()
 {
-
-	messageBox = new QMessageBox(this);
-	messageBox->setWindowTitle(QString::fromLocal8Bit("员工管理"));
-
 	noPic = QPixmap(":/staff/Resources/staff.png").scaled(180, 180,Qt::KeepAspectRatio ,Qt::SmoothTransformation);
 	labelPortrait = new QLabel(QString::fromLocal8Bit("没有照片"),this);
 	labelPortrait->setPixmap(noPic);
@@ -175,7 +172,6 @@ StaffDetail::~StaffDetail()
 	pushButtonPix->setFont(font);
 	pushButtonModify->setFont(font);
 	pushButtonSubmmit->setFont(font);
-	messageBox->setFont(font);
  }
   
 void StaffDetail::setJob(list<Job>* jobList)
@@ -278,7 +274,10 @@ void StaffDetail::setStatus(list<Status>* statusList)
 
  void StaffDetail::modifyStaff(Staff* staff)
 {
-		changeMode(SINFO_MODIFY);
+	changeMode(SINFO_MODIFY);
+	if(lineEditId->text().isEmpty()) {
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, zeroSelectionWarning);
+	}
 	if(NULL != staff) {
 		lineEditId->setText(QString::number(staff->ID()));
 		lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
@@ -322,14 +321,14 @@ void StaffDetail::setStatus(list<Status>* statusList)
 void StaffDetail::selectPic()
 {
 	 QString fileName = QFileDialog::getOpenFileName(this,
-		 QString::fromLocal8Bit("选择照片"), "./", QString::fromLocal8Bit("图像文件(*.png *.jpg *.bmp)"));
+		 QString::fromLocal8Bit("选择照片"), "./", QString::fromLocal8Bit("图像文件(*.png *.jpg *.bmp *.gif)"));
 	 if(!fileName.isEmpty()) {
 		 QFile file(fileName);
 		 file.open(QIODevice::ReadOnly);
 		 if(file.size() > PIC_MAX_SIZE*MB) {
 			 QString warning = QString::fromLocal8Bit("非常抱歉，照片文件大小不能超过") + QString::number(PIC_MAX_SIZE)
 				  + QString::fromLocal8Bit("MB（兆），请重新选择。");
-			 showMessageBox(QMessageBox::Warning, warning.toLocal8Bit().data());
+			 MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, warning.toLocal8Bit().data());
 			 return;
 		 }
 		 displayPic(file.readAll());
@@ -377,21 +376,3 @@ void StaffDetail::submit()
 		emit modifiedStaff(staff, userPicData);
 	}
 }
-
-  QMessageBox::StandardButton StaffDetail::showMessageBox(QMessageBox::Icon icon, string title, string info) {
-	messageBox->setIcon(icon);
-	messageBox->setText(QString::fromLocal8Bit(title.c_str()));
-	messageBox->setInformativeText(QString::fromLocal8Bit(info.c_str()));
-	if(QMessageBox::Information == icon) {
-		messageBox->setStandardButtons(QMessageBox::Ok);
-		 messageBox->setDefaultButton(QMessageBox::Ok);
-		 messageBox->button(QMessageBox::Ok)->setText(QString::fromLocal8Bit("返回"));
-	}
-	if(QMessageBox::Question == icon) {
-		messageBox->setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-		 messageBox->setDefaultButton(QMessageBox::No);
-		 messageBox->button(QMessageBox::Yes)->setText(QString::fromLocal8Bit("确定"));
-		 messageBox->button(QMessageBox::No)->setText(QString::fromLocal8Bit("取消"));
-	}
-	return (QMessageBox::StandardButton)messageBox->exec();
- }

@@ -4,6 +4,7 @@
 #include "Message.h"
 #include "DUIHandler.h"
 #include "SSLoginWindow.h"
+#include "MessageBox.h"
 
 
 SSLoginWindow::SSLoginWindow(QWidget *parent, DUIHandler* handler)
@@ -25,7 +26,13 @@ void SSLoginWindow::OnEvent(Message& ev)
 	switch(ev.type()) {
 		case EVENT_LOGGEDIN:
 		{
-			hide();
+			int* r = static_cast<int*>(ev.data());
+			if(ERROR_NO_ERROR == *r) {
+				hide();
+			}
+			else if(ERROR_PASSWORD_WRONG == *r) {
+				MessageBox::showMessageBox(this, QMessageBox::Critical, loginWindowTitle, loginErrorWarning);
+			}
 			break;
 		}
 		case EVENT_SYSTEM_START:
