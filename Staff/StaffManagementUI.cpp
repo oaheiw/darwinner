@@ -9,7 +9,7 @@
 #include "Level.h"
 #include "Status.h"
 #include "Staff.h"
-//class ByteArray;
+#include "MessageBox.h"
 #include "PasswordWidget.h"
 #include "staffconfiguration.h"
 
@@ -119,7 +119,7 @@ void StaffManagementUI::OnEvent(Message & Msg){
 				}
 				getAllStaff();
 			} else {
-				showMessageBox(QMessageBox::Critical, addStaffError);
+				MessageBox::showMessageBox(this, QMessageBox::Critical, smWindowTitle, addStaffError);
 			}
 			break;
 		}
@@ -132,7 +132,7 @@ void StaffManagementUI::OnEvent(Message & Msg){
 				delete emptyStaff;
 				getAllStaff();
 			} else {
-				showMessageBox(QMessageBox::Critical, removeStaffError);
+				MessageBox::showMessageBox(this, QMessageBox::Critical, smWindowTitle, removeStaffError);
 			}
 			break;
 		}
@@ -147,7 +147,7 @@ void StaffManagementUI::OnEvent(Message & Msg){
 				}
 				getAllStaff();
 			} else {
-				showMessageBox(QMessageBox::Critical, modifyStaffError);
+				MessageBox::showMessageBox(this, QMessageBox::Critical, smWindowTitle, modifyStaffError);
 			}
 			break;
 		}
@@ -178,6 +178,8 @@ void StaffManagementUI::OnEvent(Message & Msg){
 		{
 			if(NULL != Msg.data()) {
 				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()), 1);
+				if(NULL != Msg.data2())
+					staffDetailWidget->displayPic(*static_cast<QByteArray*>(Msg.data2()));
 			} else {
 
 			}
@@ -223,14 +225,14 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			list<Job>* error = static_cast<list<Job>*>(Msg.data());
 			getJobType();
 			if(!error->empty()){
-				string errorstr = "职务";
+				string errorstr = jobString;
 				for(list<Job>::iterator it = error->begin() ; it != error->end() ; it++) {
-					errorstr += "“";
+					errorstr += leftMark;
 					errorstr += it->name();
-					errorstr += "”";
+					errorstr += rightMark;
 				}
-				errorstr += "未能成功修改，请重试。";
-				showMessageBox(QMessageBox::Warning, errorstr);
+				errorstr += modifyWaring;
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, errorstr);
 			}
 			delete error;
 			break;
@@ -240,14 +242,14 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			list<Level>* error = static_cast<list<Level>*>(Msg.data());
 			getLevelType();
 			if(!error->empty()){
-				string errorstr = "等级";
+				string errorstr = levelString;
 				for(list<Level>::iterator it = error->begin() ; it != error->end() ; it++) {
-					errorstr += "“";
+					errorstr += leftMark;
 					errorstr += it->name();
-					errorstr += "”";
+					errorstr += rightMark;
 				}
-				errorstr += "未能成功修改，请重试。";
-				showMessageBox(QMessageBox::Warning, errorstr);
+				errorstr += modifyWaring;
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, errorstr);
 			}
 			delete error;
 			break;
@@ -257,14 +259,14 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			list<Job>* error = static_cast<list<Job>*>(Msg.data());
 			getJobType();
 			if(!error->empty()){
-				string errorstr = "职务";
+				string errorstr = jobString;
 				for(list<Job>::iterator it = error->begin() ; it != error->end() ; it++) {
 					errorstr += "“";
 					errorstr += it->name();
 					errorstr += "”";
 				}
-				errorstr += "未能成功删除，可能是还有员工被设置为该职务。";
-				showMessageBox(QMessageBox::Warning, errorstr);
+				errorstr += levelRemoveWarning;
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, errorstr);
 			}
 			delete error;
 			break;
@@ -274,14 +276,14 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			list<Level>* error = static_cast<list<Level>*>(Msg.data());
 			getLevelType();
 			if(!error->empty()){
-				string errorstr = "等级";
+				string errorstr = levelString;
 				for(list<Level>::iterator it = error->begin() ; it != error->end() ; it++) {
 					errorstr += "“";
 					errorstr += it->name();
 					errorstr += "”";
 				}
-				errorstr += "未能成功删除，可能是还有员工被设置为该等级。";
-				showMessageBox(QMessageBox::Warning, errorstr);
+				errorstr += levelRemoveWarning;
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, errorstr);
 			}
 			delete error;
 			break;
@@ -451,7 +453,7 @@ void StaffManagementUI::removeStaff()
 void StaffManagementUI::removeStaff(uint32 id, string name)	
 {
 	QString confirm =QString::fromLocal8Bit(removeStaffConfirm).arg(QString::fromLocal8Bit(name.c_str()));
-	if(QMessageBox::No == showMessageBox(QMessageBox::Question, confirm.toLocal8Bit().data())) return;
+	if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, smWindowTitle, confirm.toLocal8Bit().data())) return;
 	uint32* staffid = new uint32(id);
 	Message* action = new Message();
 	action->setType(ACTION_REMOVESTAFF);
@@ -477,7 +479,7 @@ void StaffManagementUI::getAllStaff()
 void StaffManagementUI::addStaff(Staff* staff, QByteArray& data)
 {
 	if(staff->Name().empty()) {
-		showMessageBox(QMessageBox::Warning, emptyNameWarnning);
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, emptyNameWarnning);
 		return;
 	}
 	Message* action = new Message(ACTION_ADDSTAFF, staff);
@@ -490,7 +492,7 @@ void StaffManagementUI::addStaff(Staff* staff, QByteArray& data)
 void StaffManagementUI::modifyStaff(Staff* staff, QByteArray& data)
 {
 	if(staff->Name().empty()) {
-		showMessageBox(QMessageBox::Warning, emptyNameWarnning);
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, emptyNameWarnning);
 		return;
 	}
 	Message* action = new Message(ACTION_MODIFYSTAFF, staff);
@@ -746,23 +748,4 @@ void StaffManagementUI::setupUi() {
 	setWindowTitle(QString::fromLocal8Bit("员工管理"));
 	setWindowIcon(QIcon(":/staff/Resources/people.png"));
 
-//	resize(maximumWidth(), maximumHeight());
- }
-
-  QMessageBox::StandardButton StaffManagementUI::showMessageBox(QMessageBox::Icon icon, string title, string info) {
-	messageBox->setIcon(icon);
-	messageBox->setText(QString::fromLocal8Bit(title.c_str()));
-	messageBox->setInformativeText(QString::fromLocal8Bit(info.c_str()));
-	if(QMessageBox::Information == icon) {
-		messageBox->setStandardButtons(QMessageBox::Ok);
-		 messageBox->setDefaultButton(QMessageBox::Ok);
-		 messageBox->button(QMessageBox::Ok)->setText(QString::fromLocal8Bit("返回"));
-	}
-	if(QMessageBox::Question == icon) {
-		messageBox->setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-		 messageBox->setDefaultButton(QMessageBox::No);
-		 messageBox->button(QMessageBox::Yes)->setText(QString::fromLocal8Bit("确定"));
-		 messageBox->button(QMessageBox::No)->setText(QString::fromLocal8Bit("取消"));
-	}
-	return (QMessageBox::StandardButton)messageBox->exec();
  }

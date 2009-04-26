@@ -26,6 +26,7 @@ class Message;
  	Message* m_message;
 	LevelWidget* level;
 	JobTypeWidget* job;
+	bool isfinished;
  };
 
  class IntroPage : public QWizardPage

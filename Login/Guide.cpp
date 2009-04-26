@@ -20,6 +20,7 @@ using namespace std;
 	level = new LevelWidget(this, 0);
 	job = new JobTypeWidget(this, 0);
 	m_message = NULL;
+	isfinished = false;
 	addPage(new IntroPage);
 	addPage(new SupperUserPage);
 	addPage(new StaffInfoPage(level, job, this));
@@ -46,10 +47,20 @@ using namespace std;
 			show();
 			break;
 		}
+		case EVENT_SETSTATUSTYPE://wait for this to indicate guide finished
+		{
+			if(!isfinished) {
+				isfinished = true;
+				m_message = new Message(ACTION_SYSTEM_START);
+				m_uiHandler->StartAction(*m_message);
+				delete m_message;
+			}
+			break;
+		}
 		case EVENT_SYSTEM_START:
 		{
-			  QDialog::accept();
-			  break;
+			 QDialog::accept();
+			 break;
 		}
 	 }
  }
@@ -63,19 +74,18 @@ using namespace std;
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
 
-/*add job type by Tim Kuo 2009-04-17*/
+
 	list<Job>* jobList = job->getJobList();
 	m_message = new Message(ACTION_SETJOBTYPE, (void*)jobList);
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
 
-/*add level type by Tim Kuo 2009-04-17*/
+
 	list<Level>* levelList = level->getLevelList();
 	m_message = new Message(ACTION_SETLEVELTYPE, (void*)levelList);
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
 
-/*add status by Tim Kuo 2009-04-20*/
 	list<Status>* statusList = new list<Status>;
 	Status temp;
 	temp.setName("ÀëÖ°");
@@ -90,11 +100,6 @@ using namespace std;
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
 
-
-/*system start up by Tim Kuo 2009-04-17*/
-	m_message = new Message(ACTION_SYSTEM_START);
-	m_uiHandler->StartAction(*m_message);
-	delete m_message;
  }
 
  IntroPage::IntroPage(QWidget *parent)

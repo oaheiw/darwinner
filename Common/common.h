@@ -43,6 +43,8 @@ typedef unsigned char byte;
 #define ACTION_FLAG (0x80)
 #define EVENT_FLAG (0x00)
 
+#define DBCONNECTION_COMMON "COMMONDB"
+#define DBCONNECTION_SM "SMDB"
 
 //GROUP should be less than 127
 enum GROUP {
@@ -78,5 +80,26 @@ enum SINFO {
 	SINFO_NEW,
 	SINFO_END
 };
+
+//Message box warning strings
+#define loginWindowTitle "登录错误"
+#define smWindowTitle "员工管理"
+#define loginErrorWarning "工号或密码错误，请重新输入。"
+#define zeroSelectionWarning "您还没有选择选择员工。"
+#define emptyNameWarnning "员工姓名不能留空， \n请返回并填写员工姓名。"
+#define removeStaffConfirm "确定删除选定员工“%1”？\n如果员工离职，建议您更改该员工状态，而不是在系统中删除该员工。"
+#define removeStaffError "未能成功删除选定员工，请重试。"
+#define addStaffError "未能成功添加员工，请重试。"
+#define modifyStaffError "未能成功修改员工信息，请重试。"
+#define jobString "职务"
+#define jobRemoveWarning "未能成功删除，可能是还有员工被设置为该职务。"
+#define levelString "等级"
+#define levelRemoveWarning "未能成功删除，可能是还有员工被设置为该等级。"
+#define modifyWaring "未能成功修改，请重试。"
+#define leftMark "“"
+#define rightMark "”"
+
+
+
 
 #endif

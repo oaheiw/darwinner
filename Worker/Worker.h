@@ -27,8 +27,8 @@ public:
  
  private:
 	IEventObserver *m_IEventObserver;
-	WorkerThread* m_databaseThread;
-	Staff* loggedStaff;
+	WorkerThread* m_commonDbThread;
+	WorkerThread* m_smDbThread;
 
 private slots:
 	void IncomingEvent(Message& ev);

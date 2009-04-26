@@ -16,7 +16,7 @@ ThreadDatabase::ThreadDatabase(QObject *parent , QThread::Priority priority)
 :DbThread(parent, priority)
 {
 	m_loggedstaff = new Staff();
-	setDbServer("QSQLITE", "", "", "", 0);
+	setDbServer("QSQLITE", DBCONNECTION_SF, "", "", "", 0);
 }
 
 ThreadDatabase::~ThreadDatabase()
@@ -251,7 +251,7 @@ bool ThreadDatabase::initDb()
 		return false;
 	}
 	DBINFO("initializing database...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	q.exec(CREATE_STAFF_TABLE);
 	q.exec(CREATE_JOB_TABLE);
 	q.exec(CREATE_LEVET_TABLE);
@@ -333,7 +333,7 @@ bool ThreadDatabase::checkDd()
 		testfile.close();
 		
 		openDb(DBNAME);
-		QSqlQuery q = QSqlQuery(getDb());
+		QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 		QString query = QString("SELECT * FROM staff WHERE id = %1").arg(SUPERUSERID);
 		q.exec(query);
 		if(!q.next())
@@ -351,7 +351,7 @@ Staff* ThreadDatabase::getStaff(uint32 id)
 	if(!openDb(DBNAME)){
 		return temp;
 	}
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	QString query = QString(SELECT_STAFF_BYID_NOIMAGE).arg(id);
 	if(q.exec(query)){
 		if(q.next()) {
@@ -381,7 +381,7 @@ bool ThreadDatabase::addStaff(Staff* staff)
 		return r;
 	}
 	DBINFO("adding satff...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 
 	q.prepare(INSERTINTO_STAFF);
 
@@ -415,7 +415,7 @@ bool ThreadDatabase::setImage(uint32 id, QByteArray& image)
 		return r;
 	}
 	DBINFO("setting image for:", id);
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 
 	QString check = QString(CHECK_IMAGE_BYID).arg(id);
 	if(q.exec(check)) {
@@ -442,7 +442,7 @@ QByteArray* ThreadDatabase::getImage(uint32 id)
 	}
 	
 	DBINFO("getting image for:", id);
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 
 	QString get = QString(GET_IMAGE_BYID).arg(id);
 	if(q.exec(get)) {
@@ -465,7 +465,7 @@ uint32* ThreadDatabase::removeStaff(uint32 id)
 		return r;
 	}
 	DBINFO("removing satff...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	QString remove = QString(DELETE_STAFF_BYID).arg(id);
 	if(!q.exec(remove)) 
 	{
@@ -484,7 +484,7 @@ bool ThreadDatabase::modifyStaff(Staff* staff)
 		return r;
 	}
 	DBINFO("modifying satff...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 
 	QString modifstr = QString(UPDATA_STAFF_BASIC).arg(staff->Name().c_str()).arg(staff->Type()).arg(staff->Level()).arg(staff->Sex()).arg(staff->baseSalary()).arg(staff->status()).arg(staff->cell().c_str()).arg(staff->phone().c_str()).arg(staff->address().c_str()).arg(staff->Descrp().c_str()).arg(staff->ID()); 
 	r = q.exec(modifstr);
@@ -500,7 +500,7 @@ bool ThreadDatabase::addSupperStaff(Staff* staff)
 	if(!openDb(DBNAME)) {
 		return r;
 	}
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	
 	DBINFO("creating super user...", "");
 	q.prepare(INSERTINTO_STAFF_SUPER);
@@ -527,7 +527,7 @@ bool ThreadDatabase::addJobType(Job* job)
 	if(!openDb(DBNAME)) {
 		return r;
 	}
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	QString qstring = QString(SELECT_JOB_BYID).arg(job->id());
 	q.exec(qstring);
 	if (q.next()) 
@@ -554,7 +554,7 @@ bool ThreadDatabase::addLevelType(Level* level)
 	if(!openDb(DBNAME)) {
 		return r;
 	}
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	QString qstring = QString(SELECT_LEVEL_BYID).arg(level->id());
 	q.exec(qstring);
 	if (q.next()) 
@@ -581,7 +581,7 @@ bool ThreadDatabase::addStatusType(Status* status)
 	if(!openDb(DBNAME)) {
 		return r;
 	}
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	QString qstring = QString(SELECT_STATUS_BYID).arg(status->id());
 	q.exec(qstring);
 	if (q.next()) 
@@ -610,7 +610,7 @@ list<Staff>* ThreadDatabase::getAllStaffs()
 	}
 	
 	DBINFO("geting all staffs...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	q.exec(SELECT_STAFF_NOIMAGE);
 	Staff temp;
 	
@@ -642,7 +642,7 @@ list<Job>* ThreadDatabase::getJobs()
 		return r;
 	}
 	DBINFO("getting all jobs", r->size());
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	q.exec(SELECT_JOB_ALL);
 	Job temp;
 
@@ -666,7 +666,7 @@ list<Level>* ThreadDatabase::getLevels()
 		return r;
 	}
 	DBINFO("getting all levels...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	q.exec(SELECT_LEVEL_ALL);
 	Level temp;
 
@@ -690,7 +690,7 @@ list<Status>* ThreadDatabase::getStatus()
 		return r;
 	}
 	DBINFO("getting all status...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 	q.exec(SELECT_STATUS_ALL);
 	Status temp;
 
@@ -715,7 +715,7 @@ int* ThreadDatabase::changePassword(string oldpw, string newpw)
 	}
 	
 	DBINFO("changing password...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 
 	QString getold = QString("SELECT password FROM staff WHERE id = %1").arg(m_loggedstaff->ID());
 	if(q.exec(getold)) {
@@ -748,7 +748,7 @@ bool ThreadDatabase::removeJob(Job* id)
 		return r;
 	}
 	DBINFO("removing job...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 
 	QString check = QString(CHECK_JOB_BYID).arg(id->id());
 	if(q.exec(check)) {
@@ -771,7 +771,7 @@ bool ThreadDatabase::removeLevel(Level* id)
 	}
 
 	DBINFO("removing level...", "");
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 
 	QString check = QString(CHECK_LEVEL_BYID).arg(id->id());
 	if(q.exec(check)) {
@@ -794,7 +794,7 @@ bool ThreadDatabase::deleteImage(uint32 id)
 	}
 
 	DBINFO("delete image for:", id);
-	QSqlQuery q = QSqlQuery(getDb());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SF));
 
 	r= q.exec(QString(DELETE_IMAGE).arg(id));
 	DBINFO("delete image compltet:", r);
