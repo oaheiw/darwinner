@@ -31,33 +31,44 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
+		ReleaseStatic|Win32 = ReleaseStatic|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{80303421-D85A-4831-93A7-6A83407181D9}.Debug|Win32.ActiveCfg = Debug|Win32
 		{80303421-D85A-4831-93A7-6A83407181D9}.Debug|Win32.Build.0 = Debug|Win32
 		{80303421-D85A-4831-93A7-6A83407181D9}.Release|Win32.ActiveCfg = Release|Win32
 		{80303421-D85A-4831-93A7-6A83407181D9}.Release|Win32.Build.0 = Release|Win32
+		{80303421-D85A-4831-93A7-6A83407181D9}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{80303421-D85A-4831-93A7-6A83407181D9}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}.Debug|Win32.ActiveCfg = Debug|Win32
 		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}.Debug|Win32.Build.0 = Debug|Win32
 		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}.Release|Win32.ActiveCfg = Release|Win32
 		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}.Release|Win32.Build.0 = Release|Win32
+		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 		{DB7020B7-958A-4192-B178-E8C68EB9FB8E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{DB7020B7-958A-4192-B178-E8C68EB9FB8E}.Debug|Win32.Build.0 = Debug|Win32
 		{DB7020B7-958A-4192-B178-E8C68EB9FB8E}.Release|Win32.ActiveCfg = Release|Win32
 		{DB7020B7-958A-4192-B178-E8C68EB9FB8E}.Release|Win32.Build.0 = Release|Win32
+		{DB7020B7-958A-4192-B178-E8C68EB9FB8E}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{DB7020B7-958A-4192-B178-E8C68EB9FB8E}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 		{3E77649D-F8CC-4ADC-A16E-1047F14DD373}.Debug|Win32.ActiveCfg = Debug|Win32
 		{3E77649D-F8CC-4ADC-A16E-1047F14DD373}.Debug|Win32.Build.0 = Debug|Win32
 		{3E77649D-F8CC-4ADC-A16E-1047F14DD373}.Release|Win32.ActiveCfg = Release|Win32
 		{3E77649D-F8CC-4ADC-A16E-1047F14DD373}.Release|Win32.Build.0 = Release|Win32
+		{3E77649D-F8CC-4ADC-A16E-1047F14DD373}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{3E77649D-F8CC-4ADC-A16E-1047F14DD373}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 		{15B22675-DF27-49AC-BEE6-79273AE36F47}.Debug|Win32.ActiveCfg = Debug|Win32
 		{15B22675-DF27-49AC-BEE6-79273AE36F47}.Debug|Win32.Build.0 = Debug|Win32
 		{15B22675-DF27-49AC-BEE6-79273AE36F47}.Release|Win32.ActiveCfg = Release|Win32
 		{15B22675-DF27-49AC-BEE6-79273AE36F47}.Release|Win32.Build.0 = Release|Win32
+		{15B22675-DF27-49AC-BEE6-79273AE36F47}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{15B22675-DF27-49AC-BEE6-79273AE36F47}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		QtVersion = Qt4.5.0-static
+		QtVersion = Qt4.5.0-shared
 	EndGlobalSection
 EndGlobal
