@@ -1,5 +1,5 @@
 #summary 用户需求：库存管理
-#labels Featured
+#labels Phase-Requirements
 
 =库存管理=
 这份用户需求描述了用户在库存管理时，系统的运作情况。 
