@@ -13,7 +13,7 @@ JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	m_mode = mode;
 
 	if(0 == mode) {
-		ui.submitPushButton->setDisabled(true);
+		ui.submitPushButton->hide();
 	} 
 
 	m_DataModel = new QStandardItemModel(0, 4, this);

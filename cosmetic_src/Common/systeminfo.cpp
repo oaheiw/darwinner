@@ -78,3 +78,4 @@ unsigned char* systeminfo::getCPUID()
 
 	return szCPUSN;
 }
+

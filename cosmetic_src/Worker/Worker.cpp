@@ -10,14 +10,15 @@
 #include "Staff.h"
 #include "SmDbThread.h"
 #include "CommonDbThread.h"
-#include <QThread>
 #include "TEvent.h"
 #include "Message.h"
+#include "Singleton.cpp"
 
 using namespace std;
 Worker::Worker(QObject *parent )
 :QObject(parent)
 {
+	m_loggedStaff = Singleton<Staff>::instance();
 	m_commonDbThread = new CommonDbThread(this, QThread::HighPriority);
 	m_smDbThread = new SmDbThread(this, QThread::HighPriority);
 }
@@ -80,10 +81,24 @@ bool Worker::event(QEvent * e) {
 				Message* ev = dynamic_cast<TEvent*>(e)->data();
 				if(!ev->isEvent()) return true;
 				switch(ev->type()) {
-
+					case EVENT_LOGGEDIN:
+					{
+						if(NULL != ev->data() && ERROR_NO_ERROR == *static_cast<int*>(ev->data())) {
+							if(NULL != ev->data2())
+								*m_loggedStaff = *static_cast<Staff*>(ev->data2());
+						}
+						break;
+					}
+					case EVENT_LOGGEDOFF:
+					{
+						m_loggedStaff->clear();
+						break;
+					}
 				}
 				BroadcastEvent(*ev);
 			}
 	}
+	e->accept();
 	return true;
 }
+

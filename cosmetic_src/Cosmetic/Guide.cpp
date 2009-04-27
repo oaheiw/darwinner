@@ -67,9 +67,8 @@ using namespace std;
 
  void Guide::accept()
  {
-/*add super staff by Tim Kuo 2009-04-17*/
 	Staff* staff = new Staff();
-	staff->SetPassword(field("password").toByteArray().data());	
+	staff->SetPassword(field("password").toString().toLocal8Bit().data());	
 	m_message = new Message(ACTION_SETSUPERUSER, staff);
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;

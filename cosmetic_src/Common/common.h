@@ -14,9 +14,9 @@
 #include <iostream>
 #include <iomanip>
 #define DBINFO(info, para)\
-					{\
-					std::cout<<__FILE__<<" Line:"<<std::dec<<__LINE__<<" "<<info<<" "<<std::hex<<para<<std::endl;\
-					}
+		{\
+			std::cout<<__FILE__<<" Line:"<<std::dec<<__LINE__<<" "<<info<<" "<<std::hex<<para<<std::endl;\
+		}
 #else
 #define DBINFO(info, para) {}
 #endif
@@ -45,6 +45,7 @@ typedef unsigned char byte;
 
 #define DBCONNECTION_COMMON "COMMONDB"
 #define DBCONNECTION_SM "SMDB"
+#define DBCONNECTION_BM "BMDB"
 
 //GROUP should be less than 127
 enum GROUP {
@@ -98,6 +99,9 @@ enum SINFO {
 #define modifyWaring "未能成功修改，请重试。"
 #define leftMark "“"
 #define rightMark "”"
+#define changePwSucces "你的密码已经成功更改。"
+#define changePwFailure "原始密码错误，你的密码未能更改。"
+
 
 
 

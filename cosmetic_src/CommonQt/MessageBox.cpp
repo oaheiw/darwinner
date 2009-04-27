@@ -36,6 +36,11 @@ MessageBox::~MessageBox()
 		messageBox.setDefaultButton(QMessageBox::Ok);
 		messageBox.button(QMessageBox::Ok)->setText(QString::fromLocal8Bit("·µ»Ø"));
 	}
+	if(QMessageBox::Warning== icon) {
+		messageBox.setStandardButtons(QMessageBox::Ok);
+		messageBox.setDefaultButton(QMessageBox::Ok);
+		messageBox.button(QMessageBox::Ok)->setText(QString::fromLocal8Bit("·µ»Ø"));
+	}
 	return (QMessageBox::StandardButton)messageBox.exec();
  }
 

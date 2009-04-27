@@ -1,8 +1,9 @@
 #include "WorkerThread.h"
 #include <QCoreApplication>
+#include <QEvent>
 #include "TEvent.h"
 #include "Message.h"
-#include "messagedef.h"
+//#include "messagedef.h"
 
 WorkerThread::WorkerThread(QObject *parent, QThread::Priority priority)
 :QThread(parent)
@@ -53,9 +54,7 @@ void WorkerThread::run() {
 
 void WorkerThread::postEvent(Message* ev, uint32 type)
 {
-	DBINFO("posting event...", "");
 	QEvent* qev= new TEvent((QEvent::Type)type, ev);
 	QCoreApplication::postEvent(parent(), qev,Qt::HighEventPriority);
-	DBINFO("posted event to: ", parent());
 }
 

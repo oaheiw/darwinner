@@ -8,7 +8,7 @@
 #include <list>
 using namespace std;
 class Message;
-class QEvent;
+//class QEvent;
 
 class WorkerThread  : public QThread
 {

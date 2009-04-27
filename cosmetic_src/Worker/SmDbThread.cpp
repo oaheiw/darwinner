@@ -10,12 +10,13 @@
 #include "Job.h"
 #include "Level.h"
 #include "Status.h"
+#include "Singleton.cpp"
 
 
 SmDbThread::SmDbThread(QObject *parent , QThread::Priority priority)
 :DbThread(parent, priority)
 {
-	m_loggedstaff = new Staff();
+//	m_loggedstaff = new Staff();
 	setDbServer("QSQLITE", DBCONNECTION_SM, "", "", "", 0);
 }
 
@@ -27,34 +28,6 @@ SmDbThread::~SmDbThread()
 void SmDbThread::WorkerThreadMain(Message& Action) {
 	DBINFO("sm db thread processing action: ", Action.type());
 	switch(Action.type()) {
-		case ACTION_SYSTEM_START:
-		{
-			if(checkDd()) {
-				m_tempMsg = new Message(EVENT_SYSTEM_START);	
-			}else{
-				m_tempMsg = new Message(EVENT_WIZARD);
-			}	
-			break;
-		}
-		case ACTION_LOGIN:
-		{
-			Staff* staffIncome = static_cast<Staff*>(Action.data());
-			Staff* staffDb = getStaff(staffIncome->ID());
-			if(staffDb->ID() != 0 &&
-				staffIncome->Password() == staffDb->Password() &&
-				staffIncome->ID() == staffDb->ID()) {
-				*m_loggedstaff = *staffDb;
-				m_tempMsg = new Message(EVENT_LOGGEDIN, staffDb);
-			}
-			delete staffIncome;
-			break;
-		}
-		case ACTION_LOGOFF:
-		{
-			m_loggedstaff->clear();
-			m_tempMsg = new Message(EVENT_LOGGEDOFF);
-			break;
-		}
 		case ACTION_GEALLSTAFF:
 		{
 			m_tempMsg = new Message(EVENT_ALLSTAFF, getAllStaffs());
@@ -80,13 +53,6 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 				if(setImage(addedStaff->ID(), *image))
 					m_tempMsg->setData2(getImage(addedStaff->ID()));
 			}
-			delete staff;
-			break;
-		}
-		case ACTION_SETSUPERUSER:
-		{
-			Staff* staff = static_cast<Staff*>(Action.data());
-			addSupperStaff(staff);
 			delete staff;
 			break;
 		}
@@ -163,9 +129,10 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 		case ACTION_CHANGEPASSWORD:
 		{
 			list<string>* pwList = static_cast<list<string>*>(Action.data());
+			uint32 id = Singleton<Staff>::instance()->ID();
 			string oldpw = pwList->front();
 			string newpw = pwList->back();
-			m_tempMsg = new Message(EVENT_CHANGEPASSWORD, changePassword(oldpw, newpw));
+			m_tempMsg = new Message(EVENT_CHANGEPASSWORD, changePassword(id, oldpw, newpw));
 			delete pwList;
 			break;
 		}
@@ -222,106 +189,6 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 		postEvent(m_tempMsg, EventDb);
 		m_tempMsg = NULL;
 	}
-}
-
-bool SmDbThread::initDb()
-{
-	if(!openDb(DBNAME)) {
-		return false;
-	}
-	DBINFO("initializing database...", "");
-	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
-	q.exec(CREATE_STAFF_TABLE);
-	q.exec(CREATE_JOB_TABLE);
-	q.exec(CREATE_LEVET_TABLE);
-	q.exec(CREATE_ORDERS_TABLE);
-	q.exec(CREATE_GOODS_TABLE);
-	q.exec(CREATE_SEX_TABLE);
-	q.exec(CREATE_STATUS_TABLE);
-	q.exec(CREATE_TASKS_TABLE);
-	q.exec(CREATE_GOOSTYPE_TABLE);
-	q.exec(CREATE_IMAGE_TABLE);
-	
-	q.prepare(INSERTINTO_SEX_TABLE);
-	q.bindValue(":id", 0);
-	q.bindValue(":name", "未设定");
-	q.exec();
-	q.bindValue(":id", 1);
-	q.bindValue(":name", "男");
-	q.exec();
-	q.bindValue(":id", 2);
-	q.bindValue(":name", "女");
-	q.exec();
-
-	q.prepare("INSERT INTO job (id, name, profit, descrption) " "VALUES (:id, :name, :profit, :descrption)");
-	q.bindValue(":id", 1);
-	q.bindValue(":name", ("未设定"));
-	q.bindValue(":profit", 0);
-	q.bindValue(":descrption", ("系统默认空职务"));
-	q.exec();
-
-	q.prepare("INSERT INTO level (id, name, profit, descrption) " "VALUES (:id, :name, :profit, :descrption)");
-	q.bindValue(":id", 1);
-	q.bindValue(":name", ("未设定"));
-	q.bindValue(":profit", 0);
-	q.bindValue(":descrption", ("系统默认空级别"));
-	q.exec();
-
-	q.prepare("INSERT INTO status (id, name, descrption) " "VALUES (:id, :name, :descrption)");
-	q.bindValue(":id", 1);
-	q.bindValue(":name", ("未设定"));
-	q.bindValue(":descrption", ("系统默认空状态"));
-	q.exec();
-
-	closeDb();
-	DBINFO("databese initialized.", "");
-	return true;
-}
-
-bool SmDbThread::checkDd()
-{
-	bool re = false;
-	bool exist;
-	int length= 0;
-	char* SQLiteMark;
-	int isSQLite = -1;
-	fstream testfile;
-	testfile.open (DBFILE, fstream::in | fstream::out | fstream::app | fstream::binary);
-	exist = testfile.is_open();
-	if(exist) {
-	  testfile.seekg (0, ios::end);
-	  length = testfile.tellg();
-	  testfile.seekg (0, ios::beg);
-
-	  SQLiteMark = new char[SQLITEMARKLEN];
-	  memset(SQLiteMark, 0, SQLITEMARKLEN);
-	  testfile.read(SQLiteMark, SQLITEMARKLEN);
-	  isSQLite = memcmp(SQLiteMark, SQLITEMARK, SQLITEMARKLEN);
-	  testfile.close();
-	}
-	  
-	if(!exist | 0 == length | 0 != isSQLite) {//first time running
-		DBINFO("database file not exist or corrupt, creat new one.", "")
-		remove(DBFILE);
-		postEvent(m_tempMsg, EventDb);
-		initDb();
-		m_tempMsg = new Message(EVENT_INIT_FINISHED);
-		postEvent(m_tempMsg, EventDb);
-		re = false;
-	} else {//database exists. check super user
-		testfile.close();
-		
-		openDb(DBNAME);
-		QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
-		QString query = QString("SELECT * FROM staff WHERE id = %1").arg(SUPERUSERID);
-		q.exec(query);
-		if(!q.next())
-			re = false;
-		else
-			re = true;
-		closeDb();
-	}
-	return re;
 }
 
 Staff* SmDbThread::getStaff(uint32 id) 
@@ -470,32 +337,6 @@ bool SmDbThread::modifyStaff(Staff* staff)
 	closeDb();
 	
 	DBINFO("modify satff complete", r);
-	return r;
-}
-
-bool SmDbThread::addSupperStaff(Staff* staff)
-{
-	bool r = false;
-	if(!openDb(DBNAME)) {
-		return r;
-	}
-	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
-	
-	DBINFO("creating super user...", "");
-	q.prepare(INSERTINTO_STAFF_SUPER);
-	q.bindValue(":id", SUPERUSERID);
-	q.bindValue(":password", staff->Password().c_str());
-	q.bindValue(":name", "科思美管理员");
-	q.bindValue(":jobId", 1);
-	q.bindValue(":levelId", 1);
-	q.bindValue(":sex", 1);
-	q.bindValue(":status", 1);
-	q.bindValue(":cell", "88888888");
-	q.bindValue(":phone", "66666666");
-	q.bindValue(":address", "中华人民共和国");
-	q.bindValue(":descrption", "我是科思美系统超级管理员");
-	r = q.exec();
-	DBINFO("create super user complete!", r);
 	return r;
 }
 
@@ -684,7 +525,7 @@ list<Status>* SmDbThread::getStatus()
 	return r;
 }
 
-int* SmDbThread::changePassword(string oldpw, string newpw)
+int* SmDbThread::changePassword(uint32 id, string oldpw, string newpw)
 {
 	int* r =new int(ERROR_PASSWORD_WRONG);
 
@@ -696,7 +537,7 @@ int* SmDbThread::changePassword(string oldpw, string newpw)
 	DBINFO("changing password...", "");
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
-	QString getold = QString("SELECT password FROM staff WHERE id = %1").arg(m_loggedstaff->ID());
+	QString getold = QString("SELECT password FROM staff WHERE id = %1").arg(id);
 	if(q.exec(getold)) {
 		if(q.next()) {
 			if(oldpw != string(q.value(0).toByteArray().data())) return r;
@@ -709,7 +550,7 @@ int* SmDbThread::changePassword(string oldpw, string newpw)
 		return r;
 	}
 
-	QString setnew = QString("UPDATE staff SET password = '%1' WHERE id = %2").arg(newpw.c_str()).arg(m_loggedstaff->ID());
+	QString setnew = QString("UPDATE staff SET password = '%1' WHERE id = %2").arg(newpw.c_str()).arg(id);
 	if(q.exec(setnew)) {
 		*r = ERROR_NO_ERROR;
 	} else {

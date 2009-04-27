@@ -7,6 +7,7 @@
 #define SQLITEMARKLEN (15)
 #define SUPERUSERID 10000
 
+//**************staff management database items***************//
 #define CREATE_STAFF_TABLE "CREATE TABLE staff (id INTEGER PRIMARY KEY, password TEXT, name TEXT, jobId INTEGER REFERENCES job(id), levelId INTEGER REFERENCES level(id), sex SMALLINT DEFAULT 0, baseSalary INTEGER DEFAULT 0, status SMALLINT DEFAULT 0, cell TEXT, phone TEXT, address TEXT, descrption TEXT)"
 #define INSERTINTO_STAFF "INSERT INTO staff (password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, descrption) " "VALUES (:password, :name, :jobId, :levelId, :sex, :baseSalary, :status, :cell, :phone, :address, :descrption)"
 #define SELECT_STAFF_ALL "SELECT * FROM staff"
@@ -23,7 +24,6 @@
 #define CHECK_IMAGE_BYID "SELECT id FROM image WHERE id = %1"
 #define GET_IMAGE_BYID "SELECT data FROM image WHERE id = %1"
 
-
 #define CREATE_JOB_TABLE "CREATE TABLE job (id INTEGER PRIMARY KEY, name TEXT NOT NULL, profit SMALLINT DEFAULT 0, descrption TEXT)"
 #define INSERTINTO_JOB_TABLE "INSERT INTO job (name, profit, descrption) " "VALUES (:name, :profit, :descrption)"
 #define SELECT_JOB_ALL "SELECT * FROM job"
@@ -32,7 +32,6 @@
 #define DELETE_JOB_BYID "DELETE FROM job WHERE id = %1"
 #define CHECK_JOB_BYID "SELECT id FROM staff WHERE jobId = %1"
 
-
 #define CREATE_LEVET_TABLE "CREATE TABLE level (id INTEGER PRIMARY KEY, name TEXT NOT NULL, profit SMALLINT DEFAULT 0, descrption TEXT)" 
 #define INSERTINTO_LEVEL_TABLE "INSERT INTO level (name, profit, descrption) " "VALUES (:name, :profit, :descrption)"
 #define SELECT_LEVEL_ALL "SELECT * FROM level"
@@ -40,8 +39,6 @@
 #define UPDATA_LEVEL "UPDATE level SET name = '%1', profit = %2, descrption = '%3' WHERE id = %4"
 #define DELETE_LEVEL_BYID "DELETE FROM level WHERE id = %1"
 #define CHECK_LEVEL_BYID "SELECT id FROM staff WHERE LevelId = %1"
-
-
 
 #define CREATE_STATUS_TABLE "CREATE TABLE status (id INTEGER PRIMARY KEY, name TEXT NOT NULL, descrption TEXT)"
 #define INSERTINTO_STATUS_TABLE "INSERT INTO status (name, descrption) " "VALUES (:name, :descrption)"
@@ -52,15 +49,11 @@
 #define CREATE_SEX_TABLE "CREATE TABLE sex (id INTEGER PRIMARY KEY, name TEXT NOT NULL)"
 #define INSERTINTO_SEX_TABLE "INSERT INTO sex (id, name) " "VALUES (:id, :name)"
 #define SELECT_SEX_ALL "SELECT * FROM sex"
-/*
-#define CREATE_STATUS_TABLE "CREATE TABLE status (id INTEGER PRIMARY KEY, name TEXT NOT NULL)"
-#define INSERTINTO_STATUS_TABLE "INSERT INTO status (name) " "VALUES (:name)"
-#define SELECT_STATUS_ALL "SELECT * FROM status"
-*/
-#define CREATE_ORDERS_TABLE "CREATE TABLE orders (id INTEGER PRIMARY KEY, casherId INTEGER REFERENCES staff(id), discount SMALLINT DEFAULT 100, status SMALLINT DEFAULT 0, dealdate DATETIME)"
-#define INSERTINTO_ORDERS_TABLE "INSERT INTO orders (casherId, discount, status, dealdate) " "VALUES (:casherId, :discount, :status, :dealdate)"
-#define SELECT_ORDERS_ALL "SELECT * FROM orders"
 
+//**************shop operation database items***************//
+
+
+//**************bussiness management database items***************//
 #define CREATE_GOOSTYPE_TABLE "CREATE TABLE goodsType (id INTEGER PRIMARY KEY, name TEXT NOT NULL, cate SMALLINT, descrption TEXT)"
 #define INSERTINTO_GOOSTYPE_TABLE "INSERT INTO goodsType (name, cate, descrption) " "VALUES (:name, :cate, :descrption)"
 #define SELECT_GOOSTYPE_ALL "SELECT * FROM goodsType"

@@ -288,6 +288,18 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			delete error;
 			break;
 		}
+		case EVENT_CHANGEPASSWORD:
+		{
+			int* r = static_cast<int*>(Msg.data());
+			if(ERROR_NO_ERROR == *r) {
+				MessageBox::showMessageBox(this, QMessageBox::Information, smWindowTitle, changePwSucces);
+			}
+			else if(ERROR_PASSWORD_WRONG == *r || ERROR_DBERROR == *r) {
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, changePwFailure);
+			}
+			delete r;
+			break;
+		}
 		default:
 			break;
 	}
@@ -447,6 +459,8 @@ void StaffManagementUI::removeStaff()
 	QModelIndex nameIndex = treeViewStaff->currentIndex().sibling(treeViewStaff->currentIndex().row(), 1);
 	if(currentIndex.data().toUInt() != 0) {
 		removeStaff(currentIndex.data().toUInt(), nameIndex.data().toString().toLocal8Bit().data());
+	} else {
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, zeroSelectionWarning);
 	}
 }
 

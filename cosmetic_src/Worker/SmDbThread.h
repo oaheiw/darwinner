@@ -18,20 +18,20 @@ protected:
 	virtual void WorkerThreadMain(Message& action);
 	
  private:
-	Staff* m_loggedstaff;
-	bool initDb();
+//	Staff* m_loggedstaff;
+//	bool initDb();
 	Staff* getStaff(uint32 id);
 	uint32* removeStaff(uint32 id);
 	bool removeJob(Job* id);
 	bool removeLevel(Level* id);
 	bool addStaff(Staff* staff);
 	bool modifyStaff(Staff* staff);
-	bool checkDd();
-	bool addSupperStaff(Staff* staff);
+//	bool checkDd();
+//	bool addSupperStaff(Staff* staff);
 	bool addJobType(Job* job);
 	bool addLevelType(Level* level);
 	bool addStatusType(Status* status);
-	int* changePassword(string oldpw, string newpw);
+	int* changePassword(uint32 id, string oldpw, string newpw);
 	list<Staff>* getAllStaffs();
 	list<Job>* getJobs();
 	list<Level>* getLevels();
@@ -39,8 +39,6 @@ protected:
 	bool setImage(uint32 id, QByteArray& image);
 	QByteArray* getImage(uint32 id);
 	bool deleteImage(uint32 id);
-//	bool openDb();
-//	void cleseDb();
 };
 
 #endif

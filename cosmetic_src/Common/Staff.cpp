@@ -159,4 +159,3 @@ uint32 Staff::baseSalary(){
 	return  m_baseSalary;
 }
 
-

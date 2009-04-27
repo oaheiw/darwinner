@@ -5,8 +5,6 @@ StaffConfiguration::StaffConfiguration(QWidget *parent)
 {
 	ui.setupUi(this);
 	createIcons();
-//	connect(ui.pageJob, SIGNAL(submitted(list<Job>*), this, SIGNAL(jobSubmitted(list<Job>*));
-//	connect(ui.pageLevel, SIGNAL(submitted(list<Level>*), this, SIGNAL(levelSubmitted(list<Level>*));
 }
 
 StaffConfiguration::~StaffConfiguration()
@@ -46,3 +44,4 @@ void StaffConfiguration::createIcons()
 
      ui.ItemStackedWidget->setCurrentIndex(ui.ItemListWidget->row(current));
  }
+ 

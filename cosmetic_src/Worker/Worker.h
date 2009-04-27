@@ -25,9 +25,9 @@ public:
 	bool event (QEvent * e);
  
  private:
-	IEventObserver *m_IEventObserver;
 	WorkerThread* m_commonDbThread;
 	WorkerThread* m_smDbThread;
+	Staff* m_loggedStaff;
 };
 #endif // !defined(EA_20AED985_021D_47c7_AADB_219A004968B6__INCLUDED_)
 

@@ -44,7 +44,6 @@ void Status::setId(uint32 id){
 	m_id = id;
 }
 
-
 void Status::setName(string name){
 	m_name = name;
 }

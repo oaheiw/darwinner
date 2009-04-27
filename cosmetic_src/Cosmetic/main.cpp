@@ -1,4 +1,5 @@
 #include <QtGui/QApplication>
+#include <QCoreApplication>
 
 #include "Message.h"
 #include "messagedef.h"
@@ -20,6 +21,8 @@ Q_IMPORT_PLUGIN(qico);
 Q_IMPORT_PLUGIN(qjpeg);
 Q_IMPORT_PLUGIN(qgif);
 #endif
+
+#define qApp (static_cast<QApplication *>(QCoreApplication::instance()))
 
 int main(int argc, char *argv[])
 {

@@ -16,7 +16,7 @@ protected:
 	void closeDb();
 	QSqlDatabase& getDb(const char* connection);
 
-//private:
+private:
 	QSqlDatabase db;	
 };
 

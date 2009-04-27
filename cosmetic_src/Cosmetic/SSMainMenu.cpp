@@ -34,6 +34,7 @@ void SSMainMenu::OnEvent(Message& ev)
 			if(ERROR_NO_ERROR == *r) {
 				show();
 			}
+			delete r;
 			break;
 		}
 		case EVENT_MAINMENU:
@@ -98,3 +99,4 @@ void SSMainMenu::createIcons()
 
 	connect(ui.FunctionTableWidget, SIGNAL(cellActivated(int, int)), this, SLOT(startFunction(int, int)));
  }
+

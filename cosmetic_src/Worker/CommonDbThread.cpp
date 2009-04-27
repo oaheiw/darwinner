@@ -47,7 +47,7 @@ void CommonDbThread::WorkerThreadMain(Message& Action) {
 			} else {
 				*r = ERROR_PASSWORD_WRONG;
 			}
-			m_tempMsg = new Message(EVENT_LOGGEDIN, r);
+			m_tempMsg = new Message(EVENT_LOGGEDIN, r, m_loggedStaff);
 			delete staffIncome;
 			break;
 		}
@@ -82,26 +82,17 @@ void CommonDbThread::WorkerThreadMain(Message& Action) {
 
 bool CommonDbThread::initDb()
 {
-	db.setDatabaseName(DBNAME);
-	if(!db.open()) {
+	if(!openDb(DBNAME)) {
 		return false;
 	}
 	DBINFO("initializing database...", "");
-	DBINFO("initDb debug", 1);
-	QSqlQuery q = QSqlQuery(db);
-	DBINFO("initDb debug", 2);
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
 	q.exec(CREATE_STAFF_TABLE);
-		DBINFO("initDb debug", 3);
 	q.exec(CREATE_JOB_TABLE);
-		DBINFO("initDb debug", 4);
 	q.exec(CREATE_LEVET_TABLE);
-		DBINFO("initDb debug", 5);
 	q.exec(CREATE_ORDERS_TABLE);
-		DBINFO("initDb debug", 6);
 	q.exec(CREATE_GOODS_TABLE);
-		DBINFO("initDb debug", 7);
 	q.exec(CREATE_SEX_TABLE);
-		DBINFO("initDb debug", 8);
 	q.exec(CREATE_STATUS_TABLE);
 	q.exec(CREATE_TASKS_TABLE);
 	q.exec(CREATE_GOOSTYPE_TABLE);
@@ -182,25 +173,17 @@ bool CommonDbThread::checkDd()
 	} else {//database exists. check super user
 		testfile.close();
 		openDb(DBNAME);
-		DBINFO("debug 1", "");
 		QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
-		DBINFO("debug 2", "");
 		QString query = QString("SELECT * FROM staff WHERE id = %1").arg(SUPERUSERID);
-		DBINFO("debug 3", "");
 		q.exec(query);
-		DBINFO("debug 4", "");
 		if(!q.next()) {
-					DBINFO("debug 5", "");
 			re = false;
 		}
 		else {
-					DBINFO("debug 6", "");
 			re = true;
 		}
 		closeDb();
-				DBINFO("debug 61", "");
 	}
-					DBINFO("debug 62", "");
 	return re;
 }
 
@@ -213,9 +196,7 @@ string CommonDbThread::getPassword(uint32 id)
 	}
 	DBINFO("getting password for: ", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
-			DBINFO("debug 8", "");
 	QString query = QString(GET_PASSWORD_BYID).arg(id);
-			DBINFO("debug 9", "");
 	if(q.exec(query)){
 		if(q.next()) {
 			password = string(q.value(0).toByteArray().data());
@@ -238,7 +219,7 @@ bool CommonDbThread::addSupperStaff(Staff* staff)
 	q.prepare(INSERTINTO_STAFF_SUPER);
 	q.bindValue(":id", SUPERUSERID);
 	q.bindValue(":password", staff->Password().c_str());
-	q.bindValue(":name", "科思美管理员");
+	q.bindValue(":name", "超级用户");
 	q.bindValue(":jobId", 1);
 	q.bindValue(":levelId", 1);
 	q.bindValue(":sex", 1);
@@ -246,7 +227,7 @@ bool CommonDbThread::addSupperStaff(Staff* staff)
 	q.bindValue(":cell", "88888888");
 	q.bindValue(":phone", "66666666");
 	q.bindValue(":address", "中华人民共和国");
-	q.bindValue(":descrption", "我是科思美系统超级管理员");
+	q.bindValue(":descrption", "这是科思美系统超级账户，请不用将此账户用作日常运作账户。");
 	r = q.exec();
 	DBINFO("create super user complete!", r);
 	return r;

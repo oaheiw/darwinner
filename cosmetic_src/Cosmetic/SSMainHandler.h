@@ -20,12 +20,8 @@ class SSMainHandler : public IEventObserver, public DUIHandler
 public:
 	SSMainHandler();
 	virtual ~SSMainHandler();
-//	void Login(string& id, string& pw);
-//	void Logoff();
-//	void SelfService(string& id, string& pw);
 	void OnEvent(Message& Msg);
 	void Start();
-//	void StaffMgnt();
 	void StartAction(Message & act);
 
 private:

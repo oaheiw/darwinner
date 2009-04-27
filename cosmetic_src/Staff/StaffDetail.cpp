@@ -51,15 +51,11 @@ StaffDetail::~StaffDetail()
 	comboBoxLevel = new QComboBox(this);
 	lineEditPhone = new QLineEdit(this);
 	lineEditPhone->setMaxLength(PHONE_MAX_LEN);
-//	lineEditPhone->setValidator(new QIntValidator(lineEditPhone));
 	lineEditCell = new QLineEdit(this);
 	lineEditCell->setMaxLength(PHONE_MAX_LEN);
-//	lineEditCell->setValidator(new QIntValidator(lineEditCell));
 	plainTextEditAddress = new QPlainTextEdit(this);
-//	plainTextEditAddress->setMaximumHeight(60);
 	plainTextEditAddress->setMinimumHeight(40);
 	plainTextEditDescrption = new QPlainTextEdit(this);
-//	plainTextEditDescrption->setMaximumHeight(60);
 	plainTextEditDescrption->setMinimumHeight(40);
 
 	labelId = new QLabel(QString::fromLocal8Bit("工号"), this);
@@ -84,16 +80,9 @@ StaffDetail::~StaffDetail()
 	pushButtonPix->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	pushButtonModify->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	pushButtonSubmmit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-//	comboBoxJob->addItem(QString::fromLocal8Bit("未设置"), 0);
-//	comboBoxJob->setCurrentIndex(1);
-//	comboBoxLevel->addItem(QString::fromLocal8Bit("未设置"), 0);
-//	comboBoxLevel->setCurrentIndex(1);
-//	comboBoxStatus->setCurrentIndex(1);
 	comboBoxSex->addItem(QString::fromLocal8Bit("未设定"), 0);
 	comboBoxSex->addItem(QString::fromLocal8Bit("男"), 1);
 	comboBoxSex->addItem(QString::fromLocal8Bit("女"), 2);
-//	comboBoxSex->setCurrentIndex(0);
-
 
 	labelId->setBuddy(lineEditId);
 	labelName->setBuddy(lineEditName);
@@ -274,10 +263,11 @@ void StaffDetail::setStatus(list<Status>* statusList)
 
  void StaffDetail::modifyStaff(Staff* staff)
 {
-	changeMode(SINFO_MODIFY);
 	if(lineEditId->text().isEmpty()) {
 		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, zeroSelectionWarning);
+		return;
 	}
+	changeMode(SINFO_MODIFY);
 	if(NULL != staff) {
 		lineEditId->setText(QString::number(staff->ID()));
 		lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
