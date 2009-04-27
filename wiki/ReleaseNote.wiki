@@ -1,3 +1,7 @@
 #summary Release Note
+#labels Featured
 
-= Cosmetic alpha release 0.10. =
+= Cosmetic release20090427: alpha0.10.164 =
+  # 修正了不能使用非ascii密码的问题（Issues ID 1）
+  # 修正了员工管理界面检测员工列表空选择的问题（Issues ID 2）
+  # 重构了底层数据库线程，为每一个模块开启了一个数据库操作线程
