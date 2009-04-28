@@ -10,8 +10,10 @@ class QGroupBox;
 class QLabel;
 class QLineEdit;
 class QRadioButton;
-#include "DUIObserver.h"
+class ProgressWidget;
 class Message;
+
+#include "DUIObserver.h"
 
  class Guide : public QWizard , public DUIObserver
  {
@@ -26,9 +28,11 @@ class Message;
  	Message* m_message;
 	LevelWidget* level;
 	JobTypeWidget* job;
+	ProgressWidget* progressBar;
 	bool isfinished;
 	void initDb();
 	void initData();
+	int totalStep;
  };
 
  class IntroPage : public QWizardPage

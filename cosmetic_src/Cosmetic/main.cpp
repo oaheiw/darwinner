@@ -22,8 +22,6 @@ Q_IMPORT_PLUGIN(qjpeg);
 Q_IMPORT_PLUGIN(qgif);
 #endif
 
-#define qApp (static_cast<QApplication *>(QCoreApplication::instance()))
-
 int main(int argc, char *argv[])
 {	
 	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
@@ -37,8 +35,8 @@ int main(int argc, char *argv[])
 
 	QApplication* app = new QApplication(argc, argv);
 	QStyle* style = new QCleanlooksStyle();
-//	 QStyle *style = new ArthurStyle();
 	app->setStyle(style);
+	app->setPalette(style->standardPalette());
 
 	Message* StartUp = new Message(ACTION_SYSTEM_START);
 	worker->StartAction(*StartUp);

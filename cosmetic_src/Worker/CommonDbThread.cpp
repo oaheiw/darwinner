@@ -68,6 +68,7 @@ void CommonDbThread::WorkerThreadMain(Message& Action) {
 			Staff* staff = static_cast<Staff*>(Action.data());
 			addSupperStaff(staff);
 			delete staff;
+			m_tempMsg = new Message(EVENT_SETSUPERUSER);
 			break;
 		}
 		case ACTION_GETLOGGEDSTAFF:

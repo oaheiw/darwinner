@@ -9,6 +9,7 @@
 #include "Status.h"
 #include "LevelWidget.h"
 #include <list>
+#include "ProgressWidget.h"
 using namespace std;
 
  Guide::Guide(QWidget *parent)
@@ -20,6 +21,8 @@ using namespace std;
 	level = new LevelWidget(this, 0);
 	job = new JobTypeWidget(this, 0);
 	m_message = NULL;
+	progressBar = NULL;
+	totalStep = 0;
 	isfinished = false;
 	addPage(new IntroPage);
 	addPage(new SupperUserPage);
@@ -49,27 +52,34 @@ using namespace std;
 		}
 		case EVENT_INIT:
 		{
+			progressBar->setValue(++totalStep);
 			break;
 		}
 		case EVENT_INIT_FINISHED:
 		{
+			progressBar->setValue(++totalStep);
 			initData();
 			break;
 		}
 		case EVENT_SETSUPERUSER:
 		{
+			progressBar->setValue(++totalStep);
 			break;
 		}
 		case EVENT_SETJOBTYPE:
 		{
+			progressBar->setValue(++totalStep);
 			break;
 		}
 		case EVENT_SETLEVELTYPE:
 		{
+			progressBar->setValue(++totalStep);
 			break;
 		}
 		case EVENT_SETSTATUSTYPE://wait for this to indicate guide finished
 		{
+			progressBar->setValue(++totalStep);
+			progressBar->close();
 			if(!isfinished) {
 				isfinished = true;
 				m_message = new Message(ACTION_SYSTEM_START);
@@ -91,7 +101,9 @@ void Guide::accept()
 	button(QWizard::BackButton)->setDisabled(true);
 	button(QWizard::FinishButton)->setDisabled(true);
 	button(QWizard::CancelButton)->setDisabled(true);
-
+	progressBar = new ProgressWidget(QString::fromLocal8Bit("正在初始化数据库，请稍候……"), 0, 6, this);
+	progressBar->show();
+	totalStep = 0;
 	initDb();
  }
 
@@ -215,7 +227,7 @@ void Guide::accept()
      : QWizardPage(parent)
  {
 	setTitle(QString::fromLocal8Bit("职务及级别"));
-	setSubTitle(QString::fromLocal8Bit("请录入贵公司的员工职务和级别，及其余相关信息。系统已经预置了一些项目，您可以继续添加、修改、删除。在本系统中，员工薪水是按照公式：<center><font color=\"#ff0000\"><b>职务工资+级别工资+业绩×(职务提成+级别提成)</b></font></center>来计算的。"));
+	setSubTitle(QString::fromLocal8Bit("请录入贵公司的员工职务和级别，及其余相关信息。系统已经预置了一些项目，您可以继续添加、修改、删除。在本系统中，员工薪水是按照公式：<center><font color=\"#336699\"><b>职务工资+级别工资+业绩×(职务提成+级别提成)</b></font></center>来计算的。"));
 
 	level = levelWidget;
 	job = joblWidget;
@@ -244,15 +256,15 @@ void Guide::accept()
 	 jobList.push_back(temp);
 	 temp.setName("美发师");
 	 jobList.push_back(temp);
-	 temp.setName("助理美发师");
+	 temp.setName("美发助理");
 	 jobList.push_back(temp);
 	 temp.setName("美容师");
 	 jobList.push_back(temp);
-	 temp.setName("助理美容师");
+	 temp.setName("美容助理");
 	 jobList.push_back(temp);
 	 temp.setName("按摩师");
 	 jobList.push_back(temp);
-	 temp.setName("助理按摩师");
+	 temp.setName("按摩助理");
 	 jobList.push_back(temp);
 
 	 job->pushjobs(&jobList);
