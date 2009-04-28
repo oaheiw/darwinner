@@ -35,6 +35,11 @@ void CommonDbThread::WorkerThreadMain(Message& Action) {
 			}			
 			break;
 		}
+		case ACTION_INIT_DB:
+		{
+			initDb();
+			break;
+		}
 		case ACTION_LOGIN:
 		{
 			Staff* staffIncome = static_cast<Staff*>(Action.data());
@@ -85,19 +90,29 @@ bool CommonDbThread::initDb()
 	if(!openDb(DBNAME)) {
 		return false;
 	}
+	
 	DBINFO("initializing database...", "");
+
+	m_tempMsg = new Message(EVENT_INIT);
+	if(NULL != m_tempMsg) {
+		postEvent(m_tempMsg, EventDb);
+		m_tempMsg = NULL;
+	}	
+	
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
+	//staff mgnt
 	q.exec(CREATE_STAFF_TABLE);
+	q.exec(CREATE_IMAGE_TABLE);
 	q.exec(CREATE_JOB_TABLE);
 	q.exec(CREATE_LEVET_TABLE);
-	q.exec(CREATE_ORDERS_TABLE);
-	q.exec(CREATE_GOODS_TABLE);
 	q.exec(CREATE_SEX_TABLE);
 	q.exec(CREATE_STATUS_TABLE);
-	q.exec(CREATE_TASKS_TABLE);
+	//bussiness mgnt
 	q.exec(CREATE_GOOSTYPE_TABLE);
-	q.exec(CREATE_IMAGE_TABLE);
-	
+	q.exec(CREATE_GOODS_TABLE);
+	q.exec(CREATE_ORDERS_TABLE);
+	q.exec(CREATE_TASKS_TABLE);
+
 	q.prepare(INSERTINTO_SEX_TABLE);
 	q.bindValue(":id", 0);
 	q.bindValue(":name", "未设定");
@@ -108,28 +123,14 @@ bool CommonDbThread::initDb()
 	q.bindValue(":id", 2);
 	q.bindValue(":name", "女");
 	q.exec();
-
-	q.prepare("INSERT INTO job (id, name, profit, descrption) " "VALUES (:id, :name, :profit, :descrption)");
-	q.bindValue(":id", 1);
-	q.bindValue(":name", ("未设定"));
-	q.bindValue(":profit", 0);
-	q.bindValue(":descrption", ("系统默认空职务"));
-	q.exec();
-
-	q.prepare("INSERT INTO level (id, name, profit, descrption) " "VALUES (:id, :name, :profit, :descrption)");
-	q.bindValue(":id", 1);
-	q.bindValue(":name", ("未设定"));
-	q.bindValue(":profit", 0);
-	q.bindValue(":descrption", ("系统默认空级别"));
-	q.exec();
-
-	q.prepare("INSERT INTO status (id, name, descrption) " "VALUES (:id, :name, :descrption)");
-	q.bindValue(":id", 1);
-	q.bindValue(":name", ("未设定"));
-	q.bindValue(":descrption", ("系统默认空状态"));
-	q.exec();
-
+	
 	closeDb();
+
+	m_tempMsg = new Message(EVENT_INIT_FINISHED);
+	if(NULL != m_tempMsg) {
+		postEvent(m_tempMsg, EventDb);
+		m_tempMsg = NULL;
+	}
 	DBINFO("databese initialized.", "");
 	return true;
 }
@@ -158,23 +159,12 @@ bool CommonDbThread::checkDd()
 	if(!exist | 0 == length | 0 != isSQLite) {//first time running
 		DBINFO("database file not exist or corrupt, creat new one.", "")
 		remove(DBFILE);
-		m_tempMsg = new Message(EVENT_INIT);
-		if(NULL != m_tempMsg) {
-			postEvent(m_tempMsg, EventDb);
-			m_tempMsg = NULL;
-		}
-		initDb();
-		m_tempMsg = new Message(EVENT_INIT_FINISHED);
-		if(NULL != m_tempMsg) {
-			postEvent(m_tempMsg, EventDb);
-			m_tempMsg = NULL;
-		}
 		re = false;
 	} else {//database exists. check super user
 		testfile.close();
 		openDb(DBNAME);
 		QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
-		QString query = QString("SELECT * FROM staff WHERE id = %1").arg(SUPERUSERID);
+		QString query = QString("SELECT id FROM staff WHERE id = %1").arg(SUPERUSERID);
 		q.exec(query);
 		if(!q.next()) {
 			re = false;

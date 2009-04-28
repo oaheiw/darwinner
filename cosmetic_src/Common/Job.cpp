@@ -13,6 +13,7 @@ Job::Job(){
 	m_id = 0;
 	m_name.clear();
 	m_profit = 0;
+	m_baseSalary = 0;
 }
 
 
@@ -20,10 +21,6 @@ Job::Job(){
 Job::~Job(){
 
 }
-
-
-
-
 
 string Job::description(){
 
@@ -48,11 +45,14 @@ short Job::profit(){
 	return m_profit;
 }
 
+uint32 Job::baseSalary()
+{
+	return m_baseSalary;
+}
 
 void Job::setDescription(string descr){
 	m_description = descr;
 }
-
 
 void Job::setId(uint32 id){
 	m_id = id;
@@ -64,6 +64,10 @@ void Job::setName(string name){
 }
 
 
-void Job::setProfit(uint32 profit){
+void Job::setProfit(short profit){
 	m_profit = profit;
+}
+
+void Job::setBaseSalary(uint32 salary){
+	m_baseSalary = salary;
 }

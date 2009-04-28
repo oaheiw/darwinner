@@ -3,7 +3,7 @@
 
 #include "Message.h"
 #include "messagedef.h"
-#include "Singleton.cpp"
+#include "Singleton.h"
 
 #include "WorkerFactory.h"
 #include "Staff.h"
@@ -25,7 +25,7 @@ Q_IMPORT_PLUGIN(qgif);
 #define qApp (static_cast<QApplication *>(QCoreApplication::instance()))
 
 int main(int argc, char *argv[])
-{
+{	
 	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
 	IEventObserver* sm = Singleton<SMHandler>::instance();
@@ -36,7 +36,8 @@ int main(int argc, char *argv[])
 	sm->SetHandler(worker);
 
 	QApplication* app = new QApplication(argc, argv);
-	QCleanlooksStyle* style = new QCleanlooksStyle();
+	QStyle* style = new QCleanlooksStyle();
+//	 QStyle *style = new ArthurStyle();
 	app->setStyle(style);
 
 	Message* StartUp = new Message(ACTION_SYSTEM_START);
@@ -46,5 +47,6 @@ int main(int argc, char *argv[])
 	app->exec();
 	delete app;
 
-	return 1;
+	return 0;
 }
+

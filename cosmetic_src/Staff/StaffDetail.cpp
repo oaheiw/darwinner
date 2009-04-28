@@ -169,7 +169,7 @@ void StaffDetail::setJob(list<Job>* jobList)
 	list<Job>::iterator it = jobList->begin();
 	while(jobList->end() != it)
 	{
-		comboBoxJob->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant::fromValue(it->id()));
+		comboBoxJob->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant(it->id()));
 		it++;
 	}
 }
@@ -180,7 +180,7 @@ void StaffDetail::setLevel(list<Level>* levelList)
 	list<Level>::iterator it = levelList->begin();
 	while(levelList->end() != it)
 	{
-		comboBoxLevel->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant::fromValue(it->id()));
+		comboBoxLevel->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant(it->id()));
 		it++;
 	}
 }
@@ -191,7 +191,7 @@ void StaffDetail::setStatus(list<Status>* statusList)
 	list<Status>::iterator it = statusList->begin();
 	while(statusList->end() != it)
 	{
-	  comboBoxStatus->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant::fromValue(it->id()));
+	  comboBoxStatus->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant(it->id()));
 	  it++;
 	}
 }
@@ -205,9 +205,9 @@ void StaffDetail::setStatus(list<Status>* statusList)
 		lineEditId->setText(QString::number(staff->ID()));
 		lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
 		comboBoxSex->setCurrentIndex(comboBoxSex->findData(staff->Sex()));
-		comboBoxStatus->setCurrentIndex(comboBoxStatus->findData(QVariant::fromValue(staff->status())));
-		comboBoxJob->setCurrentIndex(comboBoxJob->findData(QVariant::fromValue(staff->Type())));
-		comboBoxLevel->setCurrentIndex(comboBoxLevel->findData(QVariant::fromValue(staff->Level())));
+		comboBoxStatus->setCurrentIndex(comboBoxStatus->findData(QVariant(staff->status())));
+		comboBoxJob->setCurrentIndex(comboBoxJob->findData(QVariant(staff->Type())));
+		comboBoxLevel->setCurrentIndex(comboBoxLevel->findData(QVariant(staff->Level())));
 		lineEditPhone->setText(QString::fromLocal8Bit(staff->phone().c_str()));
 		lineEditCell->setText(QString::fromLocal8Bit(staff->cell().c_str()));
 		plainTextEditAddress->setPlainText(QString::fromLocal8Bit(staff->address().c_str()));

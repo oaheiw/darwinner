@@ -10,7 +10,7 @@
 #include "messagedef.h"
 #include "IActionHandler.h"
 #include "StaffManagementUI.h"
-#include "Singleton.cpp"
+#include "Singleton.h"
 #include "JobTypeWidget.h"
 #include "Job.h"
 #include "Level.h"

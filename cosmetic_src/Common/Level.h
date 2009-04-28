@@ -22,28 +22,31 @@ public:
 	uint32 id();
 	string name();
 	short profit();
+	uint32 baseSalary();
 	void setDescription(string descr);
 	void setId(uint32 id);
 	void setName(string name);
-	void setProfit(uint32 profit);
+	void setProfit(short profit);
+	void setBaseSalary(uint32 salary);
 
-friend bool operator==(const Level &x, const Level &y) {
-	return (	y.m_description == x.m_description &&
-				y.m_id == x.m_id &&
-				y.m_name == x.m_name &&
-				y.m_profit == x.m_profit);
-}
-
-class idMatcher {
-public:
-	idMatcher(uint32 id) { m_val = id; }
-	bool operator()(Level& x) 
+	friend bool operator==(const Level &x, const Level &y)
 	{
-		return x.id() == m_val;
+		return (y.m_description == x.m_description && 
+			y.m_id == x.m_id && 
+			y.m_name == x.m_name &&
+			y.m_profit == x.m_profit);
 	}
-private:
-	uint32 m_val;
-};
+
+	class idMatcher {
+	public:
+		idMatcher(uint32 id) { m_val = id; }
+		bool operator()(Level& x) 
+		{
+			return x.id() == m_val;
+		}
+	private:
+		uint32 m_val;
+	};
 
 
 private:
@@ -51,6 +54,6 @@ private:
 	uint32 m_id;
 	string m_name;
 	short m_profit;
-
+	uint32 m_baseSalary;
 };
 #endif // !defined(EA_E7DB82B0_1E35_4081_8BAA_B3494CB31864__INCLUDED_)

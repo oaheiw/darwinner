@@ -12,7 +12,7 @@
 #include "CommonDbThread.h"
 #include "TEvent.h"
 #include "Message.h"
-#include "Singleton.cpp"
+#include "Singleton.h"
 
 using namespace std;
 Worker::Worker(QObject *parent )

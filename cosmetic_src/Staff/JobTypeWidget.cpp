@@ -16,7 +16,7 @@ JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 		ui.submitPushButton->hide();
 	} 
 
-	m_DataModel = new QStandardItemModel(0, 4, this);
+	m_DataModel = new QStandardItemModel(0, 5, this);
 	ui.jobTableView->setModel(m_DataModel);
 	ui.jobTableView->setAlternatingRowColors(true);
 	ui.jobTableView->hideColumn(0);
@@ -25,9 +25,11 @@ JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("编号"));
 	ui.jobTableView->setColumnWidth(col++, 40);
 	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("职务"));
-	ui.jobTableView->setColumnWidth(col++, 60);
+	ui.jobTableView->setColumnWidth(col++, 70);
 	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("提成(%)"));
-	ui.jobTableView->setColumnWidth(col++, 65);
+	ui.jobTableView->setColumnWidth(col++, 60);
+	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("职务工资"));
+	ui.jobTableView->setColumnWidth(col++, 60);
 	m_DataModel->setHeaderData(col++, Qt::Horizontal, QString::fromLocal8Bit("备注"));
 
 
@@ -61,7 +63,8 @@ void JobTypeWidget::add()
 	m_DataModel->setData(m_DataModel->index(row, 0), 0);
 	m_DataModel->setData(m_DataModel->index(row, 1), "");
 	m_DataModel->setData(m_DataModel->index(row, 2), 0);
-	m_DataModel->setData(m_DataModel->index(row, 3), "");
+	m_DataModel->setData(m_DataModel->index(row, 3), 0);
+	m_DataModel->setData(m_DataModel->index(row, 4), "");
 
 }
 void JobTypeWidget::remove()
@@ -90,6 +93,8 @@ list<Job>* JobTypeWidget::getJobList()
 		data = m_DataModel->index(row, col++);
 		tempJob.setProfit(data.data().toUInt());
 		data = m_DataModel->index(row, col++);
+		tempJob.setBaseSalary(data.data().toUInt());
+		data = m_DataModel->index(row, col++);
 		tempJob.setDescription(data.data().toString().toLocal8Bit().data());
 		jobList->push_back(tempJob);
 	}
@@ -100,12 +105,14 @@ void JobTypeWidget::pushjobs(list<Job>* jobs)
 {
 	m_DataModel->removeRows(0, m_DataModel->rowCount());
 	for(list<Job>::iterator it=jobs->begin() ; jobs->end()!=it ; it++) {
-		m_DataModel->insertRow(0);
-		ui.jobTableView->setRowHeight(0, 20);
+		int row = m_DataModel->rowCount();
+		m_DataModel->insertRow(row);
+		ui.jobTableView->setRowHeight(row, 20);
 
-		m_DataModel->setData(m_DataModel->index(0, 0), it->id());
-		m_DataModel->setData(m_DataModel->index(0, 1), QString::fromLocal8Bit(it->name().c_str()));
-		m_DataModel->setData(m_DataModel->index(0, 2), it->profit());
-		m_DataModel->setData(m_DataModel->index(0, 3), QString::fromLocal8Bit(it->description().c_str()));
+		m_DataModel->setData(m_DataModel->index(row, 0), it->id());
+		m_DataModel->setData(m_DataModel->index(row, 1), QString::fromLocal8Bit(it->name().c_str()));
+		m_DataModel->setData(m_DataModel->index(row, 2), it->profit());
+		m_DataModel->setData(m_DataModel->index(row, 3), it->baseSalary());
+		m_DataModel->setData(m_DataModel->index(row, 4), QString::fromLocal8Bit(it->description().c_str()));
 	}
 }

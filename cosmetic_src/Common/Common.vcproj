@@ -237,10 +237,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Singleton.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Staff.cpp"
 				>
 			</File>
@@ -292,6 +288,10 @@
 			</File>
 			<File
 				RelativePath=".\messagedef.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Singleton.h"
 				>
 			</File>
 			<File

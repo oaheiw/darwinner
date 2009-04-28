@@ -1,5 +1,5 @@
 #include "SSMainMenu.h"
-#include "Singleton.cpp"
+#include "Singleton.h"
 #include "SSMainHandler.h"
 #include "Message.h"
 #include "Staff.h"

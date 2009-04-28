@@ -11,7 +11,7 @@
 #include "Message.h"
 #include "messagedef.h"
 #include "IActionHandler.h"
-#include "Singleton.cpp"
+#include "Singleton.h"
 #include "Guide.h"
 
 SSMainHandler::SSMainHandler()

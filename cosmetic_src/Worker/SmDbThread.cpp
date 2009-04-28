@@ -10,7 +10,7 @@
 #include "Job.h"
 #include "Level.h"
 #include "Status.h"
-#include "Singleton.cpp"
+#include "Singleton.h"
 
 
 SmDbThread::SmDbThread(QObject *parent , QThread::Priority priority)
@@ -360,6 +360,7 @@ bool SmDbThread::addJobType(Job* job)
 		q.prepare(INSERTINTO_JOB_TABLE);
 		q.bindValue(":name", job->name().c_str());
 		q.bindValue(":profit", job->profit());
+		q.bindValue(":baseSalary", job->baseSalary());
 		q.bindValue(":descrption", job->description().c_str());
 		r = q.exec();
 	}
@@ -387,6 +388,7 @@ bool SmDbThread::addLevelType(Level* level)
 		q.prepare(INSERTINTO_LEVEL_TABLE);
 		q.bindValue(":name", level->name().c_str());
 		q.bindValue(":profit", level->profit());
+		q.bindValue(":baseSalary", level->baseSalary());
 		q.bindValue(":descrption", level->description().c_str());
 		r = q.exec();
 	}
@@ -470,7 +472,8 @@ list<Job>* SmDbThread::getJobs()
 		temp.setId(q.value(0).toUInt());
 		temp.setName(q.value(1).toByteArray().data());
 		temp.setProfit(q.value(2).toUInt());
-		temp.setDescription(q.value(3).toByteArray().data());
+		temp.setBaseSalary(q.value(3).toUInt());
+		temp.setDescription(q.value(4).toByteArray().data());
 		r->push_back(temp);
 	}
 	closeDb();
@@ -494,7 +497,8 @@ list<Level>* SmDbThread::getLevels()
 		temp.setId(q.value(0).toUInt());
 		temp.setName(q.value(1).toByteArray().data());
 		temp.setProfit(q.value(2).toUInt());
-		temp.setDescription(q.value(3).toByteArray().data());
+		temp.setBaseSalary(q.value(3).toUInt());
+		temp.setDescription(q.value(4).toByteArray().data());
 		r->push_back(temp);
 	}
 	closeDb();

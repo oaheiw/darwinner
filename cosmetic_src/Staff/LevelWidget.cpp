@@ -15,7 +15,7 @@ LevelWidget::LevelWidget(QWidget *parent, int mode)
 		ui.submitPushButton->hide();
 	} 
 
-	m_DataModel = new QStandardItemModel(0, 4, this);
+	m_DataModel = new QStandardItemModel(0, 5, this);
 	ui.levelTableView->setModel(m_DataModel);
 	ui.levelTableView->setAlternatingRowColors(true);
 	ui.levelTableView->hideColumn(0);
@@ -23,10 +23,12 @@ LevelWidget::LevelWidget(QWidget *parent, int mode)
 
 	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("编号"));
 	ui.levelTableView->setColumnWidth(col++, 40);
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("等级"));
-	ui.levelTableView->setColumnWidth(col++, 60);
+	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("级别"));
+	ui.levelTableView->setColumnWidth(col++, 70);
 	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("提成(%)"));
-	ui.levelTableView->setColumnWidth(col++, 65);
+	ui.levelTableView->setColumnWidth(col++, 60);
+	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("级别工资"));
+	ui.levelTableView->setColumnWidth(col++, 60);
 	m_DataModel->setHeaderData(col++, Qt::Horizontal, QString::fromLocal8Bit("备注"));
 
 
@@ -62,7 +64,8 @@ void LevelWidget::add()
 	m_DataModel->setData(m_DataModel->index(row, 0), 0);
 	m_DataModel->setData(m_DataModel->index(row, 1), "");
 	m_DataModel->setData(m_DataModel->index(row, 2), 0);
-	m_DataModel->setData(m_DataModel->index(row, 3), "");
+	m_DataModel->setData(m_DataModel->index(row, 3), 0);
+	m_DataModel->setData(m_DataModel->index(row, 4), "");
 
 }
 void LevelWidget::remove()
@@ -86,10 +89,12 @@ list<Level>* LevelWidget::getLevelList()
 		data = m_DataModel->index(row, col++);
 		tempLevel.setId(data.data().toUInt());
 		data = m_DataModel->index(row, col++);
-		if(data.data().toString().isEmpty()) continue;// ignore job with level name
+		if(data.data().toString().isEmpty()) continue;// ignore job with empty name
 		tempLevel.setName(data.data().toString().toLocal8Bit().data());
 		data = m_DataModel->index(row, col++);
 		tempLevel.setProfit(data.data().toUInt());
+		data = m_DataModel->index(row, col++);
+		tempLevel.setBaseSalary(data.data().toUInt());
 		data = m_DataModel->index(row, col++);
 		tempLevel.setDescription(data.data().toString().toLocal8Bit().data());
 		levelList->push_back(tempLevel);
@@ -101,12 +106,14 @@ void LevelWidget::pushLevels(list<Level>* levels)
 {
 	m_DataModel->removeRows(0, m_DataModel->rowCount());
 	for(list<Level>::iterator it=levels->begin() ; levels->end()!=it ; it++) {
-		m_DataModel->insertRow(0);
-		ui.levelTableView->setRowHeight(0, 20);
+		int row = m_DataModel->rowCount();
+		m_DataModel->insertRow(row);
+		ui.levelTableView->setRowHeight(row, 20);
 
-		m_DataModel->setData(m_DataModel->index(0, 0), it->id());
-		m_DataModel->setData(m_DataModel->index(0, 1), QString::fromLocal8Bit(it->name().c_str()));
-		m_DataModel->setData(m_DataModel->index(0, 2), it->profit());
-		m_DataModel->setData(m_DataModel->index(0, 3), QString::fromLocal8Bit(it->description().c_str()));
+		m_DataModel->setData(m_DataModel->index(row, 0), it->id());
+		m_DataModel->setData(m_DataModel->index(row, 1), QString::fromLocal8Bit(it->name().c_str()));
+		m_DataModel->setData(m_DataModel->index(row, 2), it->profit());
+		m_DataModel->setData(m_DataModel->index(row, 3), it->baseSalary());
+		m_DataModel->setData(m_DataModel->index(row, 4), QString::fromLocal8Bit(it->description().c_str()));
 	}
 }

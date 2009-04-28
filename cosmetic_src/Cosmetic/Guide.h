@@ -18,15 +18,17 @@ class Message;
      Q_OBJECT
 
  public:
-     Guide(QWidget *parent = 0);
-	 void OnEvent(Message& ev) ;
-     void accept();
+	Guide(QWidget *parent = 0);
+	void OnEvent(Message& ev) ;
+	void accept();
 
  private:
  	Message* m_message;
 	LevelWidget* level;
 	JobTypeWidget* job;
 	bool isfinished;
+	void initDb();
+	void initData();
  };
 
  class IntroPage : public QWizardPage

@@ -47,6 +47,27 @@ using namespace std;
 			show();
 			break;
 		}
+		case EVENT_INIT:
+		{
+			break;
+		}
+		case EVENT_INIT_FINISHED:
+		{
+			initData();
+			break;
+		}
+		case EVENT_SETSUPERUSER:
+		{
+			break;
+		}
+		case EVENT_SETJOBTYPE:
+		{
+			break;
+		}
+		case EVENT_SETLEVELTYPE:
+		{
+			break;
+		}
 		case EVENT_SETSTATUSTYPE://wait for this to indicate guide finished
 		{
 			if(!isfinished) {
@@ -65,41 +86,77 @@ using namespace std;
 	 }
  }
 
- void Guide::accept()
+void Guide::accept()
+{
+	button(QWizard::BackButton)->setDisabled(true);
+	button(QWizard::FinishButton)->setDisabled(true);
+	button(QWizard::CancelButton)->setDisabled(true);
+
+	initDb();
+ }
+
+ void Guide::initDb()
  {
+	m_message = new Message(ACTION_INIT_DB);
+	m_uiHandler->StartAction(*m_message);
+	delete m_message;
+ }
+
+ void Guide::initData()
+ {
+ //*********************init super staff*************************//
 	Staff* staff = new Staff();
 	staff->SetPassword(field("password").toString().toLocal8Bit().data());	
 	m_message = new Message(ACTION_SETSUPERUSER, staff);
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
 
-
+//*********************init staff job*************************//
 	list<Job>* jobList = job->getJobList();
+//	if(jobList->empty())
+	{
+		Job temp;
+		temp.setName("未设定");
+		temp.setDescription("系统默认职务");
+		jobList->push_front(temp);
+	}
 	m_message = new Message(ACTION_SETJOBTYPE, (void*)jobList);
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
 
-
+//*********************init staff level*************************//
 	list<Level>* levelList = level->getLevelList();
+//	if(levelList->empty())
+	{
+		Level temp;
+		temp.setName("未设定");
+		temp.setDescription("系统默认等级");
+		levelList->push_front(temp);
+	}
 	m_message = new Message(ACTION_SETLEVELTYPE, (void*)levelList);
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
 
+//*********************init staff status*************************//
 	list<Status>* statusList = new list<Status>;
 	Status temp;
-	temp.setName("离职");
+	temp.setName("在职");
 	statusList->push_back(temp);
-	temp.setName("请假");
-	statusList->push_back(temp);
-	temp.setName("忙碌");
+	temp.setName("休假");
 	statusList->push_back(temp);
 	temp.setName("空闲");
 	statusList->push_back(temp);
+	temp.setName("忙碌");
+	statusList->push_back(temp);
+	temp.setName("离职");
+	statusList->push_back(temp);
+
 	m_message = new Message(ACTION_SETSTATUSTYPE, (void*)statusList);
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;
-
  }
+
+
 
  IntroPage::IntroPage(QWidget *parent)
      : QWizardPage(parent)
@@ -157,14 +214,14 @@ using namespace std;
  StaffInfoPage::StaffInfoPage(LevelWidget* levelWidget, JobTypeWidget* joblWidget, QWidget *parent)
      : QWizardPage(parent)
  {
-	setTitle(QString::fromLocal8Bit("职务及员工级别"));
-	setSubTitle(QString::fromLocal8Bit("请录入贵公司的员工职务、员工等级，以及各自的业绩提成比例。"));
+	setTitle(QString::fromLocal8Bit("职务及级别"));
+	setSubTitle(QString::fromLocal8Bit("请录入贵公司的员工职务和级别，及其余相关信息。系统已经预置了一些项目，您可以继续添加、修改、删除。在本系统中，员工薪水是按照公式：<center><font color=\"#ff0000\"><b>职务工资+级别工资+业绩×(职务提成+级别提成)</b></font></center>来计算的。"));
 
 	level = levelWidget;
 	job = joblWidget;
 
 	jobLabel = new QLabel(QString::fromLocal8Bit("职务设置："));
-	levelLabel = new QLabel(QString::fromLocal8Bit("等级设置："));
+	levelLabel = new QLabel(QString::fromLocal8Bit("级别设置："));
 	QGridLayout *layout = new QGridLayout(this);
 	layout->addWidget(jobLabel, 0, 0, 1, 1);
 	layout->addWidget(levelLabel, 0, 1, 1, 1);
@@ -176,25 +233,48 @@ using namespace std;
 
  void StaffInfoPage::initializePage()
  {
-	 /*
-     QString className = field("className").toString();
-     macroNameLineEdit->setText(className.toUpper() + "_H");
+	 {
+	 list<Job> jobList;
+	 Job temp;
+	 temp.setName("老板");
+	 jobList.push_back(temp);
+	 temp.setName("店长");
+	 jobList.push_back(temp);
+	 temp.setName("收银员");
+	 jobList.push_back(temp);
+	 temp.setName("美发师");
+	 jobList.push_back(temp);
+	 temp.setName("助理美发师");
+	 jobList.push_back(temp);
+	 temp.setName("美容师");
+	 jobList.push_back(temp);
+	 temp.setName("助理美容师");
+	 jobList.push_back(temp);
+	 temp.setName("按摩师");
+	 jobList.push_back(temp);
+	 temp.setName("助理按摩师");
+	 jobList.push_back(temp);
 
-     QString baseClass = field("baseClass").toString();
+	 job->pushjobs(&jobList);
+	 }
 
-     includeBaseCheckBox->setChecked(!baseClass.isEmpty());
-     includeBaseCheckBox->setEnabled(!baseClass.isEmpty());
-     baseIncludeLabel->setEnabled(!baseClass.isEmpty());
-     baseIncludeLineEdit->setEnabled(!baseClass.isEmpty());
+	{
+	list<Level> levelList;
+	Level temp;
+	temp.setName("临时员工");
+	levelList.push_back(temp);
+	temp.setName("试用员工");
+	levelList.push_back(temp);
+	temp.setName("普通员工");
+	levelList.push_back(temp);
+	temp.setName("经验员工");
+	levelList.push_back(temp);
+	temp.setName("资深员工");
+	levelList.push_back(temp);
+	
+	level->pushLevels(&levelList);
+	}
 
-     if (baseClass.isEmpty()) {
-         baseIncludeLineEdit->clear();
-     } else if (QRegExp("Q[A-Z].*").exactMatch(baseClass)) {
-         baseIncludeLineEdit->setText("<" + baseClass + ">");
-     } else {
-         baseIncludeLineEdit->setText("\"" + baseClass.toLower() + ".h\"");
-     }
-	 */
  }
 
  StaffRightsPage::StaffRightsPage(QWidget *parent)
