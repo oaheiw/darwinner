@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchBoxClass</class>
+ <widget class="QWidget" name="SearchBoxClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>238</width>
+    <height>127</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>238</width>
+    <height>127</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>238</width>
+    <height>127</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>SearchBox</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="keywordGroupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>关键字过滤</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="margin">
+       <number>5</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="keywordLabel">
+          <property name="text">
+           <string>关键字</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::PlainText</enum>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse</set>
+          </property>
+          <property name="buddy">
+           <cstring>keywordLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="keywordLineEdit"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="patternLabel">
+          <property name="text">
+           <string>匹配方式</string>
+          </property>
+          <property name="buddy">
+           <cstring>patternComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="patternComboBox">
+          <item>
+           <property name="text">
+            <string notr="true">正则表达式</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>模糊匹配</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>精确匹配</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="itemLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>搜索项</string>
+          </property>
+          <property name="buddy">
+           <cstring>itemComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="itemComboBox">
+          <item>
+           <property name="text">
+            <string>全部项目</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QCheckBox" name="SearchCaseCheckBox">
+          <property name="text">
+           <string>搜索忽略大小写</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="SortCaseCheckBox">
+          <property name="text">
+           <string>排序忽略大小写</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../Cosmetic/Cosmetic.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>keywordLineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>SearchBoxClass</receiver>
+   <slot>keywordChange(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>118</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>patternComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SearchBoxClass</receiver>
+   <slot>searchPatternChange(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>189</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>377</x>
+     <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SearchCaseCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>SearchBoxClass</receiver>
+   <slot>searchCaseChange(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>371</x>
+     <y>121</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>itemComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SearchBoxClass</receiver>
+   <slot>searchItemChange(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>353</x>
+     <y>117</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SortCaseCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>SearchBoxClass</receiver>
+   <slot>sortCaseChange(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>149</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>135</x>
+     <y>-17</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>filterRegExpChanged(QString,int,bool)</signal>
+  <signal>filterColumnChanged(int)</signal>
+  <signal>sortChanged(bool)</signal>
+  <slot>keywordChange(QString)</slot>
+  <slot>searchCaseChange(bool)</slot>
+  <slot>searchItemChange(int)</slot>
+  <slot>searchPatternChange(int)</slot>
+  <slot>sortCaseChange(bool)</slot>
+ </slots>
+</ui>

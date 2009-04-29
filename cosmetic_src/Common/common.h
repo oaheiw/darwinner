@@ -51,20 +51,20 @@ typedef unsigned char byte;
 enum GROUP {
 	GROUP_COMMON = 0,
 	GROUP_STAFFMGNT = 1,
-	GROUP_GOODSMGNT = 2,
+	GROUP_BUSINESSMGNT = 2,
 	GROUP_SHOPMGNT = 3,
 	GROUP_CLIENTMGNT = 4,
 	GROUP_END
 };
 
 //SUBGROUP should be less than 255
-enum SUBGROUP_SF {
-	SUBGROUP_SF_STAFFBROWSE = 1,
-	SUBGROUP_SF_INFOMGNT, // 2
-	SUBGROUP_SF_SALARYMGNT, // 3
-	SUBGROUP_SF_PASSWORDMGNT, // 4
-	SUBGROUP_SF_ADVANCEDMGNT, // 5
-	SUBGROUP_SF_END
+enum SUBGROUP_SM {
+	SUBGROUP_SM_STAFFBROWSE = 1,
+	SUBGROUP_SM_INFOMGNT, // 2
+	SUBGROUP_SM_SALARYMGNT, // 3
+	SUBGROUP_SM_PASSWORDMGNT, // 4
+	SUBGROUP_SM_ADVANCEDMGNT, // 5
+	SUBGROUP_SM_END
 };
 
 enum ERROR {
@@ -81,6 +81,15 @@ enum SINFO {
 	SINFO_NEW,
 	SINFO_END
 };
+
+//group name
+static const char* smString = "员工管理";
+static const char* bmString = "业务管理";
+static const char* soString = "店面运营";
+static const char* logoffString = "注销";
+
+
+
 
 //Message box warning strings
 #define loginWindowTitle "登录错误"

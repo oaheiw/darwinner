@@ -72,6 +72,23 @@ void Worker::StartAction(Message& Action) {
 			}
 		}
 	}
+	else if (GROUP_BUSINESSMGNT== Action.group()) {
+		switch(Action.type()) {
+			case ACTION_BUSINESSMGNT:
+			{
+				Message* ev = new Message(EVENT_BUSINESSMGNT);
+				BroadcastEvent(*ev);
+				delete ev;
+				break;
+			}
+			default:
+			{
+//				m_smDbThread->QueueAction(Action);
+				break;
+			}
+		}
+	}
+
 }
 
 bool Worker::event(QEvent * e) {

@@ -13,6 +13,7 @@
 //Logic Hanlders
 #include "SSMainHandler.h"
 #include "SMHandler.h"
+#include "BMHandler.h"
 #include "systeminfo.h"
 
 #ifdef _STATIC_RELEASE
@@ -27,11 +28,14 @@ int main(int argc, char *argv[])
 	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
 	IEventObserver* sm = Singleton<SMHandler>::instance();
+	IEventObserver* bm = Singleton<BMHandler>::instance();
 	
 	worker->SetObserver(login);
 	worker->SetObserver(sm);
+	worker->SetObserver(bm);
 	login->SetHandler(worker);
 	sm->SetHandler(worker);
+	bm->SetHandler(worker);
 
 	QApplication* app = new QApplication(argc, argv);
 	QStyle* style = new QCleanlooksStyle();

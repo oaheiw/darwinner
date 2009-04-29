@@ -90,7 +90,7 @@ void StaffManagementUI::OnEvent(Message & Msg){
 			if(isHidden())
 				show();
 			else
-				this->setFocus();
+				setFocus();
 			break;
 		}
 		case EVENT_LOGGEDOFF:

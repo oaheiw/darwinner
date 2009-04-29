@@ -51,6 +51,9 @@ using namespace std;
 			break;
 		}
 		case EVENT_INIT:
+		case EVENT_SETSUPERUSER:
+		case EVENT_SETJOBTYPE:
+		case EVENT_SETLEVELTYPE:
 		{
 			progressBar->setValue(++totalStep);
 			break;
@@ -59,21 +62,6 @@ using namespace std;
 		{
 			progressBar->setValue(++totalStep);
 			initData();
-			break;
-		}
-		case EVENT_SETSUPERUSER:
-		{
-			progressBar->setValue(++totalStep);
-			break;
-		}
-		case EVENT_SETJOBTYPE:
-		{
-			progressBar->setValue(++totalStep);
-			break;
-		}
-		case EVENT_SETLEVELTYPE:
-		{
-			progressBar->setValue(++totalStep);
 			break;
 		}
 		case EVENT_SETSTATUSTYPE://wait for this to indicate guide finished

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Tim Kuo</author>
+ <class>DateBoxClass</class>
+ <widget class="QWidget" name="DateBoxClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>51</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>51</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>300</width>
+    <height>51</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>DateBox</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="DateGroupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>日期过滤</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,10,0,10">
+      <property name="margin">
+       <number>5</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="fromLabel_2">
+        <property name="text">
+         <string>自</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>fromDate</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QDateEdit" name="fromDate">
+          <property name="date">
+           <date>
+            <year>2000</year>
+            <month>1</month>
+            <day>6</day>
+           </date>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="fromToolButton">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../Cosmetic/Cosmetic.qrc">
+            <normaloff>:/common/Resources/1downarrow.png</normaloff>:/common/Resources/1downarrow.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonIconOnly</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="toLabel_2">
+        <property name="text">
+         <string>至</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>toDate</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QDateEdit" name="toDate">
+          <property name="date">
+           <date>
+            <year>2000</year>
+            <month>1</month>
+            <day>1</day>
+           </date>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toToolButton">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../Cosmetic/Cosmetic.qrc">
+            <normaloff>:/common/Resources/1downarrow.png</normaloff>:/common/Resources/1downarrow.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>18</width>
+            <height>18</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonIconOnly</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../Cosmetic/Cosmetic.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>fromDate</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>DateBoxClass</receiver>
+   <slot>fromDateChanged(QDate)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>71</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>229</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toDate</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>DateBoxClass</receiver>
+   <slot>toDateChanged(QDate)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>251</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fromToolButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>DateBoxClass</receiver>
+   <slot>fromButtonToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toToolButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>DateBoxClass</receiver>
+   <slot>toButtonToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>348</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>fromDateChanged(QDate)</slot>
+  <slot>toDateChanged(QDate)</slot>
+  <slot>fromButtonToggled(bool)</slot>
+  <slot>toButtonToggled(bool)</slot>
+  <slot>moveCalendar()</slot>
+ </slots>
+</ui>

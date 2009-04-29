@@ -4,12 +4,16 @@
 #include "Message.h"
 #include "Staff.h"
 #include "messagedef.h"
+
 #define SM_X (0)
 #define SM_Y (0)
 #define SO_X (0)
 #define SO_Y (1)
 #define LO_X (1)
 #define LO_Y (2)
+#define BM_X (1)
+#define BM_Y (0)
+
 SSMainMenu::SSMainMenu(QWidget *parent, DUIHandler* handler)
 : QDialog(parent)
 {
@@ -65,6 +69,8 @@ void SSMainMenu::startFunction(int x, int y)
 		action->setType(ACTION_LOGOFF);
 	else if(SM_X == x && SM_Y == y)
 		action->setType(ACTION_STAFFMGNT);
+	else if(BM_X == x && BM_Y == y)
+		action->setType(ACTION_BUSINESSMGNT);
 
 	m_uiHandler->StartAction(*action);
 	delete action;
@@ -72,30 +78,38 @@ void SSMainMenu::startFunction(int x, int y)
 
 void SSMainMenu::createIcons()
  {
-	 ui.FunctionTableWidget->setColumnWidth(0, 128);
-	 ui.FunctionTableWidget->setColumnWidth(1, 128);
-	 ui.FunctionTableWidget->setColumnWidth(2, 128);
-	 ui.FunctionTableWidget->setRowHeight(0, 128);
-	 ui.FunctionTableWidget->setRowHeight(1, 128);
-     QTableWidgetItem *staffButton = new QTableWidgetItem(QString::fromLocal8Bit("员工管理"));
-     staffButton->setIcon(QIcon(":/staff/Resources/people.png"));
-     staffButton->setTextAlignment(Qt::AlignCenter);
-     staffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-	 ui.FunctionTableWidget->setItem(SM_X, SM_Y, staffButton);
-	 
-     QTableWidgetItem *operationButton = new QTableWidgetItem(QTableWidgetItem::Type);
-     operationButton->setIcon(QIcon(":/staff/Resources/level.png"));
-     operationButton->setText(QString::fromLocal8Bit("店面运营"));
-     operationButton->setTextAlignment(Qt::AlignCenter);
-     operationButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-	 ui.FunctionTableWidget->setItem(SO_X, SO_Y, operationButton);
+	ui.FunctionTableWidget->setColumnWidth(0, 128);
+	ui.FunctionTableWidget->setColumnWidth(1, 128);
+	ui.FunctionTableWidget->setColumnWidth(2, 128);
+	ui.FunctionTableWidget->setRowHeight(0, 128);
+	ui.FunctionTableWidget->setRowHeight(1, 128);
 
-     QTableWidgetItem *logoffButton = new QTableWidgetItem(QTableWidgetItem::Type);
-     logoffButton->setIcon(QIcon(":/staff/Resources/staff.png"));
-     logoffButton->setText(QString::fromLocal8Bit("注销"));
-     logoffButton->setTextAlignment(Qt::AlignCenter);
-     logoffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-	 ui.FunctionTableWidget->setItem(LO_X, LO_Y, logoffButton);
+	QTableWidgetItem *staffButton = new QTableWidgetItem(QString::fromLocal8Bit(smString));
+	staffButton->setIcon(QIcon(":/staff/Resources/people.png"));
+	staffButton->setTextAlignment(Qt::AlignCenter);
+	staffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	ui.FunctionTableWidget->setItem(SM_X, SM_Y, staffButton);
+
+	QTableWidgetItem *operationButton = new QTableWidgetItem(QTableWidgetItem::Type);
+	operationButton->setIcon(QIcon(":/staff/Resources/level.png"));
+	operationButton->setText(QString::fromLocal8Bit(soString));
+	operationButton->setTextAlignment(Qt::AlignCenter);
+	operationButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	ui.FunctionTableWidget->setItem(SO_X, SO_Y, operationButton);
+
+	QTableWidgetItem *businessButton = new QTableWidgetItem(QTableWidgetItem::Type);
+	businessButton->setIcon(QIcon(":/common/Resources/1day.png"));
+	businessButton->setText(QString::fromLocal8Bit(bmString));
+	businessButton->setTextAlignment(Qt::AlignCenter);
+	businessButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	ui.FunctionTableWidget->setItem(BM_X, BM_Y, businessButton);
+
+	QTableWidgetItem *logoffButton = new QTableWidgetItem(QTableWidgetItem::Type);
+	logoffButton->setIcon(QIcon(":/staff/Resources/staff.png"));
+	logoffButton->setText(QString::fromLocal8Bit(logoffString));
+	logoffButton->setTextAlignment(Qt::AlignCenter);
+	logoffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	ui.FunctionTableWidget->setItem(LO_X, LO_Y, logoffButton);
 
 	connect(ui.FunctionTableWidget, SIGNAL(cellActivated(int, int)), this, SLOT(startFunction(int, int)));
  }

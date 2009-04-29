@@ -4,6 +4,11 @@
         <file>Resources/cosmetic-text.png</file>
         <file>Resources/banner.png</file>
         <file>Resources/watermark.png</file>
+        <file>Resources/1day.png</file>
+        <file>Resources/1downarrow.png</file>
+        <file>Resources/2uparrow.png</file>
+        <file>Resources/2downarrow.png</file>
+        <file>Resources/1uparrow.png</file>
     </qresource>
     <qresource prefix="/staff" >
         <file>Resources/staff.png</file>
