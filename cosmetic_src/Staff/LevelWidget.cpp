@@ -1,5 +1,6 @@
 #include "LevelWidget.h"
 #include <QFont>
+#include "SpinBoxDelegate.h"
 
 LevelWidget::LevelWidget(QWidget *parent, int mode)
 	: QWidget(parent)
@@ -30,6 +31,9 @@ LevelWidget::LevelWidget(QWidget *parent, int mode)
 	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("级别工资"));
 	ui.levelTableView->setColumnWidth(col++, 60);
 	m_DataModel->setHeaderData(col++, Qt::Horizontal, QString::fromLocal8Bit("备注"));
+
+	SpinBoxDelegate *delegate= new SpinBoxDelegate(ui.levelTableView);
+	ui.levelTableView->setItemDelegateForColumn (2, delegate);
 
 
 	connect(ui.addPushButton, SIGNAL(clicked()), this, SLOT(add()));

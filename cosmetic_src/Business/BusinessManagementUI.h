@@ -12,9 +12,10 @@
 #include <string>
 class QModelIndex;
 class QEvent;
+class DateBox;
+class SearchBox;
 
 using namespace std;
-
 
 class BusinessManagementUI : public QMainWindow, public DUIObserver
 {
@@ -30,6 +31,8 @@ protected:
 	virtual bool eventFilter (QObject * obj, QEvent * ev);
 
 private:
+	DateBox* dateBox;
+	SearchBox* searchBox;
 	Ui::BusinessManagementUIClass ui;
 };
 

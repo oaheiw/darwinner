@@ -17,7 +17,7 @@ public:
 signals:
 	void regExpChanged(QRegExp &);
 	void columnChanged(int);
-	void sortChanged(bool);
+	void sortChanged(int);
 
 private:
 	QString m_keyword;

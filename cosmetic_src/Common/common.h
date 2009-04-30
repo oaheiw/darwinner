@@ -87,6 +87,7 @@ static const char* smString = "员工管理";
 static const char* bmString = "业务管理";
 static const char* soString = "店面运营";
 static const char* logoffString = "注销";
+static const char* exitString = "退出";
 
 
 

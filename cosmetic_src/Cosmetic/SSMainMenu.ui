@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>270</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,14 +21,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>0</height>
+    <width>400</width>
+    <height>400</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>270</height>
+    <height>400</height>
    </size>
   </property>
   <property name="font">
@@ -61,10 +61,22 @@
    <item>
     <widget class="QTableWidget" name="FunctionTableWidget">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>390</width>
+       <height>390</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>390</width>
+       <height>390</height>
+      </size>
      </property>
      <property name="font">
       <font>
@@ -96,7 +108,7 @@
       <enum>Qt::DashLine</enum>
      </property>
      <property name="rowCount">
-      <number>2</number>
+      <number>3</number>
      </property>
      <property name="columnCount">
       <number>3</number>
@@ -113,6 +125,7 @@
      <attribute name="verticalHeaderHighlightSections">
       <bool>false</bool>
      </attribute>
+     <row/>
      <row/>
      <row/>
      <column/>

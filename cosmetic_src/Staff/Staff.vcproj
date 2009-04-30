@@ -752,14 +752,6 @@
 				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_JobTypeWidget.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -771,14 +763,6 @@
 			<File
 				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_LevelWidget.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -1125,11 +1109,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt4.5.0-shared"
+			Value="Qt4.5.0-static"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt4.5.0-shared"
+			Value="Qt4.5.0-static"
 		/>
 		<Global
 			Name="RccDir"

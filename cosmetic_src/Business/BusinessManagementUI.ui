@@ -6,31 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>523</width>
+    <height>414</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>BusinessManagementUI</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="DateBox" name="dateBoxWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>40</y>
-      <width>261</width>
-      <height>91</height>
-     </rect>
-    </property>
-   </widget>
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="100,1">
+    <item>
+     <widget class="ItemView" name="itemView" native="true"/>
+    </item>
+    <item>
+     <widget class="SideBar" name="sideBar" native="true"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>523</width>
      <height>20</height>
     </rect>
    </property>
@@ -48,9 +46,15 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>DateBox</class>
+   <class>ItemView</class>
    <extends>QWidget</extends>
-   <header>DateBox.h</header>
+   <header>ItemView.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SideBar</class>
+   <extends>QWidget</extends>
+   <header>SideBar.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

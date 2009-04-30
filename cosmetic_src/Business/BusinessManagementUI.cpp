@@ -3,12 +3,21 @@
 #include "Message.h"
 #include "DUIHandler.h"
 #include <QEvent>
+#include "BusinessItemView.h"
+#include "DateBox.h"
+#include "SearchBox.h"
 
 
 BusinessManagementUI::BusinessManagementUI(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
+	dateBox = new DateBox(this);
+	searchBox = new SearchBox(this); 
+	
+	ui.sideBar->addWidget(dateBox, 0, 0);
+	ui.sideBar->addWidget(searchBox, 1, 0);
 }
 
 BusinessManagementUI::~BusinessManagementUI()
@@ -47,7 +56,7 @@ bool BusinessManagementUI::event(QEvent * ev)
 		case QEvent::Resize:
 		case QEvent::Move:
 		{
-			ui.dateBoxWidget->moveCalendar();
+			dateBox->moveCalendar();
 			break;
 		}
 	}

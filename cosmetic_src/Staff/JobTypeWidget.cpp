@@ -1,6 +1,7 @@
 #include <QtGui>
 #include "JobTypeWidget.h"
 #include <QAbstractItemModel>
+#include "SpinBoxDelegate.h"
 
 JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	: QWidget(parent)
@@ -32,7 +33,9 @@ JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	ui.jobTableView->setColumnWidth(col++, 60);
 	m_DataModel->setHeaderData(col++, Qt::Horizontal, QString::fromLocal8Bit("±¸×¢"));
 
-
+	SpinBoxDelegate *delegate = new SpinBoxDelegate(ui.jobTableView);
+	ui.jobTableView->setItemDelegateForColumn (2, delegate);
+	
 	connect(ui.addPushButton, SIGNAL(clicked()), this, SLOT(add()));
 	connect(ui.removePushButton, SIGNAL(clicked()), this, SLOT(remove()));
 	connect(ui.submitPushButton, SIGNAL(clicked()), this, SLOT(submit()));

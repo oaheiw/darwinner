@@ -9,6 +9,8 @@
         <file>Resources/2uparrow.png</file>
         <file>Resources/2downarrow.png</file>
         <file>Resources/1uparrow.png</file>
+        <file>Resources/exit.png</file>
+        <file>Resources/interact.png</file>
     </qresource>
     <qresource prefix="/staff" >
         <file>Resources/staff.png</file>

@@ -38,9 +38,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;.\"
+				AdditionalIncludeDirectories="..\CommonQt\GeneratedFiles;.\..\CommonQt;.\..\Common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;.;&quot;$(QTDIR)\include\QtGui&quot;"
 				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB,BUSINESS_LIB"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="0"
 			/>
@@ -55,8 +55,8 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName).lib"
-				AdditionalLibraryDirectories="$(QTDIR)\lib"
+				OutputFile="$(OutDir)\lib\$(ProjectName).lib"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -148,6 +148,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BusinessItemView.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BusinessManagementUI.cpp"
 				>
 			</File>
@@ -162,6 +166,32 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BusinessItemView.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\BusinessManagementUI.h"
 				>
 				<FileConfiguration
@@ -170,7 +200,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DBUSINESS_LIB -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DBUSINESS_LIB  -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;.\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; &quot;.\BusinessManagementUI.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -234,25 +264,6 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_BusinessManagementUI.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Release\moc_BusinessManagementUI.cpp"
 				>
 				<FileConfiguration
@@ -265,6 +276,25 @@
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Debug\moc_BusinessManagementUI.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -288,11 +318,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt4.5.0-shared"
+			Value="Qt4.5.0-static"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt4.5.0-shared"
+			Value="Qt4.5.0-static"
 		/>
 		<Global
 			Name="RccDir"

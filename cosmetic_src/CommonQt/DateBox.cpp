@@ -1,10 +1,10 @@
 #include "DateBox.h"
 #include <QCalendarWidget>
  #include <QDateTime>
-//#include <QLocale>
+#include <QEvent>
 
 DateBox::DateBox(QWidget *parent)
-	: QWidget(parent)
+:QWidget(parent)
 {
 	ui.setupUi(this);
 	m_to = QDateTime::currentDateTime().date();
@@ -50,8 +50,8 @@ void DateBox::fromButtonToggled(bool toggled)
 		} else { ; }
 		ui.toToolButton->setDisabled(true);
 		m_calendarFrom->setMaximumDate(m_to);
-		moveCalendar();
 		m_calendarFrom->show();
+		moveCalendar();
 	} else {
 		m_calendarFrom->close();
 		ui.toToolButton->setDisabled(false);
@@ -66,8 +66,8 @@ void DateBox::toButtonToggled(bool toggled)
 		} else { ; }
 		ui.fromToolButton->setDisabled(true);
 		m_calendarTo->setDateRange(m_from, QDateTime::currentDateTime().date());
-		moveCalendar();
 		m_calendarTo->show();
+		moveCalendar();
 	} else {
 		m_calendarTo->close();
 		ui.fromToolButton->setDisabled(false);
@@ -83,11 +83,11 @@ QCalendarWidget* DateBox::initCalendar(INIT_MODE mode)
 	calendar->setHorizontalHeaderFormat(QCalendarWidget::SingleLetterDayNames);
 	calendar->setSelectionMode(QCalendarWidget::SingleSelection);
 	calendar->setGridVisible(true);
+	calendar->setFixedSize(150, 150);
 	if(INIT_TO == mode) {
 		calendar->setDateRange(m_from, QDateTime::currentDateTime().date());
 		connect(calendar, SIGNAL(activated(const QDate &)), this, SLOT(toCalendarChanged(const QDate&)));
 		connect(calendar, SIGNAL(clicked(const QDate &)), this, SLOT(toCalendarChanged(const QDate&)));
-
 	} else {;}
 	if(INIT_FROM == mode) {
 		calendar->setMaximumDate(m_to);
@@ -109,13 +109,51 @@ void DateBox::toCalendarChanged(const QDate& date)
 
 void DateBox::moveCalendar()
 {
-	if(NULL != m_calendarFrom) {
+	if(NULL != m_calendarFrom && m_calendarFrom->isVisible()) {
 		QPoint global = mapToGlobal(ui.fromDate->pos());
 		m_calendarFrom->move(global.x(), global.y()+ui.fromDate->height());
 	} else { ; }
-
-	if(NULL != m_calendarTo) {
+	if(NULL != m_calendarTo && m_calendarTo->isVisible()) {
 		QPoint global = mapToGlobal(ui.toDate->pos());
 		m_calendarTo->move(global.x(), global.y()+ui.toDate->height());
 	} else { ; }
+}
+
+void DateBox::showCalendar()
+{
+	if(NULL != m_calendarFrom && ui.fromToolButton->isChecked()) {
+		m_calendarFrom->show();
+	} else { ; }
+	if(NULL != m_calendarTo && ui.toToolButton->isChecked()) {
+		m_calendarTo->show();
+	} else { ; }
+	moveCalendar();
+}
+
+void DateBox::closeCalendar()
+{
+	if(NULL != m_calendarFrom && m_calendarFrom->isVisible()) {
+		m_calendarFrom->close();
+	} else { ; }
+	if(NULL != m_calendarTo && m_calendarTo->isVisible()) {
+		m_calendarTo->close();
+	} else { ; }
+}
+
+bool DateBox::event(QEvent * ev)
+{
+	switch(ev->type()) {
+		case QEvent::Close:
+		case QEvent::Hide:
+		{
+			closeCalendar();
+			break;
+		}
+		case QEvent::Show:
+		{
+			showCalendar();
+			break;
+		}
+	}
+	return QWidget::event(ev);
 }

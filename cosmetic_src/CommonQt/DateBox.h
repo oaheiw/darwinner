@@ -5,6 +5,7 @@
 #include "ui_DateBox.h"
 #include <QDate>
 class QCalendarWidget;
+class QEvent;
 
 
 class DateBox : public QWidget
@@ -14,6 +15,7 @@ class DateBox : public QWidget
 public:
 	DateBox(QWidget *parent = 0);
 	~DateBox();
+	bool event(QEvent * ev);
 
 	enum INIT_MODE {
 		INIT_FROM,
@@ -24,6 +26,8 @@ signals:
 	void dateRangeChange(QDate& from, QDate& to);
 
 private:
+	void showCalendar();
+	void closeCalendar();
 	QCalendarWidget* initCalendar(INIT_MODE mode);
 	QDate m_from;
 	QDate m_to;
