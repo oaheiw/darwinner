@@ -16,8 +16,9 @@ BusinessManagementUI::BusinessManagementUI(QWidget *parent)
 	dateBox = new DateBox(this);
 	searchBox = new SearchBox(this); 
 	
-	ui.sideBar->addWidget(dateBox, 0, 0);
-	ui.sideBar->addWidget(searchBox, 1, 0);
+	ui.sideBarWidget->addWidget(dateBox, 0, 0);
+	ui.sideBarWidget->addWidget(searchBox, 1, 0);
+
 }
 
 BusinessManagementUI::~BusinessManagementUI()
@@ -56,7 +57,7 @@ bool BusinessManagementUI::event(QEvent * ev)
 		case QEvent::Resize:
 		case QEvent::Move:
 		{
-			dateBox->moveCalendar();
+//			dateBox->moveCalendar();
 			break;
 		}
 	}
