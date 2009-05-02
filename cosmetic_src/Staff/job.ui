@@ -38,7 +38,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
      <property name="spacing">
-      <number>9</number>
+      <number>2</number>
      </property>
      <item>
       <spacer name="horizontalSpacer">
@@ -63,12 +63,22 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>60</width>
          <height>20</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>70</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
         <string>添加</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Cosmetic/Cosmetic.qrc">
+         <normaloff>:/common/Resources/edit_add.png</normaloff>:/common/Resources/edit_add.png</iconset>
        </property>
       </widget>
      </item>
@@ -82,12 +92,22 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>60</width>
          <height>20</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>70</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
         <string>删除</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Cosmetic/Cosmetic.qrc">
+         <normaloff>:/common/Resources/edit_remove.png</normaloff>:/common/Resources/edit_remove.png</iconset>
        </property>
       </widget>
      </item>
@@ -101,12 +121,22 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>80</width>
          <height>20</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
         <string>提交职务</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../Cosmetic/Cosmetic.qrc">
+         <normaloff>:/common/Resources/ok.png</normaloff>:/common/Resources/ok.png</iconset>
        </property>
       </widget>
      </item>
@@ -114,6 +144,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../Cosmetic/Cosmetic.qrc"/>
+ </resources>
  <connections/>
 </ui>

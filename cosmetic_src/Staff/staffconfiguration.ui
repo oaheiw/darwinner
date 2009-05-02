@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>396</width>
-    <height>343</height>
+    <width>475</width>
+    <height>405</height>
    </rect>
   </property>
   <property name="font">
@@ -25,58 +25,102 @@
    <string>员工属性设置</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../Login/login.qrc">
+   <iconset resource="../Cosmetic/Cosmetic.qrc">
     <normaloff>:/staff/Resources/people.png</normaloff>:/staff/Resources/people.png</iconset>
   </property>
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="bottomMargin">
+    <number>8</number>
+   </property>
    <item>
-    <widget class="QListWidget" name="ItemListWidget">
-     <property name="maximumSize">
-      <size>
-       <width>128</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <family>宋体</family>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="whatsThis">
-      <string notr="true"/>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>90</width>
-       <height>90</height>
-      </size>
-     </property>
-     <property name="spacing">
-      <number>12</number>
-     </property>
-     <property name="viewMode">
-      <enum>QListView::IconMode</enum>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QListWidget" name="ItemListWidget">
+       <property name="minimumSize">
+        <size>
+         <width>128</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>128</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="whatsThis">
+        <string notr="true"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>90</width>
+         <height>90</height>
+        </size>
+       </property>
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <property name="viewMode">
+        <enum>QListView::IconMode</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QStackedWidget" name="ItemStackedWidget">
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="JobTypeWidget" name="pageJob"/>
+       <widget class="LevelWidget" name="pageLevel"/>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QStackedWidget" name="ItemStackedWidget">
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <widget class="JobTypeWidget" name="pageJob"/>
-     <widget class="LevelWidget" name="pageLevel"/>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>关闭</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -96,7 +140,24 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../Login/login.qrc"/>
+  <include location="../Cosmetic/Cosmetic.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>StaffConfigurationClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>385</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>476</x>
+     <y>284</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

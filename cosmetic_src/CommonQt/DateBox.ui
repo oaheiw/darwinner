@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>163</width>
-    <height>95</height>
+    <width>241</width>
+    <height>154</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -32,8 +32,14 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="toolTip">
+      <string>设定日期过滤范围</string>
+     </property>
      <property name="title">
       <string>日期过滤</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="spacing">
@@ -58,44 +64,24 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
           <property name="spacing">
            <number>0</number>
           </property>
           <item>
            <widget class="QDateEdit" name="fromDate">
+            <property name="currentSection">
+             <enum>QDateTimeEdit::DaySection</enum>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
             <property name="date">
              <date>
               <year>2000</year>
               <month>1</month>
               <day>6</day>
              </date>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="fromToolButton">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../Cosmetic/Cosmetic.qrc">
-              <normaloff>:/common/Resources/1downarrow.png</normaloff>:/common/Resources/1downarrow.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>18</width>
-              <height>18</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonIconOnly</enum>
             </property>
            </widget>
           </item>
@@ -119,44 +105,24 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0">
+         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0">
           <property name="spacing">
            <number>0</number>
           </property>
           <item>
            <widget class="QDateEdit" name="toDate">
+            <property name="currentSection">
+             <enum>QDateTimeEdit::DaySection</enum>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
             <property name="date">
              <date>
               <year>2000</year>
               <month>1</month>
               <day>1</day>
              </date>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toToolButton">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset resource="../Cosmetic/Cosmetic.qrc">
-              <normaloff>:/common/Resources/1downarrow.png</normaloff>:/common/Resources/1downarrow.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>18</width>
-              <height>18</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonIconOnly</enum>
             </property>
            </widget>
           </item>
@@ -180,8 +146,8 @@
    <slot>fromDateChanged(QDate)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>36</y>
+     <x>97</x>
+     <y>59</y>
     </hint>
     <hint type="destinationlabel">
      <x>229</x>
@@ -196,43 +162,11 @@
    <slot>toDateChanged(QDate)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>251</x>
-     <y>37</y>
+     <x>232</x>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
-     <x>347</x>
-     <y>50</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>fromToolButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>DateBoxClass</receiver>
-   <slot>fromButtonToggled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>145</x>
-     <y>43</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>260</x>
-     <y>50</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>toToolButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>DateBoxClass</receiver>
-   <slot>toButtonToggled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>292</x>
-     <y>43</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>348</x>
+     <x>240</x>
      <y>50</y>
     </hint>
    </hints>
@@ -241,8 +175,5 @@
  <slots>
   <slot>fromDateChanged(QDate)</slot>
   <slot>toDateChanged(QDate)</slot>
-  <slot>fromButtonToggled(bool)</slot>
-  <slot>toButtonToggled(bool)</slot>
-  <slot>moveCalendar()</slot>
  </slots>
 </ui>

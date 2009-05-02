@@ -4,8 +4,8 @@
 #include <QWidget>
 #include "ui_DateBox.h"
 #include <QDate>
-class QCalendarWidget;
-class QEvent;
+//class QCalendarWidget;
+//class QEvent;
 
 
 class DateBox : public QWidget
@@ -15,36 +15,36 @@ class DateBox : public QWidget
 public:
 	DateBox(QWidget *parent = 0);
 	~DateBox();
-	bool event(QEvent * ev);
-
+//	bool event(QEvent * ev);
+/*
 	enum INIT_MODE {
 		INIT_FROM,
 		INIT_TO
 	};
-
+*/
 signals:
 	void dateRangeChange(QDate& from, QDate& to);
 
 private:
-	void showCalendar();
-	void closeCalendar();
-	QCalendarWidget* initCalendar(INIT_MODE mode);
+//	void showCalendar();
+//	void closeCalendar();
+//	QCalendarWidget* initCalendar(INIT_MODE mode);
 	QDate m_from;
 	QDate m_to;
-	QCalendarWidget* m_calendarFrom;
-	QCalendarWidget* m_calendarTo;
+//	QCalendarWidget* m_calendarFrom;
+//	QCalendarWidget* m_calendarTo;
 	Ui::DateBoxClass ui;
 
 private slots:
-	void fromCalendarChanged(const QDate&);
-	void toCalendarChanged(const QDate&);
+//	void fromCalendarChanged(const QDate&);
+//	void toCalendarChanged(const QDate&);
 	void fromDateChanged(QDate);
 	void toDateChanged(QDate);
-	void fromButtonToggled(bool);
-	void toButtonToggled(bool);
+//	void fromButtonToggled(bool);
+//	void toButtonToggled(bool);
 
-public slots:
-	void moveCalendar();
+//public slots:
+//	void moveCalendar();
 };
 
 #endif // DATEBOX_H

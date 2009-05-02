@@ -179,6 +179,7 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 		{
 			uint32* id = static_cast<uint32*>(Action.data());
 			m_tempMsg = new Message(EVENT_GETPICTURE, getImage(*id));
+			DBINFO("get image complete before post", "");
 			delete id;
 			break;
 		}
@@ -194,9 +195,10 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 Staff* SmDbThread::getStaff(uint32 id) 
 {
 	Staff* temp = NULL;
-	if(!openDb(DBNAME)){
+	if(0 == id || !openDb(DBNAME)){//id 0 staff surely not in the database
 		return temp;
 	}
+	DBINFO("getting one staff:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 	QString query = QString(SELECT_STAFF_BYID_NOIMAGE).arg(id);
 	if(q.exec(query)){
@@ -220,6 +222,7 @@ Staff* SmDbThread::getStaff(uint32 id)
 	DBINFO("get one staff completed:", id);
 	return temp;
 }
+
 bool SmDbThread::addStaff(Staff* staff)
 {
 	bool r =false;
@@ -278,22 +281,29 @@ bool SmDbThread::setImage(uint32 id, QByteArray& image)
 	return r;
 
 }
+
 QByteArray* SmDbThread::getImage(uint32 id)
 {
 	QByteArray* image = new QByteArray;
 	image->clear();
 	
-	if(!openDb(DBNAME)) {
+	if(0 == id || !openDb(DBNAME)) {//id 0 staff surely not in the database
 		return image;
 	}
 	
 	DBINFO("getting image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
+	QString check = QString(CHECK_IMAGE_BYID).arg(id);
+	if(q.exec(check)) {
+		if(!q.next()) return image;
+	}
+
 	QString get = QString(GET_IMAGE_BYID).arg(id);
 	if(q.exec(get)) {
 		if(q.next()) {
-			*image = q.value(0).toByteArray();
+			if(NULL != q.value(0).toByteArray().data())
+				*image = q.value(0).toByteArray();
 		}
 	}
 	

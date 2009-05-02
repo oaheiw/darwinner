@@ -60,3 +60,7 @@ void SearchBox::sortCaseChange(bool bCase)
 	emit sortChanged(m_sortCaseSensitivity);
 }
 
+void SearchBox::addFilterItem(QString& text)
+{
+	ui.itemComboBox->addItem(text);
+}

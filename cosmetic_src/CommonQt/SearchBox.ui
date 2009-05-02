@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>209</width>
-    <height>159</height>
+    <width>244</width>
+    <height>138</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,6 +20,9 @@
    <string>SearchBox</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="margin">
     <number>0</number>
    </property>
@@ -37,103 +40,174 @@
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <widget class="QLabel" name="keywordLabel">
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="leftMargin">
+       <number>8</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>8</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
+      <property name="spacing">
+       <number>5</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="keywordLabel">
+        <property name="text">
+         <string>关键字</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse</set>
+        </property>
+        <property name="buddy">
+         <cstring>keywordLineEdit</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="10,0">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="keywordLineEdit">
+          <property name="toolTip">
+           <string>正则表达式方式下，您可以使用下列连接符
+来进行搜索。
+  1、或者连接符：|
+  输入“A|B”表示搜索出含A或者B的项目
+  2、与连接符：&amp;
+  输入“A&amp;B”表示搜索出同时含A和B的项目
+这些连接符都是可以级联的，即你可以输入：
+A&amp;B&amp;C|D|E&amp;F……</string>
+          </property>
+          <property name="statusTip">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="clearButton">
+          <property name="minimumSize">
+           <size>
+            <width>22</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>22</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>清空关键字</string>
+          </property>
+          <property name="statusTip">
+           <string>清空关键字</string>
+          </property>
           <property name="text">
-           <string>关键字</string>
+           <string/>
           </property>
-          <property name="textFormat">
-           <enum>Qt::PlainText</enum>
+          <property name="icon">
+           <iconset resource="../Cosmetic/Cosmetic.qrc">
+            <normaloff>:/common/Resources/no.png</normaloff>:/common/Resources/no.png</iconset>
           </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByMouse</set>
+          <property name="iconSize">
+           <size>
+            <width>16</width>
+            <height>16</height>
+           </size>
           </property>
-          <property name="buddy">
-           <cstring>keywordLineEdit</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="keywordLineEdit"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="patternLabel">
-          <property name="text">
-           <string>匹配方式</string>
-          </property>
-          <property name="buddy">
-           <cstring>patternComboBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QComboBox" name="patternComboBox">
-          <item>
-           <property name="text">
-            <string notr="true">正则表达式</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>模糊匹配</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>精确匹配</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="itemLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>搜索项</string>
-          </property>
-          <property name="buddy">
-           <cstring>itemComboBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QComboBox" name="itemComboBox">
-          <item>
-           <property name="text">
-            <string>全部项目</string>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="QCheckBox" name="SearchCaseCheckBox">
+      <item row="1" column="0">
+       <widget class="QLabel" name="patternLabel">
         <property name="text">
-         <string>搜索忽略大小写</string>
+         <string>匹配方式</string>
         </property>
-        <property name="checked">
-         <bool>true</bool>
+        <property name="buddy">
+         <cstring>patternComboBox</cstring>
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QCheckBox" name="SortCaseCheckBox">
-        <property name="text">
-         <string>排序忽略大小写</string>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="patternComboBox">
+        <item>
+         <property name="text">
+          <string notr="true">正则表达式</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>模糊匹配</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>精确匹配</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="itemLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="checked">
-         <bool>true</bool>
+        <property name="text">
+         <string>搜索项</string>
+        </property>
+        <property name="buddy">
+         <cstring>itemComboBox</cstring>
         </property>
        </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="itemComboBox">
+        <item>
+         <property name="text">
+          <string>全部项目</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QCheckBox" name="SearchCaseCheckBox">
+          <property name="text">
+           <string>搜索忽略大小写</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="SortCaseCheckBox">
+          <property name="text">
+           <string>排序忽略大小写</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -172,7 +246,7 @@
      <y>59</y>
     </hint>
     <hint type="destinationlabel">
-     <x>377</x>
+     <x>245</x>
      <y>128</y>
     </hint>
    </hints>
@@ -188,7 +262,7 @@
      <y>111</y>
     </hint>
     <hint type="destinationlabel">
-     <x>371</x>
+     <x>245</x>
      <y>121</y>
     </hint>
    </hints>
@@ -204,7 +278,7 @@
      <y>85</y>
     </hint>
     <hint type="destinationlabel">
-     <x>353</x>
+     <x>245</x>
      <y>117</y>
     </hint>
    </hints>
@@ -221,7 +295,23 @@
     </hint>
     <hint type="destinationlabel">
      <x>135</x>
-     <y>-17</y>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>keywordLineEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>214</x>
+     <y>33</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>76</x>
+     <y>35</y>
     </hint>
    </hints>
   </connection>
@@ -235,5 +325,6 @@
   <slot>searchItemChange(int)</slot>
   <slot>searchPatternChange(int)</slot>
   <slot>sortCaseChange(bool)</slot>
+  <slot>clearKeyword()</slot>
  </slots>
 </ui>

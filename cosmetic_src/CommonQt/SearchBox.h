@@ -13,6 +13,7 @@ class SearchBox : public QWidget
 public:
 	SearchBox(QWidget *parent = 0);
 	~SearchBox();
+	void addFilterItem(QString& text);
 
 signals:
 	void regExpChanged(QRegExp &);

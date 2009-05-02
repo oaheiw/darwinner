@@ -10,6 +10,7 @@
 #include "messagedef.h"
 #include "IActionHandler.h"
 #include "StaffManagementUI.h"
+#include "StaffWindow.h"
 #include "Singleton.h"
 #include "JobTypeWidget.h"
 #include "Job.h"
@@ -111,7 +112,7 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_STAFFMGNT:
 			{
 				if(NULL == m_mainWindow) {
-					m_mainWindow = Singleton<StaffManagementUI>::instance();
+					m_mainWindow = Singleton<StaffWindow>::instance();
 					m_mainWindow->SetHandler(this);
 					SetObserver(m_mainWindow);
 				}

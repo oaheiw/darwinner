@@ -23,6 +23,8 @@ public:
 	void setLevel(list<Level>* levelList);
 	void setStatus(list<Status>* levelList);
 	void displayPic(QByteArray& staff);
+	void modify();	
+	void newStaff();
 
 private:
 	int m_mode;
@@ -62,10 +64,8 @@ signals:
 	void modifiedStaff(Staff* staff, QByteArray& pic);
 
 private slots:
-	void modify();
 	void selectPic();
 	void submit();
-	void newStaff();
 };
 
 #endif // STAFFDETAIL_H

@@ -11,8 +11,8 @@ DateBox::DateBox(QWidget *parent)
 	m_from = m_to.addMonths(-1);
 	ui.fromDate->setDate(m_from);
 	ui.toDate->setDate(m_to);
-	m_calendarFrom = NULL;
-	m_calendarTo = NULL;
+//	m_calendarFrom = NULL;
+//	m_calendarTo = NULL;
 }
 
 DateBox::~DateBox()
@@ -41,7 +41,7 @@ void DateBox::toDateChanged(QDate date)
 	}
 	emit dateRangeChange(m_from, m_to);
 }
-
+/*
 void DateBox::fromButtonToggled(bool toggled)
 {
 	if(toggled) {
@@ -157,3 +157,4 @@ bool DateBox::event(QEvent * ev)
 	}
 	return QWidget::event(ev);
 }
+*/
