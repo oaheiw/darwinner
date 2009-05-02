@@ -20,6 +20,7 @@
 #else
 #define DBINFO(info, para) {}
 #endif
+#define TOBE_REALIZIED MessageBox::showMessageBox(this, QMessageBox::Information, "实现中",  "该功能正在实现中……")
 
 typedef unsigned int uint32;
 typedef unsigned char byte;
@@ -81,6 +82,8 @@ enum SINFO {
 	SINFO_NEW,
 	SINFO_END
 };
+
+static const char* StaffSex[] = {"未知","男","女"};
 
 //group name
 static const char* smString = "员工管理";
