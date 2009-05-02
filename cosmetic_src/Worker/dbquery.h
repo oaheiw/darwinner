@@ -17,12 +17,13 @@
 #define UPDATA_STAFF_BASIC "UPDATE staff SET name = '%1', jobId = %2, levelId = %3, sex = %4, baseSalary = %5, status = %6, cell = '%7', phone = '%8', address = '%9', descrption = '%10' WHERE id = %11"
 #define DELETE_STAFF_BYID "DELETE FROM staff WHERE id = %1"
 #define GET_PASSWORD_BYID "SELECT password FROM staff WHERE id = %1"
- 
-#define CREATE_IMAGE_TABLE "CREATE TABLE image (id INTEGER REFERENCES staff(id), data BLOB DEFAULT NULL)" 
-#define INSERT_IMAGE "INSERT INTO image (id, data)" "VALUES (:id, :data)"
-#define DELETE_IMAGE "DELETE FROM image WHERE id = %1"
-#define CHECK_IMAGE_BYID "SELECT id FROM image WHERE id = %1"
-#define GET_IMAGE_BYID "SELECT data FROM image WHERE id = %1"
+#define CHECK_STAFF_BYID "SELECT id FROM staff WHERE id = %1"
+
+#define CREATE_STAFFIMAGE_TABLE "CREATE TABLE staffImage (id INTEGER REFERENCES staff(id), data BLOB DEFAULT NULL)" 
+#define INSERT_STAFFIMAGE "INSERT INTO staffImage (id, data)" "VALUES (:id, :data)"
+#define DELETE_STAFFIMAGE "DELETE FROM staffImage WHERE id = %1"
+#define CHECK_STAFFIMAGE_BYID "SELECT id FROM staffImage WHERE id = %1"
+#define GET_STAFFIMAGE_BYID "SELECT data FROM staffImage WHERE id = %1"
 
 #define CREATE_JOB_TABLE "CREATE TABLE job (id INTEGER PRIMARY KEY, name TEXT NOT NULL, profit SMALLINT DEFAULT 0, baseSalary INTEGER DEFAULT 0, descrption TEXT)"
 #define INSERTINTO_JOB_TABLE "INSERT INTO job (name, profit, baseSalary, descrption) " "VALUES (:name, :profit, :baseSalary, :descrption)"
@@ -54,13 +55,23 @@
 
 
 //**************bussiness management database items***************//
-#define CREATE_GOOSTYPE_TABLE "CREATE TABLE goodsType (id INTEGER PRIMARY KEY, name TEXT NOT NULL, cate SMALLINT, descrption TEXT)"
-#define INSERTINTO_GOOSTYPE_TABLE "INSERT INTO goodsType (name, cate, descrption) " "VALUES (:name, :cate, :descrption)"
-#define SELECT_GOOSTYPE_ALL "SELECT * FROM goodsType"
+#define CREATE_BUSINESSTYPE_TABLE "CREATE TABLE businessType (id INTEGER PRIMARY KEY, name TEXT NOT NULL, cate SMALLINT, descrption TEXT)"
+#define INSERTINTO_BUSINESSTYPE_TABLE "INSERT INTO businessType (name, cate, descrption) " "VALUES (:name, :cate, :descrption)"
+#define SELECT_BUSINESSTYPE_ALL "SELECT * FROM businessType"
 
-#define CREATE_GOODS_TABLE "CREATE TABLE goods (id INTEGER PRIMARY KEY, name TEXT, typeId INTEGER REFERENCES goodsType(id), price INTEGER DEFAULT 0, costs INTEGER DEFAULT 0, discounts SMALLINT DEFAULT 100, stocks INTEGER DEFAULT 0, sales INTEGER DEFAULT 0, buys INTEGER DEFAULT 0, descrption TEXT, image BLOB)"
-#define INSERTINTO_GOODS "INSERT INTO goods (name, typeId, price, costs, discounts, stocks, sales, buys, descrption, image) " "VALUES (:name, :typeId, :price, :costs, :discounts, :stocks, :sales, :buys, :descrption, :image)"
-#define SELECT_GOODS_ALL "SELECT * FROM goods"
+#define CREATE_BUSINESS_TABLE "CREATE TABLE business (id INTEGER PRIMARY KEY, name TEXT, typeId INTEGER REFERENCES businessType(id), brand TEXT NOT NULL, specification TEXT NOT NULL, price INTEGER DEFAULT 0, costs INTEGER DEFAULT 0, discounts SMALLINT DEFAULT 100, stocks INTEGER DEFAULT 0, sales INTEGER DEFAULT 0, buys INTEGER DEFAULT 0, descrption TEXT)"
+#define INSERTINTO_BUSINESS "INSERT INTO business (name, typeId, brand, specification, price, costs, discounts, stocks, sales, buys, descrption) " "VALUES (:name, :typeId, :brand, :specification, :price, :costs, :discounts, :stocks, :sales, :buys, :descrption)"
+#define SELECT_BUSINESS_ALL "SELECT * FROM business"
+#define SELECT_BUSINESS_BYTYPE "SELECT * FROM business WHERE typeId = %1"
+#define UPDATA_BUSINESS_BYID "UPDATE business SET name = '%1', typeId = %2, brand = '%3', specification = '%4', price = %5, costs = %6, discounts = %7, stocks = %8, sales = %9, buys = %10, descrption = '%11' WHERE id = %12"
+#define DELETE_BUSINESS_BYID "DELETE FROM business WHERE id = %1"
+#define CHECK_BUSINESS_BYID "SELECT id FROM business WHERE id = %1"
+
+#define CREATE_BUSINESSIMAGE_TABLE "CREATE TABLE businessImage (id INTEGER REFERENCES staff(id), data BLOB DEFAULT NULL)" 
+#define INSERT_BUSINESSIMAGE "INSERT INTO businessImage (id, data)" "VALUES (:id, :data)"
+#define DELETE_BUSINESSIMAGE "DELETE FROM businessImage WHERE id = %1"
+#define CHECK_BUSINESSIMAGE_BYID "SELECT id FROM businessImage WHERE id = %1"
+#define GET_BUSINESSIMAGE_BYID "SELECT data FROM businessImage WHERE id = %1"
 
 #define CREATE_ORDERS_TABLE "CREATE TABLE orders (id INTEGER PRIMARY KEY, casherId INTEGER REFERENCES staff(id), discount SMALLINT DEFAULT 100, status SMALLINT DEFAULT 0, dealdate DATETIME)"
 #define INSERTINTO_ORDERS_TABLE "INSERT INTO orders (casherId, discount, status, dealdate) " "VALUES (:casherId, :discount, :status, :dealdate)"

@@ -100,6 +100,8 @@ static const char* exitString = "退出";
 #define smWindowTitle "员工管理"
 #define loginErrorWarning "工号或密码错误，请重新输入。"
 #define zeroSelectionWarning "您还没有选择选择员工。"
+#define smEditModeWarning "目前处于新建员工状态，请完成后再修改资料。"
+#define smAbandonModifyWarning "修改的信息还未提交，放弃修改?"
 #define emptyNameWarnning "员工姓名不能留空， \n请返回并填写员工姓名。"
 #define removeStaffConfirm "确定删除选定员工“%1”？\n如果员工离职，建议您更改该员工状态，而不是在系统中删除该员工。"
 #define removeStaffError "未能成功删除选定员工，请重试。"

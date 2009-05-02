@@ -103,17 +103,17 @@ bool CommonDbThread::initDb()
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
 	//staff mgnt
 	q.exec(CREATE_STAFF_TABLE);
-	q.exec(CREATE_IMAGE_TABLE);
+	q.exec(CREATE_STAFFIMAGE_TABLE);
 	q.exec(CREATE_JOB_TABLE);
 	q.exec(CREATE_LEVET_TABLE);
-	q.exec(CREATE_SEX_TABLE);
+//	q.exec(CREATE_SEX_TABLE);
 	q.exec(CREATE_STATUS_TABLE);
 	//bussiness mgnt
-	q.exec(CREATE_GOOSTYPE_TABLE);
-	q.exec(CREATE_GOODS_TABLE);
+	q.exec(CREATE_BUSINESSTYPE_TABLE);
+	q.exec(CREATE_BUSINESS_TABLE);
 	q.exec(CREATE_ORDERS_TABLE);
 	q.exec(CREATE_TASKS_TABLE);
-
+/*
 	q.prepare(INSERTINTO_SEX_TABLE);
 	q.bindValue(":id", 0);
 	q.bindValue(":name", "δ�趨");
@@ -126,7 +126,7 @@ bool CommonDbThread::initDb()
 	q.exec();
 	
 	closeDb();
-
+*/
 	m_tempMsg = new Message(EVENT_INIT_FINISHED);
 	if(NULL != m_tempMsg) {
 		postEvent(m_tempMsg, EventDb);
@@ -251,7 +251,7 @@ bool CommonDbThread::getLoggedStaff(uint32 id)
 		}
 	}
 
-	QString get = QString(GET_IMAGE_BYID).arg(id);
+	QString get = QString(GET_STAFFIMAGE_BYID).arg(id);
 	if(q.exec(get)) {
 		if(q.next()) {
 			*m_loggedStaffImage = q.value(0).toByteArray();

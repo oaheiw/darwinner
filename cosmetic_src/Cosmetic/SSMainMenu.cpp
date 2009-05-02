@@ -117,7 +117,7 @@ void SSMainMenu::createIcons()
 	ui.FunctionTableWidget->setItem(SM_X, SM_Y, staffButton);
 
 	QTableWidgetItem *operationButton = new QTableWidgetItem(QTableWidgetItem::Type);
-	operationButton->setIcon(QIcon(":/staff/Resources/level.png"));
+	operationButton->setIcon(QIcon(":/common/shop"));
 	operationButton->setText(QString::fromLocal8Bit(soString));
 	operationButton->setTextAlignment(Qt::AlignCenter);
 	operationButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -125,7 +125,7 @@ void SSMainMenu::createIcons()
 	ui.FunctionTableWidget->setItem(SO_X, SO_Y, operationButton);
 
 	QTableWidgetItem *businessButton = new QTableWidgetItem(QTableWidgetItem::Type);
-	businessButton->setIcon(QIcon(":/common/Resources/1day.png"));
+	businessButton->setIcon(QIcon(":/common/business"));
 	businessButton->setText(QString::fromLocal8Bit(bmString));
 	businessButton->setTextAlignment(Qt::AlignCenter);
 	businessButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -133,7 +133,7 @@ void SSMainMenu::createIcons()
 	ui.FunctionTableWidget->setItem(BM_X, BM_Y, businessButton);
 
 	QTableWidgetItem *logoffButton = new QTableWidgetItem(QTableWidgetItem::Type);
-	logoffButton->setIcon(QIcon(":/common/Resources/interact.png"));
+	logoffButton->setIcon(QIcon(":common/logoff"));
 	logoffButton->setText(QString::fromLocal8Bit(logoffString));
 	logoffButton->setTextAlignment(Qt::AlignCenter);
 	logoffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -141,7 +141,7 @@ void SSMainMenu::createIcons()
 	ui.FunctionTableWidget->setItem(LO_X, LO_Y, logoffButton);
 
 	QTableWidgetItem *exitButton = new QTableWidgetItem(QTableWidgetItem::Type);
-	exitButton->setIcon(QIcon(":/common/Resources/exit.png"));
+	exitButton->setIcon(QIcon(":/common/logout"));
 	exitButton->setText(QString::fromLocal8Bit(exitString));
 	exitButton->setTextAlignment(Qt::AlignCenter);
 	exitButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);

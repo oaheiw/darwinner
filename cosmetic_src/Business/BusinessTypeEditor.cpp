@@ -3,7 +3,7 @@
 BusinessTypeEditor::BusinessTypeEditor(QWidget *parent)
 	: ItemEditor(parent)
 {
-	init();
+//	init();
 }
 
 BusinessTypeEditor::~BusinessTypeEditor()
@@ -13,4 +13,5 @@ BusinessTypeEditor::~BusinessTypeEditor()
 
 void* BusinessTypeEditor::getData()
 {
+	return NULL;
 }

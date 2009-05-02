@@ -336,11 +336,15 @@ uint32* SmDbThread::removeStaff(uint32 id)
 bool SmDbThread::modifyStaff(Staff* staff)
 {
 	bool r =false;
-	if(!openDb(DBNAME)) {
+	if(0 == staff->ID() || !openDb(DBNAME)) {
 		return r;
 	}
-	DBINFO("modifying satff...", "");
+	DBINFO("modifying satff...", staff->Name());
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
+
+	QString check = QString(CHECK_STAFF_BYID).arg(staff->ID());
+	q.exec(check);
+	if(!q.isActive()) return r;
 
 	QString modifstr = QString(UPDATA_STAFF_BASIC).arg(staff->Name().c_str()).arg(staff->Type()).arg(staff->Level()).arg(staff->Sex()).arg(staff->baseSalary()).arg(staff->status()).arg(staff->cell().c_str()).arg(staff->phone().c_str()).arg(staff->address().c_str()).arg(staff->Descrp().c_str()).arg(staff->ID()); 
 	r = q.exec(modifstr);

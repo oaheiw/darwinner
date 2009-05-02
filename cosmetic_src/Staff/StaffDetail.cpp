@@ -267,6 +267,10 @@ void StaffDetail::setStatus(list<Status>* statusList)
 		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, zeroSelectionWarning);
 		return;
 	}
+	if(SINFO_NEW == m_mode) {		
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, smEditModeWarning);
+		return;
+	}
 	changeMode(SINFO_MODIFY);
 	if(NULL != staff) {
 		lineEditId->setText(QString::number(staff->ID()));
@@ -284,6 +288,10 @@ void StaffDetail::setStatus(list<Status>* statusList)
 
  void StaffDetail::newStaff()
 {
+	if(SINFO_MODIFY == m_mode) {		
+		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, smWindowTitle, smAbandonModifyWarning))
+			return;
+	}
 	myinfo = false;
 	Staff* staff = new Staff();
 	staff->clear();
