@@ -100,7 +100,7 @@ void SSMainMenu::createIcons()
 	ui.FunctionTableWidget->setRowHeight(2, 128);
 
 
-	QTableWidgetItem *staffButton = new QTableWidgetItem(QString::fromLocal8Bit(smString));
+	QTableWidgetItem *staffButton = new QTableWidgetItem(LOCAL8BITSTR(smString));
 	staffButton->setIcon(QIcon(":/staff/Resources/people.png"));
 	staffButton->setTextAlignment(Qt::AlignCenter);
 	staffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -118,7 +118,7 @@ void SSMainMenu::createIcons()
 
 	QTableWidgetItem *operationButton = new QTableWidgetItem(QTableWidgetItem::Type);
 	operationButton->setIcon(QIcon(":/common/shop"));
-	operationButton->setText(QString::fromLocal8Bit(soString));
+	operationButton->setText(LOCAL8BITSTR(soString));
 	operationButton->setTextAlignment(Qt::AlignCenter);
 	operationButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	operationButton->setBackgroundColor(QColor(COLOR_2));
@@ -126,7 +126,7 @@ void SSMainMenu::createIcons()
 
 	QTableWidgetItem *businessButton = new QTableWidgetItem(QTableWidgetItem::Type);
 	businessButton->setIcon(QIcon(":/common/business"));
-	businessButton->setText(QString::fromLocal8Bit(bmString));
+	businessButton->setText(LOCAL8BITSTR(bmString));
 	businessButton->setTextAlignment(Qt::AlignCenter);
 	businessButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	businessButton->setBackgroundColor(QColor(COLOR_4));
@@ -134,7 +134,7 @@ void SSMainMenu::createIcons()
 
 	QTableWidgetItem *logoffButton = new QTableWidgetItem(QTableWidgetItem::Type);
 	logoffButton->setIcon(QIcon(":common/logoff"));
-	logoffButton->setText(QString::fromLocal8Bit(logoffString));
+	logoffButton->setText(LOCAL8BITSTR(logoffString));
 	logoffButton->setTextAlignment(Qt::AlignCenter);
 	logoffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	logoffButton->setBackgroundColor(QColor(COLOR_8));
@@ -142,7 +142,7 @@ void SSMainMenu::createIcons()
 
 	QTableWidgetItem *exitButton = new QTableWidgetItem(QTableWidgetItem::Type);
 	exitButton->setIcon(QIcon(":/common/logout"));
-	exitButton->setText(QString::fromLocal8Bit(exitString));
+	exitButton->setText(LOCAL8BITSTR(exitString));
 	exitButton->setTextAlignment(Qt::AlignCenter);
 	exitButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	exitButton->setBackgroundColor(QColor(COLOR_9));
