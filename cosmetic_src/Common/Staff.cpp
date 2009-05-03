@@ -21,6 +21,7 @@ Staff::Staff(){
 	m_phone.clear();
 	m_status = 0;
 	m_baseSalary = 0;
+	m_rating = 0;
 }
 
 Staff::~Staff(){
@@ -40,6 +41,7 @@ void Staff::clear(){
 	m_cell.clear();
 	m_phone.clear();
 	m_status = 0;
+	m_rating = 0;
 }
 
 string Staff::Descrp(){
@@ -159,3 +161,16 @@ uint32 Staff::baseSalary(){
 	return  m_baseSalary;
 }
 
+
+
+
+short Staff::getRating(){
+
+	return m_rating;
+}
+
+
+void Staff::setRating(short newVal){
+
+	m_rating = newVal;
+}

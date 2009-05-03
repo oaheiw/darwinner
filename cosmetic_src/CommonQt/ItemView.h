@@ -18,9 +18,10 @@ public:
 	void addData(int row, int column, const QVariant& data);
 	void setHeaderData(int column, const QVariant& data);
 	void clearData();
-	void initDataModel(int column);
+	void appendColumn(int column);
 	QVariant sibling(int row, int column);
 	QVariant currentIndex(int &row, int &column);
+	void setColumnWidth(int column, int width);
 
 protected:
 	Ui::ItemViewClass ui;

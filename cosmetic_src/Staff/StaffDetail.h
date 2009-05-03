@@ -10,6 +10,14 @@ using namespace std;
 
 class StaffDetail : public QWidget
 {
+	enum SINFO {
+		SINFO_BROWSE = 0,
+		SINFO_MYINFO,
+		SINFO_MODIFY,
+		SINFO_NEW,
+		SINFO_END
+	};
+
 	Q_OBJECT
 
 public:

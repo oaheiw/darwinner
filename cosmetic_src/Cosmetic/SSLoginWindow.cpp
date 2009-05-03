@@ -75,25 +75,25 @@ void SSLoginWindow::setupUi()
 	logoLabel->setFrameShadow(QFrame::Raised);
 	logoLabel->setFixedSize(126, 126);
 	logoLabel->setPixmap(QPixmap(":/common/Resources/cosmetic-text.png").scaled(120, 120,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
-	setWindowTitle(QString::fromLocal8Bit("Cosmetic（科思美）美容美发业运营系统"));
+	setWindowTitle(LOCAL8BITSTR("Cosmetic（科思美）美容美发业运营系统"));
 
-	loginGroupBox = new QGroupBox(QString::fromLocal8Bit("员工入口"), this);
+	loginGroupBox = new QGroupBox(LOCAL8BITSTR("员工入口"), this);
 
-	idLabel = new QLabel(QString::fromLocal8Bit("工号(&N)"), loginGroupBox);
+	idLabel = new QLabel(LOCAL8BITSTR("工号(&N)"), loginGroupBox);
 	idLineEdit = new QLineEdit(loginGroupBox);
 	idLabel->setBuddy(idLineEdit);
 	idLineEdit->setValidator(new QIntValidator(idLineEdit));
 
-	pwLabel = new QLabel(QString::fromLocal8Bit("密码(&P)"), loginGroupBox);
+	pwLabel = new QLabel(LOCAL8BITSTR("密码(&P)"), loginGroupBox);
 	pwLineEdit = new QLineEdit(loginGroupBox);
 	pwLineEdit->setEchoMode(QLineEdit::Password);
 	pwLabel->setBuddy(pwLineEdit);
 
 	pushButtonLogin = new QPushButton(this);
-	pushButtonLogin->setText(QString::fromLocal8Bit("登录(&L)"));
+	pushButtonLogin->setText(LOCAL8BITSTR("登录(&L)"));
 	pushButtonLogin->setMinimumHeight(30);
 	pushButtonExit = new QPushButton(this);
-	pushButtonExit->setText(QString::fromLocal8Bit("退出(&X)"));
+	pushButtonExit->setText(LOCAL8BITSTR("退出(&X)"));
 	pushButtonExit->setMinimumHeight(30);
 	QHBoxLayout *buttonLayout = new QHBoxLayout();
 	buttonLayout->addWidget(pushButtonLogin);

@@ -244,7 +244,7 @@ bool SmDbThread::addStaff(Staff* staff)
 	q.bindValue(":cell", staff->cell().c_str());
 	q.bindValue(":phone", staff->phone().c_str());
 	q.bindValue(":address", staff->address().c_str());
-	q.bindValue(":descrption", staff->Descrp().c_str());
+	q.bindValue(":description", staff->Descrp().c_str());
 	r = q.exec();
 	if(r) {
 		q.exec("SELECT MAX(id) FROM staff");
@@ -266,13 +266,13 @@ bool SmDbThread::setImage(uint32 id, QByteArray& image)
 	DBINFO("setting image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
-	QString check = QString(CHECK_IMAGE_BYID).arg(id);
+	QString check = QString(GET_STAFFIMAGE_BYID).arg(id);
 	if(q.exec(check)) {
 		if(q.next())
-			q.exec(QString(DELETE_IMAGE).arg(id));
+			q.exec(QString(DELETE_STAFFIMAGE).arg(id));
 	}
 
-	q.prepare(INSERT_IMAGE);
+	q.prepare(INSERT_STAFFIMAGE);
 	q.bindValue(":id", id);
 	q.bindValue(":data", image, QSql::Binary | QSql::In);
 	r = q.exec();
@@ -294,12 +294,12 @@ QByteArray* SmDbThread::getImage(uint32 id)
 	DBINFO("getting image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
-	QString check = QString(CHECK_IMAGE_BYID).arg(id);
+	QString check = QString(CHECK_STAFFIMAGE_BYID).arg(id);
 	if(q.exec(check)) {
 		if(!q.next()) return image;
 	}
 
-	QString get = QString(GET_IMAGE_BYID).arg(id);
+	QString get = QString(GET_STAFFIMAGE_BYID).arg(id);
 	if(q.exec(get)) {
 		if(q.next()) {
 			if(NULL != q.value(0).toByteArray().data())
@@ -375,7 +375,7 @@ bool SmDbThread::addJobType(Job* job)
 		q.bindValue(":name", job->name().c_str());
 		q.bindValue(":profit", job->profit());
 		q.bindValue(":baseSalary", job->baseSalary());
-		q.bindValue(":descrption", job->description().c_str());
+		q.bindValue(":description", job->description().c_str());
 		r = q.exec();
 	}
 	closeDb();
@@ -403,7 +403,7 @@ bool SmDbThread::addLevelType(Level* level)
 		q.bindValue(":name", level->name().c_str());
 		q.bindValue(":profit", level->profit());
 		q.bindValue(":baseSalary", level->baseSalary());
-		q.bindValue(":descrption", level->description().c_str());
+		q.bindValue(":description", level->description().c_str());
 		r = q.exec();
 	}
 	closeDb();
@@ -429,7 +429,7 @@ bool SmDbThread::addStatusType(Status* status)
 	{
 		q.prepare(INSERTINTO_STATUS_TABLE);
 		q.bindValue(":name", status->name().c_str());
-		q.bindValue(":descrption", status->description().c_str());
+		q.bindValue(":description", status->description().c_str());
 		r = q.exec();
 	}
 	closeDb();
@@ -634,7 +634,7 @@ bool SmDbThread::deleteImage(uint32 id)
 	DBINFO("delete image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
-	r= q.exec(QString(DELETE_IMAGE).arg(id));
+	r= q.exec(QString(DELETE_STAFFIMAGE).arg(id));
 	DBINFO("delete image compltet:", r);
 	return r;
 }

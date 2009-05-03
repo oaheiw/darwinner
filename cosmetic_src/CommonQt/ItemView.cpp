@@ -2,20 +2,16 @@
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
 #include <QModelIndex>
+#include "common.h"
 
 ItemView::ItemView(/*int column,*/QWidget *parent)
 :QWidget(parent)
 {
 	ui.setupUi(this);
 	m_sortProxyModel = NULL;
-	m_DataModel = NULL;
-
-	ui.itemList->setMouseTracking(true);
-	ui.itemList->setRootIsDecorated(false);
-	ui.itemList->setAlternatingRowColors(true);
-	ui.itemList->setSortingEnabled(true);
-	ui.itemList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	ui.itemList->setContextMenuPolicy(Qt::DefaultContextMenu);
+	m_DataModel =new QStandardItemModel(0, 0, this);
+	m_column = m_DataModel->columnCount();
+	ui.itemList->setModel(m_DataModel);
 	ui.itemList->sortByColumn(0, Qt::AscendingOrder);
 }
 
@@ -25,11 +21,10 @@ ItemView::~ItemView()
 	delete m_DataModel;
 }
 
-void ItemView::initDataModel(int column)
+void ItemView::appendColumn(int column)
 {
-	m_column = column;//for first selection column
-	m_DataModel = new QStandardItemModel(0, m_column, parent());
-	ui.itemList->setModel(m_DataModel);
+	m_DataModel->insertColumns(m_DataModel->columnCount(), column);
+	m_column = m_DataModel->columnCount();
 }
 
 
@@ -41,17 +36,7 @@ void ItemView::setProxy(QSortFilterProxyModel* proxy)
 	m_sortProxyModel->setFilterKeyColumn(-1);
 	ui.itemList->setModel(m_sortProxyModel);
 }
-/*
-void ItemView::setDataModel(QAbstractItemModel* data)
-{
-	m_DataModel = data;
-	if(NULL != m_sortProxyModel) {
-		ui.itemList->setModel(m_sortProxyModel);
-	} else {
-		ui.itemList->setModel(m_DataModel);
-	}
-}
-*/
+
 void ItemView::setTitle(QString& title)
 {
 	ui.groupBox->setTitle(title);
@@ -59,22 +44,20 @@ void ItemView::setTitle(QString& title)
 
 void ItemView::changeRegExp(QRegExp & exp)
 {
-	if(NULL != m_sortProxyModel) {
-		m_sortProxyModel->setFilterRegExp(exp);
-	}
+	ASSERT_POINTER(m_sortProxyModel);
+	m_sortProxyModel->setFilterRegExp(exp);
+
 }
 
 void ItemView::changeFilterColumn(int col)
 {
-	if(NULL != m_sortProxyModel) {
-		m_sortProxyModel->setFilterKeyColumn(col);
-	}
+	ASSERT_POINTER(m_sortProxyModel);
+	m_sortProxyModel->setFilterKeyColumn(col);
 }
 void ItemView::changeSortCase(int caseSen)
 {
-	if(NULL != m_sortProxyModel) {
-		m_sortProxyModel->setSortCaseSensitivity(Qt::CaseSensitivity(caseSen));
-	}
+	ASSERT_POINTER(m_sortProxyModel);
+	m_sortProxyModel->setSortCaseSensitivity(Qt::CaseSensitivity(caseSen));
 }
 
 void ItemView::addData(int row, int column, const QVariant& data)
@@ -112,4 +95,9 @@ QVariant ItemView::currentIndex(int &row, int &column)
 	row = ui.itemList->currentIndex().row();
 	column = ui.itemList->currentIndex().column();
 	return ui.itemList->currentIndex().data();
+}
+
+void ItemView::setColumnWidth(int column, int width)
+{
+	ui.itemList->setColumnWidth(column, width);
 }

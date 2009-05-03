@@ -10,8 +10,11 @@
     <height>348</height>
    </rect>
   </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
-   <string>ItemView</string>
+   <string>项目浏览</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
@@ -22,6 +25,9 @@
    </property>
    <item>
     <widget class="QGroupBox" name="groupBox">
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
      <property name="title">
       <string>项目浏览</string>
      </property>
@@ -40,17 +46,32 @@
       </property>
       <item>
        <widget class="QTreeView" name="itemList">
+        <property name="mouseTracking">
+         <bool>true</bool>
+        </property>
         <property name="toolTip">
          <string>您可以按住Ctrl键或拖动鼠标复选项目</string>
         </property>
         <property name="statusTip">
          <string>浏览项目列表中</string>
         </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="rootIsDecorated">
+         <bool>false</bool>
+        </property>
+        <property name="uniformRowHeights">
+         <bool>true</bool>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

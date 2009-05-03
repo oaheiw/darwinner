@@ -218,7 +218,7 @@ bool CommonDbThread::addSupperStaff(Staff* staff)
 	q.bindValue(":cell", "88888888");
 	q.bindValue(":phone", "66666666");
 	q.bindValue(":address", "中华人民共和国");
-	q.bindValue(":descrption", "这是科思美系统超级账户，请不用将此账户用作日常运作账户。");
+	q.bindValue(":description", "这是科思美系统超级账户，请不用将此账户用作日常运作账户。");
 	r = q.exec();
 	DBINFO("create super user complete!", r);
 	return r;

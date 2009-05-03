@@ -22,15 +22,15 @@ LevelWidget::LevelWidget(QWidget *parent, int mode)
 	ui.levelTableView->hideColumn(0);
 	ui.levelTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("编号"));
+	m_DataModel->setHeaderData(col, Qt::Horizontal, LOCAL8BITSTR(idStr));
 	ui.levelTableView->setColumnWidth(col++, 40);
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("级别"));
+	m_DataModel->setHeaderData(col, Qt::Horizontal, LOCAL8BITSTR(staffLevelStr));
 	ui.levelTableView->setColumnWidth(col++, 70);
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("提成(%)"));
+	m_DataModel->setHeaderData(col, Qt::Horizontal, LOCAL8BITSTR(staffProfitStr));
 	ui.levelTableView->setColumnWidth(col++, 60);
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("级别工资"));
+	m_DataModel->setHeaderData(col, Qt::Horizontal, LOCAL8BITSTR(staffLevelSalaryStr));
 	ui.levelTableView->setColumnWidth(col++, 60);
-	m_DataModel->setHeaderData(col++, Qt::Horizontal, QString::fromLocal8Bit("备注"));
+	m_DataModel->setHeaderData(col++, Qt::Horizontal, LOCAL8BITSTR(staffDescriptionStr));
 
 	SpinBoxDelegate *delegate= new SpinBoxDelegate(ui.levelTableView);
 	ui.levelTableView->setItemDelegateForColumn (2, delegate);
@@ -115,9 +115,9 @@ void LevelWidget::pushLevels(list<Level>* levels)
 		ui.levelTableView->setRowHeight(row, 20);
 
 		m_DataModel->setData(m_DataModel->index(row, 0), it->id());
-		m_DataModel->setData(m_DataModel->index(row, 1), QString::fromLocal8Bit(it->name().c_str()));
+		m_DataModel->setData(m_DataModel->index(row, 1), LOCAL8BITSTR(it->name().c_str()));
 		m_DataModel->setData(m_DataModel->index(row, 2), it->profit());
 		m_DataModel->setData(m_DataModel->index(row, 3), it->baseSalary());
-		m_DataModel->setData(m_DataModel->index(row, 4), QString::fromLocal8Bit(it->description().c_str()));
+		m_DataModel->setData(m_DataModel->index(row, 4), LOCAL8BITSTR(it->description().c_str()));
 	}
 }

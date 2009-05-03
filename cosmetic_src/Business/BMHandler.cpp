@@ -9,6 +9,7 @@
 BMHandler::BMHandler()
 {
 	m_mainWindow = NULL;
+	m_businessCache.clear();
 }
 
 BMHandler::~BMHandler()

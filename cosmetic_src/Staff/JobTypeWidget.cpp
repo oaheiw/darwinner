@@ -23,15 +23,15 @@ JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	ui.jobTableView->hideColumn(0);
 	ui.jobTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("编号"));
+	m_DataModel->setHeaderData(col, Qt::Horizontal, LOCAL8BITSTR(idStr));
 	ui.jobTableView->setColumnWidth(col++, 40);
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("职务"));
+	m_DataModel->setHeaderData(col, Qt::Horizontal, LOCAL8BITSTR(staffJobStr));
 	ui.jobTableView->setColumnWidth(col++, 70);
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("提成(%)"));
+	m_DataModel->setHeaderData(col, Qt::Horizontal, LOCAL8BITSTR(staffProfitStr));
 	ui.jobTableView->setColumnWidth(col++, 60);
-	m_DataModel->setHeaderData(col, Qt::Horizontal, QString::fromLocal8Bit("职务工资"));
+	m_DataModel->setHeaderData(col, Qt::Horizontal, LOCAL8BITSTR(staffJobSalaryStr));
 	ui.jobTableView->setColumnWidth(col++, 60);
-	m_DataModel->setHeaderData(col++, Qt::Horizontal, QString::fromLocal8Bit("备注"));
+	m_DataModel->setHeaderData(col++, Qt::Horizontal, LOCAL8BITSTR(staffDescriptionStr));
 
 	SpinBoxDelegate *delegate = new SpinBoxDelegate(ui.jobTableView);
 	ui.jobTableView->setItemDelegateForColumn (2, delegate);
@@ -63,11 +63,13 @@ void JobTypeWidget::add()
 	int row = m_DataModel->rowCount();
 	m_DataModel->insertRow(row);
 	ui.jobTableView->setRowHeight(row, 20);
+	/*
 	m_DataModel->setData(m_DataModel->index(row, 0), 0);
 	m_DataModel->setData(m_DataModel->index(row, 1), "");
 	m_DataModel->setData(m_DataModel->index(row, 2), 0);
 	m_DataModel->setData(m_DataModel->index(row, 3), 0);
 	m_DataModel->setData(m_DataModel->index(row, 4), "");
+	*/
 
 }
 void JobTypeWidget::remove()
@@ -113,9 +115,9 @@ void JobTypeWidget::pushjobs(list<Job>* jobs)
 		ui.jobTableView->setRowHeight(row, 20);
 
 		m_DataModel->setData(m_DataModel->index(row, 0), it->id());
-		m_DataModel->setData(m_DataModel->index(row, 1), QString::fromLocal8Bit(it->name().c_str()));
+		m_DataModel->setData(m_DataModel->index(row, 1), LOCAL8BITSTR(it->name().c_str()));
 		m_DataModel->setData(m_DataModel->index(row, 2), it->profit());
 		m_DataModel->setData(m_DataModel->index(row, 3), it->baseSalary());
-		m_DataModel->setData(m_DataModel->index(row, 4), QString::fromLocal8Bit(it->description().c_str()));
+		m_DataModel->setData(m_DataModel->index(row, 4), LOCAL8BITSTR(it->description().c_str()));
 	}
 }

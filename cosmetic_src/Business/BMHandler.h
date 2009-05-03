@@ -3,15 +3,13 @@
 
 #include "DUIHandler.h"
 #include "IEventObserver.h"
-
+#include "Business.h"
 #include <list>
-#include <map>
-#include <string>
 class Message;
 
 using namespace std;
 
-class BMHandler  : public DUIHandler, public IEventObserver
+class BMHandler : public DUIHandler, public IEventObserver
 {
 public:
 	BMHandler();
@@ -21,6 +19,7 @@ public:
 
 private:
 	DUIObserver* m_mainWindow;
+	list<Business> m_businessCache;
 };
 
 #endif // BMHANDLER_H

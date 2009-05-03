@@ -35,7 +35,7 @@ StaffDetail::~StaffDetail()
  void StaffDetail::setupUi()
 {
 	noPic = QPixmap(":/staff/Resources/staff.png").scaled(180, 180,Qt::KeepAspectRatio ,Qt::SmoothTransformation);
-	labelPortrait = new QLabel(QString::fromLocal8Bit("没有照片"),this);
+	labelPortrait = new QLabel(this);
 	labelPortrait->setPixmap(noPic);
 	labelPortrait->setFixedSize(180, 240);
 	labelPortrait->setFrameShape(QFrame::StyledPanel);
@@ -58,19 +58,19 @@ StaffDetail::~StaffDetail()
 	plainTextEditDescrption = new QPlainTextEdit(this);
 	plainTextEditDescrption->setMinimumHeight(40);
 
-	labelId = new QLabel(QString::fromLocal8Bit("工号"), this);
-	labelName = new QLabel(QString::fromLocal8Bit("姓名"), this);
-	labelSex = new QLabel(QString::fromLocal8Bit("性别"), this);
-	labelStatus = new QLabel(QString::fromLocal8Bit("状态"), this);
-	labelJob = new QLabel(QString::fromLocal8Bit("职务"), this);
-	labelLevel = new QLabel(QString::fromLocal8Bit("等级"), this);
-	labelCell = new QLabel(QString::fromLocal8Bit("手机"), this);
-	labelPhone = new QLabel(QString::fromLocal8Bit("固话"), this);
-	labelDescrption = new QLabel(QString::fromLocal8Bit("备注"), this);
-	labelAddress = new QLabel(QString::fromLocal8Bit("地址"), this);
-	pushButtonPix = new QPushButton(QString::fromLocal8Bit("选择照片(&P)"), this);
-	pushButtonModify = new QPushButton(QString::fromLocal8Bit("修改(&G)"),  this);
-	pushButtonSubmmit = new QPushButton(QString::fromLocal8Bit("提交(&Q)"), this);
+	labelId = new QLabel(LOCAL8BITSTR(staffIDStr), this);
+	labelName = new QLabel(LOCAL8BITSTR(staffNameStr), this);
+	labelSex = new QLabel(LOCAL8BITSTR(staffSexStr), this);
+	labelStatus = new QLabel(LOCAL8BITSTR(staffStatusStr), this);
+	labelJob = new QLabel(LOCAL8BITSTR(staffJobStr), this);
+	labelLevel = new QLabel(LOCAL8BITSTR(staffLevelStr), this);
+	labelCell = new QLabel(LOCAL8BITSTR(staffCellStr), this);
+	labelPhone = new QLabel(LOCAL8BITSTR(staffPhoneStr), this);
+	labelDescrption = new QLabel(LOCAL8BITSTR(staffDescriptionStr), this);
+	labelAddress = new QLabel(LOCAL8BITSTR(staffAddressStr), this);
+	pushButtonPix = new QPushButton(LOCAL8BITSTR(choosePicStr), this);
+	pushButtonModify = new QPushButton(LOCAL8BITSTR(editStr),  this);
+	pushButtonSubmmit = new QPushButton(LOCAL8BITSTR(submitStr), this);
 	pushButtonPix->setMinimumHeight(30);
 	pushButtonModify->setMinimumHeight(30);
 	pushButtonSubmmit->setMinimumHeight(30);
@@ -80,9 +80,9 @@ StaffDetail::~StaffDetail()
 	pushButtonPix->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	pushButtonModify->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	pushButtonSubmmit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	comboBoxSex->addItem(QString::fromLocal8Bit("未设定"), 0);
-	comboBoxSex->addItem(QString::fromLocal8Bit("男"), 1);
-	comboBoxSex->addItem(QString::fromLocal8Bit("女"), 2);
+	comboBoxSex->addItem(LOCAL8BITSTR(sexUndefinedStr), 0);
+	comboBoxSex->addItem(LOCAL8BITSTR(sexMaleStr), 1);
+	comboBoxSex->addItem(LOCAL8BITSTR(sexFemaleStr), 2);
 
 	labelId->setBuddy(lineEditId);
 	labelName->setBuddy(lineEditName);
@@ -169,7 +169,7 @@ void StaffDetail::setJob(list<Job>* jobList)
 	list<Job>::iterator it = jobList->begin();
 	while(jobList->end() != it)
 	{
-		comboBoxJob->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant(it->id()));
+		comboBoxJob->addItem(LOCAL8BITSTR(it->name().c_str()), QVariant(it->id()));
 		it++;
 	}
 }
@@ -180,7 +180,7 @@ void StaffDetail::setLevel(list<Level>* levelList)
 	list<Level>::iterator it = levelList->begin();
 	while(levelList->end() != it)
 	{
-		comboBoxLevel->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant(it->id()));
+		comboBoxLevel->addItem(LOCAL8BITSTR(it->name().c_str()), QVariant(it->id()));
 		it++;
 	}
 }
@@ -191,7 +191,7 @@ void StaffDetail::setStatus(list<Status>* statusList)
 	list<Status>::iterator it = statusList->begin();
 	while(statusList->end() != it)
 	{
-	  comboBoxStatus->addItem(QString::fromLocal8Bit(it->name().c_str()), QVariant(it->id()));
+	  comboBoxStatus->addItem(LOCAL8BITSTR(it->name().c_str()), QVariant(it->id()));
 	  it++;
 	}
 }
@@ -203,15 +203,15 @@ void StaffDetail::setStatus(list<Status>* statusList)
 	if(NULL != staff) {
 		changeMode(SINFO_BROWSE);
 		lineEditId->setText(QString::number(staff->ID()));
-		lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
+		lineEditName->setText(LOCAL8BITSTR(staff->Name().c_str()));
 		comboBoxSex->setCurrentIndex(comboBoxSex->findData(staff->Sex()));
 		comboBoxStatus->setCurrentIndex(comboBoxStatus->findData(QVariant(staff->status())));
 		comboBoxJob->setCurrentIndex(comboBoxJob->findData(QVariant(staff->Type())));
 		comboBoxLevel->setCurrentIndex(comboBoxLevel->findData(QVariant(staff->Level())));
-		lineEditPhone->setText(QString::fromLocal8Bit(staff->phone().c_str()));
-		lineEditCell->setText(QString::fromLocal8Bit(staff->cell().c_str()));
-		plainTextEditAddress->setPlainText(QString::fromLocal8Bit(staff->address().c_str()));
-		plainTextEditDescrption->setPlainText(QString::fromLocal8Bit(staff->Descrp().c_str()));
+		lineEditPhone->setText(LOCAL8BITSTR(staff->phone().c_str()));
+		lineEditCell->setText(LOCAL8BITSTR(staff->cell().c_str()));
+		plainTextEditAddress->setPlainText(LOCAL8BITSTR(staff->address().c_str()));
+		plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->Descrp().c_str()));
 		userPicData.clear();
 		labelPortrait->setPixmap(noPic);
 	}
@@ -264,32 +264,32 @@ void StaffDetail::setStatus(list<Status>* statusList)
  void StaffDetail::modifyStaff(Staff* staff)
 {
 	if(lineEditId->text().isEmpty()) {
-		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, zeroSelectionWarning);
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, zeroSelectionWarning);
 		return;
 	}
 	if(SINFO_NEW == m_mode) {		
-		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, smEditModeWarning);
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, smEditModeWarning);
 		return;
 	}
 	changeMode(SINFO_MODIFY);
 	if(NULL != staff) {
 		lineEditId->setText(QString::number(staff->ID()));
-		lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
+		lineEditName->setText(LOCAL8BITSTR(staff->Name().c_str()));
 		comboBoxSex->setCurrentIndex(staff->Sex());
 		comboBoxStatus->setCurrentIndex(staff->status());
 		comboBoxJob->setCurrentIndex(staff->Type());
 		comboBoxLevel->setCurrentIndex(staff->Level());
-		lineEditPhone->setText(QString::fromLocal8Bit(staff->phone().c_str()));
-		lineEditCell->setText(QString::fromLocal8Bit(staff->cell().c_str()));
-		plainTextEditAddress->setPlainText(QString::fromLocal8Bit(staff->address().c_str()));
-		plainTextEditDescrption->setPlainText(QString::fromLocal8Bit(staff->Descrp().c_str()));
+		lineEditPhone->setText(LOCAL8BITSTR(staff->phone().c_str()));
+		lineEditCell->setText(LOCAL8BITSTR(staff->cell().c_str()));
+		plainTextEditAddress->setPlainText(LOCAL8BITSTR(staff->address().c_str()));
+		plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->Descrp().c_str()));
 	}
 }
 
  void StaffDetail::newStaff()
 {
 	if(SINFO_MODIFY == m_mode) {		
-		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, smWindowTitle, smAbandonModifyWarning))
+		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, smString, abandonModifyWarning))
 			return;
 	}
 	myinfo = false;
@@ -297,15 +297,15 @@ void StaffDetail::setStatus(list<Status>* statusList)
 	staff->clear();
 	userPicData.clear();
 	lineEditId->setText(QString::number(staff->ID()));
-	lineEditName->setText(QString::fromLocal8Bit(staff->Name().c_str()));
+	lineEditName->setText(LOCAL8BITSTR(staff->Name().c_str()));
 	comboBoxSex->setCurrentIndex(staff->Sex());
 	comboBoxStatus->setCurrentIndex(staff->status());
 	comboBoxJob->setCurrentIndex(staff->Type());
 	comboBoxLevel->setCurrentIndex(staff->Level());
-	lineEditPhone->setText(QString::fromLocal8Bit(staff->phone().c_str()));
-	lineEditCell->setText(QString::fromLocal8Bit(staff->cell().c_str()));
-	plainTextEditAddress->setPlainText(QString::fromLocal8Bit(staff->address().c_str()));
-	plainTextEditDescrption->setPlainText(QString::fromLocal8Bit(staff->Descrp().c_str()));
+	lineEditPhone->setText(LOCAL8BITSTR(staff->phone().c_str()));
+	lineEditCell->setText(LOCAL8BITSTR(staff->cell().c_str()));
+	plainTextEditAddress->setPlainText(LOCAL8BITSTR(staff->address().c_str()));
+	plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->Descrp().c_str()));
 	labelPortrait->setPixmap(noPic);
 	changeMode(SINFO_NEW);
 	delete staff;
@@ -318,15 +318,13 @@ void StaffDetail::setStatus(list<Status>* statusList)
  
 void StaffDetail::selectPic()
 {
-	 QString fileName = QFileDialog::getOpenFileName(this,
-		 QString::fromLocal8Bit("选择照片"), "./", QString::fromLocal8Bit("图像文件(*.png *.jpg *.bmp *.gif)"));
+	 QString fileName = QFileDialog::getOpenFileName(this, LOCAL8BITSTR(choosePicStr), lastDir, LOCAL8BITSTR(imageFileStr));
 	 if(!fileName.isEmpty()) {
 		 QFile file(fileName);
 		 file.open(QIODevice::ReadOnly);
 		 if(file.size() > PIC_MAX_SIZE*MB) {
-			 QString warning = QString::fromLocal8Bit("非常抱歉，照片文件大小不能超过") + QString::number(PIC_MAX_SIZE)
-				  + QString::fromLocal8Bit("MB（兆），请重新选择。");
-			 MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, warning.toLocal8Bit().data());
+			 QString warning = LOCAL8BITSTR(imageSizeWarning).arg(PIC_MAX_SIZE);
+			 MessageBox::showMessageBox(this, QMessageBox::Warning, smString, warning.toLocal8Bit().data());
 			 return;
 		 }
 		 displayPic(file.readAll());
@@ -361,7 +359,7 @@ void StaffDetail::submit()
 	staff->SetID(lineEditId->text().toUInt());
 	staff->SetLevel(comboBoxLevel->itemData(comboBoxLevel->currentIndex()).toUInt());
 	staff->SetName(lineEditName->text().toLocal8Bit().data());
-	staff->SetPassword("");
+	staff->SetPassword(emptyStr);
 	staff->SetPhone(lineEditPhone->text().toLocal8Bit().data());
 	staff->SetSex(comboBoxSex->itemData(comboBoxSex->currentIndex()).toUInt());
 	staff->SetType(comboBoxJob->itemData(comboBoxJob->currentIndex()).toUInt());
@@ -374,3 +372,4 @@ void StaffDetail::submit()
 		emit modifiedStaff(staff, userPicData);
 	}
 }
+

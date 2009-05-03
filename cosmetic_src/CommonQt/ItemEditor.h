@@ -8,16 +8,16 @@ class QAbstractItemDelegate;
 
 class ItemEditor : public QWidget
 {
-	Q_OBJECT
-public:
 
 	enum ItemEditorMode {
 		InitMode,
 		EditMode,
-		ItemEditorModeEnd
+		DisplayMode
 	};
 
-	ItemEditor(QWidget *parent = 0, int mode = EditMode);
+	Q_OBJECT
+public:
+	ItemEditor(QWidget *parent = 0);
 	~ItemEditor();
 	void setTitle(QString& title);
 	void addData(int row, int column, const QVariant& data);
@@ -25,11 +25,12 @@ public:
 	void clearData();
 	void hideColumn(int column);
 	void setDelegate(int column, QAbstractItemDelegate* delegate);
+	void appendColumn(int column);
+	void setMode(ItemEditorMode mode);
 	virtual void* getData() = 0;
 
 protected:
 	QAbstractItemModel* m_DataModel;
-	void init(int column);
 
 signals:
 	void submitted(void* data);

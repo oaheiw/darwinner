@@ -26,26 +26,21 @@ StaffWindow::StaffWindow(QWidget *parent)
 	config = NULL;
 	staffDetailWidget = new StaffDetail(this);
 	m_searchBox = new SearchBox(this);
-	m_searchBox->addFilterItem(QString::fromLocal8Bit("工号"));
-	m_searchBox->addFilterItem(QString::fromLocal8Bit("姓名"));
-	m_searchBox->addFilterItem(QString::fromLocal8Bit("性别"));
-	m_searchBox->addFilterItem(QString::fromLocal8Bit("职务"));
-	m_searchBox->addFilterItem(QString::fromLocal8Bit("级别"));
-	m_searchBox->addFilterItem(QString::fromLocal8Bit("状态"));
-	m_searchBox->addFilterItem(QString::fromLocal8Bit("手机"));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffIDStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffNameStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffSexStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffJobStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffLevelStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffStatusStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffRatingStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffCellStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffPhoneStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffAddressStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(staffDescriptionStr));
 	
 	ui.sideBar->addWidget(staffDetailWidget, 0, 0);
 	ui.sideBar->addWidget(m_searchBox, 1, 0);
 	
-	ui.itemView->init(7);
-	ui.itemView->setHeaderData(0, QString::fromLocal8Bit("工号"));
-	ui.itemView->setHeaderData(1, QString::fromLocal8Bit("姓名"));
-	ui.itemView->setHeaderData(2, QString::fromLocal8Bit("性别"));
-	ui.itemView->setHeaderData(3, QString::fromLocal8Bit("职务"));
-	ui.itemView->setHeaderData(4, QString::fromLocal8Bit("级别"));
-	ui.itemView->setHeaderData(5, QString::fromLocal8Bit("状态"));
-	ui.itemView->setHeaderData(6, QString::fromLocal8Bit("手机"));
-
 	connect(m_searchBox, SIGNAL(regExpChanged(QRegExp &)), ui.itemView, SLOT(changeRegExp(QRegExp &)));
 	connect(m_searchBox, SIGNAL(columnChanged(int)), ui.itemView, SLOT(changeFilterColumn(int)));
 	connect(m_searchBox, SIGNAL(sortChanged(int)), ui.itemView, SLOT(changeSortCase(int)));
@@ -118,7 +113,7 @@ void StaffWindow::OnEvent(Message & Msg){
 				}
 				getAllStaff();
 			} else {
-				MessageBox::showMessageBox(this, QMessageBox::Critical, smWindowTitle, addStaffError);
+				MessageBox::showMessageBox(this, QMessageBox::Critical, smString, smAddStaffError);
 			}
 			break;
 		}
@@ -131,7 +126,7 @@ void StaffWindow::OnEvent(Message & Msg){
 				delete emptyStaff;
 				getAllStaff();
 			} else {
-				MessageBox::showMessageBox(this, QMessageBox::Critical, smWindowTitle, removeStaffError);
+				MessageBox::showMessageBox(this, QMessageBox::Critical, smString, removeError);
 			}
 			break;
 		}
@@ -146,7 +141,7 @@ void StaffWindow::OnEvent(Message & Msg){
 				}
 				getAllStaff();
 			} else {
-				MessageBox::showMessageBox(this, QMessageBox::Critical, smWindowTitle, modifyStaffError);
+				MessageBox::showMessageBox(this, QMessageBox::Critical, smString, smModifyStaffError);
 			}
 			break;
 		}
@@ -224,14 +219,14 @@ void StaffWindow::OnEvent(Message & Msg){
 			list<Job>* error = static_cast<list<Job>*>(Msg.data());
 			getJobType();
 			if(!error->empty()){
-				string errorstr = jobString;
+				string errorstr = staffJobStr;
 				for(list<Job>::iterator it = error->begin() ; it != error->end() ; it++) {
 					errorstr += leftMark;
 					errorstr += it->name();
 					errorstr += rightMark;
 				}
 				errorstr += modifyWaring;
-				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, errorstr);
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smString, errorstr);
 			}
 			delete error;
 			break;
@@ -241,14 +236,14 @@ void StaffWindow::OnEvent(Message & Msg){
 			list<Level>* error = static_cast<list<Level>*>(Msg.data());
 			getLevelType();
 			if(!error->empty()){
-				string errorstr = levelString;
+				string errorstr = staffLevelStr;
 				for(list<Level>::iterator it = error->begin() ; it != error->end() ; it++) {
 					errorstr += leftMark;
 					errorstr += it->name();
 					errorstr += rightMark;
 				}
 				errorstr += modifyWaring;
-				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, errorstr);
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smString, errorstr);
 			}
 			delete error;
 			break;
@@ -258,14 +253,14 @@ void StaffWindow::OnEvent(Message & Msg){
 			list<Job>* error = static_cast<list<Job>*>(Msg.data());
 			getJobType();
 			if(!error->empty()){
-				string errorstr = jobString;
+				string errorstr = staffJobStr;
 				for(list<Job>::iterator it = error->begin() ; it != error->end() ; it++) {
-					errorstr += "“";
+					errorstr += leftMark;
 					errorstr += it->name();
-					errorstr += "”";
+					errorstr += rightMark;
 				}
-				errorstr += levelRemoveWarning;
-				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, errorstr);
+				errorstr += smJobRemoveWarning;
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smString, errorstr);
 			}
 			delete error;
 			break;
@@ -275,14 +270,14 @@ void StaffWindow::OnEvent(Message & Msg){
 			list<Level>* error = static_cast<list<Level>*>(Msg.data());
 			getLevelType();
 			if(!error->empty()){
-				string errorstr = levelString;
+				string errorstr = staffLevelStr;
 				for(list<Level>::iterator it = error->begin() ; it != error->end() ; it++) {
-					errorstr += "“";
+					errorstr +=leftMark;
 					errorstr += it->name();
-					errorstr += "”";
+					errorstr += rightMark;
 				}
-				errorstr += levelRemoveWarning;
-				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, errorstr);
+				errorstr += smLevelRemoveWarning;
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smString, errorstr);
 			}
 			delete error;
 			break;
@@ -291,10 +286,10 @@ void StaffWindow::OnEvent(Message & Msg){
 		{
 			int* r = static_cast<int*>(Msg.data());
 			if(ERROR_NO_ERROR == *r) {
-				MessageBox::showMessageBox(this, QMessageBox::Information, smWindowTitle, changePwSucces);
+				MessageBox::showMessageBox(this, QMessageBox::Information, smString, smChangePwSucces);
 			}
 			else if(ERROR_PASSWORD_WRONG == *r || ERROR_DBERROR == *r) {
-				MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, changePwFailure);
+				MessageBox::showMessageBox(this, QMessageBox::Warning, smString, smChangePwFailure);
 			}
 			delete r;
 			break;
@@ -389,13 +384,18 @@ void StaffWindow::addStaff(list<Staff>* staff)
 	list<Staff>::iterator it = staff->begin();
 	int row = 0;
 	while(staff->end() != it) {
-		ui.itemView->addData(row, 0, it->ID());
-		ui.itemView->addData(row, 1, QString::fromLocal8Bit(it->Name().c_str()));
-		ui.itemView->addData(row, 2, QString::fromLocal8Bit(StaffSex[it->Sex()]));
-		ui.itemView->addData(row, 3, QString::fromLocal8Bit(m_staffType[it->Type()].name().c_str()));
-		ui.itemView->addData(row, 4, QString::fromLocal8Bit(m_staffLevel[it->Level()].name().c_str()));
-		ui.itemView->addData(row, 5, QString::fromLocal8Bit(m_staffState[it->status()].name().c_str()));
-		ui.itemView->addData(row, 6, QString::fromLocal8Bit(it->cell().c_str()));
+		int col = 0;
+		ui.itemView->addData(row, col++, it->ID());
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->Name().c_str()));
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(StaffSex[it->Sex()]));
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffType[it->Type()].name().c_str()));
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffLevel[it->Level()].name().c_str()));
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffState[it->status()].name().c_str()));
+		ui.itemView->addData(row, col++, it->getRating());
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->cell().c_str()));
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->phone().c_str()));
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->address().c_str()));
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->Descrp().c_str()));
 		row++;
 		it++;
 	}
@@ -448,14 +448,14 @@ void StaffWindow::removeStaff()
 	if(currentStaffID != 0) {
 		removeStaff(currentStaffID, currentStaffName);
 	} else {
-		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, zeroSelectionWarning);
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, zeroSelectionWarning);
 	}
 }
 
 void StaffWindow::removeStaff(uint32 id, string name)	
 {
-	QString confirm =QString::fromLocal8Bit(removeStaffConfirm).arg(QString::fromLocal8Bit(name.c_str()));
-	if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, smWindowTitle, confirm.toLocal8Bit().data())) return;
+	QString confirm =LOCAL8BITSTR(smRemoveStaffConfirm).arg(LOCAL8BITSTR(name.c_str()));
+	if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, smString, confirm.toLocal8Bit().data())) return;
 	uint32* staffid = new uint32(id);
 	Message* action = new Message();
 	action->setType(ACTION_REMOVESTAFF);
@@ -476,7 +476,7 @@ void StaffWindow::getAllStaff()
 void StaffWindow::addStaff(Staff* staff, QByteArray& data)
 {
 	if(staff->Name().empty()) {
-		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, emptyNameWarnning);
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, smEmptyNameWarnning);
 		return;
 	}
 	Message* action = new Message(ACTION_ADDSTAFF, staff);
@@ -490,7 +490,7 @@ void StaffWindow::addStaff(Staff* staff, QByteArray& data)
 void StaffWindow::modifyStaff(Staff* staff, QByteArray& data)
 {
 	if(staff->Name().empty()) {
-		MessageBox::showMessageBox(this, QMessageBox::Warning, smWindowTitle, emptyNameWarnning);
+		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, smEmptyNameWarnning);
 		return;
 	}
 	Message* action = new Message(ACTION_MODIFYSTAFF, staff);
@@ -577,3 +577,4 @@ void StaffWindow::showToolBar(bool flag)
 		ui.mainToolBar->close();
 	}
 }
+

@@ -1,3 +1,4 @@
+#include "common.h"
 #include "SideBar.h"
 
 SideBar::SideBar(QWidget *parent)
@@ -22,15 +23,16 @@ void SideBar::hideWidget(bool hide)
 {
 	if(hide) {
 		ui.hideButton->setText("<");
-		ui.hideButton->setStatusTip(QString::fromLocal8Bit("展开侧边栏"));
-		ui.hideButton->setToolTip(QString::fromLocal8Bit("展开侧边栏"));
+		ui.hideButton->setStatusTip(LOCAL8BITSTR(expandSideBarStr));
+		ui.hideButton->setToolTip(LOCAL8BITSTR(expandSideBarStr));
 		for(list<QWidget*>::iterator it = widgetList.begin() ; widgetList.end() != it ; it++)
 			(*it)->close();
 	} else {
 		ui.hideButton->setText(">");
-		ui.hideButton->setStatusTip(QString::fromLocal8Bit("收起侧边栏"));
-		ui.hideButton->setToolTip(QString::fromLocal8Bit("收起侧边栏"));
+		ui.hideButton->setStatusTip(LOCAL8BITSTR(shrinkSideBarStr));
+		ui.hideButton->setToolTip(LOCAL8BITSTR(shrinkSideBarStr));
 		for(list<QWidget*>::iterator it = widgetList.begin() ; widgetList.end() != it ; it++)
 			(*it)->show();
 	}
 }
+

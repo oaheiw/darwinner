@@ -29,17 +29,17 @@ using namespace std;
 	addPage(new StaffInfoPage(level, job, this));
 	addPage(new StaffRightsPage);
 	addPage(new ConclusionPage);
-	setButtonText(QWizard::BackButton, QString::fromLocal8Bit("上一步"));
-	setButtonText(QWizard::NextButton, QString::fromLocal8Bit("下一步"));
-	setButtonText(QWizard::CommitButton, QString::fromLocal8Bit("确定"));
-	setButtonText(QWizard::FinishButton, QString::fromLocal8Bit("结束"));
-	setButtonText(QWizard::CancelButton, QString::fromLocal8Bit("取消"));
-	setButtonText(QWizard::HelpButton, QString::fromLocal8Bit("帮助"));
+	setButtonText(QWizard::BackButton, LOCAL8BITSTR("上一步"));
+	setButtonText(QWizard::NextButton, LOCAL8BITSTR("下一步"));
+	setButtonText(QWizard::CommitButton, LOCAL8BITSTR("确定"));
+	setButtonText(QWizard::FinishButton, LOCAL8BITSTR("结束"));
+	setButtonText(QWizard::CancelButton, LOCAL8BITSTR("取消"));
+	setButtonText(QWizard::HelpButton, LOCAL8BITSTR("帮助"));
 
 	setPixmap(QWizard::BannerPixmap, QPixmap(":/common/Resources/banner.png"));
 	setPixmap(QWizard::LogoPixmap, QPixmap(":/common/Resources/cosmetic-text.png").scaled(100, 100,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
 
-	setWindowTitle(QString::fromLocal8Bit("设置向导"));
+	setWindowTitle(LOCAL8BITSTR("设置向导"));
  }
 
  void Guide::OnEvent(Message& ev)
@@ -89,7 +89,7 @@ void Guide::accept()
 	button(QWizard::BackButton)->setDisabled(true);
 	button(QWizard::FinishButton)->setDisabled(true);
 	button(QWizard::CancelButton)->setDisabled(true);
-	progressBar = new ProgressWidget(QString::fromLocal8Bit("正在初始化数据库，请稍候……"), 0, 6, this);
+	progressBar = new ProgressWidget(LOCAL8BITSTR("正在初始化数据库，请稍候……"), 0, 6, this);
 	progressBar->show();
 	totalStep = 0;
 	initDb();
@@ -161,11 +161,11 @@ void Guide::accept()
  IntroPage::IntroPage(QWidget *parent)
      : QWizardPage(parent)
  {
-	 setTitle(QString::fromLocal8Bit("设置向导"));
+	 setTitle(LOCAL8BITSTR("设置向导"));
 	 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/common/Resources/watermark.png"));
 
 
-	 label = new QLabel(QString::fromLocal8Bit("这是您第一次运行Cosmetic（科思美）美容美发业运营系统。本向导将会引导您完成系统运行所必须的基础设置。除了“超级用户”相关的内容，其它设置尽可以在日后再次修改。"));
+	 label = new QLabel(LOCAL8BITSTR("这是您第一次运行Cosmetic（科思美）美容美发业运营系统。本向导将会引导您完成系统运行所必须的基础设置。除了“超级用户”相关的内容，其它设置尽可以在日后再次修改。"));
      label->setWordWrap(true);
 
      QVBoxLayout *layout = new QVBoxLayout;
@@ -176,17 +176,17 @@ void Guide::accept()
  SupperUserPage::SupperUserPage(QWidget *parent)
      : QWizardPage(parent)
  {
-	setTitle(QString::fromLocal8Bit("超级用户"));
-	setSubTitle(QString::fromLocal8Bit("超级用户在本系统中具有最高权限，它是您第一次登录系统以及进行各种高级设置所能使用的唯一帐号。其工号为<font color=\"#ff0000\"; size=+1><b>10000</b></font>，请为其设置密码，并牢记其信息！"));
+	setTitle(LOCAL8BITSTR("超级用户"));
+	setSubTitle(LOCAL8BITSTR("超级用户在本系统中具有最高权限，它是您第一次登录系统以及进行各种高级设置所能使用的唯一帐号。其工号为<font color=\"#ff0000\"; size=+1><b>10000</b></font>，请为其设置密码，并牢记其信息！"));
 
-	passwordLabel = new QLabel(QString::fromLocal8Bit("新密码"));
+	passwordLabel = new QLabel(LOCAL8BITSTR("新密码"));
 	passwordLineEdit = new QLineEdit;
 	passwordLineEdit->setEchoMode(QLineEdit::Password);
 	passwordLineEdit->setMaximumWidth(200);
 	passwordLineEdit->setMaxLength(PW_MAX_LEN);
 	passwordLabel->setBuddy(passwordLineEdit);
 
-	confirmLabel = new QLabel(QString::fromLocal8Bit("确认密码"));
+	confirmLabel = new QLabel(LOCAL8BITSTR("确认密码"));
 	confirmLineEdit = new QLineEdit;
 	confirmLineEdit->setEchoMode(QLineEdit::Password);
 	confirmLineEdit->setMaxLength(PW_MAX_LEN);
@@ -214,14 +214,14 @@ void Guide::accept()
  StaffInfoPage::StaffInfoPage(LevelWidget* levelWidget, JobTypeWidget* joblWidget, QWidget *parent)
      : QWizardPage(parent)
  {
-	setTitle(QString::fromLocal8Bit("职务及级别"));
-	setSubTitle(QString::fromLocal8Bit("请录入贵公司的员工职务和级别，及其余相关信息。系统已经预置了一些项目，您可以继续添加、修改、删除。在本系统中，员工薪水是按照公式：<center><font color=\"#336699\"><b>职务工资+级别工资+业绩×(职务提成+级别提成)</b></font></center>来计算的。"));
+	setTitle(LOCAL8BITSTR("职务及级别"));
+	setSubTitle(LOCAL8BITSTR("请录入贵公司的员工职务和级别，及其余相关信息。系统已经预置了一些项目，您可以继续添加、修改、删除。在本系统中，员工薪水是按照公式：<center><font color=\"#336699\"><b>职务工资+级别工资+业绩×(职务提成+级别提成)</b></font></center>来计算的。"));
 
 	level = levelWidget;
 	job = joblWidget;
 
-	jobLabel = new QLabel(QString::fromLocal8Bit("职务设置："));
-	levelLabel = new QLabel(QString::fromLocal8Bit("级别设置："));
+	jobLabel = new QLabel(LOCAL8BITSTR("职务设置："));
+	levelLabel = new QLabel(LOCAL8BITSTR("级别设置："));
 	QGridLayout *layout = new QGridLayout(this);
 	layout->addWidget(jobLabel, 0, 0, 1, 1);
 	layout->addWidget(levelLabel, 0, 1, 1, 1);
@@ -280,8 +280,8 @@ void Guide::accept()
  StaffRightsPage::StaffRightsPage(QWidget *parent)
      : QWizardPage(parent)
  {
-	 setTitle(QString::fromLocal8Bit("职务权限"));
-     setSubTitle(QString::fromLocal8Bit("请为不同职务的员工设置其在本系统中的权限。请谨慎选择，以免造成不必要的信息泄露。"));
+	 setTitle(LOCAL8BITSTR("职务权限"));
+     setSubTitle(LOCAL8BITSTR("请为不同职务的员工设置其在本系统中的权限。请谨慎选择，以免造成不必要的信息泄露。"));
 
 /*
      outputDirLabel = new QLabel(tr("&Output directory:"));
@@ -324,7 +324,7 @@ void Guide::accept()
  ConclusionPage::ConclusionPage(QWidget *parent)
      : QWizardPage(parent)
  {
-     setTitle(QString::fromLocal8Bit("设置完成"));
+     setTitle(LOCAL8BITSTR("设置完成"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/common/Resources/watermark.png"));
 
      label = new QLabel;
@@ -340,6 +340,6 @@ void Guide::accept()
  {
      QString finishText = wizard()->buttonText(QWizard::FinishButton);
      finishText.remove('&');
-	 label->setText(QString::fromLocal8Bit("请点击“%1”键以完成向导，进入登录界面。")
+	 label->setText(LOCAL8BITSTR("请点击“%1”键以完成向导，进入登录界面。")
                     .arg(finishText));
  }

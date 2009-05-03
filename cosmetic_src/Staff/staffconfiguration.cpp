@@ -16,13 +16,13 @@ void StaffConfiguration::createIcons()
  {
      QListWidgetItem *jobButton = new QListWidgetItem(ui.ItemListWidget);
      jobButton->setIcon(QIcon(":/staff/Resources/job.png"));
-	jobButton->setText(QString::fromLocal8Bit("职务设置"));
+	jobButton->setText(LOCAL8BITSTR("职务设置"));
      jobButton->setTextAlignment(Qt::AlignCenter);
      jobButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
      QListWidgetItem *levelButton = new QListWidgetItem(ui.ItemListWidget);
      levelButton->setIcon(QIcon(":/staff/Resources/level.png"));
-     levelButton->setText(QString::fromLocal8Bit("等级设置"));
+     levelButton->setText(LOCAL8BITSTR("等级设置"));
      levelButton->setTextAlignment(Qt::AlignCenter);
      levelButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 /*

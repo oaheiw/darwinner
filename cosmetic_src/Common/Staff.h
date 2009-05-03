@@ -42,6 +42,8 @@ public:
 	uint32 status();
 	void SetBaseSalary(uint32 salary);
 	uint32 baseSalary();
+	short getRating();
+	void setRating(short newVal);
 	void clear();
 
 	friend bool operator==(const Staff &x, const Staff &y) {
@@ -83,6 +85,7 @@ private:
 	uint32 m_type;
 	uint32 m_status;
 	uint32 m_baseSalary;
+	short m_rating;
 };
 
 
