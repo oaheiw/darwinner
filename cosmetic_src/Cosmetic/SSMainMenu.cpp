@@ -105,15 +105,6 @@ void SSMainMenu::createIcons()
 	staffButton->setTextAlignment(Qt::AlignCenter);
 	staffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	staffButton->setBackgroundColor(QColor(COLOR_1));
-/*
-	QRadialGradient gradient(50, 50, 50, 50, 50);
-	gradient.setColorAt(1, QColor(COLOR_1));
-	gradient.setColorAt(0, QColor::fromRgbF(0, 0, 0, 0));
-	QBrush brush(gradient);
-	brush.setStyle( Qt::LinearGradientPattern);
-	QBrush brush = QBrush(QColor(COLOR_1), Qt::LinearGradientPattern);
-	staffButton->setBackground(brush);
-*/
 	ui.FunctionTableWidget->setItem(SM_X, SM_Y, staffButton);
 
 	QTableWidgetItem *operationButton = new QTableWidgetItem(QTableWidgetItem::Type);

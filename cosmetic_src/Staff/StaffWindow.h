@@ -48,8 +48,6 @@ private:
 	void removeStaff();
 	void browseMyInfo();
 	void changeMyPassword();
-	void setLevels(list<Level>* levels);
-	void setJobs(list<Job>* jobs);
 	void staffConfig();
 	void showSmallIcon(bool flag);
 	void showTextLabel(bool flag);
@@ -68,6 +66,8 @@ private:
 
 private slots:
 	void dealAction(QAction*);
+	void setLevels(list<Level>* levels);
+	void setJobs(list<Job>* jobs);;
 	void addStaff(Staff* staff, QByteArray& image);
 	void modifyStaff(Staff* staff, QByteArray& image);
 	void staffActivated(int row, int column, QVariant & data);

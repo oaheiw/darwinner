@@ -14,7 +14,11 @@ static const char* exitString = "退出";
 static const char* zeroSelectionWarning = "您还没有选择选择任何列表项。";
 
 //common strings
+static const char* cosmeticNameStr = "Cosmetic（科思美）美容美发业运营系统";
 static const char* emptyStr = "";
+static const char* staffEntraceStr = "员工入口";
+static const char* passwordStr = "密码";
+static const char* LoginStr = "登录";
 static const char* idStr = "编号";
 static const char* okStr = "确定";
 static const char* cancleStr = "取消";

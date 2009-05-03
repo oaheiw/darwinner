@@ -34,6 +34,7 @@ public:
 		return (y.m_description == x.m_description && 
 			y.m_id == x.m_id && 
 			y.m_name == x.m_name &&
+			y.m_baseSalary == y.m_baseSalary &&
 			y.m_profit == x.m_profit);
 	}
 

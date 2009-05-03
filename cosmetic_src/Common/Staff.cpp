@@ -21,7 +21,7 @@ Staff::Staff(){
 	m_phone.clear();
 	m_status = 0;
 	m_baseSalary = 0;
-	m_rating = 0;
+	m_rating = 60;
 }
 
 Staff::~Staff(){

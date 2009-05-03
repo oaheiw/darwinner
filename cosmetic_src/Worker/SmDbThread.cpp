@@ -366,7 +366,7 @@ bool SmDbThread::addJobType(Job* job)
 	q.exec(qstring);
 	if (q.next()) 
 	{
-		QString update = QString(UPDATA_JOB).arg(job->name().c_str()).arg(job->profit()).arg(job->description().c_str()).arg(job->id());
+		QString update = QString(UPDATA_JOB).arg(job->name().c_str()).arg(job->profit()).arg(job->baseSalary()).arg(job->description().c_str()).arg(job->id());
 		r = q.exec(update);
 	}
 	else
@@ -394,7 +394,7 @@ bool SmDbThread::addLevelType(Level* level)
 	q.exec(qstring);
 	if (q.next()) 
 	{
-		QString update = QString(UPDATA_LEVEL).arg(level->name().c_str()).arg(level->profit()).arg(level->description().c_str()).arg(level->id());
+		QString update = QString(UPDATA_LEVEL).arg(level->name().c_str()).arg(level->profit()).arg(level->baseSalary()).arg(level->description().c_str()).arg(level->id());
 		r = q.exec(update);
 	}
 	else

@@ -77,6 +77,7 @@ void JobTypeWidget::remove()
 	int row = ui.jobTableView->currentIndex().row();
 	m_DataModel->removeRow(row);
 }
+
 void JobTypeWidget::submit()
 {
 	emit submitted(getJobList());
@@ -121,3 +122,4 @@ void JobTypeWidget::pushjobs(list<Job>* jobs)
 		m_DataModel->setData(m_DataModel->index(row, 4), LOCAL8BITSTR(it->description().c_str()));
 	}
 }
+
