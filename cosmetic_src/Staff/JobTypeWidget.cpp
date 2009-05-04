@@ -2,6 +2,8 @@
 #include "JobTypeWidget.h"
 #include <QAbstractItemModel>
 #include "SpinBoxDelegate.h"
+#include "UiStrings.h"
+using namespace UiStr;
 
 JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	: QWidget(parent)

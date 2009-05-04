@@ -2,6 +2,8 @@
 #include "common.h"
 #include "BusinessType.h"
 #include <list>
+#include "UiStrings.h"
+using namespace UiStr;
 using namespace std;
 
 BusinessTypeEditor::BusinessTypeEditor(QWidget *parent)

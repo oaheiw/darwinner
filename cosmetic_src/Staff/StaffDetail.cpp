@@ -12,6 +12,8 @@
 #include <QFileDialog>
 #include <QFile>
 #include "MessageBox.h"
+#include "UiStrings.h"
+using namespace UiStr;
 
 StaffDetail::StaffDetail(QWidget *parent, int mode)
 	: QWidget(parent)
@@ -22,7 +24,7 @@ StaffDetail::StaffDetail(QWidget *parent, int mode)
 	font = QFont("SimSun", 9);
 	SettingFont(font);
 	changeMode(m_mode);
-	connect(pushButtonModify, SIGNAL(clicked()), this, SLOT(modify()));
+//	connect(pushButtonModify, SIGNAL(clicked()), this, SLOT(modify()));
 	connect(pushButtonPix, SIGNAL(clicked()), this, SLOT(selectPic()));
 	connect(pushButtonSubmmit, SIGNAL(clicked()), this, SLOT(submit()));
 }

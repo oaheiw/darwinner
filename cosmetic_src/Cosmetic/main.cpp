@@ -6,8 +6,6 @@
 #include "Singleton.h"
 
 #include "WorkerFactory.h"
-#include "Staff.h"
-#include <string>
 #include <QCleanlooksStyle>
 
 //Logic Hanlders

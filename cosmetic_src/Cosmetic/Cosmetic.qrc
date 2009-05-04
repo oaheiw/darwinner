@@ -36,6 +36,11 @@
         <file>Resources/2downarrow.png</file>
         <file>Resources/1uparrow.png</file>
         <file alias="logoff" >Resources/interact.png</file>
+        <file>Resources/find.png</file>
+        <file>Resources/edit.png</file>
+        <file>Resources/settings.png</file>
+        <file>Resources/green.png</file>
+        <file>Resources/system-config-lvm.png</file>
     </qresource>
     <qresource prefix="/staff" >
         <file>Resources/staff.png</file>

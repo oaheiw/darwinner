@@ -12,12 +12,18 @@
 #include "PasswordWidget.h"
 #include "staffconfiguration.h"
 #include "SearchBox.h"
+#include "UiStrings.h"
+#include "common.h"
+#include <map>
+#include <string>
+using namespace UiStr;
+
+
 
 StaffWindow::StaffWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-
 	ui.itemView->installEventFilter(this);
 	ui.menuBar->installEventFilter(this);
 	ui.mainToolBar->installEventFilter(this);
@@ -81,7 +87,7 @@ void StaffWindow::OnEvent(Message & Msg){
 	switch(Msg.type()) {
 		case EVENT_STAFFMGNT:
 		{
-			if(isHidden())
+			if(!isVisible())
 				show();
 			else
 				setFocus();
@@ -387,7 +393,7 @@ void StaffWindow::addStaff(list<Staff>* staff)
 		int col = 0;
 		ui.itemView->addData(row, col++, it->ID());
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->Name().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(StaffSex[it->Sex()]));
+		ui.itemView->addData(row, col++, LOCAL8BITSTR(sexStr[it->Sex()]));
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffType[it->Type()].name().c_str()));
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffLevel[it->Level()].name().c_str()));
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffState[it->status()].name().c_str()));

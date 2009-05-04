@@ -43,6 +43,10 @@ public:
 	string& specification();
 	uint32 stocks();
 	uint32 type();
+	short getAdjustable();
+	void setAdjustable(short newVal);
+	short getRating();
+	void setRating(short newVal);
 
 private:
 	string m_brand;
@@ -57,6 +61,8 @@ private:
 	string m_specification;
 	uint32 m_stocks;
 	uint32 m_type;
+	short m_adjustable;
+	short m_rating;
 
 };
 #endif // !defined(EA_F40DCE33_D8D3_43b0_ABAF_0743D8FE2008__INCLUDED_)

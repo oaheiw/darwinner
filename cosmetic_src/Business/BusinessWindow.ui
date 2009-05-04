@@ -1,27 +1,358 @@
-<UI version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>BusinessWindowClass</class>
- <widget class="QMainWindow" name="BusinessWindowClass" >
-  <property name="objectName" >
-   <string notr="true">BusinessWindowClass</string>
+ <widget class="QMainWindow" name="BusinessWindowClass">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
   </property>
-  <property name="geometry" >
+  <property name="geometry">
    <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>400</width>
-	<height>300</height>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>BusinessWindow</string>
+  <property name="windowTitle">
+   <string>业务管理</string>
   </property>
-  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />  
+  <property name="windowIcon">
+   <iconset resource="../Cosmetic/Cosmetic.qrc">
+    <normaloff>:/common/business</normaloff>:/common/business</iconset>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="100,1">
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>4</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
+     <number>4</number>
+    </property>
+    <item>
+     <widget class="BusinessItemView" name="itemView" native="true"/>
+    </item>
+    <item>
+     <widget class="SideBar" name="sideBar" native="true"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>文件(&amp;F)</string>
+    </property>
+    <addaction name="actionMenu"/>
+    <addaction name="actionLock"/>
+    <addaction name="actionLogOff"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuSetting">
+    <property name="title">
+     <string>操作(&amp;O)</string>
+    </property>
+    <addaction name="actionQuery"/>
+    <addaction name="actionAdd"/>
+    <addaction name="actionEdit"/>
+    <addaction name="actionRemove"/>
+    <addaction name="actionTypeSetting"/>
+   </widget>
+   <widget class="QMenu" name="menuDisplay">
+    <property name="title">
+     <string>显示(&amp;D)</string>
+    </property>
+    <addaction name="actionToolBar"/>
+    <addaction name="actionSmallIcon"/>
+    <addaction name="actionTextLabel"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>关于(&amp;A)</string>
+    </property>
+    <addaction name="actionAboutCosmetic"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuSetting"/>
+   <addaction name="menuDisplay"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionMenu"/>
+   <addaction name="actionLock"/>
+   <addaction name="separator"/>
+   <addaction name="actionQuery"/>
+   <addaction name="actionAdd"/>
+   <addaction name="actionEdit"/>
+   <addaction name="actionRemove"/>
+   <addaction name="actionTypeSetting"/>
+  </widget>
+  <action name="actionMenu">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/Downloads.png</normaloff>:/common/Resources/Downloads.png</iconset>
+   </property>
+   <property name="text">
+    <string>主菜单</string>
+   </property>
+   <property name="toolTip">
+    <string>打开主菜单</string>
+   </property>
+   <property name="statusTip">
+    <string>打开主菜单</string>
+   </property>
+  </action>
+  <action name="actionLogOff">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/gnome-logout.png</normaloff>:/common/Resources/gnome-logout.png</iconset>
+   </property>
+   <property name="text">
+    <string>注销</string>
+   </property>
+   <property name="toolTip">
+    <string>注销当前登录用户</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/quit.png</normaloff>:/common/Resources/quit.png</iconset>
+   </property>
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="toolTip">
+    <string>退出科思美系统</string>
+   </property>
+   <property name="statusTip">
+    <string>退出科思美系统</string>
+   </property>
+  </action>
+  <action name="actionLock">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/gpgsm.png</normaloff>:/common/Resources/gpgsm.png</iconset>
+   </property>
+   <property name="text">
+    <string>锁定</string>
+   </property>
+   <property name="toolTip">
+    <string>使用当前登录用户锁定系统</string>
+   </property>
+   <property name="statusTip">
+    <string>使用当前登录用户锁定系统</string>
+   </property>
+  </action>
+  <action name="actionAdd">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/edit_add.png</normaloff>:/common/Resources/edit_add.png</iconset>
+   </property>
+   <property name="text">
+    <string>添加业务</string>
+   </property>
+   <property name="toolTip">
+    <string>添加新业务</string>
+   </property>
+   <property name="statusTip">
+    <string>添加新业务</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/edit.png</normaloff>:/common/Resources/edit.png</iconset>
+   </property>
+   <property name="text">
+    <string>编辑业务</string>
+   </property>
+   <property name="toolTip">
+    <string>编辑列表中选定业务</string>
+   </property>
+   <property name="statusTip">
+    <string>编辑列表中选定业务</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/edit_remove.png</normaloff>:/common/Resources/edit_remove.png</iconset>
+   </property>
+   <property name="text">
+    <string>删除业务</string>
+   </property>
+   <property name="toolTip">
+    <string>删除列表中选定业务</string>
+   </property>
+   <property name="statusTip">
+    <string>删除列表中选定业务</string>
+   </property>
+  </action>
+  <action name="actionQuery">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/system-config-lvm.png</normaloff>:/common/Resources/system-config-lvm.png</iconset>
+   </property>
+   <property name="text">
+    <string>业务记录</string>
+   </property>
+   <property name="toolTip">
+    <string>查询选定业务的运营记录</string>
+   </property>
+   <property name="statusTip">
+    <string>查询选定业务的运营记录</string>
+   </property>
+  </action>
+  <action name="actionSmallIcon">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>小图标</string>
+   </property>
+   <property name="toolTip">
+    <string>工具栏显示小图标</string>
+   </property>
+   <property name="statusTip">
+    <string>工具栏显示小图标</string>
+   </property>
+  </action>
+  <action name="actionTextLabel">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>文字标签</string>
+   </property>
+   <property name="toolTip">
+    <string>工具栏显示文字标签</string>
+   </property>
+   <property name="statusTip">
+    <string>工具栏显示文字标签</string>
+   </property>
+  </action>
+  <action name="actionToolBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>工具栏</string>
+   </property>
+   <property name="toolTip">
+    <string>显示/隐藏工具栏</string>
+   </property>
+   <property name="statusTip">
+    <string>显示/隐藏工具栏</string>
+   </property>
+  </action>
+  <action name="actionTypeSetting">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/settings.png</normaloff>:/common/Resources/settings.png</iconset>
+   </property>
+   <property name="text">
+    <string>业务种类设置</string>
+   </property>
+   <property name="toolTip">
+    <string>修改业务种类的相关信息</string>
+   </property>
+   <property name="statusTip">
+    <string>修改业务种类的相关信息</string>
+   </property>
+  </action>
+  <action name="actionAboutCosmetic">
+   <property name="icon">
+    <iconset resource="../Cosmetic/Cosmetic.qrc">
+     <normaloff>:/common/Resources/cosmetic.png</normaloff>:/common/Resources/cosmetic.png</iconset>
+   </property>
+   <property name="text">
+    <string>关于科思美</string>
+   </property>
+   <property name="toolTip">
+    <string>关于科思美系统</string>
+   </property>
+   <property name="statusTip">
+    <string>关于科思美系统</string>
+   </property>
+  </action>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
- <resources/>
- <connections/>
-</UI>
+ <customwidgets>
+  <customwidget>
+   <class>SideBar</class>
+   <extends>QWidget</extends>
+   <header>SideBar.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BusinessItemView</class>
+   <extends>QWidget</extends>
+   <header>BusinessItemView.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../Cosmetic/Cosmetic.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>menubar</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>BusinessWindowClass</receiver>
+   <slot>dealAction(QAction*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>161</x>
+     <y>13</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-21</x>
+     <y>252</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>dealAction(QAction*)</slot>
+ </slots>
+</ui>

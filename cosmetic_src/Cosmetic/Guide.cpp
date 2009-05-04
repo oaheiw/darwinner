@@ -1,5 +1,4 @@
  #include <QtGui>
-
 #include "Guide.h"
 #include "Message.h"
 #include "messagedef.h"
@@ -10,6 +9,8 @@
 #include "LevelWidget.h"
 #include <list>
 #include "ProgressWidget.h"
+#include "UiStrings.h"
+using namespace UiStr;
 using namespace std;
 
  Guide::Guide(QWidget *parent)

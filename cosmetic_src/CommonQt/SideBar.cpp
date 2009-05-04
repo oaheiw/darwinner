@@ -1,5 +1,6 @@
-#include "common.h"
 #include "SideBar.h"
+#include "UiStrings.h"
+using namespace UiStr;
 
 SideBar::SideBar(QWidget *parent)
 	: QWidget(parent)

@@ -110,4 +110,3 @@ void ItemEditor::setTitle(QString& title)
 {
 	ui.groupBox->setTitle(title);
 }
-

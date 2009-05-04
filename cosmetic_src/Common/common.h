@@ -15,7 +15,6 @@ typedef unsigned char byte;
 #define NULL 0
 #endif
 
-#define CHINESE_VERSION
 #define _CONSOLE_DEBUG
 
 #ifdef _CONSOLE_DEBUG
@@ -28,6 +27,8 @@ typedef unsigned char byte;
 #else
 #define DBINFO(info, para) {}
 #endif
+
+#define TOBE_REALIZIED MessageBox::showMessageBox(this, QMessageBox::Information, "实现中",  "该功能正在实现中……")
 
 #define ASSERT_DEBUG
 #ifdef ASSERT_DEBUG
@@ -55,6 +56,22 @@ typedef unsigned char byte;
 #define DBCONNECTION_COMMON "COMMONDB"
 #define DBCONNECTION_SM "SMDB"
 #define DBCONNECTION_BM "BMDB"
+
+enum SEX {
+	SEX_UNDEFINE = 0,
+    SEX_MALE,
+    SEX_FEMALE,
+    SEX_END
+};
+
+enum BusinessCategory
+{
+	BusinessCost = 0,
+	BusinessService = 1,
+	BusinessSale = 2,
+	BusinessCategoryEnd
+};
+
 
 //GROUP should be less than 127
 enum GROUP {
@@ -94,11 +111,5 @@ enum ERROR {
 };
 
 static char* lastDir = "./";
-
-#ifdef CHINESE_VERSION
-#include "ChineseStrings.h"
-#else
-#include "EnglishStrings.h"
-#endif
 
 #endif

@@ -1,5 +1,7 @@
 #include "StaffListView.h"
 #include <QSortFilterProxyModel>
+#include "UiStrings.h"
+using namespace UiStr;
 
 StaffListView::StaffListView(QWidget *parent)
 : ItemView(parent)

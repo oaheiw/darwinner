@@ -1,6 +1,7 @@
 #include "MessageBox.h"
 #include <QAbstractButton>
-#include "common.h"
+#include "UiStrings.h"
+using namespace UiStr;
 
 MessageBox::MessageBox(QWidget *parent)
 	: QMessageBox(parent)

@@ -21,6 +21,7 @@ Business::Business(){
 	m_specification.clear();
 	m_stocks = 0;
 	m_type = 0;
+	m_rating = 60;
 }
 
 
@@ -162,4 +163,28 @@ uint32 Business::stocks(){
 uint32 Business::type(){
 
 	return  m_type;
+}
+
+
+
+short Business::getAdjustable(){
+
+	return m_adjustable;
+}
+
+
+void Business::setAdjustable(short newVal){
+
+	m_adjustable = newVal;
+}
+
+short Business::getRating(){
+
+	return m_rating;
+}
+
+
+void Business::setRating(short newVal){
+
+	m_rating = newVal;
 }

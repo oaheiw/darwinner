@@ -20,6 +20,7 @@ public:
 private:
 	DUIObserver* m_mainWindow;
 	list<Business> m_businessCache;
+	void checkRights(Message* action);
 };
 
 #endif // BMHANDLER_H

@@ -2,7 +2,7 @@
 #include "Message.h"
 #include "messagedef.h"
 #include "IActionHandler.h"
-#include "BusinessManagementUI.h"
+#include "BusinessWindow.h"
 #include "Singleton.h"
 #include <algorithm>
 
@@ -29,15 +29,17 @@ void BMHandler::StartAction(Message& act){
 
 void BMHandler::OnEvent(Message &ev)
 {
+	if(GROUP_BUSINESSMGNT != ev.group()) return;
 	if(ev.isEvent()) {
 		switch(ev.type())
 		{
 			case EVENT_BUSINESSMGNT:
 			{
 				if(NULL == m_mainWindow) {
-					m_mainWindow = Singleton<BusinessManagementUI>::instance();
+					m_mainWindow = Singleton<BusinessWindow>::instance();
 					m_mainWindow->SetHandler(this);
 					SetObserver(m_mainWindow);
+					DBINFO("start bm.", "");
 				}
 				break;
 			}
@@ -46,3 +48,9 @@ void BMHandler::OnEvent(Message &ev)
 	}
 }
 
+
+
+
+void BMHandler::checkRights(Message* action){
+
+}

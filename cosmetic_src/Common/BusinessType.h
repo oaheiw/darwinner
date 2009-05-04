@@ -14,13 +14,6 @@ using namespace std;
 
 class BusinessType
 {
-	enum BusinessCategory
-	{
-		BusinessCost = 0,
-		BusinessService = 1,
-		BusinessSale = 2
-	};
-
 public:
 	BusinessType();
 	virtual ~BusinessType();

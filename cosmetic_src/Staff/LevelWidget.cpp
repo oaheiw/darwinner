@@ -1,6 +1,8 @@
 #include "LevelWidget.h"
 #include <QFont>
 #include "SpinBoxDelegate.h"
+#include "UiStrings.h"
+using namespace UiStr;
 
 LevelWidget::LevelWidget(QWidget *parent, int mode)
 	: QWidget(parent)
