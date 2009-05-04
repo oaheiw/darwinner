@@ -9,6 +9,7 @@
 #include <list>
 #include <map>
 class SearchBox;
+class BusinessDetailWidget;
 class QByteArray;
 class QEvent;
 using namespace std;
@@ -43,6 +44,7 @@ private:
 	void showToolBar(bool flag);
 
 	SearchBox*  m_searchBox;
+	BusinessDetailWidget* m_detailWidget;
 	map<uint32, BusinessType> m_businessTypeCache;
 	bool m_started;
 

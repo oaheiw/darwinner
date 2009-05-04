@@ -90,7 +90,7 @@ void StaffWindow::OnEvent(Message & Msg){
 			if(!isVisible())
 				show();
 			else
-				setFocus();
+				activateWindow();
 			break;
 		}
 		case EVENT_LOGGEDOFF:

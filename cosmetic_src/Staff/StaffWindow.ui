@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>员工管理</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../Cosmetic/Cosmetic.qrc">
+    <normaloff>:/staff/Resources/people.png</normaloff>:/staff/Resources/people.png</iconset>
+  </property>
   <property name="iconSize">
    <size>
     <width>32</width>

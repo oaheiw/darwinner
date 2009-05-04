@@ -7,6 +7,7 @@
 #include "Message.h"
 #include "messagedef.h"
 #include "SearchBox.h"
+#include "BusinessDetailWidget.h"
 #include "UiStrings.h"
 #include "MessageBox.h"
 
@@ -34,7 +35,9 @@ BusinessWindow::BusinessWindow(QWidget *parent)
 	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmSalesStr));
 	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmStocksStr));
 	
-	ui.sideBar->addWidget(m_searchBox, 0, 0);
+	m_detailWidget = new BusinessDetailWidget(this);
+	ui.sideBar->addWidget(m_detailWidget, 0, 0);
+	ui.sideBar->addWidget(m_searchBox, 1, 0);
 	
 	connect(m_searchBox, SIGNAL(regExpChanged(QRegExp &)), ui.itemView, SLOT(changeRegExp(QRegExp &)));
 	connect(m_searchBox, SIGNAL(columnChanged(int)), ui.itemView, SLOT(changeFilterColumn(int)));
@@ -126,7 +129,7 @@ void BusinessWindow::OnEvent(Message& Msg){
 			if(!isVisible())
 				show();
 			else
-				setFocus();
+				activateWindow();
 			break;
 		}
 		case EVENT_LOGGEDOFF:
