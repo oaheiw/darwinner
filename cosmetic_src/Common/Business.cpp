@@ -188,3 +188,15 @@ void Business::setRating(short newVal){
 
 	m_rating = newVal;
 }
+
+
+bool Business::isDualDiscoutn(){
+
+	return m_dualDiscoutn;
+}
+
+
+void Business::setDualDiscoutn(bool newVal){
+
+	m_dualDiscoutn = newVal;
+}

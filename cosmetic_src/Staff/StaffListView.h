@@ -3,8 +3,7 @@
 
 #include "ItemView.h"
 class QSortFilterProxyModel;
-#include "Staff.h"
-#include <list>
+class Staff;
 using namespace std;
 
 class StaffListView : public ItemView
@@ -14,7 +13,7 @@ class StaffListView : public ItemView
 public:
 	StaffListView(QWidget *parent);
 	~StaffListView();
-	void addStaffs(list<Staff> data);
+	void addStaff(Staff& data);
 
 private:
 	

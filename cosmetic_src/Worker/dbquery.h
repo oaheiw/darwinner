@@ -59,11 +59,11 @@
 #define INSERTINTO_BUSINESSTYPE_TABLE "INSERT INTO businessType (name, cate, description) " "VALUES (:name, :cate, :description)"
 #define SELECT_BUSINESSTYPE_ALL "SELECT * FROM businessType"
 
-#define CREATE_BUSINESS_TABLE "CREATE TABLE business (id INTEGER PRIMARY KEY, name TEXT, typeId INTEGER REFERENCES businessType(id), brand TEXT NOT NULL, specification TEXT NOT NULL, price INTEGER DEFAULT 0, cost INTEGER DEFAULT 0, discount SMALLINT DEFAULT 100, stocks INTEGER DEFAULT 0, sales INTEGER DEFAULT 0, buys INTEGER DEFAULT 0, description TEXT)"
-#define INSERTINTO_BUSINESS "INSERT INTO business (name, typeId, brand, specification, price, cost, discount, stocks, sales, buys, description) " "VALUES (:name, :typeId, :brand, :specification, :price, :cost, :discount, :stocks, :sales, :buys, :description)"
+#define CREATE_BUSINESS_TABLE "CREATE TABLE business (id INTEGER PRIMARY KEY, name TEXT, typeId INTEGER REFERENCES businessType(id), brand TEXT NOT NULL, specification TEXT NOT NULL, price INTEGER DEFAULT 0, cost INTEGER DEFAULT 0, discount SMALLINT DEFAULT 100, ,adjustable SMALLINT DEFAULT 0, dualDiscount SMALLINT DEFAULT 0, stocks INTEGER DEFAULT 0, sales INTEGER DEFAULT 0, buys INTEGER DEFAULT 0, description TEXT)"
+#define INSERTINTO_BUSINESS "INSERT INTO business (name, typeId, brand, specification, price, cost, discount, adjustable, dualDiscount, stocks, sales, buys, description) " "VALUES (:name, :typeId, :brand, :specification, :price, :cost, :discount, :adjustable, :dualDiscount, stocks, :sales, :buys, :description)"
 #define SELECT_BUSINESS_ALL "SELECT * FROM business"
 #define SELECT_BUSINESS_BYTYPE "SELECT * FROM business WHERE typeId = %1"
-#define UPDATA_BUSINESS_BYID "UPDATE business SET name = '%1', typeId = %2, brand = '%3', specification = '%4', price = %5, costs = %6, discounts = %7, stocks = %8, sales = %9, buys = %10, description = '%11' WHERE id = %12"
+#define UPDATA_BUSINESS_BYID "UPDATE business SET name = '%1', typeId = %2, brand = '%3', specification = '%4', price = %5, costs = %6, discounts = %7, stocks = %8, sales = %9, buys = %10, description = '%11', adjustable = %12, dualDiscount = %13 WHERE id = %12"
 #define DELETE_BUSINESS_BYID "DELETE FROM business WHERE id = %1"
 #define CHECK_BUSINESS_BYID "SELECT id FROM business WHERE id = %1"
 

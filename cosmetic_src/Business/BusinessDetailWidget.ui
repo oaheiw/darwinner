@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>495</width>
-    <height>519</height>
+    <width>250</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,43 +25,88 @@
      <property name="title">
       <string>业务明细</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0,0,0,0,0,1,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
-       <number>4</number>
+       <number>3</number>
       </property>
       <property name="leftMargin">
        <number>6</number>
       </property>
       <property name="topMargin">
-       <number>4</number>
+       <number>5</number>
       </property>
       <property name="rightMargin">
        <number>6</number>
       </property>
       <property name="bottomMargin">
-       <number>4</number>
+       <number>5</number>
       </property>
       <item>
-       <widget class="QLabel" name="imageLabel">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,0,1">
+        <property name="spacing">
+         <number>0</number>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Sunken</enum>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../Cosmetic/Cosmetic.qrc">:/common/business</pixmap>
-        </property>
-        <property name="scaledContents">
-         <bool>true</bool>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="imageLabel">
+          <property name="minimumSize">
+           <size>
+            <width>228</width>
+            <height>171</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>228</width>
+            <height>171</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../Cosmetic/Cosmetic.qrc">:/common/business</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,10,0,10">
@@ -88,226 +133,6 @@
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="typeLabel">
-          <property name="text">
-           <string>种类</string>
-          </property>
-          <property name="buddy">
-           <cstring>typeComboBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="typeComboBox"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,10,0,10">
-        <property name="spacing">
-         <number>4</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="nameLabel">
-          <property name="text">
-           <string>名称</string>
-          </property>
-          <property name="buddy">
-           <cstring>nameLineEdit</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="nameLineEdit">
-          <property name="frame">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="brandLabel">
-          <property name="text">
-           <string>品牌</string>
-          </property>
-          <property name="buddy">
-           <cstring>brandLineEdit</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="brandLineEdit">
-          <property name="frame">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,10,0,10">
-        <property name="spacing">
-         <number>4</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="priceLabel">
-          <property name="text">
-           <string>价格</string>
-          </property>
-          <property name="buddy">
-           <cstring>priceSpinBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="priceSpinBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="prefix">
-           <string>￥</string>
-          </property>
-          <property name="maximum">
-           <number>1000000000</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="specLabel">
-          <property name="text">
-           <string>规格</string>
-          </property>
-          <property name="buddy">
-           <cstring>specLineEdit</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="specLineEdit">
-          <property name="frame">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,10,0">
-        <property name="spacing">
-         <number>4</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="discountLabel">
-          <property name="text">
-           <string>折扣</string>
-          </property>
-          <property name="buddy">
-           <cstring>discountSpinBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="discountSpinBox">
-          <property name="suffix">
-           <string>%</string>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="maximum">
-           <number>100</number>
-          </property>
-          <property name="value">
-           <number>100</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="adjustableCheckBox">
-          <property name="toolTip">
-           <string>选择是否允许收银时，由收银员手工输入商品价格和折扣。</string>
-          </property>
-          <property name="statusTip">
-           <string>选择是否允许收银时，由收银员手工输入商品价格和折扣。</string>
-          </property>
-          <property name="text">
-           <string>允许手动价格/折扣调整</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,10">
-        <property name="spacing">
-         <number>4</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="ratingLabel">
-          <property name="text">
-           <string>满意度</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QProgressBar" name="progressBar">
-          <property name="value">
-           <number>24</number>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="format">
-           <string>%p</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,10,0,10">
-        <property name="spacing">
-         <number>4</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="costLabel">
-          <property name="text">
-           <string>成本</string>
-          </property>
-          <property name="buddy">
-           <cstring>costSpinBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="costSpinBox">
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="prefix">
-           <string>￥</string>
           </property>
          </widget>
         </item>
@@ -367,7 +192,7 @@
         <item>
          <widget class="QLabel" name="stocksLabel">
           <property name="text">
-           <string>存量</string>
+           <string>库存</string>
           </property>
          </widget>
         </item>
@@ -402,6 +227,294 @@
        </layout>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,10">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="ratingLabel">
+          <property name="text">
+           <string>满意度</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progressBar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="value">
+           <number>24</number>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="format">
+           <string>%p</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,10,0,10">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="nameLabel">
+          <property name="text">
+           <string>名称</string>
+          </property>
+          <property name="buddy">
+           <cstring>nameLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="nameLineEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="frame">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="typeLabel">
+          <property name="text">
+           <string>种类</string>
+          </property>
+          <property name="buddy">
+           <cstring>typeComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="typeComboBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,10,0,10">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="brandLabel">
+          <property name="text">
+           <string>品牌</string>
+          </property>
+          <property name="buddy">
+           <cstring>brandLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="brandLineEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="frame">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="specLabel">
+          <property name="text">
+           <string>规格</string>
+          </property>
+          <property name="buddy">
+           <cstring>specLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="specLineEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="frame">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,10,0,10">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="priceLabel">
+          <property name="text">
+           <string>价格</string>
+          </property>
+          <property name="buddy">
+           <cstring>priceSpinBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="priceSpinBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="prefix">
+           <string>￥</string>
+          </property>
+          <property name="maximum">
+           <number>1000000000</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="costLabel">
+          <property name="text">
+           <string>成本</string>
+          </property>
+          <property name="buddy">
+           <cstring>costSpinBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="costSpinBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="prefix">
+           <string>￥</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,10,0,0">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="discountLabel">
+          <property name="text">
+           <string>折扣</string>
+          </property>
+          <property name="buddy">
+           <cstring>discountSpinBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="discountSpinBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="suffix">
+           <string>%</string>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="value">
+           <number>100</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="adjustableCheckBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>收银时，允许收银员手工输入商品价格和折扣</string>
+          </property>
+          <property name="statusTip">
+           <string>收银时，允许收银员手工输入商品价格和折扣</string>
+          </property>
+          <property name="text">
+           <string>手动调整</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="dualDiscountCheckBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>当该业务处于折扣状态，结帐时是否累积其它折扣（如会员消费折扣）</string>
+          </property>
+          <property name="statusTip">
+           <string>当该业务处于折扣状态，结帐时是否累积其它折扣（如会员消费折扣）</string>
+          </property>
+          <property name="text">
+           <string>重复折扣</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
         <property name="spacing">
          <number>4</number>
@@ -421,7 +534,7 @@
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>50</height>
+            <height>22</height>
            </size>
           </property>
           <property name="tabChangesFocus">
@@ -445,55 +558,45 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="10,2,2">
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="picButton">
-          <property name="minimumSize">
-           <size>
-            <width>80</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>更换图片</string>
-          </property>
-         </widget>
-        </item>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <property name="spacing">
+         <number>2</number>
+        </property>
         <item>
          <widget class="QPushButton" name="submitButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>80</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>50</height>
+            <height>0</height>
            </size>
           </property>
           <property name="text">
            <string>提交</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="picButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>更换图片</string>
           </property>
          </widget>
         </item>
@@ -506,6 +609,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
+  <include location="../Cosmetic/Cosmetic.qrc"/>
   <include location="../Cosmetic/Cosmetic.qrc"/>
   <include location="../Cosmetic/Cosmetic.qrc"/>
  </resources>

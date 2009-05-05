@@ -73,5 +73,4 @@ private slots:
 	void staffActivated(int row, int column, QVariant & data);
 	void changePasswrod(string oldpw, string newpw);
 };
-
 #endif // STAFFWINDOW_H

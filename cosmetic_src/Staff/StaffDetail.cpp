@@ -1,5 +1,6 @@
 #include "StaffDetail.h"
 #include <QFont>
+#include <string>
 #include "common.h"
 #include <QString>
 #include "Message.h"
@@ -11,6 +12,7 @@
 #include "Staff.h"
 #include <QFileDialog>
 #include <QFile>
+#include "AppParameter.h"
 #include "MessageBox.h"
 #include "UiStrings.h"
 using namespace UiStr;
@@ -320,8 +322,13 @@ void StaffDetail::setStatus(list<Status>* statusList)
  
 void StaffDetail::selectPic()
 {
-	 QString fileName = QFileDialog::getOpenFileName(this, LOCAL8BITSTR(choosePicStr), lastDir, LOCAL8BITSTR(imageFileStr));
+	QString lastDir = LOCAL8BITSTR(Singleton<AppParameter>::instance()->getLastDir().c_str());
+	QString fileName = QFileDialog::getOpenFileName(this, LOCAL8BITSTR(choosePicStr), 
+								lastDir, LOCAL8BITSTR(imageFileStr));
 	 if(!fileName.isEmpty()) {
+		 std::string last = std::string(fileName.toLocal8Bit().data());
+		 last = last.substr(0, last.find_last_of(DIR_SEPERATOR));
+		 Singleton<AppParameter>::instance()->setLastDir(last);
 		 QFile file(fileName);
 		 file.open(QIODevice::ReadOnly);
 		 if(file.size() > PIC_MAX_SIZE*MB) {

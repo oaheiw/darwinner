@@ -18,7 +18,9 @@
 #include <string>
 using namespace UiStr;
 
-
+map<uint32, string> g_LevelNames;
+map<uint32, string> g_TypeNames;
+map<uint32, string> g_StateNames;
 
 StaffWindow::StaffWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -189,34 +191,40 @@ void StaffWindow::OnEvent(Message & Msg){
 		case EVENT_JOBTYPE:
 		{	
 			m_staffType.clear();
+			g_TypeNames.clear();
 			list<Job>* jobs = static_cast<list<Job>*>(Msg.data());
 			staffDetailWidget->setJob(jobs);
 			if(NULL != config)
 				config->ui.pageJob->pushjobs(jobs);
 			for(list<Job>::iterator it = jobs->begin() ; it != jobs->end() ; it++) {
 				m_staffType[it->id()] = *it;
+				g_TypeNames[it->id()] = it->name();
 			}
 			break;
 		}
 		case EVENT_LEVELTYPE: 
 		{
 			m_staffLevel.clear();
+			g_LevelNames.clear();
 			list<Level>* levels = static_cast<list<Level>*>(Msg.data());
 			staffDetailWidget->setLevel(levels);
 			if(NULL != config)
 				config->ui.pageLevel->pushLevels(levels);
 			for(list<Level>::iterator it = levels->begin() ; it != levels->end() ; it++) {
 				m_staffLevel[it->id()] = *it;
+				g_LevelNames[it->id()] = it->name();
 			}
 			break;
 		}
 		case EVENT_STATUSTYPE: 
 		{
 			m_staffState.clear();
+			g_StateNames.clear();
 			list<Status>* status = static_cast<list<Status>*>(Msg.data());
 			staffDetailWidget->setStatus(status);
 			for(list<Status>::iterator it = status->begin() ; it != status->end() ; it++) {
 				m_staffState[it->id()] = *it;
+				g_StateNames[it->id()] = it->name();
 			}
 			break;
 		}
@@ -390,7 +398,8 @@ void StaffWindow::addStaff(list<Staff>* staff)
 	list<Staff>::iterator it = staff->begin();
 	int row = 0;
 	while(staff->end() != it) {
-		int col = 0;
+		ui.itemView->addStaff(*it);
+	/*	int col = 0;
 		ui.itemView->addData(row, col++, it->ID());
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->Name().c_str()));
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(sexStr[it->Sex()]));
@@ -402,7 +411,7 @@ void StaffWindow::addStaff(list<Staff>* staff)
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->phone().c_str()));
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->address().c_str()));
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->Descrp().c_str()));
-		row++;
+		row++;*/
 		it++;
 	}
 }

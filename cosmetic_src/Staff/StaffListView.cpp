@@ -1,7 +1,13 @@
 #include "StaffListView.h"
+//#include "StaffWindow.h"
 #include <QSortFilterProxyModel>
+#include "Staff.h"
 #include "UiStrings.h"
 using namespace UiStr;
+
+extern map<uint32, string> g_LevelNames;
+extern map<uint32, string> g_TypeNames;
+extern map<uint32, string> g_StateNames;
 
 StaffListView::StaffListView(QWidget *parent)
 : ItemView(parent)
@@ -42,8 +48,19 @@ StaffListView::~StaffListView()
 
 }
 
-void addStaffs(list<Staff> data)
+void StaffListView::addStaff(Staff& data)
 {	
-
+		int col = 0;
+		addData(0, col++, data.ID());
+		addData(0, col++, LOCAL8BITSTR(data.Name().c_str()));
+		addData(0, col++, LOCAL8BITSTR(sexStr[data.Sex()]));
+		addData(0, col++, LOCAL8BITSTR(g_TypeNames[data.Type()].c_str()));
+		addData(0, col++, LOCAL8BITSTR(g_LevelNames[data.Level()].c_str()));
+		addData(0, col++, LOCAL8BITSTR(g_StateNames[data.status()].c_str()));
+		addData(0, col++, data.getRating());
+		addData(0, col++, LOCAL8BITSTR(data.cell().c_str()));
+		addData(0, col++, LOCAL8BITSTR(data.phone().c_str()));
+		addData(0, col++, LOCAL8BITSTR(data.address().c_str()));
+		addData(0, col++, LOCAL8BITSTR(data.Descrp().c_str()));
 }
 

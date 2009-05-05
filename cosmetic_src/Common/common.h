@@ -43,19 +43,28 @@ typedef unsigned char byte;
 #define R_OK (4)
 #define RW_OK (6)
   
-#define MB (1024*1024)
-#define MESSAGE_BUFFER_SIZE (4096)
-#define ID_MAX_LEN (16)
-#define PW_MAX_LEN (16)
-#define NAME_MAX_LEN (32)
-#define PHONE_MAX_LEN (16)
-#define PIC_MAX_SIZE (1.5)
-#define ACTION_FLAG (0x80)
-#define EVENT_FLAG (0x00)
+static const uint32 MB = 1024*1024;
+static const uint32 ID_MAX_LEN = 16;
+static const uint32 PW_MAX_LEN = 16;
+static const uint32 NAME_MAX_LEN = 32;
+static const uint32 PHONE_MAX_LEN = 16;
+static const uint32 PIC_MAX_SIZE = 1.5;
+static const uint32 ACTION_FLAG = 0x00000080;
+static const uint32 EVENT_FLAG = 0x00000000;
 
-#define DBCONNECTION_COMMON "COMMONDB"
-#define DBCONNECTION_SM "SMDB"
-#define DBCONNECTION_BM "BMDB"
+static const char*  DBCONNECTION_COMMON = "COMMONDB";
+static const char*  DBCONNECTION_SM = "SMDB";
+static const char*  DBCONNECTION_BM = "BMDB";
+
+static const char* STYLE_WIN98 = "windows";
+static const char* STYLE_WINXP = "windowsxp";
+static const char* STYLE_WINVISTA = "windowsvista";
+static const char* STYLE_MOTIF = "motif";
+static const char* STYLE_CDE = "cde";
+static const char* STYLE_PLASTIQUE = "plastique";
+static const char* STYLE_CLEAN = "cleanlooks";
+
+static const char* DIR_SEPERATOR = "/";
 
 enum SEX {
 	SEX_UNDEFINE = 0,
@@ -110,6 +119,6 @@ enum ERROR {
 	ERROR_END
 };
 
-static char* lastDir = "./";
+#include "Singleton.h"
 
 #endif

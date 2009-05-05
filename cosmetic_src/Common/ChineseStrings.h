@@ -76,19 +76,20 @@ namespace UiStr {
 
 //business mgnt string
 	static const char* bmBrandStr = "品牌";
-	static const char* bmBuysStr = "总进货";
+	static const char* bmBuysStr = "进货";
 	static const char* bmCostStr = "成本";
-	static const char* bmDescriptionStr = "业务描述";
+	static const char* bmDescriptionStr = "描述";
 	static const char* bmDiscountStr = "折扣";
-	static const char* bmIdStr = "业务代码";
-	static const char* bmNameStr = "业务名";
+	static const char* bmIdStr = "代码";
+	static const char* bmNameStr = "名称";
 	static const char* bmRatingStr ="客户满意度";
 	static const char* bmPriceStr = "价格";
 	static const char* bmSalesStr = "总销售";
 	static const char* bmSpecificationStr = "规格";
 	static const char* bmStocksStr = "库存";
 	static const char* bmTypeStr = "业务种类";
-	static const char* bmAdjustableStr = "付款时价格可调整";
+	static const char* bmAdjustableStr = "手动调整";
+	static const char* bmDualDiscountStr = "重复折扣";
 	static const char* bmBusinessTypeCategoryStr = "业务性质";
 	static const char* bmBusinessTypeDescriptionStr = "种类描述";
 	static const char* bmBusinessTypeNameStr = "种类名称";
