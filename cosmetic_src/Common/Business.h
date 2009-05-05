@@ -19,15 +19,15 @@ public:
 	Business();
 	virtual ~Business();
 
-	string& brand();
-	uint32 buys();
-	uint32 cost();
-	string& description();
-	short discount();
-	uint32 id();
-	string& name();
-	uint32 price();
-	uint32 sales();
+	const string& brand() const;
+	uint32 buys() const;
+	uint32 cost() const;
+	const string& description() const;
+	short discount() const;
+	uint32 id() const;
+	const string& name() const;
+	uint32 price() const;
+	uint32 sales() const;
 	void setBrand(string brand);
 	void setBuys(uint32 buys);
 	void setCost(uint32 cost);
@@ -40,14 +40,14 @@ public:
 	void setSpecification(string specification);
 	void setStocks(uint32 stocks);
 	void setType(uint32 type);
-	string& specification();
-	uint32 stocks();
-	uint32 type();
-	short getAdjustable();
+	const string& specification()  const;
+	uint32 stocks()  const;
+	uint32 type() const;
+	short getAdjustable() const;
 	void setAdjustable(short newVal);
-	short getRating();
+	short getRating()  const;
 	void setRating(short newVal);
-	bool isDualDiscoutn();
+	bool isDualDiscoutn()  const;
 	void setDualDiscoutn(bool newVal);
 
 private:

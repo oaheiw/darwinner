@@ -18,16 +18,14 @@ public:
 	BusinessType();
 	virtual ~BusinessType();
 
-	short getCategory();
-	string& getDescription();
-	uint32 getId();
-	string& getName();
+	short getCategory() const;
+	const string& getDescription() const;
+	uint32 getId() const;
+	const string& getName() const;
 	void setCategory(short newVal);
 	void setDescription(string& newVal);
 	void setId(uint32 newVal);
 	void setName(string& newVal);
-	void setDescription(string newVal);
-	void setName(string newVal);
 
 private:
 	short m_category;

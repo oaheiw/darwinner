@@ -14,6 +14,8 @@ class QByteArray;
 class QEvent;
 using namespace std;
 
+typedef map<uint32, BusinessType> BusinessTypeArray;
+
 class BusinessWindow : public QMainWindow, public DUIObserver
 {
     Q_OBJECT
@@ -29,7 +31,7 @@ protected:
 	virtual bool eventFilter(QObject* obj, QEvent* ev);
 
 private:
-    Ui::BusinessWindowClass ui;
+	Ui::BusinessWindowClass ui;
 	void addBusiness2View(list<Business>* data);
 	void businessTypeSetting();
 	void getAllBusiness();
@@ -42,10 +44,11 @@ private:
 	void showSmallIcon(bool flag);
 	void showTextLabel(bool flag);
 	void showToolBar(bool flag);
+	void typeSetting();
 
 	SearchBox*  m_searchBox;
 	BusinessDetailWidget* m_detailWidget;
-	map<uint32, BusinessType> m_businessTypeCache;
+	BusinessTypeArray m_businessTypeCache;
 	bool m_started;
 
 private slots:

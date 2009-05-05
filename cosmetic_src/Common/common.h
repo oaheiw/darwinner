@@ -8,8 +8,13 @@
 #ifndef EA_9F454DB8_A969_4830_9B7B_1DCC06D3333D6__INCLUDED_
 #define EA_9F454DB8_A969_4830_9B7B_1DCC06D3333D6__INCLUDED_
 
+#include <string>
+#include <map>
+using namespace std;
+
 typedef unsigned int uint32;
 typedef unsigned char byte;
+typedef map<uint32, string> StringArray;
 
 #ifndef NULL
 #define NULL 0

@@ -5,25 +5,29 @@
 #include "ui_ItemView.h"
 class QAbstractItemModel;
 class QSortFilterProxyModel;
+class QAbstractItemDelegate;
 
 class ItemView : public QWidget
 {
 	Q_OBJECT
 
 public:
-	ItemView(/*int column, */QWidget *parent = 0);
+	ItemView(QWidget *parent = 0);
 	~ItemView();
-	void setProxy(QSortFilterProxyModel* proxy);
-	void setTitle(QString& title);
-	void addData(int row, int column, const QVariant& data);
-	void setHeaderData(int column, const QVariant& data);
+
 	void clearData();
-	void appendColumn(int column);
 	QVariant sibling(int row, int column);
 	QVariant currentIndex(int &row, int &column);
-	void setColumnWidth(int column, int width);
+
 
 protected:
+	void appendColumn(int column);
+	void addData(int row, int column, const QVariant& data);
+	void setHeaderData(int column, const QVariant& data);
+	void setProxy(QSortFilterProxyModel* proxy);
+	void setTitle(QString& title);
+	void setColumnWidth(int column, int width);
+	void setDelegate(int column, QAbstractItemDelegate* delegate);
 	Ui::ItemViewClass ui;
 
 private:

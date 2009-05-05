@@ -8,8 +8,11 @@
 #include "messagedef.h"
 #include "SearchBox.h"
 #include "BusinessDetailWidget.h"
+#include "BusinessTypeEditor.h"
 #include "UiStrings.h"
 #include "MessageBox.h"
+
+StringArray g_businessTypeNames;
 
 BusinessWindow::BusinessWindow(QWidget *parent)
 :QMainWindow(parent)
@@ -161,6 +164,8 @@ void BusinessWindow::addBusiness2View(list<Business>* data)
 	list<Business>::iterator it = data->begin();
 	int row = 0;
 	while(data->end() != it) {
+		ui.itemView->addBusiness(*it);
+		/*
 		int col = 0;
 		ui.itemView->addData(row, col++, it->id());
 		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_businessTypeCache[it->type()].getName().c_str()));
@@ -174,7 +179,7 @@ void BusinessWindow::addBusiness2View(list<Business>* data)
 		ui.itemView->addData(row, col++, it->buys());
 		ui.itemView->addData(row, col++, it->sales());
 		ui.itemView->addData(row, col++, it->stocks());
-		row++;
+		row++;*/
 		it++;
 	}
 }
@@ -193,7 +198,7 @@ void BusinessWindow::dealAction(QAction* action){
 	if(action == ui.actionAdd) { TOBE_REALIZIED; return; }
 	if(action == ui.actionEdit) { TOBE_REALIZIED; return; }
 	if(action == ui.actionQuery) { TOBE_REALIZIED; return; }
-	if(action == ui.actionTypeSetting) { TOBE_REALIZIED; return; }
+	if(action == ui.actionTypeSetting) { typeSetting(); return; }
 	if(action == ui.actionAboutCosmetic) { TOBE_REALIZIED; return; }
 	if(action == ui.actionLock) { TOBE_REALIZIED; return; }
 	if(action == ui.actionSmallIcon) { showSmallIcon(ui.actionSmallIcon->isChecked()); return; }
@@ -297,5 +302,17 @@ void BusinessWindow::showToolBar(bool flag)
 	} else {
 		ui.toolBar->close();
 	}
+}
+
+void BusinessWindow::typeSetting()
+{
+	BusinessTypeEditor* editor = new BusinessTypeEditor(this);
+	editor->setWindowModality(Qt::WindowModal);
+	editor->setWindowFlags(Qt::Tool);
+	connect(editor, SIGNAL(submitted(void* data)), this, SLOT(setBusinessType(list < BusinessType > *)));
+	editor->changeMode(ItemEditor::EditMode);
+	for(BusinessTypeArray::const_iterator it = m_businessTypeCache.begin() ; m_businessTypeCache.end() != it ; it++)
+		editor->addBusinessType(it->second);
+	editor->show();
 }
 

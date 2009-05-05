@@ -4,7 +4,7 @@
 #include <QModelIndex>
 #include "common.h"
 
-ItemView::ItemView(/*int column,*/QWidget *parent)
+ItemView::ItemView(QWidget *parent)
 :QWidget(parent)
 {
 	ui.setupUi(this);
@@ -63,9 +63,11 @@ void ItemView::changeSortCase(int caseSen)
 void ItemView::addData(int row, int column, const QVariant& data)
 {
 	if(column >= m_column) return;
-	if(row >= m_DataModel->rowCount())
-		m_DataModel->insertRow(row);
-	m_DataModel->setData(m_DataModel->index(row, column), data);
+	if(row >= m_DataModel->rowCount() || (0 == row && 0 == column)) {
+		m_DataModel->insertRow(m_DataModel->rowCount());
+	}
+	int rowConvert = (0==row) ?  m_DataModel->rowCount()-1 : row;
+	m_DataModel->setData(m_DataModel->index(rowConvert, column), data);
 }
 
 void ItemView::setHeaderData(int column, const QVariant& data)
@@ -101,3 +103,9 @@ void ItemView::setColumnWidth(int column, int width)
 {
 	ui.itemList->setColumnWidth(column, width);
 }
+
+void ItemView::setDelegate(int column, QAbstractItemDelegate * delegate)
+{
+	ui.itemList->setItemDelegateForColumn(column, delegate);
+}
+

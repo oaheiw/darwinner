@@ -9,12 +9,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>324</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ItemEditor</string>
+   <string>项目编辑</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
@@ -83,7 +83,13 @@
           <property name="minimumSize">
            <size>
             <width>60</width>
-            <height>0</height>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
            </size>
           </property>
           <property name="text">
@@ -100,7 +106,13 @@
           <property name="minimumSize">
            <size>
             <width>60</width>
-            <height>0</height>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
            </size>
           </property>
           <property name="text">
@@ -117,7 +129,13 @@
           <property name="minimumSize">
            <size>
             <width>60</width>
-            <height>0</height>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
            </size>
           </property>
           <property name="text">

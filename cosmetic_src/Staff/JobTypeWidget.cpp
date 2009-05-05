@@ -35,8 +35,15 @@ JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	ui.jobTableView->setColumnWidth(col++, 60);
 	m_DataModel->setHeaderData(col++, Qt::Horizontal, LOCAL8BITSTR(staffDescriptionStr));
 
-	SpinBoxDelegate *delegate = new SpinBoxDelegate(ui.jobTableView);
-	ui.jobTableView->setItemDelegateForColumn (2, delegate);
+	SpinBoxDelegate *delegateProfit = new SpinBoxDelegate(ui.jobTableView);
+	delegateProfit->setRange(0, 100);
+	delegateProfit->setSuffix(string("%"));
+	ui.jobTableView->setItemDelegateForColumn (2, delegateProfit);
+
+	SpinBoxDelegate *delegateSalary = new SpinBoxDelegate(ui.jobTableView);
+	delegateSalary->setRange(0, 9999999);
+	delegateSalary->setPrefix(string("гд"));
+	ui.jobTableView->setItemDelegateForColumn (3, delegateSalary);
 	
 	connect(ui.addPushButton, SIGNAL(clicked()), this, SLOT(add()));
 	connect(ui.removePushButton, SIGNAL(clicked()), this, SLOT(remove()));

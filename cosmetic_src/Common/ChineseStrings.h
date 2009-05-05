@@ -13,6 +13,7 @@ namespace UiStr {
 
     //common strings
     static const char* undefineStr = "未定义";
+	static const char* scoreStr = "分";
     static const char* femaleStr = "女";
     static const char* maleStr = "男";
     static const char* cosmeticNameStr = "Cosmetic（科思美）美容美发业运营系统";
@@ -91,13 +92,14 @@ namespace UiStr {
 	static const char* bmAdjustableStr = "手动调整";
 	static const char* bmDualDiscountStr = "重复折扣";
 	static const char* bmBusinessTypeCategoryStr = "业务性质";
-	static const char* bmBusinessTypeDescriptionStr = "种类描述";
+	static const char* bmBusinessTypeDescriptionStr = "描述";
 	static const char* bmBusinessTypeNameStr = "种类名称";
-	static const char* bmBusinessTypeIdStr = "种类代码";
+	static const char* bmBusinessTypeIdStr = "代码";
 	static const char* bmNonProfitableStr = "开销性业务";
 	static const char* bmProfitableServiceStr = "营利性服务";
 	static const char* bmProfitableSaleStr = "营利性商品";
 	static const char* bmBrowseStr = "业务浏览";
+	static const char* bmTypeEditorStr = "业务种类编辑";
 	static const char* BusinessCategoryStr[] = {bmNonProfitableStr, bmProfitableServiceStr, bmProfitableSaleStr};
 
 }

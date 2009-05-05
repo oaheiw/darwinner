@@ -9,7 +9,6 @@ ItemEditor::ItemEditor(QWidget *parent)
 	m_DataModel = new QStandardItemModel(0, 0, this);
 	m_column = m_DataModel->columnCount();
 	ui.itemTable->setModel(m_DataModel);
-	setMode(EditMode);
 }
 
 ItemEditor::~ItemEditor()
@@ -17,13 +16,15 @@ ItemEditor::~ItemEditor()
 
 }
 
-void ItemEditor::setMode(ItemEditorMode mode)
+void ItemEditor::changeMode(ItemEditorMode mode)
 {
 	m_mode = mode;
 	switch(m_mode) {
 		case InitMode:
 		{
 			ui.submitButton->hide();
+			ui.itemTable->setEditTriggers(QAbstractItemView::AllEditTriggers);
+			ui.itemTable->hideColumn(0);
 			break;
 		}
 		case EditMode:
@@ -31,6 +32,10 @@ void ItemEditor::setMode(ItemEditorMode mode)
 			ui.submitButton->show();
 			ui.addButton->show();
 			ui.removeButton->show();
+			ui.itemTable->setEditTriggers(QAbstractItemView::DoubleClicked |
+																QAbstractItemView::SelectedClicked |
+																QAbstractItemView::EditKeyPressed);
+			ui.itemTable->hideColumn(0);
 			break;
 		}
 		case DisplayMode:
@@ -38,6 +43,10 @@ void ItemEditor::setMode(ItemEditorMode mode)
 			ui.submitButton->hide();
 			ui.addButton->hide();
 			ui.removeButton->hide();
+			ui.itemTable->setEditTriggers(QAbstractItemView::DoubleClicked |
+																QAbstractItemView::SelectedClicked |
+																QAbstractItemView::EditKeyPressed);
+			ui.itemTable->showColumn(0);
 			break;
 		}
 	}
@@ -55,13 +64,6 @@ void ItemEditor::add()
 	int row = m_DataModel->rowCount();
 	m_DataModel->insertRow(row);
 	ui.itemTable->setRowHeight(row, 20);
-	/*
-	m_DataModel->setData(m_DataModel->index(row, 0), 0);
-	m_DataModel->setData(m_DataModel->index(row, 1), "");
-	m_DataModel->setData(m_DataModel->index(row, 2), 0);
-	m_DataModel->setData(m_DataModel->index(row, 3), 0);
-	m_DataModel->setData(m_DataModel->index(row, 4), "");
-	*/
 }
 void ItemEditor::remove()
 {
@@ -78,9 +80,11 @@ void ItemEditor::addData(int row, int column, const QVariant& data)
 {
 	ASSERT_POINTER(m_DataModel);
 	if(column >= m_column) return;
-	if(row >= m_DataModel->rowCount())
-		m_DataModel->insertRow(row);
-	m_DataModel->setData(m_DataModel->index(row, column), data);
+	if(row >= m_DataModel->rowCount() || (0 == row && 0 == column)) {
+		m_DataModel->insertRow(m_DataModel->rowCount());
+	}
+	int rowConvert = (0==row) ?  m_DataModel->rowCount()-1 : row;
+	m_DataModel->setData(m_DataModel->index(rowConvert, column), data);
 }
 
 void ItemEditor::setHeaderData(int column, const QVariant& data)
@@ -110,3 +114,4 @@ void ItemEditor::setTitle(QString& title)
 {
 	ui.groupBox->setTitle(title);
 }
+

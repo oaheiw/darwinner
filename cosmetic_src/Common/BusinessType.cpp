@@ -25,25 +25,25 @@ BusinessType::~BusinessType(){
 
 
 
-short BusinessType::getCategory(){
+short BusinessType::getCategory() const{
 
 	return m_category;
 }
 
 
-string& BusinessType::getDescription(){
+const string& BusinessType::getDescription() const{
 
 	return m_description;
 }
 
 
-uint32 BusinessType::getId(){
+uint32 BusinessType::getId() const{
 
 	return m_id;
 }
 
 
-string& BusinessType::getName(){
+const string& BusinessType::getName() const{
 
 	return m_name;
 }
@@ -68,18 +68,6 @@ void BusinessType::setId(uint32 newVal){
 
 
 void BusinessType::setName(string& newVal){
-
-	m_name = newVal;
-}
-
-
-void BusinessType::setDescription(string newVal){
-
-	m_description = newVal;
-}
-
-
-void BusinessType::setName(string newVal){
 
 	m_name = newVal;
 }

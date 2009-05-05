@@ -34,55 +34,55 @@ Business::~Business(){
 
 
 
-string& Business::brand(){
+const string& Business::brand() const {
 
 	return  m_brand;
 }
 
 
-uint32 Business::buys(){
+uint32 Business::buys() const{
 
 	return  m_buys;
 }
 
 
-uint32 Business::cost(){
+uint32 Business::cost() const{
 
 	return  m_cost;
 }
 
 
-string& Business::description(){
+const string& Business::description() const{
 
 	return  m_description;
 }
 
 
-short Business::discount(){
+short Business::discount() const{
 
 	return m_discount;
 }
 
 
-uint32 Business::id(){
+uint32 Business::id() const{
 
 	return  m_id;
 }
 
 
-string& Business::name(){
+const string& Business::name() const{
 
 	return  m_name;
 }
 
 
-uint32 Business::price(){
+uint32 Business::price() const{
 
 	return  m_price;
 }
 
 
-uint32 Business::sales(){
+uint32 Business::sales() const{
 
 	return  m_sales;
 }
@@ -148,26 +148,26 @@ void Business::setType(uint32 type){
 }
 
 
-string& Business::specification(){
+const string& Business::specification() const{
 
 	return  m_specification;
 }
 
 
-uint32 Business::stocks(){
+uint32 Business::stocks() const{
 
 	return  m_stocks;
 }
 
 
-uint32 Business::type(){
+uint32 Business::type() const{
 
 	return  m_type;
 }
 
 
 
-short Business::getAdjustable(){
+short Business::getAdjustable() const{
 
 	return m_adjustable;
 }
@@ -178,7 +178,7 @@ void Business::setAdjustable(short newVal){
 	m_adjustable = newVal;
 }
 
-short Business::getRating(){
+short Business::getRating() const{
 
 	return m_rating;
 }
@@ -190,7 +190,7 @@ void Business::setRating(short newVal){
 }
 
 
-bool Business::isDualDiscoutn(){
+bool Business::isDualDiscoutn() const{
 
 	return m_dualDiscoutn;
 }

@@ -2,16 +2,14 @@
 #define BUSINESSITEMVIEW_H
 
 #include "ItemView.h"
-#include "Business.h"
-#include <list>
-using namespace std;
+class Business;
 
 class BusinessItemView : public ItemView
 {
 public:
 	BusinessItemView(/*int row,*/ QWidget *parent = 0);
 	~BusinessItemView();
-	void addBusiness(list<Business> data);
+	void addBusiness(Business& data);
 };
 
 #endif // BUSINESSITEMVIEW_H

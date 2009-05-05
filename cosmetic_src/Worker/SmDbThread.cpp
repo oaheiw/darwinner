@@ -16,7 +16,6 @@
 SmDbThread::SmDbThread(QObject *parent , QThread::Priority priority)
 :DbThread(parent, priority)
 {
-//	m_loggedstaff = new Staff();
 	setDbServer("QSQLITE", DBCONNECTION_SM, "", "", "", 0);
 }
 
