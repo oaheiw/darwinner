@@ -253,7 +253,7 @@
            <set>Qt::AlignCenter</set>
           </property>
           <property name="format">
-           <string>%p</string>
+           <string>%v/%m</string>
           </property>
          </widget>
         </item>
