@@ -9,6 +9,7 @@
 #include <QApplication>
 #include "UiStrings.h"
 
+
 ProgressBarDelegate::ProgressBarDelegate(QObject *parent)
 :QItemDelegate(parent)	, m_format("%p")
 {
@@ -57,7 +58,7 @@ void ProgressBarDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 	progressBarOption.minimum = 0;
 	progressBarOption.maximum = 100;
 	progressBarOption.progress = progress;
-	progressBarOption.text = QString::number(progress) + LOCAL8BITSTR(UiStr::scoreStr);
+	progressBarOption.text = QString::number(progress) + LOCAL8BITSTR(scoreStr);
 	progressBarOption.textAlignment = Qt::AlignCenter;
 	progressBarOption.textVisible = true;
 

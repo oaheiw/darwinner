@@ -8,7 +8,6 @@
 #if !defined(EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_)
 #define EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_
 
-#include "Common.h"
 #include <list>
 using namespace std;
 
@@ -20,7 +19,7 @@ class DUIHandler
 
 public:
 	DUIHandler();
-	virtual ~DUIHandler();
+	~DUIHandler();
 
 	void SetObserver(DUIObserver* observer);
 	virtual void StartAction(Message& act) = 0;

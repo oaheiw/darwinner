@@ -17,11 +17,11 @@ void IActionHandler::SetObserver(IEventObserver* observer){
 	}
 	
 	m_listObserver.push_back(observer);
-	DBINFO("one observer inserted:", observer);
+	DBHEX("one observer inserted:", observer);
 }
 
 void IActionHandler::BroadcastEvent(Message& ev){
-	DBINFO("broadcasted message :", ev.type());
+	DBHEX("broadcasted message :", ev.type());
 	list<IEventObserver*>::const_iterator it = m_listObserver.begin();
 	while(m_listObserver.end() != it) {
 		if(NULL != *it) {

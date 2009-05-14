@@ -7,7 +7,7 @@
 
 #include "DUIHandler.h"
 #include "DUIObserver.h"
-#include "common.h"
+//#include "common.h"
 #include "Message.h"
 
 DUIHandler::DUIHandler(){
@@ -38,5 +38,4 @@ void DUIHandler::BroadcastEvent(Message& ev){
 		}
 		it++;
 	}
-	DBINFO("UIHandler broadcaste ev:", ev.type());
 }

@@ -377,6 +377,13 @@
 				RelativePath=".\GeneratedFiles\Release\moc_BusinessWindow.cpp"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -391,6 +398,13 @@
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -418,11 +432,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt4.5.0-static"
+			Value="Qt-4.5.1"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt4.5.0-static"
+			Value="Qt-4.5.1"
 		/>
 		<Global
 			Name="RccDir"

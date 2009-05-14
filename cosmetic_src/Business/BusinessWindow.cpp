@@ -4,6 +4,9 @@
 #include <QPoint>
 #include <QContextMenuEvent>
 #include "DUIHandler.h"
+#include "common.h"
+#include "AnythingFactory.h"
+#include "Singleton.h"
 #include "Message.h"
 #include "messagedef.h"
 #include "SearchBox.h"
@@ -12,31 +15,30 @@
 #include "UiStrings.h"
 #include "MessageBox.h"
 
-StringArray g_businessTypeNames;
-
 BusinessWindow::BusinessWindow(QWidget *parent)
-:QMainWindow(parent)
+:QMainWindow(parent),m_started(false)
 {
- 	ui.setupUi(this);
-	m_started = false;
 
+	m_businessTypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSTYPE);	
+
+	ui.setupUi(this);
 	ui.itemView->installEventFilter(this);
 	ui.menubar->installEventFilter(this);
 	ui.toolBar->installEventFilter(this);
 
 	m_searchBox = new SearchBox(this);
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmIdStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmTypeStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmNameStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmBrandStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmRatingStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmSpecificationStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmPriceStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmDiscountStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmDescriptionStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmBuysStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmSalesStr));
-	m_searchBox->addFilterItem(LOCAL8BITSTR(UiStr::bmStocksStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmIdStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmTypeStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmNameStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmBrandStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmRatingStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmSpecificationStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmPriceStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmDiscountStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmDescriptionStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmBuysStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmSalesStr));
+	m_searchBox->addFilterItem(LOCAL8BITSTR(bmStocksStr));
 	
 	m_detailWidget = new BusinessDetailWidget(this);
 	ui.sideBar->addWidget(m_detailWidget, 0, 0);
@@ -128,7 +130,7 @@ void BusinessWindow::OnEvent(Message& Msg){
 	{
 		case EVENT_BUSINESSMGNT:
 		{
-			DBINFO("start bm window.", "");
+			DBHEX("start bm window.", "");
 			if(!isVisible())
 				show();
 			else
@@ -165,21 +167,6 @@ void BusinessWindow::addBusiness2View(list<Business>* data)
 	int row = 0;
 	while(data->end() != it) {
 		ui.itemView->addBusiness(*it);
-		/*
-		int col = 0;
-		ui.itemView->addData(row, col++, it->id());
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_businessTypeCache[it->type()].getName().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->name().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->brand().c_str()));
-		ui.itemView->addData(row, col++, it->getRating());
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->specification().c_str()));
-		ui.itemView->addData(row, col++, it->price());
-		ui.itemView->addData(row, col++, it->discount());
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->description().c_str()));
-		ui.itemView->addData(row, col++, it->buys());
-		ui.itemView->addData(row, col++, it->sales());
-		ui.itemView->addData(row, col++, it->stocks());
-		row++;*/
 		it++;
 	}
 }

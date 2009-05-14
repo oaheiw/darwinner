@@ -24,7 +24,7 @@ CommonDbThread::~CommonDbThread()
 }
 
 void CommonDbThread::WorkerThreadMain(Message& Action) {
-	DBINFO("common db thread processing action: ", Action.type());
+	DBHEX("common db thread processing action: ", Action.type());
 	switch(Action.type()) {
 		case ACTION_SYSTEM_START:
 		{
@@ -92,7 +92,7 @@ bool CommonDbThread::initDb()
 		return false;
 	}
 	
-	DBINFO("initializing database...", "");
+	DBHEX("initializing database...", "");
 
 	m_tempMsg = new Message(EVENT_INIT);
 	if(NULL != m_tempMsg) {
@@ -132,7 +132,7 @@ bool CommonDbThread::initDb()
 		postEvent(m_tempMsg, EventDb);
 		m_tempMsg = NULL;
 	}
-	DBINFO("databese initialized.", "");
+	DBHEX("databese initialized.", "");
 	return true;
 }
 
@@ -142,7 +142,7 @@ bool CommonDbThread::checkDd()
 	bool exist;
 	int length= 0;
 	char* SQLiteMark;
-	int isSQLite = -1;
+	int isSQLite = 0;
 	fstream testfile;
 	testfile.open (DBFILE, fstream::in | fstream::out | fstream::app | fstream::binary);
 	exist = testfile.is_open();
@@ -150,15 +150,18 @@ bool CommonDbThread::checkDd()
 	  testfile.seekg(0, ios::end);
 	  length = testfile.tellg();
 	  testfile.seekg(0, ios::beg);
+	  //now, using crypted sqlite. method below obsolete
+	  /*
 	  SQLiteMark = new char[SQLITEMARKLEN];
 	  memset(SQLiteMark, 0, SQLITEMARKLEN);
 	  testfile.read(SQLiteMark, SQLITEMARKLEN);
 	  isSQLite = memcmp(SQLiteMark, SQLITEMARK, SQLITEMARKLEN);
+	  */
 	  testfile.close();
 	}
 	  
 	if(!exist | 0 == length | 0 != isSQLite) {//first time running
-		DBINFO("database file not exist or corrupt, creat new one.", "")
+		DBHEX("database file not exist or corrupt, creat new one.", "")
 		remove(DBFILE);
 		re = false;
 	} else {//database exists. check super user
@@ -185,7 +188,7 @@ string CommonDbThread::getPassword(uint32 id)
 	if(!openDb(DBNAME)){
 		return password;
 	}
-	DBINFO("getting password for: ", id);
+	DBHEX("getting password for: ", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
 	QString query = QString(GET_PASSWORD_BYID).arg(id);
 	if(q.exec(query)){
@@ -194,7 +197,7 @@ string CommonDbThread::getPassword(uint32 id)
 		}
 	}
 	closeDb();
-	DBINFO("get password completed:", password);
+	DBHEX("get password completed:", password);
 	return password;
 }
 
@@ -206,7 +209,7 @@ bool CommonDbThread::addSupperStaff(Staff* staff)
 	}
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
 	
-	DBINFO("creating super user...", "");
+	DBHEX("creating super user...", "");
 	q.prepare(INSERTINTO_STAFF_SUPER);
 	q.bindValue(":id", SUPERUSERID);
 	q.bindValue(":password", staff->Password().c_str());
@@ -220,7 +223,7 @@ bool CommonDbThread::addSupperStaff(Staff* staff)
 	q.bindValue(":address", "中华人民共和国");
 	q.bindValue(":description", "这是科思美系统超级账户，请不用将此账户用作日常运作账户。");
 	r = q.exec();
-	DBINFO("create super user complete!", r);
+	DBHEX("create super user complete!", r);
 	return r;
 }
 
@@ -231,7 +234,7 @@ bool CommonDbThread::getLoggedStaff(uint32 id)
 		return r;
 	}
 
-	DBINFO("getting logged staff...", id);
+	DBHEX("getting logged staff...", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
 	QString query = QString(SELECT_STAFF_BYID_NOIMAGE).arg(id);
 	if(q.exec(query)){
@@ -259,7 +262,7 @@ bool CommonDbThread::getLoggedStaff(uint32 id)
 	}
 	
 	closeDb();
-	DBINFO("get logged staff completed:", id);
+	DBHEX("get logged staff completed:", id);
 	return r;
 }
 

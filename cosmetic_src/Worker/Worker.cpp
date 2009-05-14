@@ -28,7 +28,7 @@ Worker::~Worker(){
 }
 
 void Worker::StartAction(Message& Action) {
-	DBINFO("worker catch one action: ", Action.type());
+	DBHEX("worker catch one action: ", Action.type());
 	if(GROUP_COMMON == Action.group()) {
 		switch(Action.type()) {
 			case ACTION_EXIT:

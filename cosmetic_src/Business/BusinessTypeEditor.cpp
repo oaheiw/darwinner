@@ -4,7 +4,6 @@
 #include <list>
 #include "UiStrings.h"
 #include "SpinBoxDelegate.h"
-using namespace UiStr;
 using namespace std;
 
 BusinessTypeEditor::BusinessTypeEditor(QWidget *parent)

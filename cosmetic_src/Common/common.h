@@ -14,7 +14,9 @@ using namespace std;
 
 typedef unsigned int uint32;
 typedef unsigned char byte;
-typedef map<uint32, string> StringArray;
+typedef map<uint32, string> ArrayUint32String;
+typedef map<string, string> ArrayStringString;
+
 
 #ifndef NULL
 #define NULL 0
@@ -25,12 +27,19 @@ typedef map<uint32, string> StringArray;
 #ifdef _CONSOLE_DEBUG
 #include <iostream>
 #include <iomanip>
-#define DBINFO(info, para)\
+#define DBHEX(info, para)\
 		{\
 			std::cout<<__FILE__<<" Line:"<<std::dec<<__LINE__<<" "<<info<<" "<<std::hex<<para<<std::endl;\
 		}
+#define DBDEC(info, para)\
+		{\
+			std::cout<<__FILE__<<" Line:"<<std::dec<<__LINE__<<" "<<info<<" "<<std::dec<<para<<std::endl;\
+		}
+
 #else
-#define DBINFO(info, para) {}
+#define DBHEX(info, para) {}
+#define DBDEC(info, para) {}
+
 #endif
 
 #define TOBE_REALIZIED MessageBox::showMessageBox(this, QMessageBox::Information, "实现中",  "该功能正在实现中……")
@@ -48,28 +57,35 @@ typedef map<uint32, string> StringArray;
 #define R_OK (4)
 #define RW_OK (6)
   
-static const uint32 MB = 1024*1024;
-static const uint32 ID_MAX_LEN = 16;
-static const uint32 PW_MAX_LEN = 16;
-static const uint32 NAME_MAX_LEN = 32;
-static const uint32 PHONE_MAX_LEN = 16;
-static const uint32 PIC_MAX_SIZE = 1.5;
-static const uint32 ACTION_FLAG = 0x00000080;
-static const uint32 EVENT_FLAG = 0x00000000;
+#define MB (1024*1024)
+#define ID_MAX_LEN (16)
+#define PW_MAX_LEN (16)
+#define NAME_MAX_LEN (32)
+#define PHONE_MAX_LEN (16)
+#define PIC_MAX_SIZE (1.5)
+#define ACTION_FLAG (0x00000080)
+#define EVENT_FLAG (0x00000000)
 
-static const char*  DBCONNECTION_COMMON = "COMMONDB";
-static const char*  DBCONNECTION_SM = "SMDB";
-static const char*  DBCONNECTION_BM = "BMDB";
+#define  DBCONNECTION_COMMON "COMMONDB"
+#define  DBCONNECTION_SM "SMDB"
+#define  DBCONNECTION_BM "BMDB"
 
-static const char* STYLE_WIN98 = "windows";
-static const char* STYLE_WINXP = "windowsxp";
-static const char* STYLE_WINVISTA = "windowsvista";
-static const char* STYLE_MOTIF = "motif";
-static const char* STYLE_CDE = "cde";
-static const char* STYLE_PLASTIQUE = "plastique";
-static const char* STYLE_CLEAN = "cleanlooks";
+#define STAFFLEVEL "stafflevel"
+#define STAFFTYPE "stafftype"
+#define STAFFSTATE "staffstate"
+#define BUSINESSTYPE "businesstype"
 
-static const char* DIR_SEPERATOR = "/";
+
+
+#define STYLE_WIN98 "windows"
+#define STYLE_WINXP "windowsxp"
+#define STYLE_WINVISTA "windowsvista"
+#define STYLE_MOTIF "motif"
+#define STYLE_CDE "cde"
+#define STYLE_PLASTIQUE "plastique"
+#define STYLE_CLEAN "cleanlooks"
+
+#define DIR_SEPERATOR "/"
 
 enum SEX {
 	SEX_UNDEFINE = 0,
@@ -124,6 +140,5 @@ enum ERROR {
 	ERROR_END
 };
 
-#include "Singleton.h"
-
 #endif
+

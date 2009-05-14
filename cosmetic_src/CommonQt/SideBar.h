@@ -14,6 +14,7 @@ public:
 	SideBar(QWidget *parent = 0);
 	~SideBar();
 	void addWidget(QWidget *widget, int x, int y, int row = 1, int column = 1);
+	void showSideBar(bool show);
 
 private:
 	list<QWidget*> widgetList;

@@ -36,7 +36,7 @@ void WorkerThread::QueueAction(Message& Action)
 }
 
 void WorkerThread::run() {
-	DBINFO("worker thread start @", this);
+	DBHEX("worker thread start @", this);
 	for(;;) {
 		mutex.lock();
 		if(m_listActionBuffer.empty())

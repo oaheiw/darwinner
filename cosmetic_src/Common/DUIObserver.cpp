@@ -6,7 +6,7 @@
 ///////////////////////////////////////////////////////////
 
 #include "DUIObserver.h"
-
+#include "common.h"
 
 DUIObserver::DUIObserver(){
 	m_uiHandler = NULL;

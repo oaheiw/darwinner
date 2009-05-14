@@ -6,8 +6,6 @@
 #include "SSLoginWindow.h"
 #include "MessageBox.h"
 #include "UiStrings.h"
-using namespace UiStr;
-
 
 SSLoginWindow::SSLoginWindow(QWidget *parent, DUIHandler* handler)
 	: QDialog(parent)

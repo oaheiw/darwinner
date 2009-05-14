@@ -8,7 +8,6 @@
 #if !defined(EA_3C747DAE_7CEE_409c_B90E_4E51C6EBAC51__INCLUDED_)
 #define EA_3C747DAE_7CEE_409c_B90E_4E51C6EBAC51__INCLUDED_
 
-#include "Common.h"
 class DUIHandler;
 class Message;
 
@@ -17,7 +16,7 @@ class DUIObserver
 
 public:
 	DUIObserver();
-	virtual ~DUIObserver();
+	~DUIObserver();
 
 	virtual void OnEvent(Message& ev) = 0;
 	void SetHandler(DUIHandler* handler);

@@ -1,17 +1,18 @@
 #include "StaffListView.h"
 #include <QSortFilterProxyModel>
 #include "Staff.h"
+#include "common.h"
+#include "AnythingFactory.h"
+#include "Singleton.h"
 #include "UiStrings.h"
 #include "ProgressBarDelegate.h"
-using namespace UiStr;
-
-extern map<uint32, string> g_LevelNames;
-extern map<uint32, string> g_TypeNames;
-extern map<uint32, string> g_StateNames;
 
 StaffListView::StaffListView(QWidget *parent)
 : ItemView(parent)
 {
+	m_LevelNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFLEVEL);
+	m_TypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFTYPE);
+	m_StateNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFSTATE);
 
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel();
 	setProxy(proxy);
@@ -57,9 +58,9 @@ void StaffListView::addStaff(Staff& data)
 	addData(0, col++, data.ID());
 	addData(0, col++, LOCAL8BITSTR(data.Name().c_str()));
 	addData(0, col++, LOCAL8BITSTR(sexStr[data.Sex()]));
-	addData(0, col++, LOCAL8BITSTR(g_TypeNames[data.Type()].c_str()));
-	addData(0, col++, LOCAL8BITSTR(g_LevelNames[data.Level()].c_str()));
-	addData(0, col++, LOCAL8BITSTR(g_StateNames[data.status()].c_str()));
+	addData(0, col++, LOCAL8BITSTR((*m_TypeNames)[data.Type()].c_str()));
+	addData(0, col++, LOCAL8BITSTR((*m_LevelNames)[data.Level()].c_str()));
+	addData(0, col++, LOCAL8BITSTR((*m_StateNames)[data.status()].c_str()));
 	addData(0, col++, data.getRating());
 	addData(0, col++, LOCAL8BITSTR(data.cell().c_str()));
 	addData(0, col++, LOCAL8BITSTR(data.phone().c_str()));

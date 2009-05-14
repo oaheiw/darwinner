@@ -3,42 +3,45 @@
 #include "common.h"
 #include "UiStrings.h"
 #include "Business.h"
-using namespace UiStr;
+#include "AnythingFactory.h"
+#include "Singleton.h"
 
-extern StringArray g_businessTypeNames;
+
 
 BusinessItemView::BusinessItemView(QWidget *parent)
 :ItemView(parent)
 {
+	m_businessTypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSTYPE);	
+
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
 	setProxy(proxy);
 	appendColumn(12);
 	setTitle(LOCAL8BITSTR(bmBrowseStr));
 	int col = 0;
 	setColumnWidth(col, 50);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmIdStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmIdStr));
 	setColumnWidth(col, 70);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmTypeStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmTypeStr));
 	setColumnWidth(col, 70);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmNameStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmNameStr));
 	setColumnWidth(col, 50);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmBrandStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmBrandStr));
 	setColumnWidth(col, 100);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmRatingStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmRatingStr));
 	setColumnWidth(col, 70);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmSpecificationStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmSpecificationStr));
 	setColumnWidth(col, 70);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmPriceStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmPriceStr));
 	setColumnWidth(col, 50);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmDiscountStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmDiscountStr));
 	setColumnWidth(col, 100);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmDescriptionStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmDescriptionStr));
 	setColumnWidth(col, 50);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmBuysStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmBuysStr));
 	setColumnWidth(col, 50);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmSalesStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmSalesStr));
 	setColumnWidth(col, 50);
-	setHeaderData(col++, LOCAL8BITSTR(UiStr::bmStocksStr));
+	setHeaderData(col++, LOCAL8BITSTR(bmStocksStr));
 }
 
 BusinessItemView::~BusinessItemView()
@@ -50,7 +53,7 @@ void BusinessItemView::addBusiness(Business& data)
 {
 	int col = 0;
 	addData(0, col++, data.id());
-	addData(0, col++, LOCAL8BITSTR(g_businessTypeNames[data.type()].c_str()));
+	addData(0, col++, LOCAL8BITSTR((*m_businessTypeNames)[data.type()].c_str()));
 	addData(0, col++, LOCAL8BITSTR(data.name().c_str()));
 	addData(0, col++, LOCAL8BITSTR(data.brand().c_str()));
 	addData(0, col++, data.getRating());

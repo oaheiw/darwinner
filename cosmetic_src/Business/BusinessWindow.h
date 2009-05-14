@@ -6,6 +6,7 @@
 #include "DUIObserver.h"
 #include "Business.h"
 #include "BusinessType.h"
+#include "common.h"
 #include <list>
 #include <map>
 class SearchBox;
@@ -50,6 +51,7 @@ private:
 	BusinessDetailWidget* m_detailWidget;
 	BusinessTypeArray m_businessTypeCache;
 	bool m_started;
+	ArrayUint32String* m_businessTypeNames;
 
 private slots:
 	void dealAction(QAction* action);

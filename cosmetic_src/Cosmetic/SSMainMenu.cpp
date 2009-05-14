@@ -5,7 +5,6 @@
 #include "Staff.h"
 #include "messagedef.h"
 #include "UiStrings.h"
-using namespace UiStr;
 
 const short SM_X = 0;
 const short  SM_Y = 0;

@@ -10,7 +10,6 @@
 #include <list>
 #include "ProgressWidget.h"
 #include "UiStrings.h"
-using namespace UiStr;
 using namespace std;
 
  Guide::Guide(QWidget *parent)

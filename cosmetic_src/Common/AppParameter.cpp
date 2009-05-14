@@ -70,5 +70,5 @@ void AppParameter::setFontSize(short newVal){
 void AppParameter::setLastDir(string& newVal){
 
 	m_lastDir = newVal;
-	DBINFO("set last dir:", m_lastDir);
+	DBHEX("set last dir:", m_lastDir);
 }

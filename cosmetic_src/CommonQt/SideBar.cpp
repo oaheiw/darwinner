@@ -1,6 +1,6 @@
 #include "SideBar.h"
 #include "UiStrings.h"
-using namespace UiStr;
+
 
 SideBar::SideBar(QWidget *parent)
 	: QWidget(parent)
@@ -37,3 +37,22 @@ void SideBar::hideWidget(bool hide)
 	}
 }
 
+
+
+
+void SideBar::showSideBar(bool show){
+	if(show) {
+		ui.hideButton->setText(">");
+		ui.hideButton->setStatusTip(LOCAL8BITSTR(shrinkSideBarStr));
+		ui.hideButton->setToolTip(LOCAL8BITSTR(shrinkSideBarStr));
+		for(list<QWidget*>::iterator it = widgetList.begin() ; widgetList.end() != it ; it++)
+			(*it)->show();
+	} else {
+		ui.hideButton->setText("<");
+		ui.hideButton->setStatusTip(LOCAL8BITSTR(expandSideBarStr));
+		ui.hideButton->setToolTip(LOCAL8BITSTR(expandSideBarStr));
+		for(list<QWidget*>::iterator it = widgetList.begin() ; widgetList.end() != it ; it++)
+			(*it)->close();
+	}
+	ui.hideButton->setChecked(!show);
+}

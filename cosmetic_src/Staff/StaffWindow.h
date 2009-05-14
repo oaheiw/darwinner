@@ -6,8 +6,8 @@
 #include <string>
 using namespace std;
 
+#include "common.h"
 #include "DUIObserver.h"
-
 #include <QMainWindow>
 #include "ui_StaffWindow.h"
 
@@ -20,6 +20,7 @@ class StaffDetail;
 class QModelIndex;
 class StaffConfiguration;
 class SearchBox;
+
 
 class StaffWindow : public QMainWindow , public DUIObserver
 {
@@ -35,7 +36,7 @@ protected:
 	virtual bool eventFilter ( QObject * obj, QEvent * ev );
 
 private:
-	void addStaff(std::list<Staff> *staffList);
+	void addStaff2View(list<Staff> *staffList);
 	void staffDetail(uint32 id);
 	void getAllStaff();
 	void getJobType();
@@ -61,6 +62,10 @@ private:
 	StaffDetail* staffDetailWidget;
 	StaffConfiguration* config;
 	SearchBox* m_searchBox;
+
+	ArrayUint32String* m_LevelNames;
+	ArrayUint32String* m_TypeNames;
+	ArrayUint32String* m_StateNames;
 
 	Ui::StaffWindowClass ui;
 

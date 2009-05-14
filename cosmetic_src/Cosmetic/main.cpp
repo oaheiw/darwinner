@@ -41,12 +41,7 @@ int main(int argc, char *argv[])
 	
 	QStyle* style = QStyleFactory::create(Singleton<AppParameter>::instance()->getAppStyle().c_str());
 	app->setStyle(style);
-	QPalette palette = style->standardPalette();
-	QBrush brush = palette.brush(QPalette::Normal, QPalette::Highlight);
-	brush.setColor(QColor(0x000000F0));
-	palette.setColor(QPalette::AlternateBase, QColor(Qt::red));
-	palette.setBrush(QPalette::Normal, QPalette::Highlight, brush);
-	app->setPalette(palette);
+	app->setPalette(style->standardPalette());
 
 	Message* StartUp = new Message(ACTION_SYSTEM_START);
 	worker->StartAction(*StartUp);

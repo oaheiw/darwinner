@@ -21,7 +21,7 @@ void DbThread::setDbServer(const char* dbtype, const char* connection, const cha
 	
 	db = QSqlDatabase::database(connection, false);
 
-	DBINFO("add connection complete", connection);
+	DBHEX("add connection complete", connection);
 }
 
 bool DbThread::openDb(const char* dbname)

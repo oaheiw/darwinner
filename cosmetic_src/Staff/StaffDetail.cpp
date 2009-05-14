@@ -2,6 +2,7 @@
 #include <QFont>
 #include <string>
 #include "common.h"
+#include "Singleton.h"
 #include <QString>
 #include "Message.h"
 #include "messagedef.h"
@@ -15,7 +16,6 @@
 #include "AppParameter.h"
 #include "MessageBox.h"
 #include "UiStrings.h"
-using namespace UiStr;
 
 StaffDetail::StaffDetail(QWidget *parent, int mode)
 	: QWidget(parent)

@@ -14,24 +14,23 @@
 #include "SearchBox.h"
 #include "UiStrings.h"
 #include "common.h"
+#include "AnythingFactory.h"
+#include "Singleton.h"
 #include <map>
 #include <string>
-using namespace UiStr;
-
-map<uint32, string> g_LevelNames;
-map<uint32, string> g_TypeNames;
-map<uint32, string> g_StateNames;
 
 StaffWindow::StaffWindow(QWidget *parent)
-	: QMainWindow(parent)
+: QMainWindow(parent),started(false),config(NULL)
 {
+	m_LevelNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFLEVEL);
+	m_TypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFTYPE);
+	m_StateNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFSTATE);
+
 	ui.setupUi(this);
 	ui.itemView->installEventFilter(this);
 	ui.menuBar->installEventFilter(this);
 	ui.mainToolBar->installEventFilter(this);
 
-	started = false;
-	config = NULL;
 	staffDetailWidget = new StaffDetail(this);
 	m_searchBox = new SearchBox(this);
 	m_searchBox->addFilterItem(LOCAL8BITSTR(staffIDStr));
@@ -191,40 +190,40 @@ void StaffWindow::OnEvent(Message & Msg){
 		case EVENT_JOBTYPE:
 		{	
 			m_staffType.clear();
-			g_TypeNames.clear();
+			m_TypeNames->clear();
 			list<Job>* jobs = static_cast<list<Job>*>(Msg.data());
 			staffDetailWidget->setJob(jobs);
 			if(NULL != config)
 				config->ui.pageJob->pushjobs(jobs);
 			for(list<Job>::iterator it = jobs->begin() ; it != jobs->end() ; it++) {
 				m_staffType[it->id()] = *it;
-				g_TypeNames[it->id()] = it->name();
+				m_TypeNames->insert(pair<uint32, string>(it->id(), it->name()));//[it->id()] = it->name();
 			}
 			break;
 		}
 		case EVENT_LEVELTYPE: 
 		{
 			m_staffLevel.clear();
-			g_LevelNames.clear();
+			m_LevelNames->clear();
 			list<Level>* levels = static_cast<list<Level>*>(Msg.data());
 			staffDetailWidget->setLevel(levels);
 			if(NULL != config)
 				config->ui.pageLevel->pushLevels(levels);
 			for(list<Level>::iterator it = levels->begin() ; it != levels->end() ; it++) {
 				m_staffLevel[it->id()] = *it;
-				g_LevelNames[it->id()] = it->name();
+				m_LevelNames->insert(pair<uint32, string>(it->id(), it->name()));
 			}
 			break;
 		}
 		case EVENT_STATUSTYPE: 
 		{
 			m_staffState.clear();
-			g_StateNames.clear();
+			m_StateNames->clear();
 			list<Status>* status = static_cast<list<Status>*>(Msg.data());
 			staffDetailWidget->setStatus(status);
 			for(list<Status>::iterator it = status->begin() ; it != status->end() ; it++) {
 				m_staffState[it->id()] = *it;
-				g_StateNames[it->id()] = it->name();
+				m_StateNames->insert(pair<uint32, string>(it->id(), it->name()));
 			}
 			break;
 		}
@@ -393,25 +392,12 @@ bool StaffWindow::event(QEvent * ev)
 	return QMainWindow::event(ev);
 }
 
-void StaffWindow::addStaff(list<Staff>* staff) 
+void StaffWindow::addStaff2View(list<Staff>* staff) 
 {
 	list<Staff>::iterator it = staff->begin();
 	int row = 0;
 	while(staff->end() != it) {
 		ui.itemView->addStaff(*it);
-	/*	int col = 0;
-		ui.itemView->addData(row, col++, it->ID());
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->Name().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(sexStr[it->Sex()]));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffType[it->Type()].name().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffLevel[it->Level()].name().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(m_staffState[it->status()].name().c_str()));
-		ui.itemView->addData(row, col++, it->getRating());
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->cell().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->phone().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->address().c_str()));
-		ui.itemView->addData(row, col++, LOCAL8BITSTR(it->Descrp().c_str()));
-		row++;*/
 		it++;
 	}
 }
