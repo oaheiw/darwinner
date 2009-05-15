@@ -57,8 +57,8 @@ void SSLoginWindow::OnEvent(Message& ev)
 void SSLoginWindow::Login()
 {
 	Staff* stu = new Staff();
-	stu->SetID(idLineEdit->text().toUInt());
-	stu->SetPassword(pwLineEdit->text().toLocal8Bit().data());
+	stu->setid(idLineEdit->text().toUInt());
+	stu->setpassword(pwLineEdit->text().toLocal8Bit().data());
 	Message* action = new Message(stu);
 	action->setType(ACTION_LOGIN);
 	m_uiHandler->StartAction(*action);

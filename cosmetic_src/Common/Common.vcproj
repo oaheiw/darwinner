@@ -229,6 +229,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Human.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IActionHandler.cpp"
 				>
 			</File>
@@ -296,6 +300,10 @@
 			</File>
 			<File
 				RelativePath=".\DUIObserver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Human.h"
 				>
 			</File>
 			<File

@@ -8,13 +8,13 @@
 #define SUPERUSERID 10000
 
 //**************staff management database items***************//
-#define CREATE_STAFF_TABLE "CREATE TABLE staff (id INTEGER PRIMARY KEY, password TEXT, name TEXT, jobId INTEGER REFERENCES job(id), levelId INTEGER REFERENCES level(id), sex SMALLINT DEFAULT 0, baseSalary INTEGER DEFAULT 0, status SMALLINT DEFAULT 0, cell TEXT, phone TEXT, address TEXT, description TEXT)"
-#define INSERTINTO_STAFF "INSERT INTO staff (password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, description) " "VALUES (:password, :name, :jobId, :levelId, :sex, :baseSalary, :status, :cell, :phone, :address, :description)"
+#define CREATE_STAFF_TABLE "CREATE TABLE staff (id INTEGER PRIMARY KEY, password TEXT, name TEXT, jobId INTEGER REFERENCES job(id), levelId INTEGER REFERENCES level(id), sex SMALLINT DEFAULT 0, bonus INTEGER DEFAULT 0, status SMALLINT DEFAULT 0, cell TEXT, phone TEXT, address TEXT, description TEXT)"
+#define INSERTINTO_STAFF "INSERT INTO staff (password, name, jobId, levelId, sex, bonus, status, cell, phone, address, description) " "VALUES (:password, :name, :jobId, :levelId, :sex, :bonus, :status, :cell, :phone, :address, :description)"
 #define SELECT_STAFF_ALL "SELECT * FROM staff WHERE id > 10000"
-#define SELECT_STAFF_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, description FROM staff  WHERE id > 10000"
-#define SELECT_STAFF_BYID_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, baseSalary, status, cell, phone, address, description FROM staff WHERE id = %1"
+#define SELECT_STAFF_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, bonus, status, cell, phone, address, description FROM staff  WHERE id > 10000"
+#define SELECT_STAFF_BYID_NOIMAGE "SELECT id, password, name, jobId, levelId, sex, bonus, status, cell, phone, address, description FROM staff WHERE id = %1"
 #define INSERTINTO_STAFF_SUPER "INSERT INTO staff (id, password, name, jobId, levelId, sex, status, cell, phone, address, description) " "VALUES (:id, :password, :name, :jobId, :levelId, :sex, :status, :cell, :phone, :address, :description)"
-#define UPDATA_STAFF_BASIC "UPDATE staff SET name = '%1', jobId = %2, levelId = %3, sex = %4, baseSalary = %5, status = %6, cell = '%7', phone = '%8', address = '%9', description = '%10' WHERE id = %11"
+#define UPDATA_STAFF_BASIC "UPDATE staff SET name = '%1', jobId = %2, levelId = %3, sex = %4, bonus = %5, status = %6, cell = '%7', phone = '%8', address = '%9', description = '%10' WHERE id = %11"
 #define DELETE_STAFF_BYID "DELETE FROM staff WHERE id = %1"
 #define GET_PASSWORD_BYID "SELECT password FROM staff WHERE id = %1"
 #define CHECK_STAFF_BYID "SELECT id FROM staff WHERE id = %1"
@@ -77,8 +77,8 @@
 #define INSERTINTO_ORDERS_TABLE "INSERT INTO orders (casherId, discount, status, dealdate) " "VALUES (:casherId, :discount, :status, :dealdate)"
 #define SELECT_ORDERS_ALL "SELECT * FROM orders"
 
-#define CREATE_TASKS_TABLE "CREATE TABLE tasks (id INTEGER PRIMARY KEY, operatorId INTEGER REFERENCES staff(id), goodsId INTEGER REFERENCES goods(id), orderId INTEGER REFERENCES orders(id), price INTEGER DEFAULT 0, costs INTEGER DEFAULT 0, amount INTEGER, discount SMALLINT DEFAULT 100, status SMALLINT DEFAULT 0, dealdate DATETIME)"
-#define INSERTINTO_TASKS_TABLE "INSERT INTO tasks (operatorId, goodsId, orderId, price, costs, amount, discount, status, dealdate) " "VALUES (:operatorId, :goodsId, :orderId, :price, :costs, :amount, :discount, :status, :dealdate)"
+#define CREATE_TASKS_TABLE "CREATE TABLE tasks (id INTEGER PRIMARY KEY, operatorId INTEGER REFERENCES staff(id), goodsId INTEGER REFERENCES goods(id), orderId INTEGER REFERENCES orders(id), businessRating INTEGER DEFAULT 0, staffRating INTEGER DEFAULT 0, price INTEGER DEFAULT 0, costs INTEGER DEFAULT 0, amount INTEGER, discount SMALLINT DEFAULT 100, status SMALLINT DEFAULT 0, dealdate DATETIME)"
+#define INSERTINTO_TASKS_TABLE "INSERT INTO tasks (operatorId, goodsId, orderId, businessRating, staffRating, price, costs, amount, discount, status, dealdate) " "VALUES (:operatorId, :goodsId, :orderId, :businessRating, :staffRating, :price, :costs, :amount, :discount, :status, :dealdate)"
 #define SELECT_TASKS_ALL "SELECT * FROM tasks"
 
 #endif

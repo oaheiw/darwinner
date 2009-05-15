@@ -39,7 +39,6 @@ void BMHandler::OnEvent(Message &ev)
 					m_mainWindow = Singleton<BusinessWindow>::instance();
 					m_mainWindow->SetHandler(this);
 					SetObserver(m_mainWindow);
-					DBHEX("start bm.", "");
 				}
 				break;
 			}

@@ -176,9 +176,9 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="QtSql.lib"
+				AdditionalDependencies="QtSql.lib qsqlite.lib"
 				OutputFile="$(OutDir)\lib\$(ProjectName).lib"
-				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\plugins\sqldrivers&quot;;&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -321,11 +321,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt-4.5.1"
+			Value="Qt4.5.0-shared"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt-4.5.1"
+			Value="Qt4.5.0-shared"
 		/>
 		<Global
 			Name="RccDir"

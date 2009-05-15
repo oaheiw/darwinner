@@ -9,7 +9,6 @@
 #include "Message.h"
 #include "messagedef.h"
 #include "IActionHandler.h"
-#include "StaffManagementUI.h"
 #include "StaffWindow.h"
 #include "Singleton.h"
 #include "JobTypeWidget.h"
@@ -155,7 +154,7 @@ void SMHandler::OnEvent(Message &ev)
 			{
 				Staff* addedStaff = static_cast<Staff*>(ev.data());
 				if(NULL != addedStaff) {
-					list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(addedStaff->ID()));
+					list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(addedStaff->id()));
 					if(m_staffCache.end() == it) {
 						m_staffCache.push_back(*addedStaff);
 						ev.setData(&m_staffCache.back());
@@ -170,7 +169,7 @@ void SMHandler::OnEvent(Message &ev)
 			{
 				Staff* modifiedStaff = static_cast<Staff*>(ev.data());
 				if(NULL != EVENT_STAFFMODIFIED) {
-					list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(modifiedStaff->ID()));
+					list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(modifiedStaff->id()));
 					if(m_staffCache.end() != it) {
 						m_staffCache.remove(*it);
 					}
@@ -183,7 +182,7 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_STAFF:
 			{
 				Staff* staff = static_cast<Staff*>(ev.data());
-				list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(staff->ID()));
+				list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(staff->id()));
 				if(m_staffCache.end() == it) {
 					m_staffCache.push_back(*staff);
 					ev.setData(&m_staffCache.back());

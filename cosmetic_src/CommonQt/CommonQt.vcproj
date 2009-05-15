@@ -1089,13 +1089,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="ReleaseStatic|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -1107,13 +1100,6 @@
 			<File
 				RelativePath=".\GeneratedFiles\Release\moc_SideBar.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -1135,13 +1121,6 @@
 				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_SideBar.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -1150,7 +1129,8 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="ReleaseStatic|Win32"
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1194,11 +1174,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt-4.5.1"
+			Value="Qt4.5.0-shared"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt-4.5.1"
+			Value="Qt4.5.0-shared"
 		/>
 		<Global
 			Name="RccDir"

@@ -45,12 +45,12 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 			QByteArray* image = static_cast<QByteArray*>(Action.data2());
 			Staff* addedStaff = NULL;
 			if(addStaff(staff)) {
-				addedStaff = getStaff(staff->ID());
+				addedStaff = getStaff(staff->id());
 			}
 			m_tempMsg = new Message(EVENT_STAFFADDED, addedStaff);
-			if(NULL != image && !image->isEmpty() && addedStaff->ID() != 0) {
-				if(setImage(addedStaff->ID(), *image))
-					m_tempMsg->setData2(getImage(addedStaff->ID()));
+			if(NULL != image && !image->isEmpty() && addedStaff->id() != 0) {
+				if(setImage(addedStaff->id(), *image))
+					m_tempMsg->setData2(getImage(addedStaff->id()));
 			}
 			delete staff;
 			break;
@@ -128,7 +128,7 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 		case ACTION_CHANGEPASSWORD:
 		{
 			list<string>* pwList = static_cast<list<string>*>(Action.data());
-			uint32 id = Singleton<Staff>::instance()->ID();
+			uint32 id = Singleton<Staff>::instance()->id();
 			string oldpw = pwList->front();
 			string newpw = pwList->back();
 			m_tempMsg = new Message(EVENT_CHANGEPASSWORD, changePassword(id, oldpw, newpw));
@@ -157,12 +157,12 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 			QByteArray* image = static_cast<QByteArray*>(Action.data2());
 			Staff* modifieddStaff = NULL;
 			if(modifyStaff(staff)) {
-				modifieddStaff = getStaff(staff->ID());
+				modifieddStaff = getStaff(staff->id());
 			}
 			m_tempMsg = new Message(EVENT_STAFFMODIFIED, modifieddStaff);
-			if(NULL != image && !image->isEmpty() && modifieddStaff->ID() != 0) {
-				if(setImage(modifieddStaff->ID(), *image))
-					m_tempMsg->setData2(getImage(modifieddStaff->ID()));
+			if(NULL != image && !image->isEmpty() && modifieddStaff->id() != 0) {
+				if(setImage(modifieddStaff->id(), *image))
+					m_tempMsg->setData2(getImage(modifieddStaff->id()));
 			}
 			delete staff;
 			break;
@@ -178,7 +178,6 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 		{
 			uint32* id = static_cast<uint32*>(Action.data());
 			m_tempMsg = new Message(EVENT_GETPICTURE, getImage(*id));
-			DBHEX("get image complete before post", "");
 			delete id;
 			break;
 		}
@@ -197,28 +196,29 @@ Staff* SmDbThread::getStaff(uint32 id)
 	if(0 == id || !openDb(DBNAME)){//id 0 staff surely not in the database
 		return temp;
 	}
-	DBHEX("getting one staff:", id);
+	DBDEC("getting one staff:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 	QString query = QString(SELECT_STAFF_BYID_NOIMAGE).arg(id);
 	if(q.exec(query)){
 		if(q.next()) {
 			temp = new Staff();
-			temp->SetID(q.value(0).toUInt());
-			temp->SetPassword(q.value(1).toByteArray().data());
-			temp->SetName(q.value(2).toByteArray().data());
-			temp->SetType(q.value(3).toUInt());
-			temp->SetLevel(q.value(4).toUInt());
-			temp->SetSex(q.value(5).toUInt());
-			temp->SetBaseSalary(q.value(6).toUInt());
-			temp->SetStatus(q.value(7).toUInt());
-			temp->SetCell(q.value(8).toByteArray().data());
-			temp->SetPhone(q.value(9).toByteArray().data());
-			temp->SetAddress(q.value(10).toByteArray().data());
-			temp->SetDescrp(q.value(11).toByteArray().data());
+			temp->setid((uint32)q.value(0).toUInt());
+			temp->setpassword(string(q.value(1).toByteArray().data()));
+			temp->setname(string(q.value(2).toByteArray().data()));
+			temp->settype((uint32)q.value(3).toUInt());
+			temp->setlevel((uint32)q.value(4).toUInt());
+			temp->setsex((uint32)q.value(5).toUInt());
+			temp->setbonus((uint32)q.value(6).toUInt());
+			temp->setstatus((uint32)q.value(7).toUInt());
+			temp->setcell(string(q.value(8).toByteArray().data()));
+			temp->setphone(string(q.value(9).toByteArray().data()));
+			temp->setaddress(string(q.value(10).toByteArray().data()));
+			temp->setdescription(string(q.value(11).toByteArray().data()));
+			//rating to be relized;
 		}
 	}
 	closeDb();
-	DBHEX("get one staff completed:", id);
+	DBDEC("get one staff completed:", id);
 	return temp;
 }
 
@@ -233,26 +233,26 @@ bool SmDbThread::addStaff(Staff* staff)
 
 	q.prepare(INSERTINTO_STAFF);
 
-	q.bindValue(":password", staff->Password().c_str());
-	q.bindValue(":name", staff->Name().c_str());
-	q.bindValue(":jobId", staff->Type());
-	q.bindValue(":levelId", staff->Level());
-	q.bindValue(":sex", staff->Sex());
-	q.bindValue(":baseSalary", staff->baseSalary());
+	q.bindValue(":password", staff->password().c_str());
+	q.bindValue(":name", staff->name().c_str());
+	q.bindValue(":jobId", staff->type());
+	q.bindValue(":levelId", staff->level());
+	q.bindValue(":sex", staff->sex());
+	q.bindValue(":bonus", staff->bonus());
 	q.bindValue(":status", staff->status());
 	q.bindValue(":cell", staff->cell().c_str());
 	q.bindValue(":phone", staff->phone().c_str());
 	q.bindValue(":address", staff->address().c_str());
-	q.bindValue(":description", staff->Descrp().c_str());
+	q.bindValue(":description", staff->description().c_str());
 	r = q.exec();
 	if(r) {
 		q.exec("SELECT MAX(id) FROM staff");
-		if(q.next()) staff->SetID(q.value(0).toUInt());
-		QString setpw = QString("UPDATE staff SET password=%1 WHERE id = %2").arg(staff->ID()).arg(staff->ID());
+		if(q.next()) staff->setid(q.value(0).toUInt());
+		QString setpw = QString("UPDATE staff SET password=%1 WHERE id = %2").arg(staff->id()).arg(staff->id());
 		r = q.exec(setpw);
 	}
 	closeDb();
-	DBHEX("add satff complete", r);
+	DBDEC("add satff complete", staff->id());
 	return r;
 }
 
@@ -262,7 +262,7 @@ bool SmDbThread::setImage(uint32 id, QByteArray& image)
 	if(!openDb(DBNAME)) {
 		return r;
 	}
-	DBHEX("setting image for:", id);
+	DBDEC("setting image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
 	QString check = QString(GET_STAFFIMAGE_BYID).arg(id);
@@ -276,7 +276,7 @@ bool SmDbThread::setImage(uint32 id, QByteArray& image)
 	q.bindValue(":data", image, QSql::Binary | QSql::In);
 	r = q.exec();
 	closeDb();
-	DBHEX("set image complete", r);
+	DBDEC("set image complete", r);
 	return r;
 
 }
@@ -290,7 +290,7 @@ QByteArray* SmDbThread::getImage(uint32 id)
 		return image;
 	}
 	
-	DBHEX("getting image for:", id);
+	DBDEC("getting image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
 	QString check = QString(CHECK_STAFFIMAGE_BYID).arg(id);
@@ -319,15 +319,17 @@ uint32* SmDbThread::removeStaff(uint32 id)
 		*r = 0;
 		return r;
 	}
-	DBHEX("removing satff...", "");
+	DBDEC("removing satff...", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 	QString remove = QString(DELETE_STAFF_BYID).arg(id);
 	if(!q.exec(remove)) 
 	{
 		*r = 0;
+	} else {
+		deleteImage(id);
 	}
 	closeDb();
-	DBHEX("remove satff complete", *r);
+	DBDEC("remove satff complete", *r);
 	return r;
 }
 
@@ -335,21 +337,21 @@ uint32* SmDbThread::removeStaff(uint32 id)
 bool SmDbThread::modifyStaff(Staff* staff)
 {
 	bool r =false;
-	if(0 == staff->ID() || !openDb(DBNAME)) {
+	if(0 == staff->id() || !openDb(DBNAME)) {
 		return r;
 	}
-	DBHEX("modifying satff...", staff->Name());
+	DBDEC("modifying satff...", staff->id());
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
-	QString check = QString(CHECK_STAFF_BYID).arg(staff->ID());
+	QString check = QString(CHECK_STAFF_BYID).arg(staff->id());
 	q.exec(check);
 	if(!q.isActive()) return r;
 
-	QString modifstr = QString(UPDATA_STAFF_BASIC).arg(staff->Name().c_str()).arg(staff->Type()).arg(staff->Level()).arg(staff->Sex()).arg(staff->baseSalary()).arg(staff->status()).arg(staff->cell().c_str()).arg(staff->phone().c_str()).arg(staff->address().c_str()).arg(staff->Descrp().c_str()).arg(staff->ID()); 
+	QString modifstr = QString(UPDATA_STAFF_BASIC).arg(staff->name().c_str()).arg(staff->type()).arg(staff->level()).arg(staff->sex()).arg(staff->bonus()).arg(staff->status()).arg(staff->cell().c_str()).arg(staff->phone().c_str()).arg(staff->address().c_str()).arg(staff->description().c_str()).arg(staff->id()); 
 	r = q.exec(modifstr);
 	closeDb();
 	
-	DBHEX("modify satff complete", r);
+	DBDEC("modify satff complete", r);
 	return r;
 }
 
@@ -450,22 +452,23 @@ list<Staff>* SmDbThread::getAllStaffs()
 	Staff temp;
 	
 	while (q.next()) {
-		temp.SetID(q.value(0).toUInt());
-		temp.SetPassword(q.value(1).toByteArray().data());
-		temp.SetName(q.value(2).toByteArray().data());
-		temp.SetType(q.value(3).toUInt());
-		temp.SetLevel(q.value(4).toUInt());
-		temp.SetSex((byte)(q.value(5).toUInt()));
-		temp.SetBaseSalary(q.value(6).toInt());
-		temp.SetStatus(q.value(7).toUInt());
-		temp.SetCell(q.value(8).toByteArray().data());
-		temp.SetPhone(q.value(9).toByteArray().data());
-		temp.SetAddress(q.value(10).toByteArray().data());
-		temp.SetDescrp(q.value(11).toByteArray().data());
+		temp.setid((uint32)q.value(0).toUInt());
+		temp.setpassword(string(q.value(1).toByteArray().data()));
+		temp.setname(string(q.value(2).toByteArray().data()));
+		temp.settype((uint32)q.value(3).toUInt());
+		temp.setlevel((uint32)q.value(4).toUInt());
+		temp.setsex((uint32)q.value(5).toUInt());
+		temp.setbonus((uint32)q.value(6).toUInt());
+		temp.setstatus((uint32)q.value(7).toUInt());
+		temp.setcell(string(q.value(8).toByteArray().data()));
+		temp.setphone(string(q.value(9).toByteArray().data()));
+		temp.setaddress(string(q.value(10).toByteArray().data()));
+		temp.setdescription(string(q.value(11).toByteArray().data()));
+		//rating to be relized;
 		r->push_back(temp);
 	}
 	closeDb();
-	DBHEX("get all staffs. amount: ", r->size());
+	DBDEC("get all staffs. amount: ", r->size());
 	return r;
 }
 
@@ -490,7 +493,7 @@ list<Job>* SmDbThread::getJobs()
 		r->push_back(temp);
 	}
 	closeDb();
-	DBHEX("get all jobs. amount: ", r->size());
+	DBDEC("get all jobs. amount: ", r->size());
 	return r;
 }
 
@@ -515,7 +518,7 @@ list<Level>* SmDbThread::getLevels()
 		r->push_back(temp);
 	}
 	closeDb();
-	DBHEX("get all levels. amount: ", r->size());
+	DBDEC("get all levels. amount: ", r->size());
 	return r;
 }
 
@@ -538,7 +541,7 @@ list<Status>* SmDbThread::getStatus()
 		r->push_back(temp);
 	}
 	closeDb();
-	DBHEX("get all status. amount: ", r->size());
+	DBDEC("get all status. amount: ", r->size());
 	return r;
 }
 
@@ -574,7 +577,7 @@ int* SmDbThread::changePassword(uint32 id, string oldpw, string newpw)
 		*r = ERROR_DBERROR;
 	}
 	closeDb();
-	DBHEX("change password complete", r);
+	DBDEC("change password complete", r);
 	return r;
 }
 
@@ -596,7 +599,7 @@ bool SmDbThread::removeJob(Job* id)
 	QString remove = QString(DELETE_JOB_BYID).arg(id->id());
 	r = q.exec(remove);
 	closeDb();
-	DBHEX("remove job complete", r);
+	DBDEC("remove job complete", r);
 	return r;
 }
 
@@ -619,7 +622,7 @@ bool SmDbThread::removeLevel(Level* id)
 	QString remove = QString(DELETE_LEVEL_BYID).arg(id->id());
 	r = q.exec(remove);
 	closeDb();
-	DBHEX("remove job complete", r);
+	DBDEC("remove job complete", r);
 	return r;
 }
 
@@ -630,11 +633,11 @@ bool SmDbThread::deleteImage(uint32 id)
 		return r;
 	}
 
-	DBHEX("delete image for:", id);
+	DBDEC("delete image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
 
 	r= q.exec(QString(DELETE_STAFFIMAGE).arg(id));
-	DBHEX("delete image compltet:", r);
+	DBDEC("delete image compltet:", r);
 	return r;
 }
 

@@ -43,11 +43,11 @@ void CommonDbThread::WorkerThreadMain(Message& Action) {
 		case ACTION_LOGIN:
 		{
 			Staff* staffIncome = static_cast<Staff*>(Action.data());
-			string passwordInDb = getPassword(staffIncome->ID());
+			string passwordInDb = getPassword(staffIncome->id());
 			int* r = new int(ERROR_NO_ERROR);
-			if(!passwordInDb.empty() && staffIncome->Password() == passwordInDb) 
+			if(!passwordInDb.empty() && staffIncome->password() == passwordInDb) 
 			{
-				getLoggedStaff(staffIncome->ID());
+				getLoggedStaff(staffIncome->id());
 				*r = ERROR_NO_ERROR;
 			} else {
 				*r = ERROR_PASSWORD_WRONG;
@@ -212,7 +212,7 @@ bool CommonDbThread::addSupperStaff(Staff* staff)
 	DBHEX("creating super user...", "");
 	q.prepare(INSERTINTO_STAFF_SUPER);
 	q.bindValue(":id", SUPERUSERID);
-	q.bindValue(":password", staff->Password().c_str());
+	q.bindValue(":password", staff->password().c_str());
 	q.bindValue(":name", "³¬¼¶ÓÃ»§");
 	q.bindValue(":jobId", 1);
 	q.bindValue(":levelId", 1);
@@ -239,18 +239,18 @@ bool CommonDbThread::getLoggedStaff(uint32 id)
 	QString query = QString(SELECT_STAFF_BYID_NOIMAGE).arg(id);
 	if(q.exec(query)){
 		if(q.next()) {
-			m_loggedStaff->SetID(q.value(0).toUInt());
-			m_loggedStaff->SetPassword(q.value(1).toByteArray().data());
-			m_loggedStaff->SetName(q.value(2).toByteArray().data());
-			m_loggedStaff->SetType(q.value(3).toUInt());
-			m_loggedStaff->SetLevel(q.value(4).toUInt());
-			m_loggedStaff->SetSex(q.value(5).toUInt());
-			m_loggedStaff->SetBaseSalary(q.value(6).toUInt());
-			m_loggedStaff->SetStatus(q.value(7).toUInt());
-			m_loggedStaff->SetCell(q.value(8).toByteArray().data());
-			m_loggedStaff->SetPhone(q.value(9).toByteArray().data());
-			m_loggedStaff->SetAddress(q.value(10).toByteArray().data());
-			m_loggedStaff->SetDescrp(q.value(11).toByteArray().data());
+			m_loggedStaff->setid((uint32)q.value(0).toUInt());
+			m_loggedStaff->setpassword(string(q.value(1).toByteArray().data()));
+			m_loggedStaff->setname(string(q.value(2).toByteArray().data()));
+			m_loggedStaff->settype((uint32)q.value(3).toUInt());
+			m_loggedStaff->setlevel((uint32)q.value(4).toUInt());
+			m_loggedStaff->setsex((uint32)q.value(5).toUInt());
+			m_loggedStaff->setbonus((uint32)q.value(6).toUInt());
+			m_loggedStaff->setstatus((uint32)q.value(7).toUInt());
+			m_loggedStaff->setcell(string(q.value(8).toByteArray().data()));
+			m_loggedStaff->setphone(string(q.value(9).toByteArray().data()));
+			m_loggedStaff->setaddress(string(q.value(10).toByteArray().data()));
+			m_loggedStaff->setdescription(string(q.value(11).toByteArray().data()));
 		}
 	}
 

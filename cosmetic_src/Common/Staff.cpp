@@ -8,20 +8,9 @@
 #include "Staff.h"
 
 
-Staff::Staff(){
-	m_descrp.clear();
-	m_id= 0;
-	m_level = 0;
-	m_name.clear();
-	m_password.clear();
-	m_type = 0;
-	m_sex = 0;
-	m_address.clear();
-	m_cell.clear();
-	m_phone.clear();
-	m_status = 0;
-	m_baseSalary = 0;
-	m_rating = 60;
+Staff::Staff()
+:m_bonus(0),m_level(0),m_rating(50),m_status(0),m_type(0){
+	Human::clear();
 }
 
 Staff::~Staff(){
@@ -30,147 +19,68 @@ Staff::~Staff(){
 
 
 void Staff::clear(){
-	m_descrp.clear();
-	m_id= 0;
+	Human::clear();
 	m_level = 0;
-	m_name.clear();
-	m_password.clear();
-	m_type = 0;
-	m_sex = 0;
-	m_address.clear();
-	m_cell.clear();
-	m_phone.clear();
 	m_status = 0;
-	m_rating = 0;
+	m_bonus = 0;
+	m_rating= 0;
+	m_type = 0;
 }
 
-string Staff::Descrp(){
+void Staff::setbonus(const uint32& newVal){
 
-	return  m_descrp;
-}
-
-
-uint32 Staff::Level(){
-
-	return  m_level;
+	m_bonus = newVal;
 }
 
 
-string Staff::Name(){
+void Staff::setlevel(const uint32& newVal){
 
-	return  m_name;
+	m_level = newVal;
 }
 
 
-string Staff::Password(){
-	return  m_password;
+void Staff::setrating(const short& newVal){
+
+	m_rating = newVal;
 }
 
 
-void Staff::SetDescrp(string descrp){
-	m_descrp = descrp;
-}
+void Staff::setstatus(const uint32& newVal){
 
-void Staff::SetID(uint32 id){
-	m_id = id;
+	m_status = newVal;
 }
 
 
-void Staff::SetLevel(uint32 level){
-	m_level = level;
+void Staff::settype(const uint32& newVal){
 
+	m_type = newVal;
+}
+
+const uint32& Staff:: bonus() const{
+
+	return m_bonus;
 }
 
 
-void Staff::SetName(string name){
-	m_name = name;
+const uint32& Staff:: level() const{
+
+	return m_level;
 }
 
 
-void Staff::SetPassword(string pw){
-	m_password = pw;
-}
-
-
-void Staff::SetType(uint32 type){
-	m_type = type;
-}
-
-uint32 Staff::ID(){
-	return m_id;
-}
-
-uint32 Staff::Type(){
-
-	return  m_type;
-}
-
-void Staff::SetSex(byte sex){
-	m_sex = sex;
-}
-
-
-uint32 Staff::Sex(){
-
-	return  m_sex;
-}
-
-string Staff::address(){
-
-	return  m_address;
-}
-
-
-string Staff::cell(){
-
-	return  m_cell;
-}
-
-
-string Staff::phone(){
-
-	return  m_phone;
-}
-
-
-void Staff::SetAddress(string address){
-		m_address = address;
-}
-
-
-void Staff::SetCell(string cell){
-	m_cell = cell;
-}
-
-void Staff::SetPhone(string phone){
-		m_phone = phone;
-}
-
-void Staff::SetStatus(byte status){
-		m_status = status;
-}
-uint32 Staff::status(){
-
-	return  m_status;
-}
-void Staff::SetBaseSalary(uint32 salary){
-		m_baseSalary = salary;
-}
-uint32 Staff::baseSalary(){
-
-	return  m_baseSalary;
-}
-
-
-
-
-short Staff::getRating(){
+const short& Staff:: rating() const{
 
 	return m_rating;
 }
 
 
-void Staff::setRating(short newVal){
+const uint32& Staff:: status() const{
 
-	m_rating = newVal;
+	return m_status;
+}
+
+
+const uint32& Staff:: type() const{
+
+	return m_type;
 }

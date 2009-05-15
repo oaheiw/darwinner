@@ -6,10 +6,9 @@
 //#include "messagedef.h"
 
 WorkerThread::WorkerThread(QObject *parent, QThread::Priority priority)
-:QThread(parent)
+:QThread(parent),m_priority(priority),m_tempMsg(NULL)
 {
-	m_priority = priority;
-	m_tempMsg = NULL;
+
 }
 
 WorkerThread::~WorkerThread()

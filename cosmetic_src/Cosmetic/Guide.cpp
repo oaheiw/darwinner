@@ -106,7 +106,7 @@ void Guide::accept()
  {
  //*********************init super staff*************************//
 	Staff* staff = new Staff();
-	staff->SetPassword(field("password").toString().toLocal8Bit().data());	
+	staff->setpassword(field("password").toString().toLocal8Bit().data());	
 	m_message = new Message(ACTION_SETSUPERUSER, staff);
 	m_uiHandler->StartAction(*m_message);
 	delete m_message;

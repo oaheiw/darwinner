@@ -206,16 +206,16 @@ void StaffDetail::setStatus(list<Status>* statusList)
   	myinfo = flag;
 	if(NULL != staff) {
 		changeMode(SINFO_BROWSE);
-		lineEditId->setText(QString::number(staff->ID()));
-		lineEditName->setText(LOCAL8BITSTR(staff->Name().c_str()));
-		comboBoxSex->setCurrentIndex(comboBoxSex->findData(staff->Sex()));
+		lineEditId->setText(QString::number(staff->id()));
+		lineEditName->setText(LOCAL8BITSTR(staff->name().c_str()));
+		comboBoxSex->setCurrentIndex(comboBoxSex->findData(staff->sex()));
 		comboBoxStatus->setCurrentIndex(comboBoxStatus->findData(QVariant(staff->status())));
-		comboBoxJob->setCurrentIndex(comboBoxJob->findData(QVariant(staff->Type())));
-		comboBoxLevel->setCurrentIndex(comboBoxLevel->findData(QVariant(staff->Level())));
+		comboBoxJob->setCurrentIndex(comboBoxJob->findData(QVariant(staff->type())));
+		comboBoxLevel->setCurrentIndex(comboBoxLevel->findData(QVariant(staff->level())));
 		lineEditPhone->setText(LOCAL8BITSTR(staff->phone().c_str()));
 		lineEditCell->setText(LOCAL8BITSTR(staff->cell().c_str()));
 		plainTextEditAddress->setPlainText(LOCAL8BITSTR(staff->address().c_str()));
-		plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->Descrp().c_str()));
+		plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->description().c_str()));
 		userPicData.clear();
 		labelPortrait->setPixmap(noPic);
 	}
@@ -277,16 +277,16 @@ void StaffDetail::setStatus(list<Status>* statusList)
 	}
 	changeMode(SINFO_MODIFY);
 	if(NULL != staff) {
-		lineEditId->setText(QString::number(staff->ID()));
-		lineEditName->setText(LOCAL8BITSTR(staff->Name().c_str()));
-		comboBoxSex->setCurrentIndex(staff->Sex());
+		lineEditId->setText(QString::number(staff->id()));
+		lineEditName->setText(LOCAL8BITSTR(staff->name().c_str()));
+		comboBoxSex->setCurrentIndex(staff->sex());
 		comboBoxStatus->setCurrentIndex(staff->status());
-		comboBoxJob->setCurrentIndex(staff->Type());
-		comboBoxLevel->setCurrentIndex(staff->Level());
+		comboBoxJob->setCurrentIndex(staff->type());
+		comboBoxLevel->setCurrentIndex(staff->level());
 		lineEditPhone->setText(LOCAL8BITSTR(staff->phone().c_str()));
 		lineEditCell->setText(LOCAL8BITSTR(staff->cell().c_str()));
 		plainTextEditAddress->setPlainText(LOCAL8BITSTR(staff->address().c_str()));
-		plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->Descrp().c_str()));
+		plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->description().c_str()));
 	}
 }
 
@@ -300,16 +300,16 @@ void StaffDetail::setStatus(list<Status>* statusList)
 	Staff* staff = new Staff();
 	staff->clear();
 	userPicData.clear();
-	lineEditId->setText(QString::number(staff->ID()));
-	lineEditName->setText(LOCAL8BITSTR(staff->Name().c_str()));
-	comboBoxSex->setCurrentIndex(staff->Sex());
+	lineEditId->setText(QString::number(staff->id()));
+	lineEditName->setText(LOCAL8BITSTR(staff->name().c_str()));
+	comboBoxSex->setCurrentIndex(staff->sex());
 	comboBoxStatus->setCurrentIndex(staff->status());
-	comboBoxJob->setCurrentIndex(staff->Type());
-	comboBoxLevel->setCurrentIndex(staff->Level());
+	comboBoxJob->setCurrentIndex(staff->type());
+	comboBoxLevel->setCurrentIndex(staff->level());
 	lineEditPhone->setText(LOCAL8BITSTR(staff->phone().c_str()));
 	lineEditCell->setText(LOCAL8BITSTR(staff->cell().c_str()));
 	plainTextEditAddress->setPlainText(LOCAL8BITSTR(staff->address().c_str()));
-	plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->Descrp().c_str()));
+	plainTextEditDescrption->setPlainText(LOCAL8BITSTR(staff->description().c_str()));
 	labelPortrait->setPixmap(noPic);
 	changeMode(SINFO_NEW);
 	delete staff;
@@ -362,17 +362,17 @@ void StaffDetail::displayPic(QByteArray& data)
 void StaffDetail::submit()
 {
 	Staff* staff = new Staff();
-	staff->SetAddress(plainTextEditAddress->toPlainText().toLocal8Bit().data());
-	staff->SetCell(lineEditCell->text().toLocal8Bit().data());
-	staff->SetDescrp(plainTextEditDescrption->toPlainText().toLocal8Bit().data());
-	staff->SetID(lineEditId->text().toUInt());
-	staff->SetLevel(comboBoxLevel->itemData(comboBoxLevel->currentIndex()).toUInt());
-	staff->SetName(lineEditName->text().toLocal8Bit().data());
-	staff->SetPassword(emptyStr);
-	staff->SetPhone(lineEditPhone->text().toLocal8Bit().data());
-	staff->SetSex(comboBoxSex->itemData(comboBoxSex->currentIndex()).toUInt());
-	staff->SetType(comboBoxJob->itemData(comboBoxJob->currentIndex()).toUInt());
-	staff->SetStatus(comboBoxStatus->itemData(comboBoxStatus->currentIndex()).toUInt());
+	staff->setaddress(string(plainTextEditAddress->toPlainText().toLocal8Bit().data()));
+	staff->setcell(string(lineEditCell->text().toLocal8Bit().data()));
+	staff->setdescription(string(plainTextEditDescrption->toPlainText().toLocal8Bit().data()));
+	staff->setid(lineEditId->text().toUInt());
+	staff->setlevel(comboBoxLevel->itemData(comboBoxLevel->currentIndex()).toUInt());
+	staff->setname(string(lineEditName->text().toLocal8Bit().data()));
+	staff->setpassword(emptyStr);
+	staff->setphone(string(lineEditPhone->text().toLocal8Bit().data()));
+	staff->setsex(comboBoxSex->itemData(comboBoxSex->currentIndex()).toUInt());
+	staff->settype(comboBoxJob->itemData(comboBoxJob->currentIndex()).toUInt());
+	staff->setstatus(comboBoxStatus->itemData(comboBoxStatus->currentIndex()).toUInt());
 
 	if(SINFO_NEW == m_mode) {
 		emit addedStaff(staff, userPicData);

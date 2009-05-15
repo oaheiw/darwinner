@@ -55,16 +55,16 @@ StaffListView::~StaffListView()
 void StaffListView::addStaff(Staff& data)
 {	
 	int col = 0;
-	addData(0, col++, data.ID());
-	addData(0, col++, LOCAL8BITSTR(data.Name().c_str()));
-	addData(0, col++, LOCAL8BITSTR(sexStr[data.Sex()]));
-	addData(0, col++, LOCAL8BITSTR((*m_TypeNames)[data.Type()].c_str()));
-	addData(0, col++, LOCAL8BITSTR((*m_LevelNames)[data.Level()].c_str()));
+	addData(0, col++, data.id());
+	addData(0, col++, LOCAL8BITSTR(data.name().c_str()));
+	addData(0, col++, LOCAL8BITSTR(sexStr[data.sex()]));
+	addData(0, col++, LOCAL8BITSTR((*m_TypeNames)[data.type()].c_str()));
+	addData(0, col++, LOCAL8BITSTR((*m_LevelNames)[data.level()].c_str()));
 	addData(0, col++, LOCAL8BITSTR((*m_StateNames)[data.status()].c_str()));
-	addData(0, col++, data.getRating());
+	addData(0, col++, data.rating());
 	addData(0, col++, LOCAL8BITSTR(data.cell().c_str()));
 	addData(0, col++, LOCAL8BITSTR(data.phone().c_str()));
 	addData(0, col++, LOCAL8BITSTR(data.address().c_str()));
-	addData(0, col++, LOCAL8BITSTR(data.Descrp().c_str()));
+	addData(0, col++, LOCAL8BITSTR(data.description().c_str()));
 }
 

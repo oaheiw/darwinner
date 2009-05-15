@@ -106,7 +106,7 @@ void StaffWindow::OnEvent(Message & Msg){
 		}
 		case EVENT_ALLSTAFF:
 		{
-			addStaff((list<Staff>*)(Msg.data()));
+			addStaff2View((list<Staff>*)(Msg.data()));
 			break;
 		}
 		case EVENT_STAFFADDED:
@@ -476,7 +476,7 @@ void StaffWindow::getAllStaff()
 
 void StaffWindow::addStaff(Staff* staff, QByteArray& data)
 {
-	if(staff->Name().empty()) {
+	if(staff->name().empty()) {
 		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, smEmptyNameWarnning);
 		return;
 	}
@@ -490,7 +490,7 @@ void StaffWindow::addStaff(Staff* staff, QByteArray& data)
 
 void StaffWindow::modifyStaff(Staff* staff, QByteArray& data)
 {
-	if(staff->Name().empty()) {
+	if(staff->name().empty()) {
 		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, smEmptyNameWarnning);
 		return;
 	}

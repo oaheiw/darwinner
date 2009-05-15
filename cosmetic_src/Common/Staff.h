@@ -9,83 +9,87 @@
 #define EA_D930C676_5D00_4035_86CC_873B36ABF8DE__INCLUDED_
 
 #include "common.h"
-#include <string>
-using namespace std;
+#include "Human.h"
 
-class Staff
+class Staff : public Human
 {
 
 public:
 	Staff();
 	~Staff();
-	string address();
-	string cell();
-	string Descrp();
-	uint32 ID();
-	uint32 Level();
-	string Name();
-	string Password();
-	string phone();
-	uint32 Sex();
-	uint32 Type();
-	void SetAddress(string descrp);
-	void SetCell(string cell);
-	void SetDescrp(string descrp);
-	void SetID(uint32 id);
-	void SetLevel(uint32 level);
-	void SetName(string name);
-	void SetPassword(string pw);
-	void SetPhone(string phone);
-	void SetSex(byte sex);
-	void SetType(uint32 type);
-	void SetStatus(byte status);
-	uint32 status();
-	void SetBaseSalary(uint32 salary);
-	uint32 baseSalary();
-	short getRating();
-	void setRating(short newVal);
-	void clear();
-
-	friend bool operator==(const Staff &x, const Staff &y) {
-		return (	y.m_descrp == x.m_descrp &&
-					y.m_id == x.m_id &&
-					y.m_level == x.m_level &&
-					y.m_name == x.m_name &&
-					y.m_password ==x.m_password &&
-					y.m_type == x.m_type &&
-					y.m_sex == x.m_sex &&
-					y.m_address == x.m_address &&
-					y.m_cell == x.m_cell &&
-					y.m_phone == x.m_phone &&
-					y.m_status == x.m_status &&
-					y.m_baseSalary == x.m_baseSalary);
+	const uint32&  bonus() const;
+	const uint32&  level() const;
+	const short&  rating() const;
+	const uint32&  status() const;
+	const uint32&  type() const;
+	void setbonus(const uint32& newVal);
+	void setlevel(const uint32& newVal);
+	void setrating(const short& newVal);
+	void setstatus(const uint32& newVal);
+	void settype(const uint32& newVal);
+	virtual void clear();
+/*
+	friend bool operator==(Staff x, Staff y){
+		return (	y.id() == x.id() &&
+				y.level()== x.level() &&
+				y.name() == x.name() &&
+				y.password() ==x.password() &&
+				y.type() == x.type() &&
+				y.sex() == x.sex() &&
+				y.address() == x.address() &&
+				y.cell() == x.cell() &&
+				y.phone() == x.phone() &&
+				y.status() == x.status() &&
+				y.rating() == x.rating() &&
+				y.description() == x.description() &&
+				y.bonus() == x.bonus()
+				);
+	}
+*/	/*
+	inline bool operator==(Staff x){
+		return (	m_id == x.id() &&
+				m_level == x.level() &&
+				m_name == x.name() &&
+				m_password ==x.password() &&
+				m_type == x.type() &&
+				m_sex == x.sex() &&
+				m_address == x.address() &&
+				m_cell == x.cell() &&
+				m_phone == x.phone() &&
+				m_status == x.status() &&
+				m_rating == x.rating() &&
+				m_description == x.description() &&
+				m_bonus == x.bonus()
+				);
+	}
+*/
+	inline bool operator==(const Staff &x){
+		return (	dynamic_cast<const Human&>(x) == dynamic_cast<const Human&>(*this) &&
+				m_level == x.level() &&
+				m_type == x.type() &&
+				m_status == x.status() &&
+				m_rating == x.rating() &&
+				m_bonus == x.bonus()
+				);
 	}
 
 	class idMatcher {
 	public:
-		idMatcher(uint32 id) { m_val = id; }
-		bool operator()(Staff& x) 
+		idMatcher(uint32 id):m_val(id) { }
+		inline bool operator()(Staff &x) 
 		{
-			return 0 == x.ID() || x.ID() == m_val;
+			return 0 == x.id() || x.id() == m_val;
 		}
 	private:
 		uint32 m_val;
 	};
-
+	
 private:
-	string m_address;
-	string m_cell;
-	string m_descrp;
-	uint32 m_id;
 	uint32 m_level;
-	string m_name;
-	string m_password;
-	string m_phone;
-	uint32 m_sex;
 	uint32 m_type;
 	uint32 m_status;
-	uint32 m_baseSalary;
 	short m_rating;
+	uint32 m_bonus;
 };
 
 

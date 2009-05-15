@@ -37,6 +37,7 @@ private:
 	bool removeBusiness(uint32 id);
 	bool removeBusinessType(uint32 id);
 	bool removeImage(uint32 id);
+	list<Business>* getAllBusiness();
 
 };
 #endif // !defined(EA_6594F28D_DB37_4636_8095_CAF8A14A53D9__INCLUDED_)
