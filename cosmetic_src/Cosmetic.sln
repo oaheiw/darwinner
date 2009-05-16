@@ -76,13 +76,13 @@ Global
 		{EFFBD987-BE2F-4940-9177-2E721B083890}.Debug|Win32.Build.0 = Debug|Win32
 		{EFFBD987-BE2F-4940-9177-2E721B083890}.Release|Win32.ActiveCfg = Release|Win32
 		{EFFBD987-BE2F-4940-9177-2E721B083890}.Release|Win32.Build.0 = Release|Win32
-		{EFFBD987-BE2F-4940-9177-2E721B083890}.ReleaseStatic|Win32.ActiveCfg = Release|Win32
-		{EFFBD987-BE2F-4940-9177-2E721B083890}.ReleaseStatic|Win32.Build.0 = Release|Win32
+		{EFFBD987-BE2F-4940-9177-2E721B083890}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{EFFBD987-BE2F-4940-9177-2E721B083890}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		QtVersion = Qt4.5.0-shared
+		QtVersion = Qt4.5.1
 	EndGlobalSection
 EndGlobal

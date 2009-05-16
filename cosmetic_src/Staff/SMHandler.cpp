@@ -153,6 +153,8 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_STAFFADDED:
 			{
 				Staff* addedStaff = static_cast<Staff*>(ev.data());
+				 if(addedStaff->id() == SUPERUSERID)
+				 	break;
 				if(NULL != addedStaff) {
 					list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(addedStaff->id()));
 					if(m_staffCache.end() == it) {
@@ -168,7 +170,9 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_STAFFMODIFIED:
 			{
 				Staff* modifiedStaff = static_cast<Staff*>(ev.data());
-				if(NULL != EVENT_STAFFMODIFIED) {
+				if(modifiedStaff->id() == SUPERUSERID)
+				 	break;
+				if(NULL != modifiedStaff) {
 					list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(modifiedStaff->id()));
 					if(m_staffCache.end() != it) {
 						m_staffCache.remove(*it);

@@ -20,6 +20,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -38,9 +39,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="2"
 				AdditionalIncludeDirectories=".\..\CommonQt;.\..\Common;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;.;$(QTDIR)\include\QtSql"
 				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,WORKER_LIB,QT_SQL_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="0"
 			/>
@@ -141,6 +145,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -159,9 +164,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="2"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories=".\..\CommonQt;.\..\Common;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;.;$(QTDIR)\include\QtSql"
 				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,WORKER_LIB,QT_SQL_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="0"
 			/>
@@ -176,9 +185,9 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="QtSql.lib qsqlite.lib"
+				AdditionalDependencies="QtSql.lib"
 				OutputFile="$(OutDir)\lib\$(ProjectName).lib"
-				AdditionalLibraryDirectories="&quot;$(QTDIR)\plugins\sqldrivers&quot;;&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -321,11 +330,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt4.5.0-shared"
+			Value="Qt4.5.1"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt4.5.0-shared"
+			Value="Qt4.5.1"
 		/>
 		<Global
 			Name="RccDir"

@@ -143,8 +143,23 @@ bool BmDbThread::addBusiness(Business* data){
 
 
 bool BmDbThread::addBusinessType(BusinessType* data){
+	bool r = false;
+	if(!openDb(DBNAME)) {
+		return r;
+	}
+	
+	DBHEX("adding business type ...", data->getName());
+	
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+	q.prepare(INSERTINTO_BUSINESSTYPE_TABLE);
+	q.bindValue(":name", data->getName().c_str());
+	q.bindValue(":cate", data->getCategory());
+	q.bindValue(":description", data->getDescription().c_str());
+	r = q.exec();
 
-	return false;
+	closeDb();
+	DBDEC("add business type completed", r);
+	return r;
 }
 
 
@@ -155,32 +170,142 @@ bool BmDbThread::addImage(uint32 id, QByteArray& data){
 
 
 Business* BmDbThread::getBusiness(uint32 id){
-
-	return  NULL;
+	Business* temp = NULL;
+	if(0 == id || !openDb(DBNAME)){//id 0 business surely not in the database
+		return temp;
+	}
+	DBDEC("getting one business:", id);
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+	QString query = QString(SELECT_BUSINESS_BYID).arg(id);
+	if(q.exec(query)){
+		if(q.next()) {
+			temp = new Business();
+			temp->setId(q.value(0).toUInt());
+			temp->setName(q.value(1).toByteArray().data());
+			temp->setType(q.value(2).toUInt());
+			temp->setBrand(q.value(3).toByteArray().data());
+			temp->setSpecification(q.value(4).toByteArray().data());
+			temp->setPrice(q.value(5).toUInt());
+			temp->setCost(q.value(6).toUInt());
+			temp->setDiscount(q.value(7).toUInt());
+			temp->setAdjustable(q.value(8).toUInt());
+			temp->setDualDiscoutn(q.value(9).toBool());
+			temp->setStocks(q.value(10).toUInt());
+			temp->setSales(q.value(11).toUInt());
+			temp->setBuys(q.value(12).toUInt());
+			temp->setDescription(q.value(13).toByteArray().data());
+			//rating to be relized;
+		}
+	}
+	closeDb();
+	DBHEX("get one business completed:", temp->name());
+	return temp;
 }
 
 
 list<BusinessType>* BmDbThread::getBusinessTypes(){
+	list<BusinessType>* r = new list<BusinessType>;
+	r->clear();
+	if(!openDb(DBNAME)){
+		return r;
+	}
+	DBHEX("getting all business types", "");
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+	q.exec(SELECT_BUSINESSTYPE_ALL);
+	BusinessType temp;
 
-	return  NULL;
+	while (q.next()) {
+		temp.setId(q.value(0).toUInt());
+		temp.setName(q.value(1).toByteArray().data());
+		temp.setCategory(q.value(2).toUInt());
+		temp.setDescription(q.value(3).toByteArray().data());
+		r->push_back(temp);
+	}
+	closeDb();
+	DBDEC("get all business types completed. amount:", r->size());
+	return r;
+
 }
 
 
 QByteArray* BmDbThread::getImage(uint32 id){
+	QByteArray* image = new QByteArray;
+	image->clear();
+	
+	if(0 == id || !openDb(DBNAME)) {//id 0 business surely not in the database
+		return image;
+	}
+	
+	DBDEC("getting business image for:", id);
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
 
-	return  NULL;
+	QString check = QString(CHECK_BUSINESSIMAGE_BYID).arg(id);
+	if(q.exec(check)) {
+		if(!q.next()) return image;
+	}
+
+	QString get = QString(GET_BUSINESSIMAGE_BYID).arg(id);
+	if(q.exec(get)) {
+		if(q.next()) {
+			if(NULL != q.value(0).toByteArray().data())
+				*image = q.value(0).toByteArray();
+		}
+	}
+	
+	closeDb();
+	DBHEX("get business image completed.", "");
+	return image;
 }
 
 
 bool BmDbThread::modifyBusiness(Business* data){
+	bool r =false;
+	if(0 == data->id() || !openDb(DBNAME)) {//id 0 business surely not in the database
+		return r;
+	}
+	
+	DBHEX("modifying business...", data->name());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
 
-	return false;
+	QString check = QString(CHECK_BUSINESS_BYID).arg(data->id());
+	q.exec(check);
+	if(!q.isActive()) return r;
+
+	QString modifstr = QString(UPDATA_BUSINESS_BYID).arg(data->name().c_str())
+		.arg(data->type()).arg(data->brand().c_str()).arg(data->specification().c_str())
+		.arg(data->price()).arg(data->cost()).arg(data->discount()).arg(data->stocks())
+		.arg(data->sales()).arg(data->buys()).arg(data->description().c_str())
+		.arg(data->getAdjustable()).arg(data->isDualDiscoutn()).arg(data->id()); 
+	r = q.exec(modifstr);
+	closeDb();
+	
+	DBDEC("modify business complete", r);
+	return r;
 }
 
 
 bool BmDbThread::modifyBusinessType(BusinessType* data){
+	bool r = false;
+	if(!openDb(DBNAME)) {
+		return r;
+	}
+	
+	DBHEX("modifying business type ...", data->getName());
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+	QString qstring = QString(SELECT_BUSINESSTYPE_BYID).arg(data->getId());
+	q.exec(qstring);
+	if (q.isActive()) 
+	{
+		QString update = QString(UPDATA_BUSINESSTYPE)
+			.arg(data->getName().c_str()).arg(data->getCategory())
+			.arg(data->getDescription().c_str()).arg(data->getId());
+		r = q.exec(update);
+	}
 
-	return false;
+	closeDb();
+	DBDEC("modify business type completed", r);
+	return r;
+
 }
 
 

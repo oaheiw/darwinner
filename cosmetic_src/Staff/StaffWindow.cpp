@@ -112,7 +112,9 @@ void StaffWindow::OnEvent(Message & Msg){
 		case EVENT_STAFFADDED:
 		{
 			if(NULL != Msg.data()) {
-				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
+				Staff* staff = static_cast<Staff*>(Msg.data());
+				staffDetailWidget->browseStaff(staff);
+				if(SUPERUSERID == staff->id()) delete staff;
 				if(NULL != Msg.data2()) {
 					QByteArray* image = static_cast<QByteArray*>(Msg.data2());
 					staffDetailWidget->displayPic(*image);
@@ -140,7 +142,9 @@ void StaffWindow::OnEvent(Message & Msg){
 		case EVENT_STAFFMODIFIED:
 		{
 			if(NULL != Msg.data()) {
-				staffDetailWidget->browseStaff(static_cast<Staff*>(Msg.data()));
+				Staff* staff = static_cast<Staff*>(Msg.data());
+				staffDetailWidget->browseStaff(staff);
+				if(SUPERUSERID == staff->id()) delete staff;
 				if(NULL != Msg.data2()) {
 					QByteArray* image = static_cast<QByteArray*>(Msg.data2());
 					staffDetailWidget->displayPic(*image);

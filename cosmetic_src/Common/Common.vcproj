@@ -101,10 +101,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="false"
-				WholeProgramOptimization="false"
+				WholeProgramOptimization="true"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="false"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="1"
 				DebugInformationFormat="0"
 			/>
@@ -163,10 +165,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="false"
-				WholeProgramOptimization="false"
+				WholeProgramOptimization="true"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="false"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="1"
 				DebugInformationFormat="0"
 			/>

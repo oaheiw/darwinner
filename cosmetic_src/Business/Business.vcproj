@@ -20,6 +20,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -38,9 +39,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\CommonQt\GeneratedFiles;.\..\CommonQt;.\..\Common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;.;&quot;$(QTDIR)\include\QtGui&quot;"
+				InlineFunctionExpansion="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories=".\..\CommonQt\GeneratedFiles;.\..\CommonQt;.\..\Common;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;.;$(QTDIR)\include\QtGui"
 				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB,BUSINESS_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="0"
 			/>
@@ -98,7 +103,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\CommonQt\GeneratedFiles;..\CommonQt;..\Common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;.;&quot;$(QTDIR)\include\QtGui&quot;"
+				AdditionalIncludeDirectories=".\..\CommonQt\GeneratedFiles;.\..\CommonQt;.\..\Common;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;.;$(QTDIR)\include\QtGui"
 				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_CORE_LIB,QT_GUI_LIB,BUSINESS_LIB"
 				RuntimeLibrary="1"
 				TreatWChar_tAsBuiltInType="false"
@@ -116,6 +121,70 @@
 			<Tool
 				Name="VCLibrarianTool"
 				OutputFile="$(OutDir)\lib\$(ProjectName)d.lib"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseStatic|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="2"
+				WholeProgramOptimization="true"
+				AdditionalIncludeDirectories=".\..\CommonQt\GeneratedFiles;.\..\CommonQt;.\..\Common;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;.;$(QTDIR)\include\QtGui"
+				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB,BUSINESS_LIB"
+				StringPooling="true"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
+				TreatWChar_tAsBuiltInType="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\lib\$(ProjectName).lib"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 			/>
 			<Tool
@@ -198,6 +267,17 @@
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputPath)..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DBUSINESS_LIB -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\BusinessItemView.h"
@@ -215,6 +295,17 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -250,6 +341,17 @@
 						Outputs=""
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description=""
+						CommandLine=""
+						AdditionalDependencies=""
+						Outputs=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\BusinessWindow.h"
@@ -272,6 +374,17 @@
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputPath)..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DBUSINESS_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputPath)..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DBUSINESS_LIB -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -308,6 +421,17 @@
 						Outputs="&quot;.\GeneratedFiles\ui_$(InputName).h&quot;"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputPath)..."
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+						Outputs="&quot;.\GeneratedFiles\ui_$(InputName).h&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\BusinessWindow.ui"
@@ -334,6 +458,17 @@
 						Outputs="&quot;.\GeneratedFiles\ui_$(InputName).h&quot;"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputPath)..."
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+						Outputs="&quot;.\GeneratedFiles\ui_$(InputName).h&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -350,10 +485,25 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_BusinessDetailWidget.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_BusinessDetailWidget.cpp"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -362,10 +512,52 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_BusinessDetailWidget.cpp"
+				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_BusinessDetailWidget.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_BusinessDetailWidget.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -384,12 +576,69 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_BusinessWindow.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\GeneratedFiles\Release\moc_BusinessWindow.cpp"
 				>
 				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -418,11 +667,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt4.5.0-shared"
+			Value="Qt4.5.1"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt4.5.0-shared"
+			Value="Qt4.5.1"
 		/>
 		<Global
 			Name="RccDir"

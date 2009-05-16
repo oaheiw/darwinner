@@ -45,7 +45,7 @@
 #define INSERTINTO_STATUS_TABLE "INSERT INTO status (name, description) " "VALUES (:name, :description)"
 #define SELECT_STATUS_ALL "SELECT * FROM status"
 #define SELECT_STATUS_BYID "SELECT * FROM status WHERE id = %1"
-#define UPDATA_STATUS "UPDATE status SET SET name = '%1', description = '%3' WHERE id = %4"
+#define UPDATA_STATUS "UPDATE status SET SET name = '%1', description = '%2' WHERE id = %3"
 
 #define CREATE_SEX_TABLE "CREATE TABLE sex (id INTEGER PRIMARY KEY, name TEXT NOT NULL)"
 #define INSERTINTO_SEX_TABLE "INSERT INTO sex (id, name) " "VALUES (:id, :name)"
@@ -58,12 +58,16 @@
 #define CREATE_BUSINESSTYPE_TABLE "CREATE TABLE businessType (id INTEGER PRIMARY KEY, name TEXT NOT NULL, cate SMALLINT, description TEXT)"
 #define INSERTINTO_BUSINESSTYPE_TABLE "INSERT INTO businessType (name, cate, description) " "VALUES (:name, :cate, :description)"
 #define SELECT_BUSINESSTYPE_ALL "SELECT * FROM businessType"
+#define SELECT_BUSINESSTYPE_BYID "SELECT * FROM businessType WHERE id = %1"
+#define UPDATA_BUSINESSTYPE "UPDATE businessType SET SET name = '%1', cate = %2, description = '%3' WHERE id = %4"
+#define DELETE_BUSINESSTYPE_BYID "DELETE FROM businessType WHERE id = %1"
 
 #define CREATE_BUSINESS_TABLE "CREATE TABLE business (id INTEGER PRIMARY KEY, name TEXT, typeId INTEGER REFERENCES businessType(id), brand TEXT NOT NULL, specification TEXT NOT NULL, price INTEGER DEFAULT 0, cost INTEGER DEFAULT 0, discount SMALLINT DEFAULT 100, ,adjustable SMALLINT DEFAULT 0, dualDiscount SMALLINT DEFAULT 0, stocks INTEGER DEFAULT 0, sales INTEGER DEFAULT 0, buys INTEGER DEFAULT 0, description TEXT)"
 #define INSERTINTO_BUSINESS "INSERT INTO business (name, typeId, brand, specification, price, cost, discount, adjustable, dualDiscount, stocks, sales, buys, description) " "VALUES (:name, :typeId, :brand, :specification, :price, :cost, :discount, :adjustable, :dualDiscount, stocks, :sales, :buys, :description)"
 #define SELECT_BUSINESS_ALL "SELECT * FROM business"
+#define SELECT_BUSINESS_BYID "SELECT * FROM business WHERE id = %1"
 #define SELECT_BUSINESS_BYTYPE "SELECT * FROM business WHERE typeId = %1"
-#define UPDATA_BUSINESS_BYID "UPDATE business SET name = '%1', typeId = %2, brand = '%3', specification = '%4', price = %5, costs = %6, discounts = %7, stocks = %8, sales = %9, buys = %10, description = '%11', adjustable = %12, dualDiscount = %13 WHERE id = %12"
+#define UPDATA_BUSINESS_BYID "UPDATE business SET name = '%1', typeId = %2, brand = '%3', specification = '%4', price = %5, costs = %6, discounts = %7, stocks = %8, sales = %9, buys = %10, description = '%11', adjustable = %12, dualDiscount = %13 WHERE id = %14"
 #define DELETE_BUSINESS_BYID "DELETE FROM business WHERE id = %1"
 #define CHECK_BUSINESS_BYID "SELECT id FROM business WHERE id = %1"
 
