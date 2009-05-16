@@ -12,7 +12,6 @@ ItemView::ItemView(QWidget *parent)
 	m_DataModel =new QStandardItemModel(0, 0, this);
 	m_column = m_DataModel->columnCount();
 	ui.itemList->setModel(m_DataModel);
-	ui.itemList->sortByColumn(0, Qt::AscendingOrder);
 }
 
 ItemView::~ItemView()
@@ -25,6 +24,7 @@ void ItemView::appendColumn(int column)
 {
 	m_DataModel->insertColumns(m_DataModel->columnCount(), column);
 	m_column = m_DataModel->columnCount();
+	ui.itemList->sortByColumn(0, Qt::AscendingOrder);
 }
 
 
