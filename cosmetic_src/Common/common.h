@@ -66,6 +66,8 @@ typedef map<string, string> ArrayStringString;
 #define ACTION_FLAG (0x00000080)
 #define EVENT_FLAG (0x00000000)
 
+#define SUPERUSERID 10000
+
 #define  DBCONNECTION_COMMON "COMMONDB"
 #define  DBCONNECTION_SM "SMDB"
 #define  DBCONNECTION_BM "BMDB"
@@ -74,8 +76,6 @@ typedef map<string, string> ArrayStringString;
 #define STAFFTYPE "stafftype"
 #define STAFFSTATE "staffstate"
 #define BUSINESSTYPE "businesstype"
-
-
 
 #define STYLE_WIN98 "windows"
 #define STYLE_WINXP "windowsxp"

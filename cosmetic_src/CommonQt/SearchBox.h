@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "ui_SearchBox.h"
+#include <QString>
+#include <QRegExp>
 #include <map>
 using namespace std;
 
@@ -16,9 +18,9 @@ public:
 	void addFilterItem(QString& text);
 
 signals:
-	void regExpChanged(QRegExp &);
-	void columnChanged(int);
-	void sortChanged(int);
+	void regExpChanged(QRegExp & regexp);
+	void columnChanged(int col);
+	void sortChanged(int sort);
 
 private:
 	QString m_keyword;

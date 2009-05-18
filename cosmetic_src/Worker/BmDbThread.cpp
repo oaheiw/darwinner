@@ -11,6 +11,9 @@
 #include "Message.h"
 #include "messagedef.h"
 #include <QByteArray>
+#include <QSqlQuery>
+#include <QVariant>
+#include "dbquery.h"
 
 BmDbThread::BmDbThread(QObject *parent, QThread::Priority priority)
 :DbThread(parent, priority)
@@ -72,9 +75,9 @@ void BmDbThread::WorkerThreadMain(Message& action)
 		case ACTION_REMOVEBUSINESS:
 		{
 			uint32* id = static_cast<uint32*>(action.data());
-			int* result = new int(ERROR_NO_ERROR);
+			uint32* result = new uint32(*id);
 			if(!removeBusiness(*id))
-				*result = ERROR_REMOVE;
+				*result = 0;
 			m_tempMsg = new Message(EVENT_REMOVEBUSINESS, result);
 			delete id;
 			break;
@@ -119,7 +122,7 @@ void BmDbThread::WorkerThreadMain(Message& action)
 			list<BusinessType>* result = new list<BusinessType>;
 			list<BusinessType>::iterator it = toRemove->begin();
 			while(toRemove->end() != it) {
-				if(!addBusinessType(&(*it)))
+				if(!removeBusinessType(it->getId()))
 					result->push_back(*it);
 				it++;
 			}
@@ -137,35 +140,84 @@ void BmDbThread::WorkerThreadMain(Message& action)
 }
 
 bool BmDbThread::addBusiness(Business* data){
-
-	return false;
-}
-
-
-bool BmDbThread::addBusinessType(BusinessType* data){
-	bool r = false;
+	bool r =false;
 	if(!openDb(DBNAME)) {
 		return r;
 	}
-	
-	DBHEX("adding business type ...", data->getName());
-	
+	DBHEX("adding business...", data->name());
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
-	q.prepare(INSERTINTO_BUSINESSTYPE_TABLE);
-	q.bindValue(":name", data->getName().c_str());
-	q.bindValue(":cate", data->getCategory());
-	q.bindValue(":description", data->getDescription().c_str());
-	r = q.exec();
 
+	q.prepare(INSERTINTO_BUSINESS);
+
+	q.bindValue(":name", data->name().c_str());
+	q.bindValue(":typeId", data->type());
+	q.bindValue(":brand", data->brand().c_str());
+	q.bindValue(":specification", data->specification().c_str());
+	q.bindValue(":price", data->price());
+	q.bindValue(":cost", data->cost());
+	q.bindValue(":discount", data->discount());
+	q.bindValue(":adjustable", data->getAdjustable());
+	q.bindValue(":dualDiscount", data->isDualDiscoutn());
+	q.bindValue(":stocks", data->stocks());
+	q.bindValue(":sales", data->sales());
+	q.bindValue(":buys", data->buys());
+	q.bindValue(":description", data->description().c_str());
+	r = q.exec();
+	if(r) {
+		q.exec(SELECT_MAX_BUSINESSID);
+		if(q.next())
+			data->setId(q.value(0).toUInt());
+	}
 	closeDb();
-	DBDEC("add business type completed", r);
+	DBDEC("add business completed:", data->id());
+	return r;
+}
+
+bool BmDbThread::addBusinessType(BusinessType* data){	
+	bool r = false;
+	if(0 == data->getId()) {
+		if(!openDb(DBNAME)) {
+			return r;
+		}
+		DBHEX("adding business type ...", data->getName());
+		QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+		q.prepare(INSERTINTO_BUSINESSTYPE_TABLE);
+		q.bindValue(":name", data->getName().c_str());
+		q.bindValue(":cate", data->getCategory());
+		q.bindValue(":description", data->getDescription().c_str());
+		r = q.exec();
+		DBDEC("add business type completed", r);
+		closeDb();
+	} else {
+		r = modifyBusinessType(data);
+	}
 	return r;
 }
 
 
 bool BmDbThread::addImage(uint32 id, QByteArray& data){
+	bool r =false;
+	if(!openDb(DBNAME)) {
+		return r;
+	}
 
-	return false;
+	DBDEC("setting business image for:", id);
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+
+	QString check = QString(GET_BUSINESSIMAGE_BYID).arg(id);
+	if(q.exec(check)) {
+		if(q.next())
+			r = q.exec(QString(DELETE_BUSINESSIMAGE).arg(id));
+	}
+	if(r) {
+		q.prepare(INSERT_STAFFIMAGE);
+		q.bindValue(":id", id);
+		q.bindValue(":data", data, QSql::Binary | QSql::In);
+		r = q.exec();
+	}
+	closeDb();
+	DBDEC("set business image complete", r);
+	return r;
 }
 
 
@@ -194,6 +246,7 @@ Business* BmDbThread::getBusiness(uint32 id){
 			temp->setSales(q.value(11).toUInt());
 			temp->setBuys(q.value(12).toUInt());
 			temp->setDescription(q.value(13).toByteArray().data());
+			temp->setRating(56);
 			//rating to be relized;
 		}
 	}
@@ -305,30 +358,97 @@ bool BmDbThread::modifyBusinessType(BusinessType* data){
 	closeDb();
 	DBDEC("modify business type completed", r);
 	return r;
-
 }
 
 
 bool BmDbThread::removeBusiness(uint32 id){
-
-	return false;
+	bool r =false;
+	if(!openDb(DBNAME)) {
+		return r;
+	}
+	DBDEC("removing business...", id);
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+	QString remove = QString(DELETE_BUSINESS_BYID).arg(id);
+	r = q.exec(remove);
+	if(r) {
+		removeImage(id);
+	}
+	closeDb();
+	DBDEC("remove business complete", r);
+	return r;
 }
 
 
 bool BmDbThread::removeBusinessType(uint32 id){
+	bool r =false;
+	if(!openDb(DBNAME)) {
+		return r;
+	}
+	DBHEX("removing business type...", "");
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
 
-	return false;
+	QString check = QString(SELECT_BUSINESSTYPE_BYID).arg(id);
+	if(q.exec(check)) {
+		if(q.next())
+			return r;
+	}
+
+	QString remove = QString(DELETE_BUSINESSTYPE_BYID).arg(id);
+	r = q.exec(remove);
+	closeDb();
+	DBDEC("remove business type complete", r);
+	return r;
 }
 
 
 bool BmDbThread::removeImage(uint32 id){
+	bool r =false;
+	if(!openDb(DBNAME)) {
+		return r;
+	}
 
-	return false;
+	DBDEC("delete business image for:", id);
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+
+	r= q.exec(QString(DELETE_BUSINESSIMAGE).arg(id));
+	DBDEC("delete business image compltet:", r);
+	return r;
 }
 
 
 
 list<Business>* BmDbThread::getAllBusiness(){
+	list<Business>* r = new list<Business>;
+	r->clear();
+	if(!openDb(DBNAME)){
+		return r;
+	}
 
-	return  NULL;
+	DBHEX("geting all business...", "");
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
+	q.exec(SELECT_BUSINESS_ALL);
+	Business temp;
+
+	while (q.next()) {
+		temp.setId(q.value(0).toUInt());
+		temp.setName(q.value(1).toByteArray().data());
+		temp.setType(q.value(2).toUInt());
+		temp.setBrand(q.value(3).toByteArray().data());
+		temp.setSpecification(q.value(4).toByteArray().data());
+		temp.setPrice(q.value(5).toUInt());
+		temp.setCost(q.value(6).toUInt());
+		temp.setDiscount(q.value(7).toUInt());
+		temp.setAdjustable(q.value(8).toUInt());
+		temp.setDualDiscoutn(q.value(9).toBool());
+		temp.setStocks(q.value(10).toUInt());
+		temp.setSales(q.value(11).toUInt());
+		temp.setBuys(q.value(12).toUInt());
+		temp.setDescription(q.value(13).toByteArray().data());
+		temp.setRating(56);
+		//rating to be relized;
+		r->push_back(temp);
+	}
+	closeDb();
+	DBDEC("get all staffs. amount: ", r->size());
+	return r;
 }

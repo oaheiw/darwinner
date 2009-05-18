@@ -85,7 +85,8 @@ void SMHandler::StartAction(Message& act){
 				list<Job>* jobs2update = static_cast<list<Job>*>(act.data());
 				list<Job>* jobs2remove = new list<Job>;
 				for(list<Job>::iterator it = m_staffType.begin() ; m_staffType.end()!=it ; it++) {
-					if(jobs2update->end() == find_if(jobs2update->begin(), jobs2update->end(), Job::idMatcher(it->id()))) {
+					if(jobs2update->end() == 
+						find_if(jobs2update->begin(), jobs2update->end(), Job::idMatcher(it->id()))) {
 						jobs2remove->push_back(*it);	
 					} 
 				}
@@ -96,11 +97,10 @@ void SMHandler::StartAction(Message& act){
 				}
 				break;
 			}
-
-
+			default: break;
 		}
+		m_handler->StartAction(act);
 	}
-	m_handler->StartAction(act);
 }
 
 void SMHandler::OnEvent(Message &ev)
@@ -149,19 +149,17 @@ void SMHandler::OnEvent(Message &ev)
 				ev.setData(&m_staffState);
 				break;
 			}
-
 			case EVENT_STAFFADDED:
 			{
 				Staff* addedStaff = static_cast<Staff*>(ev.data());
 				 if(addedStaff->id() == SUPERUSERID)
 				 	break;
 				if(NULL != addedStaff) {
-					list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(addedStaff->id()));
+					list<Staff>::iterator it = 
+						find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(addedStaff->id()));
 					if(m_staffCache.end() == it) {
 						m_staffCache.push_back(*addedStaff);
 						ev.setData(&m_staffCache.back());
-					} else {
-						ev.setData(NULL);
 					}
 					delete addedStaff;
 				}
@@ -173,26 +171,26 @@ void SMHandler::OnEvent(Message &ev)
 				if(modifiedStaff->id() == SUPERUSERID)
 				 	break;
 				if(NULL != modifiedStaff) {
-					list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(modifiedStaff->id()));
+					list<Staff>::iterator it = 
+						find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(modifiedStaff->id()));
 					if(m_staffCache.end() != it) {
 						m_staffCache.remove(*it);
+						m_staffCache.push_back(*modifiedStaff);
+						ev.setData(&m_staffCache.back());
+						delete modifiedStaff;
 					}
-					m_staffCache.push_back(*modifiedStaff);
-					ev.setData(&m_staffCache.back());
-					delete modifiedStaff;
 				}
 				break;
 			}
 			case EVENT_STAFF:
 			{
 				Staff* staff = static_cast<Staff*>(ev.data());
-				list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(staff->id()));
+				list<Staff>::iterator it = find_if(m_staffCache.begin(), m_staffCache.end(), 
+					Staff::idMatcher(staff->id()));
 				if(m_staffCache.end() == it) {
 					m_staffCache.push_back(*staff);
 					ev.setData(&m_staffCache.back());
-				} else {
-					ev.setData(NULL);
-				}
+				} 
 				delete staff;
 				break;
 			}
@@ -208,7 +206,7 @@ void SMHandler::OnEvent(Message &ev)
 				delete id;
 				break;
 			}
-
+			default: break;
 		}
 		BroadcastEvent(ev);
 	}

@@ -8,7 +8,7 @@ using namespace std;
 
 #include "common.h"
 #include "DUIObserver.h"
-#include <QMainWindow>
+#include <QtGui/QMainWindow>
 #include "ui_StaffWindow.h"
 
 class Staff;
@@ -24,8 +24,8 @@ class SearchBox;
 
 class StaffWindow : public QMainWindow , public DUIObserver
 {
-	Q_OBJECT
-
+    Q_OBJECT
+    Q_DISABLE_COPY(StaffWindow)
 public:
 	StaffWindow(QWidget *parent = 0);
 	~StaffWindow();
@@ -70,9 +70,9 @@ private:
 	Ui::StaffWindowClass ui;
 
 private slots:
-	void dealAction(QAction*);
+	void dealAction(QAction* action);
 	void setLevels(list<Level>* levels);
-	void setJobs(list<Job>* jobs);;
+	void setJobs(list<Job>* jobs);
 	void addStaff(Staff* staff, QByteArray& image);
 	void modifyStaff(Staff* staff, QByteArray& image);
 	void staffActivated(int row, int column, QVariant & data);

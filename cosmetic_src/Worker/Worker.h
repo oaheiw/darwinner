@@ -27,6 +27,7 @@ public:
  private:
 	WorkerThread* m_commonDbThread;
 	WorkerThread* m_smDbThread;
+	WorkerThread* m_bmDbThread;
 	Staff* m_loggedStaff;
 };
 #endif // !defined(EA_20AED985_021D_47c7_AADB_219A004968B6__INCLUDED_)

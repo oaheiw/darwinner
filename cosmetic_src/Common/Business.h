@@ -50,6 +50,37 @@ public:
 	bool isDualDiscoutn()  const;
 	void setDualDiscoutn(bool newVal);
 
+	inline bool operator==(const Business &x){
+		return ( m_brand== x.brand() &&
+					m_buys== x.buys() &&
+					m_cost== x.cost() &&
+					m_description== x.description() &&
+					m_discount== x.discount() &&
+					m_id== x.id() &&
+					m_name== x.name() &&
+					m_price== x.price() &&
+					m_sales== x.sales() &&
+					m_specification== x.description() &&
+					m_stocks== x.stocks() &&
+					m_type== x.type() &&
+					m_adjustable== x.getAdjustable() &&
+					m_rating== x.getRating() &&
+					m_dualDiscoutn== x.isDualDiscoutn()
+			);
+	}
+
+	class BusinessIdMatcher {
+	public:
+		BusinessIdMatcher(uint32 id):m_val(id) { }
+		inline bool operator()(const Business &x) const
+		{
+			return 0 == x.id() || x.id() == m_val;
+		}
+	private:
+		uint32 m_val;
+	};
+
+
 private:
 	string m_brand;
 	uint32 m_buys;

@@ -5,7 +5,6 @@
 #define DBFILE "./cosmeticdb"
 #define SQLITEMARK "SQLite format 3"
 #define SQLITEMARKLEN (15)
-#define SUPERUSERID 10000
 
 //**************staff management database items***************//
 #define CREATE_STAFF_TABLE "CREATE TABLE staff (id INTEGER PRIMARY KEY, password TEXT, name TEXT, jobId INTEGER REFERENCES job(id), levelId INTEGER REFERENCES level(id), sex SMALLINT DEFAULT 0, bonus INTEGER DEFAULT 0, status SMALLINT DEFAULT 0, cell TEXT, phone TEXT, address TEXT, description TEXT)"
@@ -70,6 +69,7 @@
 #define UPDATA_BUSINESS_BYID "UPDATE business SET name = '%1', typeId = %2, brand = '%3', specification = '%4', price = %5, costs = %6, discounts = %7, stocks = %8, sales = %9, buys = %10, description = '%11', adjustable = %12, dualDiscount = %13 WHERE id = %14"
 #define DELETE_BUSINESS_BYID "DELETE FROM business WHERE id = %1"
 #define CHECK_BUSINESS_BYID "SELECT id FROM business WHERE id = %1"
+#define SELECT_MAX_BUSINESSID "SELECT MAX(id) FROM business"
 
 #define CREATE_BUSINESSIMAGE_TABLE "CREATE TABLE businessImage (id INTEGER REFERENCES staff(id), data BLOB DEFAULT NULL)" 
 #define INSERT_BUSINESSIMAGE "INSERT INTO businessImage (id, data)" "VALUES (:id, :data)"

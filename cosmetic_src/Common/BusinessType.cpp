@@ -55,7 +55,7 @@ void BusinessType::setCategory(short newVal){
 }
 
 
-void BusinessType::setDescription(string& newVal){
+void BusinessType::setDescription(const string& newVal){
 
 	m_description = newVal;
 }
@@ -67,7 +67,7 @@ void BusinessType::setId(uint32 newVal){
 }
 
 
-void BusinessType::setName(string& newVal){
+void BusinessType::setName(const string& newVal){
 
 	m_name = newVal;
 }

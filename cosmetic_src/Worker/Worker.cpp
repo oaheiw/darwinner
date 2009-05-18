@@ -10,6 +10,7 @@
 #include "Staff.h"
 #include "SmDbThread.h"
 #include "CommonDbThread.h"
+#include "BmDbThread.h"
 #include "TEvent.h"
 #include "Message.h"
 #include "Singleton.h"
@@ -21,6 +22,7 @@ Worker::Worker(QObject *parent )
 	m_loggedStaff = Singleton<Staff>::instance();
 	m_commonDbThread = new CommonDbThread(this, QThread::HighPriority);
 	m_smDbThread = new SmDbThread(this, QThread::HighPriority);
+	m_bmDbThread = new BmDbThread(this, QThread::HighPriority);
 }
 
 Worker::~Worker(){
@@ -83,12 +85,11 @@ void Worker::StartAction(Message& Action) {
 			}
 			default:
 			{
-//				m_smDbThread->QueueAction(Action);
+				m_bmDbThread->QueueAction(Action);
 				break;
 			}
 		}
 	}
-
 }
 
 bool Worker::event(QEvent * e) {

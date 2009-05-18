@@ -4,6 +4,7 @@
 #include "DUIHandler.h"
 #include "IEventObserver.h"
 #include "Business.h"
+#include "BusinessType.h"
 #include <list>
 class Message;
 
@@ -20,6 +21,7 @@ public:
 private:
 	DUIObserver* m_mainWindow;
 	list<Business> m_businessCache;
+	list<BusinessType> m_businessTypeCache;
 	void checkRights(Message* action);
 };
 
