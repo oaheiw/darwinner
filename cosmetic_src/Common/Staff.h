@@ -16,7 +16,7 @@ class Staff : public Human
 
 public:
 	Staff();
-	~Staff();
+	virtual ~Staff();
 	const uint32&  bonus() const;
 	const uint32&  level() const;
 	const short&  rating() const;

@@ -157,7 +157,7 @@ bool BmDbThread::addBusiness(Business* data){
 	q.bindValue(":cost", data->cost());
 	q.bindValue(":discount", data->discount());
 	q.bindValue(":adjustable", data->getAdjustable());
-	q.bindValue(":dualDiscount", data->isDualDiscoutn());
+	q.bindValue(":dualDiscount", (uint32)(data->isDualDiscoutn()));
 	q.bindValue(":stocks", data->stocks());
 	q.bindValue(":sales", data->sales());
 	q.bindValue(":buys", data->buys());

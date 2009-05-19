@@ -22,6 +22,8 @@ Business::Business(){
 	m_stocks = 0;
 	m_type = 0;
 	m_rating = 60;
+	m_adjustable = 0;
+	m_dualDiscoutn = false;
 }
 
 
@@ -30,7 +32,23 @@ Business::~Business(){
 
 }
 
-
+void Business::clear(){
+	m_brand.clear();
+	m_buys = 0;
+	m_cost = 0;
+	m_description.clear();
+	m_discount = 100;
+	m_id = 0;
+	m_name.clear();
+	m_price = 0;
+	m_sales = 0;
+	m_specification.clear();
+	m_stocks = 0;
+	m_type = 0;
+	m_rating = 60;
+	m_adjustable = 0;
+	m_dualDiscoutn = false;
+}
 
 
 

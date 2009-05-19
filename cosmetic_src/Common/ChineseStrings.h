@@ -99,6 +99,9 @@ static const char* sexStr[] = { sexUndefinedStr, sexMaleStr, sexFemaleStr };
 #define bmProfitableSaleStr "营利性商品"
 #define bmBrowseStr "业务浏览"
 #define bmTypeEditorStr "业务种类编辑"
+#define bmModifyBusinessErrorStr "未能成功修改业务明细，请重试。"
+#define bmAddBusinessErrorStr "未能成功添加新业务，请重试。"
+#define bmRemoveBusinessConfirm "业务“%1”及其所有营销纪录都将被清空！\n确定贵公司不再提供该业务？"
 static const char*  BusinessCategoryStr[] = {bmNonProfitableStr, bmProfitableServiceStr, bmProfitableSaleStr};
 
 #endif

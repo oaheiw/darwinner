@@ -21,7 +21,6 @@ public:
 	~ItemEditor();
 	void clearData();
 	void changeMode(ItemEditorMode mode);
-	virtual void* getData() = 0;
 
 protected:
 	QAbstractItemModel* m_DataModel;
@@ -31,6 +30,7 @@ protected:
 	void hideColumn(int column);
 	void setDelegate(int column, QAbstractItemDelegate* delegate);
 	void appendColumn(int column);
+	virtual void* getData() = 0;
 
 signals:
 	void submitted(void* data);

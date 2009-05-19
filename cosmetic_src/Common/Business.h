@@ -49,6 +49,7 @@ public:
 	void setRating(short newVal);
 	bool isDualDiscoutn()  const;
 	void setDualDiscoutn(bool newVal);
+	void clear();
 
 	inline bool operator==(const Business &x){
 		return ( m_brand== x.brand() &&

@@ -50,3 +50,10 @@ void BusinessTypeEditor::addBusinessType(const BusinessType & data)
 	addData(0, col++, LOCAL8BITSTR(BusinessCategoryStr[data.getCategory()]));
 	addData(0, col++, LOCAL8BITSTR(data.getDescription().c_str()));
 }
+
+void BusinessTypeEditor::addBusinessType(const list<BusinessType>* data)
+{
+	for(list<BusinessType>::const_iterator it = data->begin() ; 
+		data->end() != it ; it++ )
+			addBusinessType(*it);
+}

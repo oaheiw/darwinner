@@ -19,8 +19,8 @@ IDI_ICON1               ICON                    "Cosmetic.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,12,191
- PRODUCTVERSION 0,12,191
+ FILEVERSION 0,12,192
+ PRODUCTVERSION 0,12,192
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x29L
@@ -38,14 +38,14 @@ BEGIN
             VALUE "Comments", "comment"
             VALUE "CompanyName", "SeaShore Software(思索软件)"
             VALUE "FileDescription", "Cosmetic美容美发业运营系统"
-            VALUE "FileVersion", "0.12.191"
-            VALUE "InternalName", "Cosmetic_svn191_20090516.18:15:21"
+            VALUE "FileVersion", "0.12.192"
+            VALUE "InternalName", "Cosmetic_svn192_20090518.12:27:34"
             VALUE "LegalCopyright", "Copyright (C) 2009 SeaShore Software"
             VALUE "LegalTrademarks", "Cosmetic (TM)"
             VALUE "OriginalFilename", "Cosmetic.exe"
-            VALUE "PrivateBuild", "build_20090518.12:08:38"
+            VALUE "PrivateBuild", "build_20090519.17:03:12"
             VALUE "ProductName", "Cosmetic"
-            VALUE "ProductVersion", "0, 12, 191"
+            VALUE "ProductVersion", "0, 12, 192"
 			VALUE "SpecialBuild", "Alpah Build"
         END
     END

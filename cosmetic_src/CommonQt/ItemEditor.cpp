@@ -13,7 +13,7 @@ ItemEditor::ItemEditor(QWidget *parent)
 
 ItemEditor::~ItemEditor()
 {
-
+	delete m_DataModel;
 }
 
 void ItemEditor::changeMode(ItemEditorMode mode)

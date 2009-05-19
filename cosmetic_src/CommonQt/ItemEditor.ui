@@ -166,8 +166,8 @@
    <slot>add()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>202</x>
-     <y>289</y>
+     <x>163</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
      <x>281</x>
@@ -182,8 +182,8 @@
    <slot>remove()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>286</x>
-     <y>284</y>
+     <x>240</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
      <x>296</x>
@@ -195,15 +195,15 @@
    <sender>submitButton</sender>
    <signal>clicked()</signal>
    <receiver>ItemEditorClass</receiver>
-   <slot>remove()</slot>
+   <slot>submit()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>362</x>
-     <y>283</y>
+     <x>281</x>
+     <y>284</y>
     </hint>
     <hint type="destinationlabel">
-     <x>383</x>
-     <y>393</y>
+     <x>394</x>
+     <y>356</y>
     </hint>
    </hints>
   </connection>

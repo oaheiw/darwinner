@@ -11,6 +11,7 @@
 #include <map>
 class SearchBox;
 class BusinessDetailWidget;
+class BusinessTypeEditor;
 class QByteArray;
 class QEvent;
 using namespace std;
@@ -34,7 +35,7 @@ protected:
 private:
 	Ui::BusinessWindowClass ui;
 	void addBusiness2View(list<Business>* data);
-	void businessTypeSetting();
+	void addBusiness2View(Business* data);
 	void getAllBusiness();
 	void getBusiness(uint32 id);
 	void getBusinessType();
@@ -42,6 +43,9 @@ private:
 	void Exit();
 	void Logoff();
 	void Menu();
+	void addBusiness();
+	void removeBusiness();
+	void editBusiness();
 	void showSmallIcon(bool flag);
 	void showTextLabel(bool flag);
 	void showToolBar(bool flag);
@@ -50,10 +54,12 @@ private:
 	SearchBox*  m_searchBox;
 	BusinessDetailWidget* m_detailWidget;
 	BusinessTypeArray m_businessTypeCache;
+	BusinessTypeEditor* m_typeEditor;
 	bool m_started;
 	ArrayUint32String* m_businessTypeNames;
 
 private slots:
+	void submitBusiness(Business* data, QByteArray& picData, uint32 mode);
 	void dealAction(QAction* action);
 	void viewItemActivated(int row, int column, QVariant & data);
 	void addBusiness(Business* business, QByteArray& image);
