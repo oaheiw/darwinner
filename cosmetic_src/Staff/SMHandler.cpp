@@ -120,7 +120,7 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_ALLSTAFF:
 			{
 				list<Staff>* temp = static_cast<list<Staff>*>(ev.data());
-				m_staffCache = *(temp);
+				m_staffCache = *temp;
 				delete temp;
 				ev.setData(&m_staffCache);
 				break;
@@ -128,7 +128,7 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_JOBTYPE:
 			{
 				list<Job>* temp = static_cast<list<Job>*>(ev.data());
-				m_staffType = *(temp);
+				m_staffType = *temp;
 				delete temp;
 				ev.setData(&m_staffType);
 				break;
@@ -136,7 +136,7 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_LEVELTYPE:
 			{
 				list<Level>* temp = static_cast<list<Level>*>(ev.data());
-				m_staffLevel = *(temp);
+				m_staffLevel = *temp;
 				delete temp;
 				ev.setData(&m_staffLevel);
 				break;
@@ -144,7 +144,7 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_STATUSTYPE:
 			{
 				list<Status>* temp = static_cast<list<Status>*>(ev.data());
-				m_staffState  = *(temp);
+				m_staffState  = *temp;
 				delete temp;
 				ev.setData(&m_staffState);
 				break;

@@ -17,8 +17,8 @@ BusinessDetailWidget::BusinessDetailWidget(QWidget *parent, uint32 mode)
 	changeMode(m_mode);
 	connect(ui.picButton, SIGNAL(clicked()), this, SLOT(selectPicture()));
 	connect(ui.submitButton, SIGNAL(clicked()), this, SLOT(submit()));
-	m_zeroPicture = QPixmap(":/common/business").
-		scaled(ui.imageLabel->height(), ui.imageLabel->height(), 
+	m_zeroPicture = QPixmap(":/common/Resources/plan.png").
+		scaled(ui.imageLabel->width(), ui.imageLabel->height(), 
 		Qt::KeepAspectRatio ,Qt::SmoothTransformation);
 	displayPicture(m_businessPicData);
 }
@@ -31,6 +31,17 @@ BusinessDetailWidget::~BusinessDetailWidget()
 
 
 void BusinessDetailWidget::browseBusiness(Business* data){
+	if(BUSINESS_NEW == m_mode) {		
+		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
+			bmString, bmBusinessEditModeWarning))
+			return;
+	}
+	if(BUSINESS_MODIFY == m_mode) {		
+		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
+			bmString, abandonModifyWarning))
+			return;
+	}
+	changeMode(BUSINESS_BROWSE);
 	ui.adjustableCheckBox->setChecked(data->getAdjustable());
 	ui.brandLineEdit->setText(LOCAL8BITSTR(data->brand().c_str()));
 	ui.buysLcdNumber->display(QString::number(data->buys()));
@@ -41,11 +52,33 @@ void BusinessDetailWidget::browseBusiness(Business* data){
 	ui.idLcdNumber->display(QString::number(data->id()));
 	ui.nameLineEdit->setText(LOCAL8BITSTR(data->name().c_str()));
 	ui.priceSpinBox->setValue(data->price());
-	ui.progressBar->setValue(data->getRating());
 	ui.salesLcdNumber->display(QString::number(data->sales()));
-	ui.specLineEdit->setText(data->specification().c_str());
+	ui.specLineEdit->setText(LOCAL8BITSTR(data->specification().c_str()));
 	ui.stocksLcdNumber->display(QString::number(data->stocks()));
 	ui.typeComboBox->setCurrentIndex(ui.typeComboBox->findData(data->type()));
+	int h = ((double)(data->getRating())/(double)(ui.progressBar->maximum()))*COLOR_GREEN;
+	QPalette palette = ui.progressBar->palette();
+	palette.setColor(QPalette::Normal, QPalette::Highlight, QColor::fromHsv(h, 255, 255));
+	ui.progressBar->setPalette(palette);
+	ui.progressBar->setValue(data->getRating());
+}
+
+void BusinessDetailWidget::clearData() {
+	ui.adjustableCheckBox->setChecked(false);
+	ui.brandLineEdit->setText(emptyStr);
+	ui.buysLcdNumber->display(0);
+	ui.costSpinBox->setValue(0);
+	ui.descPlainTextEdit->setPlainText(emptyStr);
+	ui.discountSpinBox->setValue(100);
+	ui.dualDiscountCheckBox->setChecked(false);
+	ui.idLcdNumber->display(0);
+	ui.nameLineEdit->setText(emptyStr);
+	ui.priceSpinBox->setValue(0);
+	ui.progressBar->setValue(0);
+	ui.salesLcdNumber->display(0);
+	ui.specLineEdit->setText(emptyStr);
+	ui.stocksLcdNumber->display(0);
+	ui.typeComboBox->setCurrentIndex(0);
 }
 
 void BusinessDetailWidget::clearPicture() {
@@ -75,12 +108,11 @@ void BusinessDetailWidget::displayPicture(QByteArray& data){
 
 void BusinessDetailWidget::editBusiness(Business* data){
 	if(0 == ui.idLcdNumber->intValue()) {
-		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, zeroSelectionWarning);
+		MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, zeroSelectionWarning);
 		return;
 	}
 	if(BUSINESS_NEW == m_mode) {		
-		if(QMessageBox::No == 
-			MessageBox::showMessageBox(this, QMessageBox::Question, smString, smEditModeWarning));
+		MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, bmBusinessCannotEditWarning);
 		return;
 	}
 	if(NULL != data) {
@@ -92,20 +124,23 @@ void BusinessDetailWidget::editBusiness(Business* data){
 
 void BusinessDetailWidget::newBusiness(){
 	if(BUSINESS_MODIFY == m_mode) {		
-		if(QMessageBox::No == 
-			MessageBox::showMessageBox(this, QMessageBox::Question, smString, abandonModifyWarning))
+		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
+			bmString, abandonModifyWarning))
 			return;
 	}
-	Business* zeroData = new Business();
-	zeroData->clear();
-	browseBusiness(zeroData);
-	delete zeroData;
+	if(BUSINESS_NEW == m_mode) {		
+		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
+			bmString, bmBusinessEditModeWarning))
+				return;
+	}
+	clearData();
 	changeMode(BUSINESS_NEW);
 }
 
 
 void BusinessDetailWidget::setBusinessTypes(list<BusinessType>* types){
 	ui.typeComboBox->clear();
+	ui.typeComboBox->addItem(LOCAL8BITSTR(undefineStr), 0);
 	list<BusinessType>::iterator it = types->begin();
 	while(types->end() != it)
 	{
@@ -116,6 +151,10 @@ void BusinessDetailWidget::setBusinessTypes(list<BusinessType>* types){
 
 
 void BusinessDetailWidget::submit(){
+	if(ui.nameLineEdit->text().isEmpty() || 0 == ui.typeComboBox->currentIndex()) {
+		MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, bmEmptyNameTypeWarnning);
+		return;
+	}
 	Business* data = new Business();
 	data->setAdjustable(ui.adjustableCheckBox->isChecked());
 	data->setBrand(ui.brandLineEdit->text().toLocal8Bit().data());
@@ -127,8 +166,9 @@ void BusinessDetailWidget::submit(){
 	data->setPrice(ui.priceSpinBox->value());
 	data->setSpecification(ui.specLineEdit->text().toLocal8Bit().data());
 	data->setType(ui.typeComboBox->itemData(ui.typeComboBox->currentIndex()).toUInt());
-	
+	data->setId(ui.idLcdNumber->intValue());
 	emit submittedBusiness(data, m_businessPicData, m_mode);
+	changeMode(BUSINESS_BROWSE);
 }
 
 void BusinessDetailWidget::changeMode(uint32 mode){
@@ -185,7 +225,7 @@ void BusinessDetailWidget::selectPicture(){
 		file.open(QIODevice::ReadOnly);
 		if(file.size() > PIC_MAX_SIZE*MB) {
 			QString warning = LOCAL8BITSTR(imageSizeWarning).arg(PIC_MAX_SIZE);
-			MessageBox::showMessageBox(this, QMessageBox::Warning, smString, warning.toLocal8Bit().data());
+			MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, warning.toLocal8Bit().data());
 			return;
 		}
 		displayPicture(file.readAll());

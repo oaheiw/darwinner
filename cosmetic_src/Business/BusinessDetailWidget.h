@@ -7,7 +7,7 @@
 #include <list>
 using namespace std;
 class Business;
-class ByteArray;
+class QByteArray;
 class BusinessType;
 
 
@@ -26,6 +26,7 @@ public:
 	BusinessDetailWidget(QWidget *parent = 0, uint32 mode = BUSINESS_BROWSE);
 	~BusinessDetailWidget();
 	void browseBusiness(Business* data);
+	void clearData();
 	void displayPicture(QByteArray& data);
 	void clearPicture();
 	void editBusiness(Business* data);
@@ -41,6 +42,7 @@ private:
 	uint32 m_mode;
 	QPixmap m_zeroPicture;
 	void changeMode(uint32 mode);
+
 
 private slots:
 	void selectPicture();

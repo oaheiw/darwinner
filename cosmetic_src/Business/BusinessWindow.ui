@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../Cosmetic/Cosmetic.qrc">
-    <normaloff>:/common/business</normaloff>:/common/business</iconset>
+    <normaloff>:/business/business</normaloff>:/business/business</iconset>
   </property>
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonIconOnly</enum>
@@ -105,8 +105,8 @@
    </property>
    <property name="iconSize">
     <size>
-     <width>32</width>
-     <height>32</height>
+     <width>48</width>
+     <height>48</height>
     </size>
    </property>
    <attribute name="toolBarArea">
@@ -127,7 +127,7 @@
   <action name="actionMenu">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/Downloads.png</normaloff>:/common/Resources/Downloads.png</iconset>
+     <normaloff>:/common/Resources/mainmenu.png</normaloff>:/common/Resources/mainmenu.png</iconset>
    </property>
    <property name="text">
     <string>主菜单</string>
@@ -184,7 +184,7 @@
   <action name="actionAdd">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/edit_add.png</normaloff>:/common/Resources/edit_add.png</iconset>
+     <normaloff>:/common/Resources/add_color.png</normaloff>:/common/Resources/add_color.png</iconset>
    </property>
    <property name="text">
     <string>添加业务</string>
@@ -199,7 +199,7 @@
   <action name="actionEdit">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/edit.png</normaloff>:/common/Resources/edit.png</iconset>
+     <normaloff>:/common/Resources/edit1.png</normaloff>:/common/Resources/edit1.png</iconset>
    </property>
    <property name="text">
     <string>编辑业务</string>
@@ -214,7 +214,7 @@
   <action name="actionRemove">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/edit_remove.png</normaloff>:/common/Resources/edit_remove.png</iconset>
+     <normaloff>:/common/Resources/substract_color.png</normaloff>:/common/Resources/substract_color.png</iconset>
    </property>
    <property name="text">
     <string>删除业务</string>
@@ -229,7 +229,7 @@
   <action name="actionQuery">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/system-config-lvm.png</normaloff>:/common/Resources/system-config-lvm.png</iconset>
+     <normaloff>:/common/Resources/records2.png</normaloff>:/common/Resources/records2.png</iconset>
    </property>
    <property name="text">
     <string>业务记录</string>

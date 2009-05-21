@@ -26,10 +26,13 @@ public:
 	void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
 	void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 	void setFormat(QString& newVal);
+	void setRange(uint32 min, uint32 max);
 	void paint(QPainter *painter, const QStyleOptionViewItem &option,
 						   const QModelIndex &index) const;
 	
 private:
 	QString m_format;
+	uint32 m_min;
+	uint32 m_max;
 };
 #endif // !defined(EA_611665E4_3806_4da3_86A1_33995CDF4E4E__INCLUDED_)

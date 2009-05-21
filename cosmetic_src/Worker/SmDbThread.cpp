@@ -214,6 +214,7 @@ Staff* SmDbThread::getStaff(uint32 id)
 			temp->setphone(string(q.value(9).toByteArray().data()));
 			temp->setaddress(string(q.value(10).toByteArray().data()));
 			temp->setdescription(string(q.value(11).toByteArray().data()));
+			temp->setrating(rand()%100);
 			//rating to be relized;
 		}
 	}
@@ -464,6 +465,7 @@ list<Staff>* SmDbThread::getAllStaffs()
 		temp.setphone(string(q.value(9).toByteArray().data()));
 		temp.setaddress(string(q.value(10).toByteArray().data()));
 		temp.setdescription(string(q.value(11).toByteArray().data()));
+		temp.setrating(rand()%100);
 		//rating to be relized;
 		r->push_back(temp);
 	}

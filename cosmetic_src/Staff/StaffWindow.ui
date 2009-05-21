@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>481</width>
-    <height>348</height>
+    <width>625</width>
+    <height>389</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,7 +56,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>481</width>
+     <width>625</width>
      <height>20</height>
     </rect>
    </property>
@@ -149,7 +149,7 @@
   <action name="actionMenu">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/Downloads.png</normaloff>:/common/Resources/Downloads.png</iconset>
+     <normaloff>:/common/Resources/mainmenu.png</normaloff>:/common/Resources/mainmenu.png</iconset>
    </property>
    <property name="text">
     <string>主菜单(&amp;M)</string>
@@ -233,7 +233,7 @@
   <action name="actionBrowseMyRecords">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/contents.png</normaloff>:/common/Resources/contents.png</iconset>
+     <normaloff>:/common/Resources/records2.png</normaloff>:/common/Resources/records2.png</iconset>
    </property>
    <property name="text">
     <string>业绩浏览(&amp;R)</string>

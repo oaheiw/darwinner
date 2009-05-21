@@ -117,7 +117,7 @@ void SSMainMenu::createIcons()
 	ui.FunctionTableWidget->setItem(SO_X, SO_Y, operationButton);
 
 	QTableWidgetItem *businessButton = new QTableWidgetItem(QTableWidgetItem::Type);
-	businessButton->setIcon(QIcon(":/common/business"));
+	businessButton->setIcon(QIcon(":/business/business"));
 	businessButton->setText(LOCAL8BITSTR(bmString));
 	businessButton->setTextAlignment(Qt::AlignCenter);
 	businessButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);

@@ -85,6 +85,8 @@ typedef map<string, string> ArrayStringString;
 #define STYLE_PLASTIQUE "plastique"
 #define STYLE_CLEAN "cleanlooks"
 
+#define COLOR_GREEN (110)
+
 #define DIR_SEPERATOR "/"
 
 enum SEX {

@@ -58,21 +58,24 @@
 #define INSERTINTO_BUSINESSTYPE_TABLE "INSERT INTO businessType (name, cate, description) " "VALUES (:name, :cate, :description)"
 #define SELECT_BUSINESSTYPE_ALL "SELECT * FROM businessType"
 #define SELECT_BUSINESSTYPE_BYID "SELECT * FROM businessType WHERE id = %1"
-#define UPDATA_BUSINESSTYPE "UPDATE businessType SET SET name = '%1', cate = %2, description = '%3' WHERE id = %4"
+#define UPDATA_BUSINESSTYPE "UPDATE businessType SET name = '%1', cate = %2, description = '%3' WHERE id = %4"
 #define DELETE_BUSINESSTYPE_BYID "DELETE FROM businessType WHERE id = %1"
 
-#define CREATE_BUSINESS_TABLE "CREATE TABLE business (id INTEGER PRIMARY KEY, name TEXT, typeId INTEGER REFERENCES businessType(id), brand TEXT NOT NULL, specification TEXT NOT NULL, price INTEGER DEFAULT 0, cost INTEGER DEFAULT 0, discount SMALLINT DEFAULT 100, adjustable SMALLINT DEFAULT 0, dualDiscount SMALLINT DEFAULT 0, stocks INTEGER DEFAULT 0, sales INTEGER DEFAULT 0, buys INTEGER DEFAULT 0, description TEXT)"
+#define CREATE_BUSINESS_TABLE "CREATE TABLE business (id INTEGER PRIMARY KEY, name TEXT, typeId INTEGER REFERENCES businessType(id), brand TEXT NOT NULL,"\
+															"specification TEXT NOT NULL, price INTEGER DEFAULT 0, cost INTEGER DEFAULT 0, discount SMALLINT DEFAULT 100, adjustable SMALLINT DEFAULT 0,"\
+															"dualDiscount SMALLINT DEFAULT 0, stocks INTEGER DEFAULT 0, sales INTEGER DEFAULT 0, buys INTEGER DEFAULT 0, description TEXT)"
 #define INSERTINTO_BUSINESS "INSERT INTO business (name, typeId, brand, specification, price, cost, discount, adjustable, dualDiscount, stocks, sales, buys, description) "\
 	"VALUES (:name, :typeId, :brand, :specification, :price, :cost, :discount, :adjustable, :dualDiscount, :stocks, :sales, :buys, :description)"
 #define SELECT_BUSINESS_ALL "SELECT * FROM business"
 #define SELECT_BUSINESS_BYID "SELECT * FROM business WHERE id = %1"
 #define SELECT_BUSINESS_BYTYPE "SELECT * FROM business WHERE typeId = %1"
-#define UPDATA_BUSINESS_BYID "UPDATE business SET name = '%1', typeId = %2, brand = '%3', specification = '%4', price = %5, costs = %6, discounts = %7, stocks = %8, sales = %9, buys = %10, description = '%11', adjustable = %12, dualDiscount = %13 WHERE id = %14"
+#define UPDATA_BUSINESS_BYID "UPDATE business SET name = '%1', typeId = %2, brand = '%3', specification = '%4', price = %5, cost = %6, discount = %7, stocks = %8, sales = %9,"\
+															" buys = %10, description = '%11', adjustable = %12, dualDiscount = %13 WHERE id = %14"
 #define DELETE_BUSINESS_BYID "DELETE FROM business WHERE id = %1"
 #define CHECK_BUSINESS_BYID "SELECT id FROM business WHERE id = %1"
 #define SELECT_MAX_BUSINESSID "SELECT MAX(id) FROM business"
 
-#define CREATE_BUSINESSIMAGE_TABLE "CREATE TABLE businessImage (id INTEGER REFERENCES staff(id), data BLOB DEFAULT NULL)" 
+#define CREATE_BUSINESSIMAGE_TABLE "CREATE TABLE businessImage (id INTEGER REFERENCES business(id), data BLOB DEFAULT NULL)" 
 #define INSERT_BUSINESSIMAGE "INSERT INTO businessImage (id, data)" "VALUES (:id, :data)"
 #define DELETE_BUSINESSIMAGE "DELETE FROM businessImage WHERE id = %1"
 #define CHECK_BUSINESSIMAGE_BYID "SELECT id FROM businessImage WHERE id = %1"

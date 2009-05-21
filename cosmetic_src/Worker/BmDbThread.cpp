@@ -61,13 +61,14 @@ void BmDbThread::WorkerThreadMain(Message& action)
 			Business* business = static_cast<Business*>(action.data());
 			QByteArray* image = static_cast<QByteArray*>(action.data2());
 			Business* addedBusiness = NULL;
+			m_tempMsg = new Message(EVENT_ADDBUSINESS);
 			if(addBusiness(business)) {
 				addedBusiness = getBusiness(business->id());
-			}
-			m_tempMsg = new Message(EVENT_ADDBUSINESS, addedBusiness);
-			if(NULL != image && !image->isEmpty() && addedBusiness->id() != 0) {
-				if(addImage(addedBusiness->id(), *image))
-					m_tempMsg->setData2(getImage(addedBusiness->id()));
+				m_tempMsg->setData(addedBusiness);
+				if(NULL != addedBusiness && NULL != image && !image->isEmpty()) {
+					if(addImage(addedBusiness->id(), *image))
+						m_tempMsg->setData2(getImage(addedBusiness->id()));
+				}
 			}
 			delete business;
 			break;
@@ -87,13 +88,14 @@ void BmDbThread::WorkerThreadMain(Message& action)
 			Business* toModify = static_cast<Business*>(action.data());
 			QByteArray* image = static_cast<QByteArray*>(action.data2());
 			Business* modified = NULL;
+			m_tempMsg = new Message(EVENT_MODIFYBUSINESS);
 			if(modifyBusiness(toModify)) {
 				modified = getBusiness(toModify->id());
-			}
-			m_tempMsg = new Message(EVENT_MODIFYBUSINESS, modified);
-			if(NULL != image && !image->isEmpty() && modified->id() != 0) {
-				if(addImage(modified->id(), *image))
-					m_tempMsg->setData2(getImage(modified->id()));
+				m_tempMsg->setData(modified);
+				if(NULL != image && !image->isEmpty() && toModify->id() != 0) {
+					if(addImage(modified->id(), *image))
+						m_tempMsg->setData2(getImage(modified->id()));
+				}
 			}
 			delete toModify;
 			break;
@@ -127,7 +129,7 @@ void BmDbThread::WorkerThreadMain(Message& action)
 				it++;
 			}
 			delete toRemove;
-			m_tempMsg = new Message(EVENT_REMOVEBUSINESS, result);
+			m_tempMsg = new Message(EVENT_REMOVEBUSINESSTYPE, result);
 			break;
 
 		}
@@ -196,7 +198,7 @@ bool BmDbThread::addBusinessType(BusinessType* data){
 
 
 bool BmDbThread::addImage(uint32 id, QByteArray& data){
-	bool r =false;
+	bool r = true;
 	if(!openDb(DBNAME)) {
 		return r;
 	}
@@ -204,13 +206,13 @@ bool BmDbThread::addImage(uint32 id, QByteArray& data){
 	DBDEC("setting business image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
 
-	QString check = QString(GET_BUSINESSIMAGE_BYID).arg(id);
+	QString check = QString(CHECK_BUSINESSIMAGE_BYID).arg(id);
 	if(q.exec(check)) {
 		if(q.next())
 			r = q.exec(QString(DELETE_BUSINESSIMAGE).arg(id));
 	}
 	if(r) {
-		q.prepare(INSERT_STAFFIMAGE);
+		q.prepare(INSERT_BUSINESSIMAGE);
 		q.bindValue(":id", id);
 		q.bindValue(":data", data, QSql::Binary | QSql::In);
 		r = q.exec();
@@ -246,7 +248,7 @@ Business* BmDbThread::getBusiness(uint32 id){
 			temp->setSales(q.value(11).toUInt());
 			temp->setBuys(q.value(12).toUInt());
 			temp->setDescription(q.value(13).toByteArray().data());
-			temp->setRating(56);
+			temp->setRating(rand()%100);
 			//rating to be relized;
 		}
 	}
@@ -329,6 +331,7 @@ bool BmDbThread::modifyBusiness(Business* data){
 		.arg(data->price()).arg(data->cost()).arg(data->discount()).arg(data->stocks())
 		.arg(data->sales()).arg(data->buys()).arg(data->description().c_str())
 		.arg(data->getAdjustable()).arg(data->isDualDiscoutn()).arg(data->id()); 
+	DBHEX("modify business string:", modifstr.toLocal8Bit().data());
 	r = q.exec(modifstr);
 	closeDb();
 	
@@ -384,17 +387,15 @@ bool BmDbThread::removeBusinessType(uint32 id){
 	if(!openDb(DBNAME)) {
 		return r;
 	}
-	DBHEX("removing business type...", "");
+	DBHEX("removing business type...", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
 
 	QString check = QString(SELECT_BUSINESSTYPE_BYID).arg(id);
-	if(q.exec(check)) {
-		if(q.next())
-			return r;
+	q.exec(check);
+	if(q.isActive()) {
+		QString remove = QString(DELETE_BUSINESSTYPE_BYID).arg(id);
+		r = q.exec(remove);
 	}
-
-	QString remove = QString(DELETE_BUSINESSTYPE_BYID).arg(id);
-	r = q.exec(remove);
 	closeDb();
 	DBDEC("remove business type complete", r);
 	return r;
@@ -444,7 +445,7 @@ list<Business>* BmDbThread::getAllBusiness(){
 		temp.setSales(q.value(11).toUInt());
 		temp.setBuys(q.value(12).toUInt());
 		temp.setDescription(q.value(13).toByteArray().data());
-		temp.setRating(56);
+		temp.setRating(rand()%100);
 		//rating to be relized;
 		r->push_back(temp);
 	}

@@ -30,7 +30,8 @@
 #define sexMaleStr "男"
 #define sexFemaleStr "女"
 #define modifyWaring "未能成功修改，请重试。"
-#define abandonModifyWarning "还有未提交的修改信息，放弃修改?"
+#define abandonModifyWarning "编辑部件中还有还有未提交的信息！\n"\
+															"放弃所做的修改?"
 #define leftMark "“"
 #define rightMark "”"
 #define removeError "未能成功删除选定项目，请重试。"
@@ -63,10 +64,11 @@ static const char* sexStr[] = { sexUndefinedStr, sexMaleStr, sexFemaleStr };
 #define staffBrowseStr "员工浏览"
 #define staffJobSettingStr "职务设置"
 #define staffLevelSettingStr "级别设置"
-//***********staff mgnt message box strings
+//***********staff management message box strings
 #define smEditModeWarning "目前处于新建员工状态，请完成后再修改资料。"
 #define smEmptyNameWarnning "员工姓名不能留空， \n请返回并填写员工姓名。"
-#define smRemoveStaffConfirm "确定删除选定员工“%1”？\n如果员工离职，建议您更改该员工状态，而不是在系统中删除该员工。"
+#define smRemoveStaffConfirm "确定删除选定员工“%1”？\n"\
+	"如果员工离职，建议您更改该员工状态，而不是在系统中删除该员工。"
 #define smAddStaffError "未能成功添加员工，请重试。"
 #define smModifyStaffError "未能成功修改员工信息，请重试。"
 #define smJobRemoveWarning "未能成功删除，可能是还有员工被设置为该职务。"
@@ -74,7 +76,7 @@ static const char* sexStr[] = { sexUndefinedStr, sexMaleStr, sexFemaleStr };
 #define smChangePwSucces "你的密码已经成功更改。"
 #define smChangePwFailure "原始密码错误，你的密码未能更改。"
 
-//business mgnt string
+//business management string
 #define bmBrandStr "品牌"
 #define bmBuysStr "进货"
 #define bmCostStr "成本"
@@ -99,9 +101,17 @@ static const char* sexStr[] = { sexUndefinedStr, sexMaleStr, sexFemaleStr };
 #define bmProfitableSaleStr "营利性商品"
 #define bmBrowseStr "业务浏览"
 #define bmTypeEditorStr "业务种类编辑"
+//***********business management message box strings
 #define bmModifyBusinessErrorStr "未能成功修改业务明细，请重试。"
 #define bmAddBusinessErrorStr "未能成功添加新业务，请重试。"
-#define bmRemoveBusinessConfirm "业务“%1”及其所有营销纪录都将被清空！\n确定贵公司不再提供该业务？"
+#define bmRemoveBusinessConfirm "业务“%1”及其所有营销纪录都将被清空！\n"\
+	"确定贵公司不再提供该业务？"
+#define bmBusinessEditModeWarning "新建的业务还未提交！\n"\
+													"放弃所做的编辑?"
+#define bmBusinessCannotEditWarning "您正在编辑新建业务，并且还未提交。\n"\
+																		"无法进入业务修改模式。"
+#define bmEmptyNameTypeWarnning "业务名称或种类不能留空，请返回并填写。"
+#define bmTypeRemoveWaring "未能成功删除，可能是还有业务被设置为该种类。"
 static const char*  BusinessCategoryStr[] = {bmNonProfitableStr, bmProfitableServiceStr, bmProfitableSaleStr};
 
 #endif

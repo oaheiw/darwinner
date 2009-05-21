@@ -72,7 +72,6 @@ void BMHandler::StartAction(Message& act){
 
 void BMHandler::OnEvent(Message &ev)
 {
-	if(GROUP_BUSINESSMGNT != ev.group()) return;
 	if(ev.isEvent()) {
 		switch(ev.type())
 		{
@@ -147,10 +146,17 @@ void BMHandler::OnEvent(Message &ev)
 			case EVENT_REMOVEBUSINESS:
 				{
 					uint32* id = static_cast<uint32*>(ev.data());
-					list<Business>::iterator it = find_if(m_businessCache.begin(), m_businessCache.end(), 
-						Business::BusinessIdMatcher(*id));
-					if(m_businessCache.end() != it) {
-						m_businessCache.remove(*it);
+					if(0 != *id) {
+							list<Business>::iterator it = find_if(m_businessCache.begin(), m_businessCache.end(), 
+							Business::BusinessIdMatcher(*id));
+						if(m_businessCache.end() != it) {
+							DBHEX("remove business in cache:", it->name());
+							DBDEC("cache size:", m_businessCache.size());
+							m_businessCache.remove(*it);
+							DBDEC("cache size:", m_businessCache.size());
+						} else {
+							ev.setData(NULL);
+						}
 					} else {
 						ev.setData(NULL);
 					}

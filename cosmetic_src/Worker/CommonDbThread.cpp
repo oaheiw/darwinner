@@ -106,11 +106,11 @@ bool CommonDbThread::initDb()
 	q.exec(CREATE_STAFFIMAGE_TABLE);
 	q.exec(CREATE_JOB_TABLE);
 	q.exec(CREATE_LEVET_TABLE);
-//	q.exec(CREATE_SEX_TABLE);
 	q.exec(CREATE_STATUS_TABLE);
 	//bussiness mgnt
 	q.exec(CREATE_BUSINESSTYPE_TABLE);
 	q.exec(CREATE_BUSINESS_TABLE);
+	q.exec(CREATE_BUSINESSIMAGE_TABLE);
 	q.exec(CREATE_ORDERS_TABLE);
 	q.exec(CREATE_TASKS_TABLE);
 /*

@@ -64,7 +64,7 @@ private slots:
 	void viewItemActivated(int row, int column, QVariant & data);
 	void addBusiness(Business* business, QByteArray& image);
 	void modifyBusiness(Business* business, QByteArray& image);
-	void setBusinessType(list<BusinessType>* data);
+	void setBusinessType(void* data);
 };
 
 #endif // BUSINESSWINDOW_H

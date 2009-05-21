@@ -61,7 +61,7 @@ public:
 					m_name== x.name() &&
 					m_price== x.price() &&
 					m_sales== x.sales() &&
-					m_specification== x.description() &&
+					m_specification== x.specification() &&
 					m_stocks== x.stocks() &&
 					m_type== x.type() &&
 					m_adjustable== x.getAdjustable() &&

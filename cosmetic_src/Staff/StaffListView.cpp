@@ -44,6 +44,7 @@ StaffListView::StaffListView(QWidget *parent)
 
 	ProgressBarDelegate *delegateRating = new ProgressBarDelegate(this);
 	delegateRating->setFormat(LOCAL8BITSTR("%v/%m"));
+	delegateRating->setRange(0 , 100);
 	setDelegate(6, delegateRating);
 }
 

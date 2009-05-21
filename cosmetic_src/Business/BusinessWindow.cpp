@@ -154,15 +154,18 @@ void BusinessWindow::OnEvent(Message& Msg){
 			{
 				m_businessTypeCache.clear();
 				m_businessTypeNames->clear();
+				m_businessTypeNames->insert(pair<uint32, string>(0, undefineStr));
 				list<BusinessType>* data = static_cast<list<BusinessType>*>(Msg.data());
 				for(list<BusinessType>::iterator it = data->begin() ; it != data->end() ; it++) {
 					m_businessTypeCache[it->getId()] = *it;
 					m_businessTypeNames->insert(pair<uint32, string>(it->getId(), it->getName()));
 				}
-
+				
 				m_detailWidget->setBusinessTypes(data);
-				if(NULL != m_typeEditor)
+				if(NULL != m_typeEditor) {
+					m_typeEditor->clearData();
 					m_typeEditor->addBusinessType(data);
+				}
 				break;
 			}
 		case	EVENT_ALLBUSINESS:
@@ -207,12 +210,9 @@ void BusinessWindow::OnEvent(Message& Msg){
 		case	EVENT_REMOVEBUSINESS:
 			{
 				if(NULL != Msg.data()) {
+//					m_detailWidget->clearPicture();
+//					m_detailWidget->clearData();
 					getAllBusiness();
-					m_detailWidget->clearPicture();
-					Business* emptyBusiness = new Business;
-					emptyBusiness->clear();
-					m_detailWidget->browseBusiness(emptyBusiness);
-					delete emptyBusiness;
 				} else {
 					MessageBox::showMessageBox(this, QMessageBox::Critical, bmString, removeError);
 				}
@@ -256,6 +256,23 @@ void BusinessWindow::OnEvent(Message& Msg){
 				delete error;
 				break;
 			}
+		case	EVENT_REMOVEBUSINESSTYPE:
+			{
+				list<BusinessType>* error = static_cast<list<BusinessType>*>(Msg.data());
+				getBusinessType();
+				if(NULL!= error && !error->empty()){
+					string errorstr = bmTypeStr;
+					for(list<BusinessType>::iterator it = error->begin() ; it != error->end() ; it++) {
+						errorstr += leftMark;
+						errorstr += it->getName();
+						errorstr += rightMark;
+					}
+					errorstr += bmTypeRemoveWaring;
+					MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, errorstr);
+				}
+				delete error;
+				break;
+			}
 		default: break;
 	}
 }
@@ -273,6 +290,7 @@ void BusinessWindow::viewItemActivated(int row, int column, QVariant & data){
 
 void BusinessWindow::addBusiness2View(list<Business>* data)
 {
+	ui.itemView->clearData();
 	list<Business>::iterator it = data->begin();
 	while(data->end() != it) {
 		addBusiness2View(&(*it));
@@ -308,11 +326,12 @@ void BusinessWindow::removeBusiness()
 	ui.itemView->currentIndex(row, col);
 	uint32 currentID = ui.itemView->sibling(row, 0).toUInt();
 	if(0 != currentID) {
-		string  currentName = string(ui.itemView->sibling(row, 1).toString().toLocal8Bit().data());
+		string  currentName = string(ui.itemView->sibling(row, 2).toString().toLocal8Bit().data());
 		QString confirm =LOCAL8BITSTR(bmRemoveBusinessConfirm).
 			arg(LOCAL8BITSTR(currentName.c_str()));
 		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
 			bmString, confirm.toLocal8Bit().data())) return;
+		removeBusiness(currentID);
 	} else {
 		MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, zeroSelectionWarning);
 	}
@@ -320,8 +339,16 @@ void BusinessWindow::removeBusiness()
 
 void BusinessWindow::editBusiness()
 {
-	ui.sideBar->showSideBar(true);
-	m_detailWidget->editBusiness(NULL);
+	int row = 0;
+	int col = 0;
+	ui.itemView->currentIndex(row, col);
+	uint32 currentID = ui.itemView->sibling(row, 0).toUInt();
+	if(0 != currentID) {
+		ui.sideBar->showSideBar(true);
+		m_detailWidget->editBusiness(NULL);
+	} else {
+		MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, zeroSelectionWarning);
+	}
 }
 
 void BusinessWindow::addBusiness()
@@ -372,7 +399,7 @@ void BusinessWindow::removeBusiness(uint32 id){
 }
 
 
-void BusinessWindow::setBusinessType(list<BusinessType>* data){
+void BusinessWindow::setBusinessType(void* data){
 	Message* action = new Message(ACTION_SETBUSINESSTYPE, data);
 	m_uiHandler->StartAction(*action);
 	delete action;
@@ -431,9 +458,9 @@ void BusinessWindow::typeSetting()
 {
 	m_typeEditor = new BusinessTypeEditor(this);
 	m_typeEditor->setWindowModality(Qt::WindowModal);
-	m_typeEditor->setWindowFlags(Qt::Popup);
+	m_typeEditor->setWindowFlags(Qt::Tool);
 	connect(m_typeEditor, SIGNAL(submitted(void*)), 
-		this, SLOT(setBusinessType(list < BusinessType >*)));
+		this, SLOT(setBusinessType(void*)));
 	m_typeEditor->changeMode(ItemEditor::EditMode);
 	for(BusinessTypeArray::const_iterator it = m_businessTypeCache.begin() ; m_businessTypeCache.end() != it ; it++)
 		m_typeEditor->addBusinessType(it->second);
@@ -442,8 +469,8 @@ void BusinessWindow::typeSetting()
 
 void BusinessWindow::submitBusiness(Business* data, QByteArray& picData, uint32 mode)
 {
-	if(BusinessDetailWidget::BUSINESS_NEW == mode)
+	if(BusinessDetailWidget::BUSINESS_NEW == mode)// || 0 == data->id())
 		addBusiness(data, picData);
-	if(BusinessDetailWidget::BUSINESS_MODIFY == mode)
+	if(BusinessDetailWidget::BUSINESS_MODIFY == mode)// && 0 != data->id())
 		modifyBusiness(data, picData);
 }

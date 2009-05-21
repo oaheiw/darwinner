@@ -51,7 +51,7 @@ public:
 		BusinessTypeIdMatcher(uint32 id):m_val(id) { }
 		inline bool operator()(const BusinessType &x) const
 		{
-			return 0 == x.getId() || x.getId() == m_val;
+			return x.getId() == m_val;
 		}
 	private:
 		uint32 m_val;

@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/common" >
+        <file>Resources/edit1.png</file>
+        <file>Resources/add_color.png</file>
+        <file>Resources/export_color.png</file>
+        <file>Resources/substract_color.png</file>
+        <file>Resources/records2.png</file>
+        <file>Resources/mainmenu.png</file>
         <file>Resources/gtk-remove.png</file>
         <file>Resources/ok.png</file>
         <file>Resources/edit_add.png</file>
@@ -7,7 +13,7 @@
         <file>Resources/gtk-add.png</file>
         <file>Resources/no.png</file>
         <file>Resources/emptytrash.png</file>
-        <file alias="business" >Resources/plan.png</file>
+        <file>Resources/plan.png</file>
         <file>Resources/printer.png</file>
         <file>Resources/2rightarrow.png</file>
         <file>Resources/edit_user.png</file>
@@ -41,6 +47,10 @@
         <file>Resources/settings.png</file>
         <file>Resources/green.png</file>
         <file>Resources/system-config-lvm.png</file>
+    </qresource>
+    <qresource prefix="/business" >
+        <file alias="business" >../Business/icons/suitcase.png</file>
+        <file>../Business/icons/basket.png</file>
     </qresource>
     <qresource prefix="/staff" >
         <file>Resources/staff.png</file>
