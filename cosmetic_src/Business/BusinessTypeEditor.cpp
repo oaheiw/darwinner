@@ -3,20 +3,32 @@
 #include "BusinessType.h"
 #include <list>
 #include "UiStrings.h"
-#include "SpinBoxDelegate.h"
+#include "ComboBoxDelegate.h"
+#include "AnythingFactory.h"
 using namespace std;
 
 BusinessTypeEditor::BusinessTypeEditor(QWidget *parent)
 : ItemEditor(parent)
 {
 	appendColumn(4);
-//	setTitle(LOCAL8BITSTR(bmTypeEditorStr));
+	setWindowTitle(LOCAL8BITSTR(bmTypeEditorStr));
 	setTitle(LOCAL8BITSTR(""));
 	int col = 0;
 	setHeaderData(col++, LOCAL8BITSTR(bmBusinessTypeIdStr));
 	setHeaderData(col++, LOCAL8BITSTR(bmBusinessTypeNameStr));
 	setHeaderData(col++, LOCAL8BITSTR(bmBusinessTypeCategoryStr));
 	setHeaderData(col++, LOCAL8BITSTR(bmBusinessTypeDescriptionStr));
+
+	m_categoryNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSCATEGORE);
+
+	ComboBoxDelegate *delegate = new ComboBoxDelegate(this);
+	for(ArrayUint32String::const_iterator it = m_categoryNames->begin() ; 
+		m_categoryNames->end() != it ; it++) {
+			if(it->first < BC_SPENDING) {
+				delegate->addItem(it->second, it->first);
+			}
+	}
+	setDelegate(2, delegate);
 }
 
 BusinessTypeEditor::~BusinessTypeEditor()
@@ -47,7 +59,7 @@ void BusinessTypeEditor::addBusinessType(const BusinessType & data)
 	int col = 0;
 	addData(0, col++, data.getId());
 	addData(0, col++, LOCAL8BITSTR(data.getName().c_str()));
-	addData(0, col++, LOCAL8BITSTR(BusinessCategoryStr[data.getCategory()]));
+	addData(0, col++, data.getCategory());
 	addData(0, col++, LOCAL8BITSTR(data.getDescription().c_str()));
 }
 

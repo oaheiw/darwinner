@@ -76,6 +76,8 @@ typedef map<string, string> ArrayStringString;
 #define STAFFTYPE "stafftype"
 #define STAFFSTATE "staffstate"
 #define BUSINESSTYPE "businesstype"
+#define SEXNAMES "sexnames"
+#define BUSINESSCATEGORE "businesscategore"
 
 #define STYLE_WIN98 "windows"
 #define STYLE_WINXP "windowsxp"
@@ -96,12 +98,17 @@ enum SEX {
     SEX_END
 };
 
-enum BusinessCategory
+enum BUSINESS_CATEGORY
 {
-	BusinessCost = 0,
-	BusinessService = 1,
-	BusinessSale = 2,
-	BusinessCategoryEnd
+	BC_MEMEBERDEPOSIT = 0,
+	BC_MEMEBERCARD,
+	BC_SERVICE,
+	BC_SALE,
+	BC_SPENDING,
+	BC_SALARY,
+	BC_STOCK,
+	BC_RETURNSTOCK,
+	BC_END
 };
 
 

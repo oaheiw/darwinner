@@ -13,18 +13,33 @@
 #include "IActionHandler.h"
 #include "Singleton.h"
 #include "Guide.h"
+#include "AnythingFactory.h"
+#include "UiStrings.h"
 
 SSMainHandler::SSMainHandler()
+:m_entryWindow(NULL),m_mainWindow(NULL),m_Wizard(NULL)
 {
-	m_entryWindow = NULL;
-	m_mainWindow = NULL;
-	m_Wizard = NULL;
+	ArrayUint32String* pSexNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(SEXNAMES);
+	(*pSexNames)[SEX_UNDEFINE] = sexUndefinedStr;
+	(*pSexNames)[SEX_MALE] = sexMaleStr;
+	(*pSexNames)[SEX_FEMALE] = sexFemaleStr;
+
+	ArrayUint32String* pBusinessCategoryNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSCATEGORE);
+	(*pBusinessCategoryNames)[BC_MEMEBERDEPOSIT] = bmDepositStr;
+	(*pBusinessCategoryNames)[BC_MEMEBERCARD] = bmMemberCardStr;
+	(*pBusinessCategoryNames)[BC_SERVICE] = bmService;
+	(*pBusinessCategoryNames)[BC_SALE] = bmSaleStr;
+	(*pBusinessCategoryNames)[BC_SPENDING] = bmSpendingStr;
+	(*pBusinessCategoryNames)[BC_SALARY] = bmSalaryStr;
+	(*pBusinessCategoryNames)[BC_STOCK] = bmStockStr;
+	(*pBusinessCategoryNames)[BC_RETURNSTOCK] = bmReturnStockStr;
 }
 
-
-
 SSMainHandler::~SSMainHandler(){
-
+	delete m_entryWindow;
+	delete m_mainWindow;
+	delete m_Wizard;
+	delete m_handler;
 }
 
 void SSMainHandler::StartAction(Message & act)

@@ -7,7 +7,6 @@
 
 #include "DUIHandler.h"
 #include "DUIObserver.h"
-//#include "common.h"
 #include "Message.h"
 
 DUIHandler::DUIHandler(){

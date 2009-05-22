@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>250</width>
-    <height>525</height>
+    <height>445</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
      <property name="title">
       <string>业务明细</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="5,0,0,0,0,0,0,0,2,0,0">
       <property name="spacing">
        <number>3</number>
       </property>
@@ -42,35 +42,28 @@
        <number>5</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,0,1">
+       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0">
         <property name="spacing">
          <number>0</number>
         </property>
         <item>
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <widget class="QLabel" name="imageLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>4</horstretch>
+            <verstretch>3</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>228</width>
             <height>171</height>
            </size>
           </property>
-          <property name="maximumSize">
+          <property name="sizeIncrement">
            <size>
-            <width>228</width>
-            <height>171</height>
+            <width>4</width>
+            <height>3</height>
            </size>
           </property>
           <property name="frameShape">
@@ -93,18 +86,31 @@
           </property>
          </widget>
         </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="10">
+        <property name="spacing">
+         <number>4</number>
+        </property>
         <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+         <widget class="QProgressBar" name="progressBar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
+          <property name="value">
+           <number>24</number>
           </property>
-         </spacer>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="format">
+           <string>顾客满意度 %v分</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -129,7 +135,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="numDigits">
-           <number>7</number>
+           <number>10</number>
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
@@ -152,7 +158,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="numDigits">
-           <number>7</number>
+           <number>10</number>
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
@@ -182,7 +188,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="numDigits">
-           <number>7</number>
+           <number>10</number>
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
@@ -211,7 +217,7 @@
            <bool>false</bool>
           </property>
           <property name="numDigits">
-           <number>7</number>
+           <number>10</number>
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
@@ -221,39 +227,6 @@
           </property>
           <property name="intValue" stdset="0">
            <number>0</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,10">
-        <property name="spacing">
-         <number>4</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="ratingLabel">
-          <property name="text">
-           <string>满意度</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QProgressBar" name="progressBar">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="value">
-           <number>24</number>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="format">
-           <string>%v/%m</string>
           </property>
          </widget>
         </item>
@@ -566,25 +539,6 @@
          <number>2</number>
         </property>
         <item>
-         <widget class="QPushButton" name="submitButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>80</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>提交</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="picButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -595,11 +549,30 @@
           <property name="minimumSize">
            <size>
             <width>80</width>
-            <height>0</height>
+            <height>30</height>
            </size>
           </property>
           <property name="text">
            <string>更换图片</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="submitButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>提交</string>
           </property>
          </widget>
         </item>

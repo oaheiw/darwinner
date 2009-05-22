@@ -9,7 +9,7 @@
 
 
 BusinessType::BusinessType(){
-	m_category = BusinessCost;
+	m_category = 0;
 	m_description.clear();
 	m_id = 0;
 	m_name.clear();

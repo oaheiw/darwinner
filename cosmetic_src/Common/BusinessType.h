@@ -16,8 +16,7 @@ class BusinessType
 {
 public:
 	BusinessType();
-	virtual ~BusinessType();
-
+	~BusinessType();
 	short getCategory() const;
 	const string& getDescription() const;
 	uint32 getId() const;

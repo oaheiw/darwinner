@@ -355,6 +355,7 @@ bool BmDbThread::modifyBusinessType(BusinessType* data){
 		QString update = QString(UPDATA_BUSINESSTYPE)
 			.arg(data->getName().c_str()).arg(data->getCategory())
 			.arg(data->getDescription().c_str()).arg(data->getId());
+		DBHEX("", update.toLocal8Bit().data());
 		r = q.exec(update);
 	}
 

@@ -6,7 +6,7 @@
 
 
 SpinBoxDelegate::SpinBoxDelegate(QObject *parent)
-:QItemDelegate(parent)	, m_max(0), m_min(0), m_prefix(""),m_suffix("")
+:QItemDelegate(parent), m_max(0), m_min(0), m_prefix(""),m_suffix("")
 {
 	
 }

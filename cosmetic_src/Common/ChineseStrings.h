@@ -40,7 +40,6 @@
 #define submitStr "提交"
 #define imageFileStr "图像文件(*.png *.jpg *.bmp *.gif)"
 #define imageSizeWarning "非常抱歉，照片文件大小不能超过%1兆，请重新选择。"
-static const char* sexStr[] = { sexUndefinedStr, sexMaleStr, sexFemaleStr };
 
 //common mgnt strings
 #define loginWindowTitle "登录错误"
@@ -96,9 +95,14 @@ static const char* sexStr[] = { sexUndefinedStr, sexMaleStr, sexFemaleStr };
 #define bmBusinessTypeDescriptionStr "描述"
 #define bmBusinessTypeNameStr "种类名称"
 #define bmBusinessTypeIdStr "代码"
-#define bmNonProfitableStr "开销性业务"
-#define bmProfitableServiceStr "营利性服务"
-#define bmProfitableSaleStr "营利性商品"
+#define bmDepositStr "充值类业务"
+#define bmMemberCardStr "会员卡业务"
+#define bmService "服务类业务"
+#define bmSaleStr "商品类业务"
+#define bmSpendingStr "日常开销"
+#define bmSalaryStr "工资发放"
+#define bmStockStr "进货"
+#define bmReturnStockStr "退货"
 #define bmBrowseStr "业务浏览"
 #define bmTypeEditorStr "业务种类编辑"
 //***********business management message box strings
@@ -112,6 +116,5 @@ static const char* sexStr[] = { sexUndefinedStr, sexMaleStr, sexFemaleStr };
 																		"无法进入业务修改模式。"
 #define bmEmptyNameTypeWarnning "业务名称或种类不能留空，请返回并填写。"
 #define bmTypeRemoveWaring "未能成功删除，可能是还有业务被设置为该种类。"
-static const char*  BusinessCategoryStr[] = {bmNonProfitableStr, bmProfitableServiceStr, bmProfitableSaleStr};
 
 #endif

@@ -23,7 +23,7 @@ public:
 
 	void SetObserver(DUIObserver* observer);
 	virtual void StartAction(Message& act) = 0;
-	DUIObserver* GetObserver();
+//	DUIObserver* GetObserver();
 
 protected:
 	void BroadcastEvent(Message& ev);

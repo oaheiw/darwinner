@@ -13,7 +13,8 @@ StaffListView::StaffListView(QWidget *parent)
 	m_LevelNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFLEVEL);
 	m_TypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFTYPE);
 	m_StateNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFSTATE);
-
+	m_SexNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(SEXNAMES);
+	
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel();
 	setProxy(proxy);
 	appendColumn(11);
@@ -58,7 +59,7 @@ void StaffListView::addStaff(Staff& data)
 	int col = 0;
 	addData(0, col++, data.id());
 	addData(0, col++, LOCAL8BITSTR(data.name().c_str()));
-	addData(0, col++, LOCAL8BITSTR(sexStr[data.sex()]));
+	addData(0, col++, LOCAL8BITSTR((*m_SexNames)[data.sex()].c_str()));
 	addData(0, col++, LOCAL8BITSTR((*m_TypeNames)[data.type()].c_str()));
 	addData(0, col++, LOCAL8BITSTR((*m_LevelNames)[data.level()].c_str()));
 	addData(0, col++, LOCAL8BITSTR((*m_StateNames)[data.status()].c_str()));

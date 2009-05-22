@@ -20,6 +20,7 @@ private:
 	ArrayUint32String* m_LevelNames;
 	ArrayUint32String* m_TypeNames;
 	ArrayUint32String* m_StateNames;
+	ArrayUint32String* m_SexNames;
 };
 
 #endif // STAFFLISTVIEW_H
