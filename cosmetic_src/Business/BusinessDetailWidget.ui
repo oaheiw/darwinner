@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>250</width>
-    <height>445</height>
+    <width>294</width>
+    <height>452</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
      <property name="title">
       <string>业务明细</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="5,0,0,0,0,0,0,0,2,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0">
       <property name="spacing">
        <number>3</number>
       </property>
@@ -42,7 +42,7 @@
        <number>5</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="5">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -55,6 +55,12 @@
            </sizepolicy>
           </property>
           <property name="minimumSize">
+           <size>
+            <width>228</width>
+            <height>171</height>
+           </size>
+          </property>
+          <property name="maximumSize">
            <size>
             <width>228</width>
             <height>171</height>
@@ -135,7 +141,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="numDigits">
-           <number>10</number>
+           <number>7</number>
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
@@ -158,7 +164,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="numDigits">
-           <number>10</number>
+           <number>7</number>
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
@@ -188,7 +194,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="numDigits">
-           <number>10</number>
+           <number>7</number>
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
@@ -217,7 +223,7 @@
            <bool>false</bool>
           </property>
           <property name="numDigits">
-           <number>10</number>
+           <number>7</number>
           </property>
           <property name="segmentStyle">
            <enum>QLCDNumber::Flat</enum>
@@ -548,7 +554,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
@@ -567,7 +573,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>80</width>
+            <width>60</width>
             <height>30</height>
            </size>
           </property>
