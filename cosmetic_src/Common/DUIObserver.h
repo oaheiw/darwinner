@@ -22,7 +22,7 @@ public:
 	void SetHandler(DUIHandler* handler);
 	DUIHandler* GetHandler();
 
-protected:
+private:
 	DUIHandler* m_uiHandler;
 
 };

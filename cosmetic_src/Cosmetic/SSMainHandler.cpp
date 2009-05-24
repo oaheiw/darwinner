@@ -39,7 +39,6 @@ SSMainHandler::~SSMainHandler(){
 	delete m_entryWindow;
 	delete m_mainWindow;
 	delete m_Wizard;
-	delete m_handler;
 }
 
 void SSMainHandler::StartAction(Message & act)
@@ -47,7 +46,7 @@ void SSMainHandler::StartAction(Message & act)
 	switch(act.type()) {
 
 	}
-	m_handler->StartAction(act);
+	GetHandler()->StartAction(act);
 }
 
 void SSMainHandler::OnEvent(Message& Msg)

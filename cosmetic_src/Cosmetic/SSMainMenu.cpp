@@ -27,12 +27,11 @@ const QRgb COLOR_7 = 0x00FBB1F5;
 const QRgb COLOR_8 = 0x00F385BC;
 const QRgb COLOR_9 = 0x00FFE36A;
 
-SSMainMenu::SSMainMenu(QWidget *parent, DUIHandler* handler)
+SSMainMenu::SSMainMenu(QWidget *parent)
 : QDialog(parent)
 {
 	ui.setupUi(this);
 	createIcons();
-	m_uiHandler = handler;
 	const QIcon icon = QIcon(QString::fromUtf8(":/common/Resources/Cosmetic.png"));
     setWindowIcon(icon);
 }
@@ -87,7 +86,7 @@ void SSMainMenu::startFunction(int x, int y)
 	else if(EX_X == x && EX_Y == y)
 		action->setType(ACTION_EXIT);
 
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 

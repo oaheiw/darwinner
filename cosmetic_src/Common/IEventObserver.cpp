@@ -9,5 +9,8 @@
 
 void IEventObserver::SetHandler(IActionHandler* handler){
 	m_handler = handler;
-	DBHEX("hanlder setted:", m_handler);
+}
+
+IActionHandler* IEventObserver::GetHandler(){
+	return m_handler;
 }

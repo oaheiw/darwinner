@@ -38,3 +38,7 @@ void DUIHandler::BroadcastEvent(Message& ev){
 		it++;
 	}
 }
+
+void DUIHandler::DeregisterObserver(DUIObserver* observer){
+	m_listUiObserver.remove(observer);
+}

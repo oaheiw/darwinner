@@ -225,6 +225,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Customer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CustomerLevel.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DUIHandler.cpp"
 				>
 			</File>
@@ -296,6 +304,14 @@
 			</File>
 			<File
 				RelativePath=".\common.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Customer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CustomerLevel.h"
 				>
 			</File>
 			<File

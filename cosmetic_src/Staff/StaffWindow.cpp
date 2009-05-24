@@ -320,7 +320,7 @@ void StaffWindow::Menu()
 {
 	Message* action = new Message();
 	action->setType(ACTION_MAINMENU);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -328,7 +328,7 @@ void StaffWindow::Logoff()
 {
 	Message* action = new Message();
 	action->setType(ACTION_LOGOFF);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -336,7 +336,7 @@ void StaffWindow::Exit()
 {
 	Message* action = new Message();
 	action->setType(ACTION_EXIT);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -415,31 +415,31 @@ void StaffWindow::staffDetail(uint32 id) {
 	uint32* staffid = new uint32(id);
 	uint32* staffid2 = new uint32(id);
 	Message* action = new Message(ACTION_GETSTAFF, staffid);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 	Message* action2 = new Message(ACTION_GETPICTURE, staffid2);
-	m_uiHandler->StartAction(*action2);
+	GetHandler()->StartAction(*action2);
 	delete action2;
 }
 
 void StaffWindow::getJobType() {
 	Message* action = new Message();
 	action->setType(ACTION_GETJOBTYPE);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
 void StaffWindow::getLevelType() {
 	Message* action = new Message();
 	action->setType(ACTION_GETLEVELTYPE);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
 void StaffWindow::getStatusType() {
 	Message* action = new Message();
 	action->setType(ACTION_GETSTATUSTYPE);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -465,7 +465,7 @@ void StaffWindow::removeStaff(uint32 id, string name)
 	Message* action = new Message();
 	action->setType(ACTION_REMOVESTAFF);
 	action->setData(staffid);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -474,7 +474,7 @@ void StaffWindow::getAllStaff()
 	ui.itemView->clearData();
 	Message* action = new Message();
 	action->setType(ACTION_GEALLSTAFF);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -487,7 +487,7 @@ void StaffWindow::addStaff(Staff* staff, QByteArray& data)
 	Message* action = new Message(ACTION_ADDSTAFF, staff);
 	if(!data.isEmpty())
 		action->setData2(&data);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 
 }
@@ -501,7 +501,7 @@ void StaffWindow::modifyStaff(Staff* staff, QByteArray& data)
 	Message* action = new Message(ACTION_MODIFYSTAFF, staff);
 	if(!data.isEmpty())
 		action->setData2(&data);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 
 }
@@ -510,7 +510,7 @@ void StaffWindow::modifyStaff(Staff* staff, QByteArray& data)
  {
  	Message* action = new Message();
 	action->setType(ACTION_GETLOGGEDSTAFF);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
  
@@ -527,7 +527,7 @@ void StaffWindow::changePasswrod(string oldpw, string newpw)
 	pwList->push_back(oldpw);
 	pwList->push_back(newpw);
 	Message* action = new Message(ACTION_CHANGEPASSWORD, pwList);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -545,14 +545,14 @@ void StaffWindow::changePasswrod(string oldpw, string newpw)
  void StaffWindow::setLevels(list<Level>* levels) 
  {
  	Message* action = new Message(ACTION_SETLEVELTYPE, levels);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
  }
 
 void StaffWindow::setJobs(list<Job>* jobs)
 {
 	 Message* action = new Message(ACTION_SETJOBTYPE, jobs);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 

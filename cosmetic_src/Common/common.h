@@ -13,7 +13,11 @@
 using namespace std;
 
 typedef unsigned int uint32;
+typedef int int32;
 typedef unsigned char byte;
+typedef long long int64;
+typedef unsigned long long uint64;
+
 typedef map<uint32, string> ArrayUint32String;
 typedef map<string, string> ArrayStringString;
 

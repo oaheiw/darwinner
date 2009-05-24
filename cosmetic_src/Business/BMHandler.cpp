@@ -59,14 +59,14 @@ void BMHandler::StartAction(Message& act){
 
 					if(!types2remove->empty()) {
 						Message* remove = new Message(ACTION_REMOVEBUSINESSTYPE, types2remove);
-						m_handler->StartAction(*remove);
+						GetHandler()->StartAction(*remove);
 						delete remove;
 					}
 					break;
 				}
 			default: break;
 		}
-		m_handler->StartAction(act);
+		GetHandler()->StartAction(act);
 	}
 }
 

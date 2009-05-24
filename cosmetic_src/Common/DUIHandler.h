@@ -23,10 +23,12 @@ public:
 
 	void SetObserver(DUIObserver* observer);
 	virtual void StartAction(Message& act) = 0;
-//	DUIObserver* GetObserver();
+	void DeregisterObserver(DUIObserver* observer);
 
 protected:
 	void BroadcastEvent(Message& ev);
+
+private:
 	list<DUIObserver*> m_listUiObserver;
 
 };

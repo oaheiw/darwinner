@@ -75,7 +75,7 @@ void SMHandler::StartAction(Message& act){
 				}
 				if(!levels2remove->empty()) {
 					Message* remove = new Message(ACTION_REMOVELEVELTYPE, levels2remove);
-					m_handler->StartAction(*remove);
+					GetHandler()->StartAction(*remove);
 					delete remove;
 				}
 				break;
@@ -92,14 +92,14 @@ void SMHandler::StartAction(Message& act){
 				}
 				if(!jobs2remove->empty()) {
 					Message* remove = new Message(ACTION_REMOVEJOBTYPE, jobs2remove);
-					m_handler->StartAction(*remove);
+					GetHandler()->StartAction(*remove);
 					delete remove;
 				}
 				break;
 			}
 			default: break;
 		}
-		m_handler->StartAction(act);
+		GetHandler()->StartAction(act);
 	}
 }
 

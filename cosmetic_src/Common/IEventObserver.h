@@ -8,7 +8,6 @@
 #if !defined(EA_714FDA6F_77D3_4c14_91EA_D516282D9A93__INCLUDED_)
 #define EA_714FDA6F_77D3_4c14_91EA_D516282D9A93__INCLUDED_
 
-#include "common.h"
 class Message; 
 class IActionHandler;
 
@@ -24,7 +23,9 @@ public:
 	}
 	virtual void OnEvent(Message &) =0;
 	void SetHandler(IActionHandler* handler);
-protected:
+	IActionHandler* GetHandler();
+
+private:
 	IActionHandler* m_handler;
 
 };

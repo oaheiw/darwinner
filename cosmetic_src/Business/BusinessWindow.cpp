@@ -280,7 +280,7 @@ void BusinessWindow::OnEvent(Message& Msg){
 
 void BusinessWindow::addBusiness(Business* business, QByteArray& image){
 	Message* action = new Message(ACTION_ADDBUSINESS, business, &image);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -359,7 +359,7 @@ void BusinessWindow::addBusiness()
 
 void BusinessWindow::getAllBusiness(){
 	Message* action = new Message(ACTION_GETALLBUSINESS);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -368,24 +368,24 @@ void BusinessWindow::getBusiness(uint32 id){
 	uint32* id1 = new uint32(id);
 	uint32* id2 = new uint32(id);
 	Message* action1 = new Message(ACTION_GETBUSINESS, id1);
-	m_uiHandler->StartAction(*action1);
+	GetHandler()->StartAction(*action1);
 	delete action1;
 	Message* action2 = new Message(ACTION_GETBUSINESSPIC, id2);
-	m_uiHandler->StartAction(*action2);
+	GetHandler()->StartAction(*action2);
 	delete action2;
 }
 
 
 void BusinessWindow::getBusinessType(){
 	Message* action = new Message(ACTION_GETBUSINESSTYPE);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
 
 void BusinessWindow::modifyBusiness(Business* business, QByteArray& image){
 	Message* action = new Message(ACTOIN_MODIFYBUSINESS, business, &image);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
@@ -393,7 +393,7 @@ void BusinessWindow::modifyBusiness(Business* business, QByteArray& image){
 void BusinessWindow::removeBusiness(uint32 id){
 	uint32* id1 = new uint32(id);
 	Message* action = new Message(ACTION_REMOVEBUSINESS, id1);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 
 }
@@ -401,7 +401,7 @@ void BusinessWindow::removeBusiness(uint32 id){
 
 void BusinessWindow::setBusinessType(void* data){
 	Message* action = new Message(ACTION_SETBUSINESSTYPE, data);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 
 }
@@ -409,21 +409,21 @@ void BusinessWindow::setBusinessType(void* data){
 void BusinessWindow::Menu()
 {
 	Message* action = new Message(ACTION_MAINMENU);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
 void BusinessWindow::Logoff()
 {
 	Message* action = new Message(ACTION_LOGOFF);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 
 void BusinessWindow::Exit()
 {
 	Message* action = new Message(ACTION_EXIT);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 }
 

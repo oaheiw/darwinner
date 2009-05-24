@@ -7,13 +7,12 @@
 #include "MessageBox.h"
 #include "UiStrings.h"
 
-SSLoginWindow::SSLoginWindow(QWidget *parent, DUIHandler* handler)
+SSLoginWindow::SSLoginWindow(QWidget *parent)
 	: QDialog(parent)
 {
 	setupUi();
 	QFont font = QFont("SimSun", 9);
 	SettingFont(font);
-	m_uiHandler = handler;
 }
 
 SSLoginWindow::~SSLoginWindow()
@@ -61,7 +60,7 @@ void SSLoginWindow::Login()
 	stu->setpassword(pwLineEdit->text().toLocal8Bit().data());
 	Message* action = new Message(stu);
 	action->setType(ACTION_LOGIN);
-	m_uiHandler->StartAction(*action);
+	GetHandler()->StartAction(*action);
 	delete action;
 	pwLineEdit->clear();
 }

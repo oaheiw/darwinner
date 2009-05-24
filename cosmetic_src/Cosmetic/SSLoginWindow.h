@@ -11,7 +11,7 @@ class SSLoginWindow : public QDialog, public DUIObserver
 	Q_OBJECT
 
 public:
-	SSLoginWindow(QWidget *parent = 0, DUIHandler* handler = 0);
+	SSLoginWindow(QWidget *parent = 0);
 	~SSLoginWindow();
 	void OnEvent(Message& ev);
 	void SettingFont(QFont& font);

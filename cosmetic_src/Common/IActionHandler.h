@@ -18,18 +18,19 @@ class IActionHandler
 {
 
 public:
-	IActionHandler(){
-
-	}
-	~IActionHandler(){
-
-	}
+	IActionHandler() { }
+	~IActionHandler() { }
 	virtual void StartAction(Message& Action) =0;
 	void SetObserver(IEventObserver* observer);
 	void DeregisterObserver(IEventObserver* observer);
+	/*if your system has user rights. Re-implement this method
+	default implementation always returns true value */
+	virtual bool checkRight(uint32 actionId);
 
 protected:
 	void BroadcastEvent(Message& ev);
+
+private:
 	list<IEventObserver*> m_listObserver;
 
 };

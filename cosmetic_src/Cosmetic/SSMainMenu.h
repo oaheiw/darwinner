@@ -11,7 +11,7 @@ class SSMainMenu : public QDialog, public DUIObserver
 	Q_OBJECT
 
 public:
-	SSMainMenu(QWidget *parent = 0, DUIHandler* handler = 0);
+	SSMainMenu(QWidget *parent = 0);
 	~SSMainMenu();
 	void OnEvent(Message& ev) ;
 	void SettingFont(QFont& font);
