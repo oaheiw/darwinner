@@ -33,17 +33,18 @@ typedef map<string, string> ArrayStringString;
 #include <iomanip>
 #define DBHEX(info, para)\
 		{\
-			std::cout<<__FILE__<<" Line:"<<std::dec<<__LINE__<<" "<<info<<" "<<std::hex<<para<<std::endl;\
+			std::cout<<__FILE__<<" Line:"<<__LINE__<<" "<<info<<" "\
+			<<std::hex<<para<<std::endl;\
 		}
 #define DBDEC(info, para)\
 		{\
-			std::cout<<__FILE__<<" Line:"<<std::dec<<__LINE__<<" "<<info<<" "<<std::dec<<para<<std::endl;\
+			std::cout<<__FILE__<<" Line:"<<__LINE__<<" "<<info<<" "\
+			<<para<<std::endl;\
 		}
 
 #else
-#define DBHEX(info, para) {}
-#define DBDEC(info, para) {}
-
+#define DBHEX(info, para)
+#define DBDEC(info, para)
 #endif
 
 #define TOBE_REALIZIED MessageBox::showMessageBox(this, QMessageBox::Information, "实现中",  "该功能正在实现中……")
@@ -122,7 +123,7 @@ enum GROUP {
 	GROUP_STAFFMGNT = 1,
 	GROUP_BUSINESSMGNT = 2,
 	GROUP_SHOPMGNT = 3,
-	GROUP_CLIENTMGNT = 4,
+	GROUP_CUSTOMERMGNT = 4,
 	GROUP_END
 };
 
@@ -144,6 +145,16 @@ enum SUBGROUP_BM {
 	SUBGROUP_BM_ADVANCEDMGNT, // 4
 	SUBGROUP_BM_END
 };
+
+//SUBGROUP should be less than 255
+enum SUBGROUP_CM {
+	SUBGROUP_CM_BROWSE = 1,
+	SUBGROUP_CM_INFOMGNT, // 2
+	SUBGROUP_CM_RECORDMGNT, // 3
+	SUBGROUP_CM_ADVANCEDMGNT, // 4
+	SUBGROUP_CM_END
+};
+
 enum ERROR {
 	ERROR_NO_ERROR = 0,
 	ERROR_DBERROR = -1,

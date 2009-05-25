@@ -42,3 +42,7 @@ void DUIHandler::BroadcastEvent(Message& ev){
 void DUIHandler::DeregisterObserver(DUIObserver* observer){
 	m_listUiObserver.remove(observer);
 }
+
+bool DUIHandler::CheckRight(uint32 actionId){
+	return true;
+}

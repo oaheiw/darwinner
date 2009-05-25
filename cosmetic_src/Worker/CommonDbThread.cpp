@@ -190,7 +190,7 @@ string CommonDbThread::getPassword(uint32 id)
 	}
 	DBHEX("getting password for: ", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
-	QString query = QString(GET_PASSWORD_BYID).arg(id);
+	QString query = QString(GET_STAFFPASSWORD_BYID).arg(id);
 	if(q.exec(query)){
 		if(q.next()) {
 			password = string(q.value(0).toByteArray().data());

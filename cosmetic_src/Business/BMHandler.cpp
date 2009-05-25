@@ -17,8 +17,19 @@ BMHandler::~BMHandler()
 
 }
 
+bool BMHandler::CheckRight(uint32 actionId){
+	return true;
+}
+
 void BMHandler::StartAction(Message& act){
 	if(act.isAction()) {
+		if (!CheckRight(act.type()))
+		{
+			Message* ev = new Message(EVENT_RIGHTERROR);
+			BroadcastEvent(*ev);
+			delete ev;
+			return;
+		} 
 		switch(act.type()) {
 			case ACTION_GETALLBUSINESS:
 				{
@@ -167,11 +178,4 @@ void BMHandler::OnEvent(Message &ev)
 		}
 		BroadcastEvent(ev);
 	}
-}
-
-
-
-
-void BMHandler::checkRights(Message* action){
-
 }

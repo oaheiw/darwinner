@@ -558,8 +558,9 @@ int* SmDbThread::changePassword(uint32 id, string oldpw, string newpw)
 	
 	DBHEX("changing password...", "");
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_SM));
+	
 
-	QString getold = QString("SELECT password FROM staff WHERE id = %1").arg(id);
+	QString getold = QString(GET_STAFFPASSWORD_BYID).arg(id);
 	if(q.exec(getold)) {
 		if(q.next()) {
 			if(oldpw != string(q.value(0).toByteArray().data())) return r;
@@ -572,7 +573,7 @@ int* SmDbThread::changePassword(uint32 id, string oldpw, string newpw)
 		return r;
 	}
 
-	QString setnew = QString("UPDATE staff SET password = '%1' WHERE id = %2").arg(newpw.c_str()).arg(id);
+	QString setnew = QString(UPDATE_STAFFPASWORD_BYID).arg(newpw.c_str()).arg(id);
 	if(q.exec(setnew)) {
 		*r = ERROR_NO_ERROR;
 	} else {

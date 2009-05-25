@@ -34,8 +34,3 @@ void IActionHandler::BroadcastEvent(Message& ev){
 void IActionHandler::DeregisterObserver(IEventObserver* observer){
 	m_listObserver.remove(observer);
 }
-
-
-bool IActionHandler::checkRight(uint32 actionId){
-	return true;
-}

@@ -33,18 +33,7 @@ public:
 				y.m_name == x.m_name
 			);
 	}
-/*
-	friend class BusinessTypeFullMatcher {
-	public:
-		BusinessTypeFullMatcher(const BusinessType& businesstype):m_val(businesstype) { }
-		inline bool operator()(const BusinessType &x)
-		{
-			return m_val == x;
-		}
-	private:
-		const BusinessType m_val;
-	};
-*/
+
 	class BusinessTypeIdMatcher {
 	public:
 		BusinessTypeIdMatcher(uint32 id):m_val(id) { }

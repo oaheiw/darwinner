@@ -26,6 +26,9 @@ public:
 	void OnEvent(Message& ev);
 	void StartAction(Message& act);
 
+protected:
+	virtual bool CheckRight(uint32 actionId);
+
 private:
 	list<Customer> m_customerCache;
 	list<CustomerLevel> m_customerLevelCache;

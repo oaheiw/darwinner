@@ -8,6 +8,7 @@
 #if !defined(EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_)
 #define EA_D5E34F8A_68A8_4430_8A5B_EB004BC1B72D__INCLUDED_
 
+#include "common.h"
 #include <list>
 using namespace std;
 
@@ -26,6 +27,9 @@ public:
 	void DeregisterObserver(DUIObserver* observer);
 
 protected:
+	/*if your system has user rights. Re-implement this method
+	the default implementation always returns true*/
+	virtual bool CheckRight(uint32 actionId);
 	void BroadcastEvent(Message& ev);
 
 private:

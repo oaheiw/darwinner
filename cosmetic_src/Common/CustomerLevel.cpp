@@ -9,7 +9,7 @@
 
 
 CustomerLevel::CustomerLevel()
-:m_description(""),m_discount(100),m_id(0),m_totalCosume(0)
+:m_description(""),m_discount(100),m_id(0),m_totalCosume(0),m_name("")
 {
 
 }
@@ -21,28 +21,25 @@ CustomerLevel::~CustomerLevel(){
 }
 
 
-
-
-
-const string& CustomerLevel::getDescription(){
+const string& CustomerLevel::getDescription() const{
 
 	return m_description;
 }
 
 
-short CustomerLevel::getDiscount(){
+const short CustomerLevel::getDiscount() const{
 
 	return m_discount;
 }
 
 
-uint32 CustomerLevel::getId(){
+const uint32 CustomerLevel::getId() const{
 
 	return m_id;
 }
 
 
-uint64 CustomerLevel::getTotalCosume(){
+const uint64 CustomerLevel::getTotalCosume() const{
 
 	return m_totalCosume;
 }
@@ -69,4 +66,16 @@ void CustomerLevel::setId(uint32 newVal){
 void CustomerLevel::setTotalCosume(uint64 newVal){
 
 	m_totalCosume = newVal;
+}
+
+
+const string& CustomerLevel::getName() const{
+
+	return m_name;
+}
+
+
+void CustomerLevel::setName(const string& newVal){
+
+	m_name = newVal;
 }
