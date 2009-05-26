@@ -249,7 +249,7 @@ bool SmDbThread::addStaff(Staff* staff)
 	if(r) {
 		q.exec("SELECT MAX(id) FROM staff");
 		if(q.next()) staff->setid(q.value(0).toUInt());
-		QString setpw = QString("UPDATE staff SET password=%1 WHERE id = %2").arg(staff->id()).arg(staff->id());
+		QString setpw = QString(UPDATE_STAFFPASWORD_BYID).arg(staff->id()).arg(staff->id());
 		r = q.exec(setpw);
 	}
 	closeDb();

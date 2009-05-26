@@ -218,7 +218,8 @@
 	"UPDATE customer SET password = '%1' WHERE id = %2"
 #define CHECK_CUSTOMER_BYID \
 	"SELECT id FROM customer WHERE id = %1"
-
+#define SELECT_MAX_CUSTOMERID \
+	"SELECT MAX(id) FROM customer"
 
 //**************shop operation database items***************//
 

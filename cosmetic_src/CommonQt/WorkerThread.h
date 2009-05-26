@@ -13,7 +13,8 @@ class Message;
 class WorkerThread  : public QThread
 {
 public:
-	WorkerThread(QObject *parent = 0, QThread::Priority priority = QThread::NormalPriority);
+	WorkerThread(QObject *parent = 0, 
+		QThread::Priority priority = QThread::NormalPriority);
 	~WorkerThread();
 	void QueueAction(Message& action);
 

@@ -219,6 +219,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CmDbThread.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CommonDbThread.cpp"
 				>
 			</File>
@@ -242,6 +246,10 @@
 			>
 			<File
 				RelativePath=".\BmDbThread.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CmDbThread.h"
 				>
 			</File>
 			<File

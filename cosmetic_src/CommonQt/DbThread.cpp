@@ -10,7 +10,8 @@ DbThread::~DbThread()
 {
 }
 
-void DbThread::setDbServer(const char* dbtype, const char* connection, const char* hostname, const char* username, const char* password, int port)
+void DbThread::setDbServer(const char* dbtype, const char* connection, 
+	const char* hostname, const char* username, const char* password, int port)
 {
 	db = QSqlDatabase::addDatabase(dbtype, connection);
 

@@ -76,6 +76,7 @@ typedef map<string, string> ArrayStringString;
 #define  DBCONNECTION_COMMON "COMMONDB"
 #define  DBCONNECTION_SM "SMDB"
 #define  DBCONNECTION_BM "BMDB"
+#define  DBCONNECTION_CM "CMDB"
 
 #define STAFFLEVEL "stafflevel"
 #define STAFFTYPE "stafftype"
