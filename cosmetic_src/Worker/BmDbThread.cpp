@@ -331,7 +331,6 @@ bool BmDbThread::modifyBusiness(Business* data){
 		.arg(data->price()).arg(data->cost()).arg(data->discount()).arg(data->stocks())
 		.arg(data->sales()).arg(data->buys()).arg(data->description().c_str())
 		.arg(data->getAdjustable()).arg(data->isDualDiscoutn()).arg(data->id()); 
-	DBHEX("modify business string:", modifstr.toLocal8Bit().data());
 	r = q.exec(modifstr);
 	closeDb();
 	
@@ -355,7 +354,6 @@ bool BmDbThread::modifyBusinessType(BusinessType* data){
 		QString update = QString(UPDATA_BUSINESSTYPE)
 			.arg(data->getName().c_str()).arg(data->getCategory())
 			.arg(data->getDescription().c_str()).arg(data->getId());
-		DBHEX("", update.toLocal8Bit().data());
 		r = q.exec(update);
 	}
 
@@ -391,9 +389,9 @@ bool BmDbThread::removeBusinessType(uint32 id){
 	DBHEX("removing business type...", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
 
-	QString check = QString(SELECT_BUSINESSTYPE_BYID).arg(id);
+	QString check = QString(CHECK_BUSINESSTYPE_BYID).arg(id);
 	q.exec(check);
-	if(q.isActive()) {
+	if(!q.isActive()) {//this business type is not inuse. remove!
 		QString remove = QString(DELETE_BUSINESSTYPE_BYID).arg(id);
 		r = q.exec(remove);
 	}
@@ -413,7 +411,7 @@ bool BmDbThread::removeImage(uint32 id){
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_BM));
 
 	r= q.exec(QString(DELETE_BUSINESSIMAGE).arg(id));
-	DBDEC("delete business image compltet:", r);
+	DBDEC("delete business image completed:", r);
 	return r;
 }
 

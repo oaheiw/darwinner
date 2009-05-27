@@ -127,6 +127,8 @@
 	"description = '%3' WHERE id = %4"
 #define DELETE_BUSINESSTYPE_BYID \
 	"DELETE FROM businessType WHERE id = %1"
+#define CHECK_BUSINESSTYPE_BYID \
+	"SELECT * FROM business WHERE typeId = %1"
 
 #define CREATE_BUSINESS_TABLE \
 	"CREATE TABLE business (id INTEGER PRIMARY KEY, name TEXT, "\
@@ -178,8 +180,8 @@
 	"requireconsume INTEGER DEFAULT 0, discount INTEGER DEFAULT 100, "\
 	"description TEXT)"
 #define INSERTINTO_CUSTOMERLEVEL_TABLE \
-	"INSERT INTO customerlevel (id, name, requireconsume, discount, description)"\
-	"VALUES (:id, :name, :requireconsume, :discount, :description)"
+	"INSERT INTO customerlevel (name, requireconsume, discount, description)"\
+	"VALUES (:name, :requireconsume, :discount, :description)"
 #define SELECT_CUSTOMERLEVEL_ALL \
 	"SELECT * FROM customerlevel"
 #define SELECT_CUSTOMERLEVEL_BYID \
@@ -190,7 +192,7 @@
 #define DELETE_CUSTOMERLEVEL_BYID \
 	"DELETE FROM customerlevel WHERE id = %1"
 #define CHECK_CUSTOMERLEVEL_BYID \
-	"SELECT id FROM customer WHERE LevelId = %1"
+	"SELECT id FROM customer WHERE levelid = %1"
 
 
 #define CREATE_CUSTOMER_TABLE \
@@ -201,15 +203,15 @@
 	"INSERT INTO customer (password, name, sex, levelid, "\
 	"cell, phone, address, description, deposit)"\
 	"VALUES (:password, :name, :sex, :levelid, "\
-	":cell, :phone, :address, :description, :deposit) "
+	":cell, :phone, :address, :description, :deposit)"
 #define SELECT_CUSTOMER_ALL \
 	"SELECT * FROM customer"
 #define SELECT_CUSTOMER_BYID \
 	"SELECT * FROM customer WHERE id = %1"
 #define UPDATA_CUSTOMER_BYID \
-	"UPDATE customer SET name = '%1', jobId = %2, levelId = %3,"\
-	" sex = %4, bonus = %5, status = %6, cell = '%7', phone = '%8', address = '%9',"\
-	" description = '%10' WHERE id = %11"
+	"UPDATE customer SET password = '%1', name = '%2', sex = %3, "\
+	"levelid = %4, cell = '%5', phone = '%6', address = '%7', "\
+	"description = '%8' deposit = %9 WHERE id = %10"
 #define DELETE_CUSTOMER_BYID \
 	"DELETE FROM customer WHERE id = %1"
 #define GET_CUSTOMERPASSWORD_BYID \
@@ -220,6 +222,20 @@
 	"SELECT id FROM customer WHERE id = %1"
 #define SELECT_MAX_CUSTOMERID \
 	"SELECT MAX(id) FROM customer"
+
+
+#define CREATE_CUSTOMERIMAGE_TABLE \
+	"CREATE TABLE customerImage "\
+	"(id INTEGER REFERENCES customer(id), data BLOB DEFAULT NULL)" 
+#define INSERT_CUSTOMERIMAGE \
+	"INSERT INTO customerImage (id, data)""VALUES (:id, :data)"
+#define DELETE_CUSTOMERIMAGE \
+	"DELETE FROM customerImage WHERE id = %1"
+#define CHECK_CUSTOMERIMAGE_BYID \
+	"SELECT id FROM customerImage WHERE id = %1"
+#define GET_CUSTOMERIMAGE_BYID \
+	"SELECT data FROM customerImage WHERE id = %1"
+
 
 //**************shop operation database items***************//
 

@@ -7,14 +7,15 @@
 #include <algorithm>
 
 BMHandler::BMHandler()
+:m_mainWindow(NULL)
 {
-	m_mainWindow = NULL;
 	m_businessCache.clear();
+	m_businessTypeCache.clear();
 }
 
 BMHandler::~BMHandler()
 {
-
+	delete m_mainWindow;
 }
 
 bool BMHandler::CheckRight(uint32 actionId){
@@ -161,10 +162,7 @@ void BMHandler::OnEvent(Message &ev)
 							list<Business>::iterator it = find_if(m_businessCache.begin(), m_businessCache.end(), 
 							Business::BusinessIdMatcher(*id));
 						if(m_businessCache.end() != it) {
-							DBHEX("remove business in cache:", it->name());
-							DBDEC("cache size:", m_businessCache.size());
 							m_businessCache.remove(*it);
-							DBDEC("cache size:", m_businessCache.size());
 						} else {
 							ev.setData(NULL);
 						}
