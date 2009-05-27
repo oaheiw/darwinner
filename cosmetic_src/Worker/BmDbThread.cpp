@@ -71,6 +71,8 @@ void BmDbThread::WorkerThreadMain(Message& action)
 				}
 			}
 			delete business;
+			image->clear();
+			delete image;
 			break;
 		}
 		case ACTION_REMOVEBUSINESS:
@@ -306,7 +308,7 @@ QByteArray* BmDbThread::getImage(uint32 id){
 				*image = q.value(0).toByteArray();
 		}
 	}
-	
+	q.clear();
 	closeDb();
 	DBHEX("get business image completed.", "");
 	return image;
@@ -449,6 +451,6 @@ list<Business>* BmDbThread::getAllBusiness(){
 		r->push_back(temp);
 	}
 	closeDb();
-	DBDEC("get all staffs. amount: ", r->size());
+	DBDEC("get all business. amount: ", r->size());
 	return r;
 }

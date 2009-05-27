@@ -171,6 +171,7 @@ void StaffWindow::OnEvent(Message & Msg){
 			if(NULL != Msg.data()) {
 				QByteArray* image = static_cast<QByteArray*>(Msg.data());
 				staffDetailWidget->displayPic(*image);
+				image->clear();
 				delete image;
 			} else {
 

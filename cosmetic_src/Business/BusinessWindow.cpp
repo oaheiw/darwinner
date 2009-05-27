@@ -184,6 +184,7 @@ void BusinessWindow::OnEvent(Message& Msg){
 				if(NULL != Msg.data()) {
 					QByteArray* image = static_cast<QByteArray*>(Msg.data());
 					m_detailWidget->displayPicture(*image);
+					image->clear();
 					delete image;
 				} else {
 					m_detailWidget->clearPicture();

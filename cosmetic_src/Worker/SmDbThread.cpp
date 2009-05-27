@@ -53,6 +53,8 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 					m_tempMsg->setData2(getImage(addedStaff->id()));
 			}
 			delete staff;
+			image->clear();
+			delete image;
 			break;
 		}
 		case ACTION_SETSTATUSTYPE:
@@ -307,6 +309,7 @@ QByteArray* SmDbThread::getImage(uint32 id)
 		}
 	}
 	
+	q.clear();
 	closeDb();
 	DBHEX("get image complete", "");
 	return image;

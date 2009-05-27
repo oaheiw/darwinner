@@ -87,19 +87,22 @@ void BusinessDetailWidget::clearPicture() {
 }
 
 void BusinessDetailWidget::displayPicture(QByteArray& data){
+	m_businessPicData.clear();
 	m_businessPicData = data;
 	if(!m_businessPicData.isEmpty()) {
-		QPixmap pic;
-		pic.loadFromData(m_businessPicData);
-		if(pic.height() != 0) {
-			if(pic.width()/pic.height() > ui.imageLabel->width()/ui.imageLabel->height())
-				pic = pic.scaledToWidth(ui.imageLabel->width(), Qt::SmoothTransformation);
-			else
-				pic = pic.scaledToHeight(ui.imageLabel->height(), Qt::SmoothTransformation);
-			ui.imageLabel->setPixmap(pic);
+		QPixmap* pic = new QPixmap();
+		pic->loadFromData(m_businessPicData);
+		if(pic->height() != 0) {
+			if(pic->width()/pic->height() > ui.imageLabel->width()/ui.imageLabel->height()) {
+				*pic = pic->scaledToWidth(ui.imageLabel->width(), Qt::SmoothTransformation);
+			} else {
+				*pic = pic->scaledToHeight(ui.imageLabel->height(), Qt::SmoothTransformation);
+				ui.imageLabel->setPixmap(*pic);
+			}
 		} else {
 			ui.imageLabel->setPixmap(m_zeroPicture);
 		}
+		delete pic;
 	} else {
 		ui.imageLabel->setPixmap(m_zeroPicture);
 	}
