@@ -62,7 +62,7 @@
          <bool>true</bool>
         </property>
         <property name="selectionMode">
-         <enum>QAbstractItemView::ExtendedSelection</enum>
+         <enum>QAbstractItemView::SingleSelection</enum>
         </property>
         <property name="rootIsDecorated">
          <bool>false</bool>
@@ -71,6 +71,12 @@
          <bool>true</bool>
         </property>
         <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="animated">
+         <bool>true</bool>
+        </property>
+        <property name="wordWrap">
          <bool>true</bool>
         </property>
        </widget>
