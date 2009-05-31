@@ -12,6 +12,7 @@
 #include "IActionHandler.h"
 #include "Singleton.h"
 #include <algorithm>
+#include "CustomerWindow.h"
 
 CMHandler::CMHandler()
 :m_mainWindow(NULL)
@@ -37,11 +38,9 @@ void CMHandler::OnEvent(Message& ev){
 			case EVENT_CUSTOMERMGNT:
 				{
 					if(NULL == m_mainWindow) {
-						/*
-						m_mainWindow = Singleton<>::instance();
+						m_mainWindow = Singleton<CustomerWindow>::instance();
 						m_mainWindow->SetHandler(this);
 						SetObserver(m_mainWindow);
-						*/
 					}
 					break;
 				}

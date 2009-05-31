@@ -87,6 +87,8 @@ void SSMainMenu::startFunction(int x, int y)
 		action->setType(ACTION_BUSINESSMGNT);
 	else if(EX_X == x && EX_Y == y)
 		action->setType(ACTION_EXIT);
+	else if(CM_X == x && CM_Y == y)
+		action->setType(ACTION_CUSTOMERMGNT);
 
 	GetHandler()->StartAction(*action);
 	delete action;

@@ -10,6 +10,7 @@
 #include "Staff.h"
 #include "SmDbThread.h"
 #include "CommonDbThread.h"
+#include "CmDbThread.h"
 #include "BmDbThread.h"
 #include "TEvent.h"
 #include "Message.h"
@@ -23,6 +24,7 @@ Worker::Worker(QObject *parent )
 	m_commonDbThread = new CommonDbThread(this, QThread::HighPriority);
 	m_smDbThread = new SmDbThread(this, QThread::HighPriority);
 	m_bmDbThread = new BmDbThread(this, QThread::HighPriority);
+	m_cmDbThread = new CmDbThread(this, QThread::HighPriority);
 }
 
 Worker::~Worker(){
@@ -88,6 +90,22 @@ void Worker::StartAction(Message& Action) {
 				m_bmDbThread->QueueAction(Action);
 				break;
 			}
+		}
+	}
+	else if (GROUP_CUSTOMERMGNT== Action.group()) {
+		switch(Action.type()) {
+			case ACTION_CUSTOMERMGNT:
+				{
+					Message* ev = new Message(EVENT_CUSTOMERMGNT);
+					BroadcastEvent(*ev);
+					delete ev;
+					break;
+				}
+			default:
+				{
+					m_cmDbThread->QueueAction(Action);
+					break;
+				}
 		}
 	}
 }

@@ -18,11 +18,11 @@ class DUIObserver;
 #include <list>
 using namespace std;
 
-class CMHandler : public IEventObserver, public DUIHandler
+class CMHandler : public DUIHandler, public IEventObserver
 {
 public:
 	CMHandler();
-	virtual ~CMHandler();
+	~CMHandler();
 	void OnEvent(Message& ev);
 	void StartAction(Message& act);
 

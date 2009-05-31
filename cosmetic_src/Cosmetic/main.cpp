@@ -10,10 +10,11 @@
 #include <QStyleFactory>
 #include <QStyle>
 
-//Logic Hanlders
+//Logic Handlers
 #include "SSMainHandler.h"
 #include "SMHandler.h"
 #include "BMHandler.h"
+#include "CMHandler.h"
 #include "systeminfo.h"
 
 #ifdef _STATIC_RELEASE
@@ -30,13 +31,16 @@ int main(int argc, char *argv[])
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
 	IEventObserver* sm = Singleton<SMHandler>::instance();
 	IEventObserver* bm = Singleton<BMHandler>::instance();
+	IEventObserver* cm = Singleton<CMHandler>::instance();
 	
 	worker->SetObserver(login);
 	worker->SetObserver(sm);
 	worker->SetObserver(bm);
+	worker->SetObserver(cm);
 	login->SetHandler(worker);
 	sm->SetHandler(worker);
 	bm->SetHandler(worker);
+	cm->SetHandler(worker);
 
 	QApplication* app = new QApplication(argc, argv);
 	
