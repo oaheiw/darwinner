@@ -33,12 +33,12 @@ typedef map<string, string> ArrayStringString;
 #include <iomanip>
 #define DBHEX(info, para)\
 		{\
-			std::cout<<__FILE__<<" Line:"<<__LINE__<<" "<<info<<" "\
+		std::cout<<__FILE__<<":"<<std::dec<<__LINE__<<" "<<info\
 			<<std::hex<<para<<std::endl;\
 		}
 #define DBDEC(info, para)\
 		{\
-			std::cout<<__FILE__<<" Line:"<<__LINE__<<" "<<info<<" "\
+			std::cout<<__FILE__<<":"<<std::dec<<__LINE__<<" "<<info\
 			<<para<<std::endl;\
 		}
 
