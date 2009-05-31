@@ -17,28 +17,32 @@ ProgressBarDelegate::ProgressBarDelegate(QObject *parent)
 	
 }
 
-QWidget *ProgressBarDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
+QWidget *ProgressBarDelegate::createEditor
+(QWidget *parent, const QStyleOptionViewItem &, const QModelIndex &) const
 {
 	QSlider* editor = new QSlider(parent);
 	editor->setRange(m_min, m_max);
 	return editor;
 }
 
-void ProgressBarDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+void ProgressBarDelegate::setEditorData
+(QWidget *editor, const QModelIndex &index) const
 {
 	int value = index.model()->data(index, Qt::EditRole).toInt();
 	QSlider *slider = static_cast<QSlider*>(editor);
 	slider->setValue(value);
 }
 
-void ProgressBarDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+void ProgressBarDelegate::setModelData
+(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
 	QSlider *slider = static_cast<QSlider*>(editor);
 	int value = slider->value();
 	model->setData(index, value, Qt::EditRole);
 }
 
-void ProgressBarDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &/* index */) const
+void ProgressBarDelegate::updateEditorGeometry
+(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &) const
 {
 	editor->setGeometry(option.rect);
 }
@@ -54,8 +58,8 @@ void ProgressBarDelegate::setRange(uint32 min, uint32 max)
 	m_max = max;
 }
 
-void ProgressBarDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
-						   const QModelIndex &index) const
+void ProgressBarDelegate::paint
+(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	int progress = index.data().toInt();
 
@@ -69,8 +73,9 @@ void ProgressBarDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 	progressBarOption.textVisible = true;
 	int h = ((double)progress/(double)progressBarOption.maximum)*COLOR_GREEN;
 	progressBarOption.palette.setColor(QPalette::Normal, QPalette::Highlight, 
-															QColor::fromHsv(h, 255, 255));
-	QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
+										QColor::fromHsv(h, 255, 255));
+	QApplication::style()->drawControl
+		(QStyle::CE_ProgressBar, &progressBarOption, painter);
 }
 
 

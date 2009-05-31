@@ -118,6 +118,7 @@
 
 //customer management string
 #define cmString "顾客管理"
+#define cmCustomerBrowseStr "顾客浏览"
 #define cmIdStr "顾客号"
 #define cmNameStr "姓名"
 #define cmSexStr "性别"
@@ -127,6 +128,9 @@
 #define cmAddressStr "地址"
 #define cmDescriptionStr "备注"
 #define cmDepositStr "帐户余额"
+#define cmCardIdStr "代码"
+#define cmCardNameStr "名称"
+#define cmCardRemainsStr "余额"
 
 #define cmCustomerEditModeWarning "新建的顾客还未提交！\n放弃所做的编辑?"
 #define cmCustomerCannotEditWarning \

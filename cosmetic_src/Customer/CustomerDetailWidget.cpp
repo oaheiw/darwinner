@@ -14,10 +14,18 @@ CustomerDetailWidget::CustomerDetailWidget(QWidget *parent, uint32 mode)
 : QWidget(parent),m_mode(mode)
 {
 	m_customerPicData.clear();
-	m_dataModel = new QStandardItemModel(0, 0, this);
+	
 	ui.setupUi(this);
 
+	m_dataModel = new QStandardItemModel(10, 3, this);
 	ui.cardsTreeView->setModel(m_dataModel);
+	ui.cardsTreeView->setColumnWidth(0,50);
+	ui.cardsTreeView->setColumnWidth(1,70);
+	ui.cardsTreeView->setColumnWidth(2,40);
+	m_dataModel->setHeaderData(0, Qt::Horizontal, LOCAL8BITSTR(cmCardIdStr));
+	m_dataModel->setHeaderData(1, Qt::Horizontal, LOCAL8BITSTR(cmCardNameStr));
+	m_dataModel->setHeaderData(2, Qt::Horizontal, LOCAL8BITSTR(cmCardRemainsStr));
+
 	ui.sexComboBox->addItem(LOCAL8BITSTR(sexUndefinedStr), SEX_UNDEFINE);
 	ui.sexComboBox->addItem(LOCAL8BITSTR(sexMaleStr), SEX_MALE);
 	ui.sexComboBox->addItem(LOCAL8BITSTR(sexFemaleStr), SEX_FEMALE);
