@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cosmetic", "Cosmetic\Cosmetic.vcproj", "{80303421-D85A-4831-93A7-6A83407181D9}"
 	ProjectSection(ProjectDependencies) = postProject
+		{E309E067-E4CB-4D0A-85AB-8C6699F524C4} = {E309E067-E4CB-4D0A-85AB-8C6699F524C4}
 		{15B22675-DF27-49AC-BEE6-79273AE36F47} = {15B22675-DF27-49AC-BEE6-79273AE36F47}
 		{EFFBD987-BE2F-4940-9177-2E721B083890} = {EFFBD987-BE2F-4940-9177-2E721B083890}
 		{3E77649D-F8CC-4ADC-A16E-1047F14DD373} = {3E77649D-F8CC-4ADC-A16E-1047F14DD373}
@@ -19,7 +20,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommonQt", "CommonQt\Common
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Staff", "Staff\Staff.vcproj", "{3E77649D-F8CC-4ADC-A16E-1047F14DD373}"
 	ProjectSection(ProjectDependencies) = postProject
-		{15B22675-DF27-49AC-BEE6-79273AE36F47} = {15B22675-DF27-49AC-BEE6-79273AE36F47}
+		{DB7020B7-958A-4192-B178-E8C68EB9FB8E} = {DB7020B7-958A-4192-B178-E8C68EB9FB8E}
 		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE} = {47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}
 	EndProjectSection
 EndProject
@@ -30,12 +31,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Worker", "Worker\Worker.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Business", "Business\Business.vcproj", "{EFFBD987-BE2F-4940-9177-2E721B083890}"
 	ProjectSection(ProjectDependencies) = postProject
-		{15B22675-DF27-49AC-BEE6-79273AE36F47} = {15B22675-DF27-49AC-BEE6-79273AE36F47}
 		{DB7020B7-958A-4192-B178-E8C68EB9FB8E} = {DB7020B7-958A-4192-B178-E8C68EB9FB8E}
 		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE} = {47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Customer", "Customer\Customer.vcproj", "{E309E067-E4CB-4D0A-85AB-8C6699F524C4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DB7020B7-958A-4192-B178-E8C68EB9FB8E} = {DB7020B7-958A-4192-B178-E8C68EB9FB8E}
+		{47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE} = {47EFC5D1-63B9-4D8E-A71F-07F4AC688AEE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,13 +88,13 @@ Global
 		{E309E067-E4CB-4D0A-85AB-8C6699F524C4}.Debug|Win32.Build.0 = Debug|Win32
 		{E309E067-E4CB-4D0A-85AB-8C6699F524C4}.Release|Win32.ActiveCfg = Release|Win32
 		{E309E067-E4CB-4D0A-85AB-8C6699F524C4}.Release|Win32.Build.0 = Release|Win32
-		{E309E067-E4CB-4D0A-85AB-8C6699F524C4}.ReleaseStatic|Win32.ActiveCfg = Release|Win32
-		{E309E067-E4CB-4D0A-85AB-8C6699F524C4}.ReleaseStatic|Win32.Build.0 = Release|Win32
+		{E309E067-E4CB-4D0A-85AB-8C6699F524C4}.ReleaseStatic|Win32.ActiveCfg = ReleaseStatic|Win32
+		{E309E067-E4CB-4D0A-85AB-8C6699F524C4}.ReleaseStatic|Win32.Build.0 = ReleaseStatic|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		QtVersion = qt-4.5.1-shared
+		QtVersion = qt-4.5.1-static
 	EndGlobalSection
 EndGlobal

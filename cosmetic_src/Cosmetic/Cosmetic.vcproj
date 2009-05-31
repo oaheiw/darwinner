@@ -63,7 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib qjpeg4.lib qgif4.lib qico4.lib Common.lib CommonQt.lib Worker.lib Staff.lib Business.lib Customer.lib"
+				AdditionalDependencies="qtmain.lib QtCore.lib QtGui.lib qjpeg4.lib qgif4.lib qico4.lib Common.lib CommonQt.lib Worker.lib Staff.lib Business.lib Customer.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version=""
 				AdditionalLibraryDirectories="&quot;..\$(ConfigurationName)\lib&quot;;&quot;$(QTDIR)\plugins\imageformats&quot;;&quot;$(QTDIR)\lib&quot;"
@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib Commond.lib CommonQtd.lib Workerd.lib Staffd.lib"
+				AdditionalDependencies="qtmaind.lib QtCored.lib QtGuid.lib Commond.lib CommonQtd.lib Workerd.lib Staffd.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;..\$(ConfigurationName)\lib&quot;;&quot;$(QTDIR)\lib&quot;"
 				GenerateDebugInformation="true"
@@ -191,7 +191,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\Business;..\CommonQt\GeneratedFiles;..\Worker;..\Staff\GeneratedFiles;..\Staff;..\CommonQt;..\Common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;.\"
+				AdditionalIncludeDirectories="..\Customer;..\Business;..\CommonQt\GeneratedFiles;..\Worker;..\Staff\GeneratedFiles;..\Staff;..\CommonQt;..\Common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;.\"
 				PreprocessorDefinitions="UNICODE;WIN32;QT_THREAD_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;_STATIC_RELEASE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -211,7 +211,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="qtmain.lib QtCore.lib QtGui.lib Common.lib CommonQt.lib Worker.lib Staff.lib qjpeg.lib qgif.lib qico.lib Imm32.lib Winmm.lib ws2_32.lib"
+				AdditionalDependencies="qtmain.lib QtCore.lib QtGui.lib Common.lib CommonQt.lib Worker.lib Staff.lib Customer.lib qjpeg.lib qgif.lib qico.lib Imm32.lib Winmm.lib ws2_32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.12.184"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\plugins\imageformats&quot;;&quot;..\$(ConfigurationName)\lib&quot;;&quot;$(QTDIR)\lib&quot;"
@@ -964,11 +964,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="qt-4.5.1-shared"
+			Value="qt-4.5.1-static"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="qt-4.5.1-shared"
+			Value="qt-4.5.1-static"
 		/>
 		<Global
 			Name="RccDir"
