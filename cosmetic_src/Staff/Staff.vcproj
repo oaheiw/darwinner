@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="4"
 			WholeProgramOptimization="1"
 			>
@@ -81,7 +81,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="4"
 			>
 			<Tool
@@ -141,7 +141,7 @@
 		<Configuration
 			Name="ReleaseStatic|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="4"
 			WholeProgramOptimization="1"
 			>
@@ -976,7 +976,6 @@
 				>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -990,10 +989,24 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\GeneratedFiles\Release\moc_staffconfiguration.cpp"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -1023,6 +1036,13 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseStatic|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -1043,6 +1063,13 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseStatic|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -1056,7 +1083,6 @@
 				>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1070,10 +1096,24 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\GeneratedFiles\Release\moc_StaffDetail.cpp"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -1212,11 +1252,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt-4.5.1"
+			Value="qt-4.5.1-shared"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt-4.5.1"
+			Value="qt-4.5.1-shared"
 		/>
 		<Global
 			Name="RccDir"

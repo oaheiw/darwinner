@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>625</width>
+    <width>668</width>
     <height>389</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../Cosmetic/Cosmetic.qrc">
-    <normaloff>:/staff/Resources/people.png</normaloff>:/staff/Resources/people.png</iconset>
+    <normaloff>:/staff/staff</normaloff>:/staff/staff</iconset>
   </property>
   <property name="iconSize">
    <size>
@@ -56,7 +56,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>625</width>
+     <width>668</width>
      <height>20</height>
     </rect>
    </property>
@@ -170,7 +170,7 @@
   <action name="actionLogOff">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/gnome-logout.png</normaloff>:/common/Resources/gnome-logout.png</iconset>
+     <normaloff>:/common/logoff</normaloff>:/common/logoff</iconset>
    </property>
    <property name="text">
     <string>注销(&amp;L)</string>
@@ -191,7 +191,7 @@
   <action name="actionExit">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/quit.png</normaloff>:/common/Resources/quit.png</iconset>
+     <normaloff>:/common/quit</normaloff>:/common/quit</iconset>
    </property>
    <property name="text">
     <string>退出(&amp;E)</string>
@@ -212,7 +212,7 @@
   <action name="actionBrowseMyInfo">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/dlgedit.png</normaloff>:/common/Resources/dlgedit.png</iconset>
+     <normaloff>:/staff/info</normaloff>:/staff/info</iconset>
    </property>
    <property name="text">
     <string>基本资料(&amp;I)</string>
@@ -233,7 +233,7 @@
   <action name="actionBrowseMyRecords">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/records2.png</normaloff>:/common/Resources/records2.png</iconset>
+     <normaloff>:/staff/records</normaloff>:/staff/records</iconset>
    </property>
    <property name="text">
     <string>业绩浏览(&amp;R)</string>
@@ -254,7 +254,7 @@
   <action name="actionBrowseMySalary">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/salary.png</normaloff>:/common/Resources/salary.png</iconset>
+     <normaloff>:/staff/salary</normaloff>:/staff/salary</iconset>
    </property>
    <property name="text">
     <string>工资查询(&amp;S)</string>
@@ -263,10 +263,10 @@
     <string>工资查询</string>
    </property>
    <property name="toolTip">
-    <string>查看工资相关信息</string>
+    <string>查看工资记录</string>
    </property>
    <property name="statusTip">
-    <string>查看工资相关信息</string>
+    <string>查看工资记录</string>
    </property>
    <property name="autoRepeat">
     <bool>false</bool>
@@ -275,7 +275,7 @@
   <action name="actionChangeMyPassword">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/users.png</normaloff>:/common/Resources/users.png</iconset>
+     <normaloff>:/staff/password</normaloff>:/staff/password</iconset>
    </property>
    <property name="text">
     <string>更改密码(&amp;P)</string>
@@ -296,7 +296,7 @@
   <action name="actionStaffConfig">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/staff/Resources/people.png</normaloff>:/staff/Resources/people.png</iconset>
+     <normaloff>:/staff/staff</normaloff>:/staff/staff</iconset>
    </property>
    <property name="text">
     <string>属性设置(&amp;M)</string>
@@ -317,7 +317,7 @@
   <action name="actionLock">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/gpgsm.png</normaloff>:/common/Resources/gpgsm.png</iconset>
+     <normaloff>:/common/lock</normaloff>:/common/lock</iconset>
    </property>
    <property name="text">
     <string>锁定(&amp;E)</string>
@@ -338,7 +338,7 @@
   <action name="actionRights">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/lock.png</normaloff>:/common/Resources/lock.png</iconset>
+     <normaloff>:/staff/rights</normaloff>:/staff/rights</iconset>
    </property>
    <property name="text">
     <string>权限设置(&amp;P)</string>
@@ -380,7 +380,7 @@
   <action name="actionAddStaff">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/add_user.png</normaloff>:/common/Resources/add_user.png</iconset>
+     <normaloff>:/common/Resources/add_color.png</normaloff>:/common/Resources/add_color.png</iconset>
    </property>
    <property name="text">
     <string>添加员工(&amp;A)</string>
@@ -401,7 +401,7 @@
   <action name="actionRemoveStaff">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/delete_user.png</normaloff>:/common/Resources/delete_user.png</iconset>
+     <normaloff>:/common/Resources/substract_color.png</normaloff>:/common/Resources/substract_color.png</iconset>
    </property>
    <property name="text">
     <string>删除员工(&amp;D)</string>
@@ -422,7 +422,7 @@
   <action name="actionEditStaff">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/edit_user.png</normaloff>:/common/Resources/edit_user.png</iconset>
+     <normaloff>:/common/Resources/edit.png</normaloff>:/common/Resources/edit.png</iconset>
    </property>
    <property name="text">
     <string>编辑员工(&amp;E)</string>

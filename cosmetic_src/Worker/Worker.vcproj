@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="4"
 			WholeProgramOptimization="1"
 			>
@@ -82,7 +82,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="4"
 			>
 			<Tool
@@ -143,7 +143,7 @@
 		<Configuration
 			Name="ReleaseStatic|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="4"
 			WholeProgramOptimization="1"
 			>
@@ -338,11 +338,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt-4.5.1"
+			Value="qt-4.5.1-shared"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt-4.5.1"
+			Value="qt-4.5.1-shared"
 		/>
 		<Global
 			Name="RccDir"

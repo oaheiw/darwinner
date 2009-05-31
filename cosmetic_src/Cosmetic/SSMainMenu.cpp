@@ -10,8 +10,10 @@ const short SM_X = 0;
 const short  SM_Y = 0;
 const short  SO_X = 0;
 const short  SO_Y = 1;
-const short  BM_X = 1;
-const short  BM_Y = 0;
+const short  BM_X = 0;
+const short  BM_Y = 2;
+const short  CM_X = 1;
+const short  CM_Y = 0;
 const short  LO_X = 2;
 const short  LO_Y = 1;
 const short EX_X = 2;
@@ -100,14 +102,16 @@ void SSMainMenu::createIcons()
 	ui.FunctionTableWidget->setRowHeight(2, 128);
 
 
-	QTableWidgetItem *staffButton = new QTableWidgetItem(LOCAL8BITSTR(smString));
-	staffButton->setIcon(QIcon(":/staff/Resources/people.png"));
+	QTableWidgetItem *staffButton = 
+		new QTableWidgetItem(LOCAL8BITSTR(smString));
+	staffButton->setIcon(QIcon(":/staff/staff"));
 	staffButton->setTextAlignment(Qt::AlignCenter);
 	staffButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	staffButton->setBackgroundColor(QColor(COLOR_1));
 	ui.FunctionTableWidget->setItem(SM_X, SM_Y, staffButton);
 
-	QTableWidgetItem *operationButton = new QTableWidgetItem(QTableWidgetItem::Type);
+	QTableWidgetItem *operationButton = 
+		new QTableWidgetItem(QTableWidgetItem::Type);
 	operationButton->setIcon(QIcon(":/common/shop"));
 	operationButton->setText(LOCAL8BITSTR(soString));
 	operationButton->setTextAlignment(Qt::AlignCenter);
@@ -115,15 +119,27 @@ void SSMainMenu::createIcons()
 	operationButton->setBackgroundColor(QColor(COLOR_2));
 	ui.FunctionTableWidget->setItem(SO_X, SO_Y, operationButton);
 
-	QTableWidgetItem *businessButton = new QTableWidgetItem(QTableWidgetItem::Type);
+	QTableWidgetItem *businessButton = 
+		new QTableWidgetItem(QTableWidgetItem::Type);
 	businessButton->setIcon(QIcon(":/business/business"));
 	businessButton->setText(LOCAL8BITSTR(bmString));
 	businessButton->setTextAlignment(Qt::AlignCenter);
 	businessButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-	businessButton->setBackgroundColor(QColor(COLOR_4));
+	businessButton->setBackgroundColor(QColor(COLOR_3));
 	ui.FunctionTableWidget->setItem(BM_X, BM_Y, businessButton);
 
-	QTableWidgetItem *logoffButton = new QTableWidgetItem(QTableWidgetItem::Type);
+	QTableWidgetItem *customerButton = 
+		new QTableWidgetItem(QTableWidgetItem::Type);
+	customerButton->setIcon(QIcon(":/customer/customer"));
+	customerButton->setText(LOCAL8BITSTR(cmString));
+	customerButton->setTextAlignment(Qt::AlignCenter);
+	customerButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	customerButton->setBackgroundColor(QColor(COLOR_4));
+	ui.FunctionTableWidget->setItem(CM_X, CM_Y, customerButton);
+
+
+	QTableWidgetItem *logoffButton = 
+		new QTableWidgetItem(QTableWidgetItem::Type);
 	logoffButton->setIcon(QIcon(":common/logoff"));
 	logoffButton->setText(LOCAL8BITSTR(logoffString));
 	logoffButton->setTextAlignment(Qt::AlignCenter);
@@ -131,14 +147,16 @@ void SSMainMenu::createIcons()
 	logoffButton->setBackgroundColor(QColor(COLOR_8));
 	ui.FunctionTableWidget->setItem(LO_X, LO_Y, logoffButton);
 
-	QTableWidgetItem *exitButton = new QTableWidgetItem(QTableWidgetItem::Type);
-	exitButton->setIcon(QIcon(":/common/logout"));
+	QTableWidgetItem *exitButton = 
+		new QTableWidgetItem(QTableWidgetItem::Type);
+	exitButton->setIcon(QIcon(":/common/quit"));
 	exitButton->setText(LOCAL8BITSTR(exitString));
 	exitButton->setTextAlignment(Qt::AlignCenter);
 	exitButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	exitButton->setBackgroundColor(QColor(COLOR_9));
 	ui.FunctionTableWidget->setItem(EX_X, EX_Y, exitButton);
 
-	connect(ui.FunctionTableWidget, SIGNAL(cellActivated(int, int)), this, SLOT(startFunction(int, int)));
+	connect(ui.FunctionTableWidget, SIGNAL(cellActivated(int, int)), 
+		this, SLOT(startFunction(int, int)));
  }
 

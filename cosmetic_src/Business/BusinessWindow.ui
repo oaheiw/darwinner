@@ -120,8 +120,8 @@
    <addaction name="separator"/>
    <addaction name="actionQuery"/>
    <addaction name="actionAdd"/>
-   <addaction name="actionEdit"/>
    <addaction name="actionRemove"/>
+   <addaction name="actionEdit"/>
    <addaction name="actionTypeSetting"/>
   </widget>
   <action name="actionMenu">
@@ -142,7 +142,7 @@
   <action name="actionLogOff">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/gnome-logout.png</normaloff>:/common/Resources/gnome-logout.png</iconset>
+     <normaloff>:/common/logoff</normaloff>:/common/logoff</iconset>
    </property>
    <property name="text">
     <string>注销</string>
@@ -154,7 +154,7 @@
   <action name="actionExit">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/quit.png</normaloff>:/common/Resources/quit.png</iconset>
+     <normaloff>:/common/quit</normaloff>:/common/quit</iconset>
    </property>
    <property name="text">
     <string>退出</string>
@@ -169,7 +169,7 @@
   <action name="actionLock">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/gpgsm.png</normaloff>:/common/Resources/gpgsm.png</iconset>
+     <normaloff>:/common/lock</normaloff>:/common/lock</iconset>
    </property>
    <property name="text">
     <string>锁定</string>
@@ -199,7 +199,7 @@
   <action name="actionEdit">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/edit1.png</normaloff>:/common/Resources/edit1.png</iconset>
+     <normaloff>:/common/Resources/edit.png</normaloff>:/common/Resources/edit.png</iconset>
    </property>
    <property name="text">
     <string>编辑业务</string>
@@ -229,7 +229,7 @@
   <action name="actionQuery">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/records2.png</normaloff>:/common/Resources/records2.png</iconset>
+     <normaloff>:/business/records</normaloff>:/business/records</iconset>
    </property>
    <property name="text">
     <string>业务记录</string>
@@ -289,7 +289,7 @@
   <action name="actionTypeSetting">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/settings.png</normaloff>:/common/Resources/settings.png</iconset>
+     <normaloff>:/business/business</normaloff>:/business/business</iconset>
    </property>
    <property name="text">
     <string>业务种类设置</string>

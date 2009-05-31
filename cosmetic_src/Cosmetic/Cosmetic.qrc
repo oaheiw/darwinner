@@ -1,61 +1,45 @@
 <RCC>
-    <qresource prefix="/common" >
-        <file>Resources/edit1.png</file>
-        <file>Resources/add_color.png</file>
-        <file>Resources/export_color.png</file>
-        <file>Resources/substract_color.png</file>
-        <file>Resources/records2.png</file>
-        <file>Resources/mainmenu.png</file>
-        <file>Resources/gtk-remove.png</file>
-        <file>Resources/ok.png</file>
-        <file>Resources/edit_add.png</file>
-        <file>Resources/edit_remove.png</file>
-        <file>Resources/gtk-add.png</file>
-        <file>Resources/no.png</file>
-        <file>Resources/emptytrash.png</file>
-        <file>Resources/plan.png</file>
-        <file>Resources/printer.png</file>
-        <file>Resources/2rightarrow.png</file>
-        <file>Resources/edit_user.png</file>
-        <file>Resources/delete_user.png</file>
-        <file>Resources/add_user.png</file>
-        <file>Resources/halfencrypted.png</file>
-        <file>Resources/gpgsm.png</file>
-        <file>Resources/salary.png</file>
-        <file>Resources/users.png</file>
-        <file>Resources/lock.png</file>
-        <file>Resources/contents.png</file>
-        <file>Resources/gnome-logout.png</file>
-        <file>Resources/dlgedit.png</file>
-        <file>Resources/Downloads.png</file>
-        <file alias="logout" >Resources/exit.png</file>
-        <file>Resources/gohome.png</file>
-        <file>Resources/quit.png</file>
-        <file alias="shop" >Resources/home.png</file>
-        <file>Resources/cosmetic.png</file>
-        <file>Resources/cosmetic-text.png</file>
-        <file>Resources/banner.png</file>
-        <file>Resources/watermark.png</file>
-        <file>Resources/1day.png</file>
-        <file>Resources/1downarrow.png</file>
-        <file>Resources/2uparrow.png</file>
-        <file>Resources/2downarrow.png</file>
-        <file>Resources/1uparrow.png</file>
-        <file alias="logoff" >Resources/interact.png</file>
-        <file>Resources/find.png</file>
-        <file>Resources/edit.png</file>
-        <file>Resources/settings.png</file>
-        <file>Resources/green.png</file>
-        <file>Resources/system-config-lvm.png</file>
-    </qresource>
-    <qresource prefix="/business" >
-        <file alias="business" >../Business/icons/suitcase.png</file>
-        <file>../Business/icons/basket.png</file>
-    </qresource>
-    <qresource prefix="/staff" >
-        <file>Resources/staff.png</file>
-        <file>Resources/people.png</file>
-        <file>Resources/job.png</file>
-        <file>Resources/level.png</file>
-    </qresource>
+  <qresource prefix="/common" >
+    <file alias="lock" >Resources/locksystem.png</file>
+    <file alias="logoff" >Resources/restart.png</file>
+    <file>Resources/add_color.png</file>
+    <file>Resources/export_color.png</file>
+    <file>Resources/substract_color.png</file>
+    <file>Resources/mainmenu.png</file>
+    <file>Resources/ok.png</file>
+    <file>Resources/no.png</file>
+    <file>Resources/printer.png</file>
+    <file>Resources/2rightarrow.png</file>
+    <file alias="quit" >Resources/quit.png</file>
+    <file alias="shop" >Resources/home.png</file>
+    <file>Resources/cosmetic.png</file>
+    <file>Resources/cosmetic-text.png</file>
+    <file>Resources/banner.png</file>
+    <file>Resources/watermark.png</file>
+    <file>Resources/1downarrow.png</file>
+    <file>Resources/2uparrow.png</file>
+    <file>Resources/2downarrow.png</file>
+    <file>Resources/1uparrow.png</file>
+    <file>Resources/find.png</file>
+    <file>Resources/edit.png</file>
+    <file>Resources/settings.png</file>
+  </qresource>
+  <qresource prefix="customer" >
+    <file alias="records" >../Customer/icons/consumeration.png</file>
+    <file alias="customer" >../Customer/icons/customer.png</file>
+  </qresource>
+  <qresource prefix="/business" >
+    <file alias="business" >../Business/icons/business.png</file>
+    <file alias="records" >../Business/icons/businessrecords.png</file>
+  </qresource>
+  <qresource prefix="/staff" >
+    <file alias="job" >../Staff/icons/level.png</file>
+    <file alias="level" >../Staff/icons/job.png</file>
+    <file alias="rights" >../Staff/icons/right.png</file>
+    <file alias="password" >../Staff/icons/key.png</file>
+    <file alias="staff" >../Staff/icons/staff.png</file>
+    <file alias="salary" >../Staff/icons/salary.png</file>
+    <file alias="info" >../Staff/icons/info.png</file>
+    <file alias="records" >../Staff/icons/personalrecords.png</file>
+  </qresource>
 </RCC>

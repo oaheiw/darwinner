@@ -113,8 +113,10 @@
 #define bmBusinessEditModeWarning "新建的业务还未提交！\n"\
 													"放弃所做的编辑?"
 #define bmBusinessCannotEditWarning "您正在编辑新建业务，并且还未提交。\n"\
-																		"无法进入业务修改模式。"
+	"无法进入业务修改模式。"
 #define bmEmptyNameTypeWarnning "业务名称或种类不能留空，请返回并填写。"
 #define bmTypeRemoveWaring "未能成功删除，可能是还有业务被设置为该种类。"
 
+//customer management string
+#define cmString "顾客管理"
 #endif

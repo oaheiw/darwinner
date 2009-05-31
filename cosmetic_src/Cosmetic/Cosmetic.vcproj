@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="1"
 			WholeProgramOptimization="1"
 			>
@@ -98,7 +98,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -168,7 +168,7 @@
 		<Configuration
 			Name="ReleaseStatic|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\temp"
 			ConfigurationType="1"
 			WholeProgramOptimization="1"
 			>
@@ -211,7 +211,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib Common.lib CommonQt.lib Worker.lib Staff.lib qjpeg.lib qgif.lib qico.lib Imm32.lib Winmm.lib ws2_32.lib"
+				AdditionalDependencies="qtmain.lib QtCore.lib QtGui.lib Common.lib CommonQt.lib Worker.lib Staff.lib qjpeg.lib qgif.lib qico.lib Imm32.lib Winmm.lib ws2_32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.12.184"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\plugins\imageformats&quot;;&quot;..\$(ConfigurationName)\lib&quot;;&quot;$(QTDIR)\lib&quot;"
@@ -731,13 +731,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="ReleaseStatic|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -765,24 +758,10 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseStatic|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\GeneratedFiles\Release\moc_Guide.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -803,13 +782,6 @@
 			<File
 				RelativePath=".\GeneratedFiles\Release\moc_SSLoginWindow.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -839,13 +811,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="ReleaseStatic|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -858,22 +823,8 @@
 				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_SSLoginWindow.cpp"
 				>
 				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseStatic|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -885,7 +836,6 @@
 				>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1014,11 +964,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="Qt-4.5.1"
+			Value="qt-4.5.1-shared"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="Qt-4.5.1"
+			Value="qt-4.5.1-shared"
 		/>
 		<Global
 			Name="RccDir"

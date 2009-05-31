@@ -17,7 +17,7 @@ BusinessDetailWidget::BusinessDetailWidget(QWidget *parent, uint32 mode)
 	changeMode(m_mode);
 	connect(ui.picButton, SIGNAL(clicked()), this, SLOT(selectPicture()));
 	connect(ui.submitButton, SIGNAL(clicked()), this, SLOT(submit()));
-	m_zeroPicture = QPixmap(":/common/Resources/plan.png").
+	m_zeroPicture = QPixmap(":/business/business").
 		scaled(ui.imageLabel->width(), ui.imageLabel->height(), 
 		Qt::KeepAspectRatio ,Qt::SmoothTransformation);
 	displayPicture(m_businessPicData);

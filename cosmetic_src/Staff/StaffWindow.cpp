@@ -25,7 +25,7 @@ StaffWindow::StaffWindow(QWidget *parent)
 	m_LevelNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFLEVEL);
 	m_TypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFTYPE);
 	m_StateNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFSTATE);
-
+	setLocale(QLocale(QLocale::Chinese, QLocale::China));
 	ui.setupUi(this);
 	ui.itemView->installEventFilter(this);
 	ui.menuBar->installEventFilter(this);
