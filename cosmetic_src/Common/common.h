@@ -84,6 +84,7 @@ typedef map<string, string> ArrayStringString;
 #define BUSINESSTYPE "businesstype"
 #define SEXNAMES "sexnames"
 #define BUSINESSCATEGORE "businesscategore"
+#define CUSTOMERLEVEL "customerlevel"
 
 #define STYLE_WIN98 "windows"
 #define STYLE_WINXP "windowsxp"

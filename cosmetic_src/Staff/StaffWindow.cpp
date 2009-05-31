@@ -22,9 +22,12 @@
 StaffWindow::StaffWindow(QWidget *parent)
 : QMainWindow(parent),started(false),config(NULL)
 {
-	m_LevelNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFLEVEL);
-	m_TypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFTYPE);
-	m_StateNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFSTATE);
+	m_LevelNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(STAFFLEVEL);
+	m_TypeNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(STAFFTYPE);
+	m_StateNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(STAFFSTATE);
 	setLocale(QLocale(QLocale::Chinese, QLocale::China));
 	ui.setupUi(this);
 	ui.itemView->installEventFilter(this);
@@ -48,14 +51,20 @@ StaffWindow::StaffWindow(QWidget *parent)
 	ui.sideBar->addWidget(staffDetailWidget, 0, 0);
 	ui.sideBar->addWidget(m_searchBox, 1, 0);
 	
-	connect(m_searchBox, SIGNAL(regExpChanged(QRegExp &)), ui.itemView, SLOT(changeRegExp(QRegExp &)));
-	connect(m_searchBox, SIGNAL(columnChanged(int)), ui.itemView, SLOT(changeFilterColumn(int)));
-	connect(m_searchBox, SIGNAL(sortChanged(int)), ui.itemView, SLOT(changeSortCase(int)));
+	connect(m_searchBox, SIGNAL(regExpChanged(QRegExp &)), 
+		ui.itemView, SLOT(changeRegExp(QRegExp &)));
+	connect(m_searchBox, SIGNAL(columnChanged(int)), 
+		ui.itemView, SLOT(changeFilterColumn(int)));
+	connect(m_searchBox, SIGNAL(sortChanged(int)), 
+		ui.itemView, SLOT(changeSortCase(int)));
 
-	connect(staffDetailWidget, SIGNAL(addedStaff(Staff*, QByteArray&)), this, SLOT(addStaff(Staff*, QByteArray&)));
-	connect(staffDetailWidget, SIGNAL(modifiedStaff(Staff*, QByteArray&)), this, SLOT(modifyStaff(Staff*, QByteArray&)));
+	connect(staffDetailWidget, SIGNAL(addedStaff(Staff*, QByteArray&)), 
+		this, SLOT(addStaff(Staff*, QByteArray&)));
+	connect(staffDetailWidget, SIGNAL(modifiedStaff(Staff*, QByteArray&)), 
+		this, SLOT(modifyStaff(Staff*, QByteArray&)));
 
-	connect(ui.itemView, SIGNAL(itemActivated(int, int, QVariant &)), this, SLOT(staffActivated(int, int, QVariant &)));
+	connect(ui.itemView, SIGNAL(itemActivated(int, int, QVariant &)), 
+		this, SLOT(staffActivated(int, int, QVariant &)));
 }
 
 StaffWindow::~StaffWindow()

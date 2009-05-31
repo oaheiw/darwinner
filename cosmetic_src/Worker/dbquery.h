@@ -209,9 +209,8 @@
 #define SELECT_CUSTOMER_BYID \
 	"SELECT * FROM customer WHERE id = %1"
 #define UPDATA_CUSTOMER_BYID \
-	"UPDATE customer SET password = '%1', name = '%2', sex = %3, "\
-	"levelid = %4, cell = '%5', phone = '%6', address = '%7', "\
-	"description = '%8' deposit = %9 WHERE id = %10"
+	"UPDATE customer SET name = '%1', sex = %2, cell = '%3', phone = '%4', "\
+	"address = '%5', description = '%6' WHERE id = %7"
 #define DELETE_CUSTOMER_BYID \
 	"DELETE FROM customer WHERE id = %1"
 #define GET_CUSTOMERPASSWORD_BYID \
@@ -222,6 +221,11 @@
 	"SELECT id FROM customer WHERE id = %1"
 #define SELECT_MAX_CUSTOMERID \
 	"SELECT MAX(id) FROM customer"
+#define UPDATE_CUSTOMER_LEVEL \
+	"UPDATE customer SET levelid = %1 WHERE id = %2"
+#define UPDATE_CUSTOMER_DEPOSIT \
+	"UPDATE customer SET deposit = %1 WHERE id = %2"
+
 
 
 #define CREATE_CUSTOMERIMAGE_TABLE \

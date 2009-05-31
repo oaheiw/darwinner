@@ -90,19 +90,22 @@ void BusinessDetailWidget::displayPicture(QByteArray& data){
 	m_businessPicData.clear();
 	m_businessPicData = data;
 	if(!m_businessPicData.isEmpty()) {
-		QPixmap* pic = new QPixmap();
-		pic->loadFromData(m_businessPicData);
-		if(pic->height() != 0) {
-			if(pic->width()/pic->height() > ui.imageLabel->width()/ui.imageLabel->height()) {
-				*pic = pic->scaledToWidth(ui.imageLabel->width(), Qt::SmoothTransformation);
+		QPixmap pic;
+		pic.loadFromData(m_businessPicData);
+		if(pic.height() != 0) {
+			uint32 picAspect = pic.width()/pic.height();
+			uint32 labelAspect = ui.imageLabel->width()/ui.imageLabel->height();
+			if(picAspect > labelAspect) {
+				pic = pic.scaledToWidth
+					(ui.imageLabel->width(), Qt::SmoothTransformation);
 			} else {
-				*pic = pic->scaledToHeight(ui.imageLabel->height(), Qt::SmoothTransformation);
-				ui.imageLabel->setPixmap(*pic);
+				pic = pic.scaledToHeight
+					(ui.imageLabel->height(), Qt::SmoothTransformation);
 			}
+			ui.imageLabel->setPixmap(pic);
 		} else {
 			ui.imageLabel->setPixmap(m_zeroPicture);
 		}
-		delete pic;
 	} else {
 		ui.imageLabel->setPixmap(m_zeroPicture);
 	}
@@ -154,8 +157,10 @@ void BusinessDetailWidget::setBusinessTypes(list<BusinessType>* types){
 
 
 void BusinessDetailWidget::submit(){
-	if(ui.nameLineEdit->text().isEmpty() || 0 == ui.typeComboBox->currentIndex()) {
-		MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, bmEmptyNameTypeWarnning);
+	if(ui.nameLineEdit->text().isEmpty() || 
+		0 == ui.typeComboBox->currentIndex()) {
+		MessageBox::showMessageBox
+			(this, QMessageBox::Warning, bmString, bmEmptyNameTypeWarnning);
 		return;
 	}
 	Business* data = new Business();

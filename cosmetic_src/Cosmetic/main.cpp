@@ -25,7 +25,8 @@ Q_IMPORT_PLUGIN(qgif);
 
 int main(int argc, char *argv[])
 {	
-	IActionHandler* worker = Singleton<WorkerFactory>::instance()->CreateWorker();
+	IActionHandler* worker = 
+		Singleton<WorkerFactory>::instance()->CreateWorker();
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
 	IEventObserver* sm = Singleton<SMHandler>::instance();
 	IEventObserver* bm = Singleton<BMHandler>::instance();
@@ -39,7 +40,8 @@ int main(int argc, char *argv[])
 
 	QApplication* app = new QApplication(argc, argv);
 	
-	QStyle* style = QStyleFactory::create(Singleton<AppParameter>::instance()->getAppStyle().c_str());
+	QStyle* style = QStyleFactory::
+		create(Singleton<AppParameter>::instance()->getAppStyle().c_str());
 	app->setStyle(style);
 	app->setPalette(style->standardPalette());
 

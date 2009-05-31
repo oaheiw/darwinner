@@ -221,9 +221,12 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="levelLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
+             <widget class="QComboBox" name="levelComboBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
              </widget>
             </item>
@@ -488,7 +491,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QListView" name="cardslistView">
+           <widget class="QTreeView" name="cardsTreeView">
             <property name="editTriggers">
              <set>QAbstractItemView::NoEditTriggers</set>
             </property>
@@ -498,10 +501,10 @@
             <property name="selectionBehavior">
              <enum>QAbstractItemView::SelectRows</enum>
             </property>
-            <property name="wordWrap">
+            <property name="sortingEnabled">
              <bool>true</bool>
             </property>
-            <property name="selectionRectVisible">
+            <property name="animated">
              <bool>true</bool>
             </property>
            </widget>

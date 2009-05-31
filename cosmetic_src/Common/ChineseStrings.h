@@ -110,8 +110,7 @@
 #define bmAddBusinessErrorStr "未能成功添加新业务，请重试。"
 #define bmRemoveBusinessConfirm "业务“%1”及其所有营销纪录都将被清空！\n"\
 	"确定贵公司不再提供该业务？"
-#define bmBusinessEditModeWarning "新建的业务还未提交！\n"\
-													"放弃所做的编辑?"
+#define bmBusinessEditModeWarning "新建的业务还未提交！\n放弃所做的编辑?"
 #define bmBusinessCannotEditWarning "您正在编辑新建业务，并且还未提交。\n"\
 	"无法进入业务修改模式。"
 #define bmEmptyNameTypeWarnning "业务名称或种类不能留空，请返回并填写。"
@@ -119,4 +118,18 @@
 
 //customer management string
 #define cmString "顾客管理"
+#define cmIdStr "顾客号"
+#define cmNameStr "姓名"
+#define cmSexStr "性别"
+#define cmLevelStr "等级"
+#define cmCellStr "手机"
+#define cmPhoneStr "座机"
+#define cmAddressStr "地址"
+#define cmDescriptionStr "备注"
+#define cmDepositStr "帐户余额"
+
+#define cmCustomerEditModeWarning "新建的顾客还未提交！\n放弃所做的编辑?"
+#define cmCustomerCannotEditWarning \
+	"您正在新建顾客，并且还未提交。\n无法进入顾客修改模式。"
+#define cmEmptyNameSexWarnning "顾客姓名和性别不能留空，请返回并填写。"
 #endif

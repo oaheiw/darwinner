@@ -10,10 +10,14 @@
 StaffListView::StaffListView(QWidget *parent)
 : ItemView(parent)
 {
-	m_LevelNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFLEVEL);
-	m_TypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFTYPE);
-	m_StateNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(STAFFSTATE);
-	m_SexNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(SEXNAMES);
+	m_LevelNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(STAFFLEVEL);
+	m_TypeNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(STAFFTYPE);
+	m_StateNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(STAFFSTATE);
+	m_SexNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(SEXNAMES);
 	
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel();
 	setProxy(proxy);

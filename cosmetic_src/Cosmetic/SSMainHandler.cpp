@@ -19,12 +19,15 @@
 SSMainHandler::SSMainHandler()
 :m_entryWindow(NULL),m_mainWindow(NULL),m_Wizard(NULL)
 {
-	ArrayUint32String* pSexNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(SEXNAMES);
+	ArrayUint32String* pSexNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(SEXNAMES);
 	(*pSexNames)[SEX_UNDEFINE] = sexUndefinedStr;
 	(*pSexNames)[SEX_MALE] = sexMaleStr;
 	(*pSexNames)[SEX_FEMALE] = sexFemaleStr;
 
-	ArrayUint32String* pBusinessCategoryNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSCATEGORE);
+	ArrayUint32String* pBusinessCategoryNames = 
+		AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(BUSINESSCATEGORE);
 	(*pBusinessCategoryNames)[BC_MEMEBERDEPOSIT] = bmDepositStr;
 	(*pBusinessCategoryNames)[BC_MEMEBERCARD] = bmMemberCardStr;
 	(*pBusinessCategoryNames)[BC_SERVICE] = bmService;

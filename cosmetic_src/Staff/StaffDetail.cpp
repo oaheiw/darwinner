@@ -84,9 +84,10 @@ StaffDetail::~StaffDetail()
 	pushButtonPix->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	pushButtonModify->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	pushButtonSubmmit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	comboBoxSex->addItem(LOCAL8BITSTR(sexUndefinedStr), 0);
-	comboBoxSex->addItem(LOCAL8BITSTR(sexMaleStr), 1);
-	comboBoxSex->addItem(LOCAL8BITSTR(sexFemaleStr), 2);
+
+	comboBoxSex->addItem(LOCAL8BITSTR(sexUndefinedStr), SEX_UNDEFINE);
+	comboBoxSex->addItem(LOCAL8BITSTR(sexMaleStr), SEX_MALE);
+	comboBoxSex->addItem(LOCAL8BITSTR(sexFemaleStr), SEX_FEMALE);
 
 	labelId->setBuddy(lineEditId);
 	labelName->setBuddy(lineEditName);

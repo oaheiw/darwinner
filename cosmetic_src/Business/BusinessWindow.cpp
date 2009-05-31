@@ -18,8 +18,8 @@
 BusinessWindow::BusinessWindow(QWidget *parent)
 :QMainWindow(parent),m_started(false),m_typeEditor(NULL)
 {
-
-	m_businessTypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSTYPE);	
+	m_businessTypeNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(BUSINESSTYPE);	
 
 	ui.setupUi(this);
 	ui.itemView->installEventFilter(this);
