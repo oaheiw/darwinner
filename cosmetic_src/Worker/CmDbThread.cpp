@@ -218,12 +218,12 @@ QByteArray* CmDbThread::getImage(uint32 id){
 
 	DBDEC("getting customer image for:", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_CM));
-/*
+
 	QString check = QString(CHECK_CUSTOMERIMAGE_BYID).arg(id);
 	if(q.exec(check)) {
 		if(!q.isActive()) return image;
 	}
-*/
+
 	QString get = QString(GET_CUSTOMERIMAGE_BYID).arg(id);
 	if(q.exec(get)) {
 		if(q.next()) {

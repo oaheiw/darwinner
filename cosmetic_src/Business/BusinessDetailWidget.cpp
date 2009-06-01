@@ -79,6 +79,8 @@ void BusinessDetailWidget::clearData() {
 	ui.specLineEdit->setText(emptyStr);
 	ui.stocksLcdNumber->display(0);
 	ui.typeComboBox->setCurrentIndex(0);
+	m_businessPicData.clear();
+	displayPicture(m_businessPicData);
 }
 
 void BusinessDetailWidget::clearPicture() {

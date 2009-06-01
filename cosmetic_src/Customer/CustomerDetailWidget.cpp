@@ -85,6 +85,9 @@ void CustomerDetailWidget::clearData() {
 	ui.phoneLineEdit->setText(emptyStr);
 	ui.sexComboBox->setCurrentIndex(SEX_UNDEFINE);
 	ui.timesLcdNumber->display(0);
+	m_customerPicData.clear();
+	displayPicture(m_customerPicData);
+
 }
 
 void CustomerDetailWidget::clearPicture() {
