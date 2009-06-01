@@ -3,8 +3,10 @@
 
 #define DBNAME "cosmeticdb"
 #define DBFILE "./cosmeticdb"
+/*
 #define SQLITEMARK "SQLite format 3"
 #define SQLITEMARKLEN (15)
+*/
 
 //**************staff management database items***************//
 #define CREATE_STAFF_TABLE \

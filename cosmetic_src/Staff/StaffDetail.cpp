@@ -38,7 +38,8 @@ StaffDetail::~StaffDetail()
 
  void StaffDetail::setupUi()
 {
-	noPic = QPixmap(":/staff/staff");//.scaled(180, 180,Qt::KeepAspectRatio ,Qt::SmoothTransformation);
+	noPic = QPixmap(":/staff/staff");
+	//.scaled(180, 180,Qt::KeepAspectRatio ,Qt::SmoothTransformation);
 	labelPortrait = new QLabel(this);
 	labelPortrait->setPixmap(noPic);
 	labelPortrait->setFixedSize(180, 240);
@@ -269,11 +270,13 @@ void StaffDetail::setStatus(list<Status>* statusList)
  void StaffDetail::modifyStaff(Staff* staff)
 {
 	if(lineEditId->text().isEmpty()) {
-		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, zeroSelectionWarning);
+		MessageBox::showMessageBox
+			(this, QMessageBox::Warning, smString, zeroSelectionWarning);
 		return;
 	}
 	if(SINFO_NEW == m_mode) {		
-		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, smEditModeWarning);
+		MessageBox::showMessageBox
+			(this, QMessageBox::Warning, smString, smEditModeWarning);
 		return;
 	}
 	changeMode(SINFO_MODIFY);
@@ -294,7 +297,8 @@ void StaffDetail::setStatus(list<Status>* statusList)
  void StaffDetail::newStaff()
 {
 	if(SINFO_MODIFY == m_mode) {		
-		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, smString, abandonModifyWarning))
+		if(QMessageBox::No == MessageBox::showMessageBox
+			(this, QMessageBox::Question, smString, abandonModifyWarning))
 			return;
 	}
 	myinfo = false;
@@ -334,7 +338,8 @@ void StaffDetail::selectPic()
 		 file.open(QIODevice::ReadOnly);
 		 if(file.size() > PIC_MAX_SIZE*MB) {
 			 QString warning = LOCAL8BITSTR(imageSizeWarning).arg(PIC_MAX_SIZE);
-			 MessageBox::showMessageBox(this, QMessageBox::Warning, smString, warning.toLocal8Bit().data());
+			 MessageBox::showMessageBox
+				 (this, QMessageBox::Warning, smString, warning.toLocal8Bit().data());
 			 return;
 		 }
 		 displayPic(file.readAll());
@@ -349,10 +354,15 @@ void StaffDetail::displayPic(QByteArray& data)
 		QPixmap pic;
 		pic.loadFromData(userPicData);
 		if(pic.height() != 0) {
-			if(pic.width()/pic.height() > labelPortrait->width()/labelPortrait->height())
-				pic = pic.scaledToWidth(labelPortrait->width(), Qt::SmoothTransformation);
+			double picAspect = (double)(pic.width())/(double)(pic.height());
+			double labelAspect = 
+				(double)(labelPortrait->width())/(double)(labelPortrait->height());
+			if(picAspect > labelAspect)
+				pic = pic.scaledToWidth
+				(labelPortrait->width(), Qt::SmoothTransformation);
 			else
-				pic = pic.scaledToHeight(labelPortrait->height(), Qt::SmoothTransformation);
+				pic = pic.scaledToHeight
+				(labelPortrait->height(), Qt::SmoothTransformation);
 			labelPortrait->setPixmap(pic);
 		} else {
 			labelPortrait->setPixmap(noPic);

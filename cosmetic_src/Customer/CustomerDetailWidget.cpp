@@ -102,8 +102,9 @@ void CustomerDetailWidget::displayPicture(QByteArray& data){
 		QPixmap pic;
 		pic.loadFromData(m_customerPicData);
 		if(pic.height() != 0) {
-			uint32 picAspect = pic.width()/pic.height();
-			uint32 labelAspect = ui.imageLabel->width()/ui.imageLabel->height();
+			double picAspect = (double)(pic.width())/(double)(pic.height());
+			double labelAspect = 
+				(double)(ui.imageLabel->width())/(double)(ui.imageLabel->height());
 			if(picAspect > labelAspect) {
 				pic = pic.scaledToWidth
 					(ui.imageLabel->width(), Qt::SmoothTransformation);
