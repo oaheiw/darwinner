@@ -1,5 +1,5 @@
 #summary Release Note
-#labels Featured
+#labels Featured,Phase-Implementation
 
 = 20090427: Cosmetic release alpha 0.10.164 =
   # 修正了不能使用非ascii密码的问题（Issues 1）
