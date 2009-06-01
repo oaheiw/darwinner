@@ -52,8 +52,8 @@ BusinessWindow::BusinessWindow(QWidget *parent)
 		ui.itemView, SLOT(changeSortCase(int)));
 	connect(m_detailWidget, SIGNAL(submittedBusiness(Business*, QByteArray&, uint32)), 
 		this, SLOT(submitBusiness(Business*, QByteArray&, uint32)));
-		connect(ui.itemView, SIGNAL(itemActivated(int, int, QVariant &)), 
-			this, SLOT(viewItemActivated(int, int, QVariant &)));
+	connect(ui.itemView, SIGNAL(itemActivated(int, int, QVariant &)), 
+		this, SLOT(viewItemActivated(int, int, QVariant &)));
 }
 
 BusinessWindow::~BusinessWindow()

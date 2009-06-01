@@ -38,7 +38,7 @@ StaffDetail::~StaffDetail()
 
  void StaffDetail::setupUi()
 {
-	noPic = QPixmap(":/staff/staff").scaled(180, 180,Qt::KeepAspectRatio ,Qt::SmoothTransformation);
+	noPic = QPixmap(":/staff/staff");//.scaled(180, 180,Qt::KeepAspectRatio ,Qt::SmoothTransformation);
 	labelPortrait = new QLabel(this);
 	labelPortrait->setPixmap(noPic);
 	labelPortrait->setFixedSize(180, 240);

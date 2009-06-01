@@ -2,6 +2,8 @@
 #include <QFont>
 #include "SpinBoxDelegate.h"
 #include "UiStrings.h"
+#include <limits>
+using namespace std;
 
 LevelWidget::LevelWidget(QWidget *parent, int mode)
 	: QWidget(parent)
@@ -33,9 +35,15 @@ LevelWidget::LevelWidget(QWidget *parent, int mode)
 	ui.levelTableView->setColumnWidth(col++, 60);
 	m_DataModel->setHeaderData(col++, Qt::Horizontal, LOCAL8BITSTR(staffDescriptionStr));
 
-	SpinBoxDelegate *delegate= new SpinBoxDelegate(ui.levelTableView);
-	ui.levelTableView->setItemDelegateForColumn (2, delegate);
+	SpinBoxDelegate *delegateProfit = new SpinBoxDelegate(ui.levelTableView);
+	delegateProfit->setRange(0, 100);
+	delegateProfit->setSuffix(percentStr);
+	ui.levelTableView->setItemDelegateForColumn (2, delegateProfit);
 
+	SpinBoxDelegate *delegateSalary = new SpinBoxDelegate(ui.levelTableView);
+	delegateSalary->setRange(0, numeric_limits<int>::max());
+	delegateSalary->setPrefix(moneyStr);
+	ui.levelTableView->setItemDelegateForColumn (3, delegateSalary);
 
 	connect(ui.addPushButton, SIGNAL(clicked()), this, SLOT(add()));
 	connect(ui.removePushButton, SIGNAL(clicked()), this, SLOT(remove()));

@@ -113,6 +113,10 @@ bool CommonDbThread::initDb()
 	q.exec(CREATE_BUSINESSIMAGE_TABLE);
 	q.exec(CREATE_ORDERS_TABLE);
 	q.exec(CREATE_TASKS_TABLE);
+	//customer mgnt
+	q.exec(CREATE_CUSTOMERLEVEL_TABLE);
+	q.exec(CREATE_CUSTOMER_TABLE);
+	q.exec(CREATE_CUSTOMERIMAGE_TABLE);
 /*
 	q.prepare(INSERTINTO_SEX_TABLE);
 	q.bindValue(":id", 0);
@@ -124,9 +128,9 @@ bool CommonDbThread::initDb()
 	q.bindValue(":id", 2);
 	q.bindValue(":name", "Ů");
 	q.exec();
-	
+*/	
 	closeDb();
-*/
+
 	m_tempMsg = new Message(EVENT_INIT_FINISHED);
 	if(NULL != m_tempMsg) {
 		postEvent(m_tempMsg, EventDb);
@@ -150,7 +154,7 @@ bool CommonDbThread::checkDd()
 	  testfile.seekg(0, ios::end);
 	  length = testfile.tellg();
 	  testfile.seekg(0, ios::beg);
-	  //now, using crypted sqlite. method below obsolete
+	  //now, using crypto sqlite. method below obsolete
 	  /*
 	  SQLiteMark = new char[SQLITEMARKLEN];
 	  memset(SQLiteMark, 0, SQLITEMARKLEN);

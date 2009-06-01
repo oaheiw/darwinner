@@ -178,7 +178,7 @@
 #define CREATE_CUSTOMERLEVEL_TABLE \
 	"CREATE TABLE customerlevel (id INTEGER PRIMARY KEY, name TEXT NOT NULL, "\
 	"requireconsume INTEGER DEFAULT 0, discount INTEGER DEFAULT 100, "\
-	"description TEXT)"
+	"description TEXT DEFAULT NULL)"
 #define INSERTINTO_CUSTOMERLEVEL_TABLE \
 	"INSERT INTO customerlevel (name, requireconsume, discount, description)"\
 	"VALUES (:name, :requireconsume, :discount, :description)"

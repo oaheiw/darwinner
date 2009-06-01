@@ -30,8 +30,7 @@
 #define sexMaleStr "男"
 #define sexFemaleStr "女"
 #define modifyWaring "未能成功修改，请重试。"
-#define abandonModifyWarning "编辑部件中还有还有未提交的信息！\n"\
-															"放弃所做的修改?"
+#define abandonModifyWarning "编辑部件中还有还有未提交的信息！\n放弃所做的修改?"
 #define leftMark "“"
 #define rightMark "”"
 #define removeError "未能成功删除选定项目，请重试。"
@@ -40,6 +39,8 @@
 #define submitStr "提交"
 #define imageFileStr "图像文件(*.png *.jpg *.bmp *.gif)"
 #define imageSizeWarning "非常抱歉，照片文件大小不能超过%1兆，请重新选择。"
+#define percentStr "%"
+#define moneyStr "￥"
 
 //common mgnt strings
 #define loginWindowTitle "登录错误"
@@ -70,8 +71,12 @@
 	"如果员工离职，建议您更改该员工状态，而不是在系统中删除该员工。"
 #define smAddStaffError "未能成功添加员工，请重试。"
 #define smModifyStaffError "未能成功修改员工信息，请重试。"
-#define smJobRemoveWarning "未能成功删除，可能是还有员工被设置为该职务。"
-#define smLevelRemoveWarning "未能成功删除，可能是还有员工被设置为该等级。"
+#define smJobRemoveWarning \
+	"未能成功删除，还有员工被设置为该职务。\n"\
+	"建议你修改这些职务的参数，替代删除职务。"
+#define smLevelRemoveWarning \
+	"未能成功删除，还有员工被设置为该级别。\n"\
+	"建议你修改这些级别的参数，替代删除级别。"
 #define smChangePwSucces "你的密码已经成功更改。"
 #define smChangePwFailure "原始密码错误，你的密码未能更改。"
 
@@ -108,11 +113,11 @@
 //***********business management message box strings
 #define bmModifyBusinessErrorStr "未能成功修改业务明细，请重试。"
 #define bmAddBusinessErrorStr "未能成功添加新业务，请重试。"
-#define bmRemoveBusinessConfirm "业务“%1”及其所有营销纪录都将被清空！\n"\
-	"确定贵公司不再提供该业务？"
+#define bmRemoveBusinessConfirm \
+	"业务“%1”及其所有营销记录都将被清空！\n确定贵公司不再提供该业务？"
 #define bmBusinessEditModeWarning "新建的业务还未提交！\n放弃所做的编辑?"
-#define bmBusinessCannotEditWarning "您正在编辑新建业务，并且还未提交。\n"\
-	"无法进入业务修改模式。"
+#define bmBusinessCannotEditWarning \
+	"您正在编辑新建业务，并且还未提交。无法进入业务修改模式。"
 #define bmEmptyNameTypeWarnning "业务名称或种类不能留空，请返回并填写。"
 #define bmTypeRemoveWaring "未能成功删除，可能是还有业务被设置为该种类。"
 
@@ -125,15 +130,30 @@
 #define cmLevelStr "等级"
 #define cmCellStr "手机"
 #define cmPhoneStr "座机"
+#define cmConsumeTimesStr "消费次数"
+#define cmTotalConsumeStr "累积金额"
+#define cmDepositStr "帐户余额"
 #define cmAddressStr "地址"
 #define cmDescriptionStr "备注"
-#define cmDepositStr "帐户余额"
 #define cmCardIdStr "代码"
 #define cmCardNameStr "名称"
 #define cmCardRemainsStr "余额"
+
+#define cmLevelEditorStr "顾客等级设置"
+#define cmLevelIdStr "等级代码"
+#define cmLevelNameStr "名称"
+#define cmLevelRequireStr "消费要求"
+#define cmLevelDiscountStr "享受折扣"
+#define cmLevelDescriptionStr "备注"
 
 #define cmCustomerEditModeWarning "新建的顾客还未提交！\n放弃所做的编辑?"
 #define cmCustomerCannotEditWarning \
 	"您正在新建顾客，并且还未提交。\n无法进入顾客修改模式。"
 #define cmEmptyNameSexWarnning "顾客姓名和性别不能留空，请返回并填写。"
+#define cmRemoveCustomerConfirm \
+	"顾客“%1”及其所有消费记录都将被清空！确定不再保留该顾客？"
+#define cmLevelRemoveWaring "未能成功删除，还有顾客位于当前等级。\n"\
+	"建议你修改这些等级的参数，替代删除等级。"
+#define cmModifyCustomerErrorStr "未能成功修改顾客资料，请重试。"
+#define cmAddCustomerErrorStr "未能成功新建顾客，请重试。"
 #endif

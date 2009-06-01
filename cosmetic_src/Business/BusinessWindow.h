@@ -23,14 +23,22 @@ class BusinessWindow : public QMainWindow, public DUIObserver
     Q_OBJECT
     Q_DISABLE_COPY(BusinessWindow)
 public:
-    explicit BusinessWindow(QWidget *parent = 0);
-    virtual ~BusinessWindow();
+    BusinessWindow(QWidget *parent = 0);
+    ~BusinessWindow();
 	bool event(QEvent* ev);
 	void OnEvent(Message& Msg);
 
 protected:
     virtual void changeEvent(QEvent *e);
 	virtual bool eventFilter(QObject* obj, QEvent* ev);
+
+	private slots:
+	void submitBusiness(Business* data, QByteArray& picData, uint32 mode);
+	void dealAction(QAction* action);
+	void viewItemActivated(int row, int column, QVariant & data);
+	void addBusiness(Business* business, QByteArray& image);
+	void modifyBusiness(Business* business, QByteArray& image);
+	void setBusinessType(void* data);
 
 private:
 	Ui::BusinessWindowClass ui;
@@ -57,14 +65,6 @@ private:
 	BusinessTypeEditor* m_typeEditor;
 	bool m_started;
 	ArrayUint32String* m_businessTypeNames;
-
-private slots:
-	void submitBusiness(Business* data, QByteArray& picData, uint32 mode);
-	void dealAction(QAction* action);
-	void viewItemActivated(int row, int column, QVariant & data);
-	void addBusiness(Business* business, QByteArray& image);
-	void modifyBusiness(Business* business, QByteArray& image);
-	void setBusinessType(void* data);
 };
 
 #endif // BUSINESSWINDOW_H

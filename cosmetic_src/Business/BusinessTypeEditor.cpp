@@ -19,7 +19,8 @@ BusinessTypeEditor::BusinessTypeEditor(QWidget *parent)
 	setHeaderData(col++, LOCAL8BITSTR(bmBusinessTypeCategoryStr));
 	setHeaderData(col++, LOCAL8BITSTR(bmBusinessTypeDescriptionStr));
 
-	m_categoryNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSCATEGORE);
+	m_categoryNames = AnythingFactory<ArrayUint32String>::
+		instance()->createAnything(BUSINESSCATEGORE);
 
 	ComboBoxDelegate *delegate = new ComboBoxDelegate(this);
 	for(ArrayUint32String::const_iterator it = m_categoryNames->begin() ; 
@@ -45,10 +46,12 @@ void* BusinessTypeEditor::getData()
 		BusinessType temp;
 		int col=0;
 		temp.setId(m_DataModel->index(row, col++).data().toUInt());
-		temp.setName(string(m_DataModel->index(row, col++).data().toString().toLocal8Bit().data()));
+		temp.setName(string(m_DataModel->index(row, col++).data()
+			.toString().toLocal8Bit().data()));
 		if(temp.getName().empty()) continue;// ignore item with empty name
 		temp.setCategory(m_DataModel->index(row, col++).data().toUInt());
-		temp.setDescription(string(m_DataModel->index(row, col++).data().toString().toLocal8Bit().data()));
+		temp.setDescription(string(m_DataModel->index(row, col++).data()
+			.toString().toLocal8Bit().data()));
 		data->push_back(temp);
 	}
 	return data;

@@ -9,16 +9,25 @@
 #define EA_0857DF94_2AE5_4dc8_8D1B_A058BE8CDC4F__INCLUDED_
 
 #include "ItemEditor.h"
+class CustomerLevel;
+class SpinBoxDelegate;
+#include <list>
+using namespace std;
 
 class CustomerLevelEditor : public ItemEditor
 {
 
 public:
-	CustomerLevelEditor();
+	CustomerLevelEditor(QWidget *parent = 0);
 	virtual ~CustomerLevelEditor();
+	void addCustomerLevel(const CustomerLevel& data);
+	void addCustomerLevel(const list<CustomerLevel>* data);
 
 protected:
 	virtual void* getData();
 
+private:
+	SpinBoxDelegate* m_discountDelegate;
+	SpinBoxDelegate* m_requireDelegate;
 };
 #endif // !defined(EA_0857DF94_2AE5_4dc8_8D1B_A058BE8CDC4F__INCLUDED_)

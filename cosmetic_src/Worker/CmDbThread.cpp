@@ -50,13 +50,17 @@ bool CmDbThread::addCustomer(Customer* data){
 	q.bindValue(":deposit", data->getDeposit());
 
 	r = q.exec();
+	DBDEC("add customer:", r);
 	if(r) {
 		q.exec(SELECT_MAX_CUSTOMERID);
-		if(q.isActive())
+		if(q.next())
 			data->setid(q.value(0).toUInt());
+			DBDEC("get id:", data->id());
 			QString setpw = QString(UPDATE_CUSTOMERPASWORD_BYID)
 				.arg(data->id()).arg(data->id());
+
 			q.exec(setpw);
+			DBDEC("set pw:", data->id());
 	}
 	closeDb();
 	DBDEC("add customer completed:", data->id());
@@ -75,7 +79,7 @@ bool CmDbThread::addCustomerLevel(CustomerLevel* data){
 		q.prepare(INSERTINTO_CUSTOMERLEVEL_TABLE);
 		q.bindValue(":name", data->getName().c_str());
 		q.bindValue(":requireconsume", data->getTotalCosume());
-		q.bindValue(":discount", data->getTotalCosume());
+		q.bindValue(":discount", data->getDiscount());
 		q.bindValue(":description", data->getDescription().c_str());
 		r = q.exec();
 		DBDEC("add customer level completed", r);
@@ -128,14 +132,14 @@ list<Customer>* CmDbThread::getAllCustomer(){
 	while (q.next()) {
 		temp.setid(q.value(0).toUInt());
 		temp.setpassword(q.value(1).toByteArray().data());
-		temp.setname(q.value(1).toByteArray().data());
-		temp.setsex(q.value(2).toUInt());
-		temp.setLevel(q.value(3).toUInt());
-		temp.setcell(q.value(4).toByteArray().data());
-		temp.setphone(q.value(5).toByteArray().data());
-		temp.setaddress(q.value(6).toByteArray().data());
-		temp.setdescription(q.value(7).toByteArray().data());
-		temp.setDeposit(q.value(8).toULongLong());
+		temp.setname(q.value(2).toByteArray().data());
+		temp.setsex(q.value(3).toUInt());
+		temp.setLevel(q.value(4).toUInt());
+		temp.setcell(q.value(5).toByteArray().data());
+		temp.setphone(q.value(6).toByteArray().data());
+		temp.setaddress(q.value(7).toByteArray().data());
+		temp.setdescription(q.value(8).toByteArray().data());
+		temp.setDeposit(q.value(9).toULongLong());
 		//below to be realized;
 		temp.setTotalConsume(9494595);
 		temp.setConsumeTime(12);
@@ -156,17 +160,18 @@ Customer* CmDbThread::getCustomer(uint32 id){
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_CM));
 	QString query = QString(SELECT_CUSTOMER_BYID).arg(id);
 	if(q.exec(query)){
-		if(q.isActive()) {
+		if(q.next()) {
+			temp = new Customer();
 			temp->setid(q.value(0).toUInt());
 			temp->setpassword(q.value(1).toByteArray().data());
-			temp->setname(q.value(1).toByteArray().data());
-			temp->setsex(q.value(2).toUInt());
-			temp->setLevel(q.value(3).toUInt());
-			temp->setcell(q.value(4).toByteArray().data());
-			temp->setphone(q.value(5).toByteArray().data());
-			temp->setaddress(q.value(6).toByteArray().data());
-			temp->setdescription(q.value(7).toByteArray().data());
-			temp->setDeposit(q.value(8).toULongLong());
+			temp->setname(q.value(2).toByteArray().data());
+			temp->setsex(q.value(3).toUInt());
+			temp->setLevel(q.value(4).toUInt());
+			temp->setcell(q.value(5).toByteArray().data());
+			temp->setphone(q.value(6).toByteArray().data());
+			temp->setaddress(q.value(7).toByteArray().data());
+			temp->setdescription(q.value(8).toByteArray().data());
+			temp->setDeposit(q.value(9).toULongLong());
 			//below to be realized;
 			temp->setTotalConsume(9494595);
 			temp->setConsumeTime(12);
@@ -193,8 +198,8 @@ list<CustomerLevel>* CmDbThread::getCustomerLevels(){
 		temp.setId(q.value(0).toUInt());
 		temp.setName(q.value(1).toByteArray().data());
 		temp.setTotalCosume(q.value(2).toULongLong());
-		temp.setDiscount(q.value(2).toUInt());
-		temp.setDescription(q.value(3).toByteArray().data());
+		temp.setDiscount(q.value(3).toUInt());
+		temp.setDescription(q.value(4).toByteArray().data());
 		r->push_back(temp);
 	}
 	closeDb();
@@ -221,7 +226,7 @@ QByteArray* CmDbThread::getImage(uint32 id){
 */
 	QString get = QString(GET_CUSTOMERIMAGE_BYID).arg(id);
 	if(q.exec(get)) {
-		if(q.isActive()) {
+		if(q.next()) {
 			if(NULL != q.value(0).toByteArray().data())
 				*image = q.value(0).toByteArray();
 		}
@@ -246,11 +251,9 @@ bool CmDbThread::modifyCustomer(Customer* data){
 	q.exec(check);
 	if(q.isActive()) {
 		QString modifstr = QString(UPDATA_CUSTOMER_BYID)
-			.arg(data->password().c_str()).arg(data->name().c_str())
-			.arg(data->sex()).arg(data->getLevel()).arg(data->cell().c_str())
+			.arg(data->name().c_str()).arg(data->sex()).arg(data->cell().c_str())
 			.arg(data->phone().c_str()).arg(data->address().c_str())
-			.arg(data->description().c_str()).arg(data->getDeposit())
-			.arg(data->id()); 
+			.arg(data->description().c_str()).arg(data->id()); 
 		r = q.exec(modifstr);
 	}
 	closeDb();
@@ -435,7 +438,7 @@ void CmDbThread::WorkerThreadMain(Message& action){
 					it++;
 				}
 				delete toRemove;
-				m_tempMsg = new Message(EVENT_REMOVECUSTOMELEVEL, result);
+				m_tempMsg = new Message(EVENT_REMOVECUSTOMERLEVEL, result);
 				break;
 
 			}

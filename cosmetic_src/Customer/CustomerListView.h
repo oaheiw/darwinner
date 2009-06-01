@@ -23,6 +23,7 @@ public:
 
 private:
 	ArrayUint32String* m_customerLevelNames;
+	ArrayUint32String* m_sexNames;
 
 };
 #endif // !defined(EA_FED78DC8_8A88_4176_BB25_C083BB1B4CD1__INCLUDED_)

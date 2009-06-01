@@ -17,7 +17,7 @@ CustomerDetailWidget::CustomerDetailWidget(QWidget *parent, uint32 mode)
 	
 	ui.setupUi(this);
 
-	m_dataModel = new QStandardItemModel(10, 3, this);
+	m_dataModel = new QStandardItemModel(0, 3, this);
 	ui.cardsTreeView->setModel(m_dataModel);
 	ui.cardsTreeView->setColumnWidth(0,50);
 	ui.cardsTreeView->setColumnWidth(1,70);
@@ -33,9 +33,9 @@ CustomerDetailWidget::CustomerDetailWidget(QWidget *parent, uint32 mode)
 	changeMode(m_mode);
 	connect(ui.picButton, SIGNAL(clicked()), this, SLOT(selectPicture()));
 	connect(ui.submitButton, SIGNAL(clicked()), this, SLOT(submit()));
-	m_zeroPicture = QPixmap(":/customer/customer").
+	m_zeroPicture = QPixmap(":/customer/customer");/*.
 		scaled(ui.imageLabel->width(), ui.imageLabel->height(), 
-		Qt::KeepAspectRatio ,Qt::SmoothTransformation);
+		Qt::KeepAspectRatio ,Qt::SmoothTransformation);*/
 	displayPicture(m_customerPicData);
 }
 
@@ -185,6 +185,8 @@ void CustomerDetailWidget::submit(){
 	data->setphone(ui.phoneLineEdit->text().toLocal8Bit().data());
 	data->setsex(ui.sexComboBox->
 		itemData(ui.sexComboBox->currentIndex()).toUInt());
+	data->setLevel(ui.levelComboBox->itemData
+		(ui.levelComboBox->currentIndex()).toUInt());//delete later
 
 	emit submittedCustomer(data, m_customerPicData, m_mode);
 	changeMode(CUSTOMER_BROWSE);

@@ -3,6 +3,8 @@
 #include <QAbstractItemModel>
 #include "SpinBoxDelegate.h"
 #include "UiStrings.h"
+#include <limits>
+using namespace std;
 
 JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 	: QWidget(parent)
@@ -36,12 +38,12 @@ JobTypeWidget::JobTypeWidget(QWidget *parent, int mode)
 
 	SpinBoxDelegate *delegateProfit = new SpinBoxDelegate(ui.jobTableView);
 	delegateProfit->setRange(0, 100);
-	delegateProfit->setSuffix(string("%"));
+	delegateProfit->setSuffix(percentStr);
 	ui.jobTableView->setItemDelegateForColumn (2, delegateProfit);
 
 	SpinBoxDelegate *delegateSalary = new SpinBoxDelegate(ui.jobTableView);
-	delegateSalary->setRange(0, 9999999);
-	delegateSalary->setPrefix(string("гд"));
+	delegateSalary->setRange(0, numeric_limits<int>::max());
+	delegateSalary->setPrefix(moneyStr);
 	ui.jobTableView->setItemDelegateForColumn (3, delegateSalary);
 	
 	connect(ui.addPushButton, SIGNAL(clicked()), this, SLOT(add()));

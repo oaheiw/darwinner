@@ -11,7 +11,8 @@ SpinBoxDelegate::SpinBoxDelegate(QObject *parent)
 	
 }
 
-QWidget *SpinBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
+QWidget *SpinBoxDelegate::createEditor
+(QWidget *parent, const QStyleOptionViewItem &, const QModelIndex &) const
 {
 	QSpinBox* editor = new QSpinBox(parent);
 	editor->setRange(m_min, m_max);
@@ -20,14 +21,16 @@ QWidget *SpinBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewIt
 	return editor;
 }
 
-void SpinBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+void SpinBoxDelegate::setEditorData
+(QWidget *editor, const QModelIndex &index) const
 {
 	int value = index.model()->data(index, Qt::EditRole).toInt();
 	QSpinBox *spinBox = static_cast<QSpinBox*>(editor);
 	spinBox->setValue(value);
 }
 
-void SpinBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+void SpinBoxDelegate::setModelData
+(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
 	QSpinBox *spinBox = static_cast<QSpinBox*>(editor);
 	spinBox->interpretText();
@@ -35,22 +38,23 @@ void SpinBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, c
 	model->setData(index, value, Qt::EditRole);
 }
 
-void SpinBoxDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &/* index */) const
+void SpinBoxDelegate::updateEditorGeometry
+(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &) const
 {
 	editor->setGeometry(option.rect);
 }
 
-void SpinBoxDelegate::setRange(uint32 min, uint32 max){
+void SpinBoxDelegate::setRange(int32 min, int32 max){
 	m_max = max;
 	m_min = min;
 }
 
-void SpinBoxDelegate::setPrefix(string& newVal){
+void SpinBoxDelegate::setPrefix(const string& newVal){
 
 	m_prefix = newVal;
 }
 
-void SpinBoxDelegate::setSuffix(string& newVal){
+void SpinBoxDelegate::setSuffix(const string& newVal){
 
 	m_suffix = newVal;
 }

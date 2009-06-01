@@ -16,6 +16,7 @@ ItemView::ItemView(QWidget *parent)
 
 ItemView::~ItemView()
 {
+	clearData();
 	delete m_sortProxyModel;
 	delete m_DataModel;
 }
