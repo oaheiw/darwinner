@@ -1,5 +1,5 @@
 #summary 里程碑
-#labels Featured
+#labels Featured,Phase-Implementation
 
 = 里程碑 =
   # 4.9 完成架构、事务级消息设计。线程及线程间同步设计。
