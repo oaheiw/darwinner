@@ -231,7 +231,7 @@ QByteArray* CmDbThread::getImage(uint32 id){
 				*image = q.value(0).toByteArray();
 		}
 	}
-
+	q.clear();
 	closeDb();
 	DBHEX("get customer image completed.", "");
 	return image;

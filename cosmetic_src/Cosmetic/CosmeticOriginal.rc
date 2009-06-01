@@ -38,14 +38,14 @@ BEGIN
             VALUE "Comments", "comment"
             VALUE "CompanyName", "SeaShore Software"
             VALUE "FileDescription", "Cosmetic Management System"
-            VALUE "FileVersion", "0.18.$WCREV$"
+            VALUE "FileVersion", "0.20.$WCREV$"
             VALUE "InternalName", "Cosmetic_svn$WCREV$_$WCDATE=%Y%m%d.%H:%M:%S$"
             VALUE "LegalCopyright", "Copyright (C) 2009 SeaShore Software"
             VALUE "LegalTrademarks", "Cosmetic (TM)"
             VALUE "OriginalFilename", "Cosmetic.exe"
             VALUE "PrivateBuild", "build_$WCNOW=%Y%m%d.%H:%M:%S$"
             VALUE "ProductName", "Cosmetic"
-            VALUE "ProductVersion", "0, 18, $WCREV$"
+            VALUE "ProductVersion", "0, 20, $WCREV$"
 			VALUE "SpecialBuild", "Alpah Build"
         END
     END
