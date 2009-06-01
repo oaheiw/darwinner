@@ -152,11 +152,12 @@ void SMHandler::OnEvent(Message &ev)
 			case EVENT_STAFFADDED:
 			{
 				Staff* addedStaff = static_cast<Staff*>(ev.data());
-				 if(addedStaff->id() == SUPERUSERID)
-				 	break;
 				if(NULL != addedStaff) {
+					if(addedStaff->id() == SUPERUSERID)
+						break;
 					list<Staff>::iterator it = 
-						find_if(m_staffCache.begin(), m_staffCache.end(), Staff::idMatcher(addedStaff->id()));
+						find_if(m_staffCache.begin(), m_staffCache.end(), 
+						Staff::idMatcher(addedStaff->id()));
 					if(m_staffCache.end() == it) {
 						m_staffCache.push_back(*addedStaff);
 						ev.setData(&m_staffCache.back());

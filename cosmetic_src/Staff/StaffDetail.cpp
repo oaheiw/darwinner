@@ -22,11 +22,11 @@ StaffDetail::StaffDetail(QWidget *parent, int mode)
 {
 	m_mode = mode;
 	myinfo = false;
+	userPicData.clear();
 	setupUi();
 	font = QFont("SimSun", 9);
 	SettingFont(font);
 	changeMode(m_mode);
-//	connect(pushButtonModify, SIGNAL(clicked()), this, SLOT(modify()));
 	connect(pushButtonPix, SIGNAL(clicked()), this, SLOT(selectPic()));
 	connect(pushButtonSubmmit, SIGNAL(clicked()), this, SLOT(submit()));
 }

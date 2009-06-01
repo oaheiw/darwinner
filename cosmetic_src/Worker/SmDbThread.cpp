@@ -51,9 +51,10 @@ void SmDbThread::WorkerThreadMain(Message& Action) {
 			if(NULL != image && !image->isEmpty() && addedStaff->id() != 0) {
 				if(setImage(addedStaff->id(), *image))
 					m_tempMsg->setData2(getImage(addedStaff->id()));
+				image->clear();
 			}
 			delete staff;
-			image->clear();
+
 			delete image;
 			break;
 		}

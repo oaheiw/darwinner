@@ -68,10 +68,10 @@ void BmDbThread::WorkerThreadMain(Message& action)
 				if(NULL != addedBusiness && NULL != image && !image->isEmpty()) {
 					if(addImage(addedBusiness->id(), *image))
 						m_tempMsg->setData2(getImage(addedBusiness->id()));
+					image->clear();
 				}
 			}
 			delete business;
-			image->clear();
 			delete image;
 			break;
 		}

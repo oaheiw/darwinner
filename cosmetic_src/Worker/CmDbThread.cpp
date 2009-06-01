@@ -377,9 +377,11 @@ void CmDbThread::WorkerThreadMain(Message& action){
 					if(NULL != added && NULL != image && !image->isEmpty()) {
 						if(addImage(added->id(), *image))
 							m_tempMsg->setData2(getImage(added->id()));
+						image->clear();
 					}
 				}
 				delete toAdd;
+				delete image;
 				break;
 			}
 		case ACTION_REMOVECUSTOMER:

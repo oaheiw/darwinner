@@ -120,7 +120,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="QtSqld4.lib"
+				AdditionalDependencies="QtSql4.lib"
 				OutputFile="$(OutDir)\lib\$(ProjectName)d.lib"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\$(ConfigurationName)\lib&quot;"
 			/>
@@ -338,11 +338,11 @@
 		/>
 		<Global
 			Name="QtVersion"
-			Value="qt-4.5.1-static"
+			Value="qt-4.5.1-shared"
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="qt-4.5.1-static"
+			Value="qt-4.5.1-shared"
 		/>
 		<Global
 			Name="RccDir"

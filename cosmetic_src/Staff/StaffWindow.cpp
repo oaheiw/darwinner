@@ -494,9 +494,7 @@ void StaffWindow::addStaff(Staff* staff, QByteArray& data)
 		MessageBox::showMessageBox(this, QMessageBox::Warning, smString, smEmptyNameWarnning);
 		return;
 	}
-	Message* action = new Message(ACTION_ADDSTAFF, staff);
-	if(!data.isEmpty())
-		action->setData2(&data);
+	Message* action = new Message(ACTION_ADDSTAFF, staff, &data);
 	GetHandler()->StartAction(*action);
 	delete action;
 
