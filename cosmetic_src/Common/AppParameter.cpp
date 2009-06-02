@@ -16,7 +16,6 @@ AppParameter::AppParameter(){
 }
 
 
-
 AppParameter::~AppParameter(){
 
 }
@@ -70,5 +69,4 @@ void AppParameter::setFontSize(short newVal){
 void AppParameter::setLastDir(string& newVal){
 
 	m_lastDir = newVal;
-	DBHEX("set last dir:", m_lastDir);
 }

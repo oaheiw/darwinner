@@ -35,7 +35,8 @@ void BMHandler::StartAction(Message& act){
 			case ACTION_GETALLBUSINESS:
 				{
 					if(!m_businessCache.empty()) {
-						Message* ev = new Message(EVENT_ALLBUSINESS, &m_businessCache);
+						Message* ev = 
+							new Message(EVENT_ALLBUSINESS, &m_businessCache);
 						BroadcastEvent(*ev);
 						delete ev;
 						return;
@@ -47,7 +48,8 @@ void BMHandler::StartAction(Message& act){
 				{
 					uint32* id = static_cast<uint32*>(act.data());
 					list<Business>::iterator it = 
-						find_if(m_businessCache.begin(), m_businessCache.end(), Business::BusinessIdMatcher(*id));
+						find_if(m_businessCache.begin(), m_businessCache.end(), 
+						Business::BusinessIdMatcher(*id));
 					if(m_businessCache.end() != it) {
 						Message* ev = new Message(EVENT_BUSINESS, &(*it));
 						BroadcastEvent(*ev);
@@ -59,18 +61,23 @@ void BMHandler::StartAction(Message& act){
 				}
 			case ACTION_SETBUSINESSTYPE:
 				{
-					list<BusinessType>* types2update = static_cast<list<BusinessType>*>(act.data());
+					list<BusinessType>* types2update = 
+						static_cast<list<BusinessType>*>(act.data());
 					list<BusinessType>* types2remove = new list<BusinessType>;
 
-					for(list<BusinessType>::iterator it = m_businessTypeCache.begin() ; m_businessTypeCache.end()!=it ; it++) {
-						if(types2update->end() == find_if(types2update->begin(), types2update->end(), 
-						BusinessType::BusinessTypeIdMatcher(it->getId()))) {
+					for(list<BusinessType>::iterator it = 
+						m_businessTypeCache.begin() ; 
+						m_businessTypeCache.end()!=it ; it++) {
+						if(types2update->end() == 
+							find_if(types2update->begin(), types2update->end(), 
+							BusinessType::BusinessTypeIdMatcher(it->getId()))) {
 							types2remove->push_back(*it);	
 						} 
 					}
 
 					if(!types2remove->empty()) {
-						Message* remove = new Message(ACTION_REMOVEBUSINESSTYPE, types2remove);
+						Message* remove = 
+							new Message(ACTION_REMOVEBUSINESSTYPE, types2remove);
 						GetHandler()->StartAction(*remove);
 						delete remove;
 					}
@@ -98,7 +105,8 @@ void BMHandler::OnEvent(Message &ev)
 				}
 			case EVENT_ALLBUSINESS:
 				{
-					list<Business>* data = static_cast<list<Business>*>(ev.data());
+					list<Business>* data = 
+						static_cast<list<Business>*>(ev.data());
 					m_businessCache = *data;
 					delete data;
 					ev.setData(&m_businessCache);
@@ -106,7 +114,8 @@ void BMHandler::OnEvent(Message &ev)
 				}
 			case EVENT_BUSINESSTYPE:
 				{
-					list<BusinessType>* data = static_cast<list<BusinessType>*>(ev.data());
+					list<BusinessType>* data = 
+						static_cast<list<BusinessType>*>(ev.data());
 					m_businessTypeCache = *data;
 					delete data;
 					ev.setData(&m_businessTypeCache);
@@ -116,7 +125,8 @@ void BMHandler::OnEvent(Message &ev)
 				{
 					Business* added = static_cast<Business*>(ev.data());
 					if(NULL != added) {
-						list<Business>::iterator it = find_if(m_businessCache.begin(), m_businessCache.end(), 
+						list<Business>::iterator it = 
+							find_if(m_businessCache.begin(), m_businessCache.end(), 
 							Business::BusinessIdMatcher(added->id()));
 						if(m_businessCache.end() == it) {
 							m_businessCache.push_back(*added);
@@ -130,7 +140,8 @@ void BMHandler::OnEvent(Message &ev)
 				{
 					Business* modified = static_cast<Business*>(ev.data());
 					if(NULL != modified) {
-						list<Business>::iterator it = find_if(m_businessCache.begin(), m_businessCache.end(), 
+						list<Business>::iterator it = 
+							find_if(m_businessCache.begin(), m_businessCache.end(), 
 							Business::BusinessIdMatcher(modified->id()));
 						if(m_businessCache.end() != it) {
 							m_businessCache.remove(*it);
@@ -145,7 +156,8 @@ void BMHandler::OnEvent(Message &ev)
 				{
 					Business* data = static_cast<Business*>(ev.data());
 					if(NULL != data) {
-						list<Business>::iterator it = find_if(m_businessCache.begin(), m_businessCache.end(), 
+						list<Business>::iterator it = 
+							find_if(m_businessCache.begin(), m_businessCache.end(), 
 							Business::BusinessIdMatcher(data->id()));
 						if(m_businessCache.end() == it) {
 							m_businessCache.push_back(*data);
@@ -159,7 +171,8 @@ void BMHandler::OnEvent(Message &ev)
 				{
 					uint32* id = static_cast<uint32*>(ev.data());
 					if(0 != *id) {
-							list<Business>::iterator it = find_if(m_businessCache.begin(), m_businessCache.end(), 
+							list<Business>::iterator it = 
+								find_if(m_businessCache.begin(), m_businessCache.end(), 
 							Business::BusinessIdMatcher(*id));
 						if(m_businessCache.end() != it) {
 							m_businessCache.remove(*it);

@@ -24,7 +24,7 @@
     <file>Resources/edit.png</file>
     <file>Resources/settings.png</file>
   </qresource>
-  <qresource prefix="customer" >
+  <qresource prefix="/customer" >
     <file alias="records" >../Customer/icons/consumeration.png</file>
     <file alias="customer" >../Customer/icons/customer.png</file>
   </qresource>
@@ -41,5 +41,14 @@
     <file alias="salary" >../Staff/icons/salary.png</file>
     <file alias="info" >../Staff/icons/info.png</file>
     <file alias="records" >../Staff/icons/personalrecords.png</file>
+  </qresource>
+  <qresource prefix="/shop" >
+    <file alias="shop" >../Shop/icons/shop.png</file>
+  </qresource>
+  <qresource prefix="/report" >
+    <file alias="report" >../Report/icons/report.png</file>
+  </qresource>
+  <qresource prefix="/stock" >
+    <file alias="stock" >../Stock/icons/stock.png</file>
   </qresource>
 </RCC>

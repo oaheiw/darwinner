@@ -32,13 +32,13 @@ BusinessDetailWidget::~BusinessDetailWidget()
 
 void BusinessDetailWidget::browseBusiness(Business* data){
 	if(BUSINESS_NEW == m_mode) {		
-		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
-			bmString, bmBusinessEditModeWarning))
+		if(QMessageBox::No == MessageBox::showMessageBox
+			(this, QMessageBox::Question, bmString, bmBusinessEditModeWarning))
 			return;
 	}
 	if(BUSINESS_MODIFY == m_mode) {		
-		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
-			bmString, abandonModifyWarning))
+		if(QMessageBox::No == MessageBox::showMessageBox
+			(this, QMessageBox::Question, bmString, abandonModifyWarning))
 			return;
 	}
 	changeMode(BUSINESS_BROWSE);
@@ -117,11 +117,13 @@ void BusinessDetailWidget::displayPicture(QByteArray& data){
 
 void BusinessDetailWidget::editBusiness(Business* data){
 	if(0 == ui.idLcdNumber->intValue()) {
-		MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, zeroSelectionWarning);
+		MessageBox::showMessageBox
+			(this, QMessageBox::Warning, bmString, zeroSelectionWarning);
 		return;
 	}
 	if(BUSINESS_NEW == m_mode) {		
-		MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, bmBusinessCannotEditWarning);
+		MessageBox::showMessageBox
+			(this, QMessageBox::Warning, bmString, bmBusinessCannotEditWarning);
 		return;
 	}
 	if(NULL != data) {
@@ -133,13 +135,13 @@ void BusinessDetailWidget::editBusiness(Business* data){
 
 void BusinessDetailWidget::newBusiness(){
 	if(BUSINESS_MODIFY == m_mode) {		
-		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
-			bmString, abandonModifyWarning))
+		if(QMessageBox::No == MessageBox::showMessageBox
+			(this, QMessageBox::Question, bmString, abandonModifyWarning))
 			return;
 	}
 	if(BUSINESS_NEW == m_mode) {		
-		if(QMessageBox::No == MessageBox::showMessageBox(this, QMessageBox::Question, 
-			bmString, bmBusinessEditModeWarning))
+		if(QMessageBox::No == MessageBox::showMessageBox
+			(this, QMessageBox::Question, bmString, bmBusinessEditModeWarning))
 				return;
 	}
 	clearData();
@@ -153,7 +155,8 @@ void BusinessDetailWidget::setBusinessTypes(list<BusinessType>* types){
 	list<BusinessType>::iterator it = types->begin();
 	while(types->end() != it)
 	{
-		ui.typeComboBox->addItem(LOCAL8BITSTR(it->getName().c_str()), QVariant(it->getId()));
+		ui.typeComboBox->addItem
+			(LOCAL8BITSTR(it->getName().c_str()), QVariant(it->getId()));
 		it++;
 	}
 }
@@ -225,8 +228,10 @@ void BusinessDetailWidget::changeMode(uint32 mode){
 
 
 void BusinessDetailWidget::selectPicture(){
-	QString lastDir = LOCAL8BITSTR(Singleton<AppParameter>::instance()->getLastDir().c_str());
-	QString fileName = QFileDialog::getOpenFileName(this, LOCAL8BITSTR(choosePicStr), 
+	QString lastDir = 
+		LOCAL8BITSTR(Singleton<AppParameter>::instance()->getLastDir().c_str());
+	QString fileName = 
+		QFileDialog::getOpenFileName(this, LOCAL8BITSTR(choosePicStr), 
 		lastDir, LOCAL8BITSTR(imageFileStr));
 	if(!fileName.isEmpty()) {
 		std::string last = std::string(fileName.toLocal8Bit().data());
@@ -236,7 +241,8 @@ void BusinessDetailWidget::selectPicture(){
 		file.open(QIODevice::ReadOnly);
 		if(file.size() > PIC_MAX_SIZE*MB) {
 			QString warning = LOCAL8BITSTR(imageSizeWarning).arg(PIC_MAX_SIZE);
-			MessageBox::showMessageBox(this, QMessageBox::Warning, bmString, warning.toLocal8Bit().data());
+			MessageBox::showMessageBox
+				(this, QMessageBox::Warning, bmString, warning.toLocal8Bit().data());
 			return;
 		}
 		displayPicture(file.readAll());

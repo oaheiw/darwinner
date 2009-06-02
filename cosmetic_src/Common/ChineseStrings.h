@@ -156,4 +156,12 @@
 	"建议你修改这些等级的参数，替代删除等级。"
 #define cmModifyCustomerErrorStr "未能成功修改顾客资料，请重试。"
 #define cmAddCustomerErrorStr "未能成功新建顾客，请重试。"
+
+
+#define stString "库存管理"
+#define rsString "报表系统"
+#define cfString "系统设置"
+
+
+
 #endif

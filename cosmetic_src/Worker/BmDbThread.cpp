@@ -108,7 +108,8 @@ void BmDbThread::WorkerThreadMain(Message& action)
 		}
 		case ACTION_SETBUSINESSTYPE:
 		{
-			list<BusinessType>* toSet = static_cast<list<BusinessType>*>(action.data());
+			list<BusinessType>* toSet = 
+				static_cast<list<BusinessType>*>(action.data());
 			list<BusinessType>* result = new list<BusinessType>;
 			list<BusinessType>::iterator it = toSet->begin();
 			while(toSet->end() != it) {
@@ -122,7 +123,8 @@ void BmDbThread::WorkerThreadMain(Message& action)
 		}
 		case ACTION_REMOVEBUSINESSTYPE:
 		{
-			list<BusinessType>* toRemove = static_cast<list<BusinessType>*>(action.data());
+			list<BusinessType>* toRemove = 
+				static_cast<list<BusinessType>*>(action.data());
 			list<BusinessType>* result = new list<BusinessType>;
 			list<BusinessType>::iterator it = toRemove->begin();
 			while(toRemove->end() != it) {
@@ -317,7 +319,8 @@ QByteArray* BmDbThread::getImage(uint32 id){
 
 bool BmDbThread::modifyBusiness(Business* data){
 	bool r =false;
-	if(0 == data->id() || !openDb(DBNAME)) {//id 0 business surely not in the database
+	if(0 == data->id() || 
+		!openDb(DBNAME)) {//id 0 business surely not in the database
 		return r;
 	}
 	
@@ -328,10 +331,11 @@ bool BmDbThread::modifyBusiness(Business* data){
 	q.exec(check);
 	if(!q.isActive()) return r;
 
-	QString modifstr = QString(UPDATA_BUSINESS_BYID).arg(data->name().c_str())
-		.arg(data->type()).arg(data->brand().c_str()).arg(data->specification().c_str())
-		.arg(data->price()).arg(data->cost()).arg(data->discount()).arg(data->stocks())
-		.arg(data->sales()).arg(data->buys()).arg(data->description().c_str())
+	QString modifstr = QString(UPDATA_BUSINESS_BYID)
+		.arg(data->name().c_str()).arg(data->type()).arg(data->brand().c_str())
+		.arg(data->specification().c_str()).arg(data->price()).arg(data->cost())
+		.arg(data->discount()).arg(data->stocks()).arg(data->sales())
+		.arg(data->buys()).arg(data->description().c_str())
 		.arg(data->getAdjustable()).arg(data->isDualDiscoutn()).arg(data->id()); 
 	r = q.exec(modifstr);
 	closeDb();

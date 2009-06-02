@@ -19,7 +19,8 @@ using namespace std;
 class BmDbThread : public DbThread
 {
 public:
-	BmDbThread(QObject *parent = 0, QThread::Priority priority = QThread::NormalPriority);
+	BmDbThread(QObject *parent = 0, 
+		QThread::Priority priority = QThread::NormalPriority);
 	virtual ~BmDbThread();
 	
 protected:
