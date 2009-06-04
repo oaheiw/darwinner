@@ -49,6 +49,8 @@ public:
 	void setRating(short newVal);
 	bool isDualDiscoutn()  const;
 	void setDualDiscoutn(bool newVal);
+	uint64 getSaleSum()  const;
+	void setSaleSum(uint64 newVal);
 	void clear();
 
 	inline bool operator==(const Business &x){
@@ -69,6 +71,7 @@ public:
 					m_dualDiscoutn== x.isDualDiscoutn()
 			);
 	}
+
 
 	class BusinessIdMatcher {
 	public:
@@ -98,6 +101,7 @@ private:
 	short m_adjustable;
 	short m_rating;
 	bool m_dualDiscoutn;
+	uint64 m_saleSum;
 
 };
 #endif // !defined(EA_F40DCE33_D8D3_43b0_ABAF_0743D8FE2008__INCLUDED_)

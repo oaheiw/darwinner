@@ -16,6 +16,7 @@
 #define femaleStr "女"
 #define maleStr "男"
 #define cosmeticNameStr "Cosmetic（科思美）美容美发业运营系统"
+#define initDbStr "正在初始化数据库，请稍候……"
 #define emptyStr ""
 #define staffEntraceStr "员工入口"
 #define passwordStr "密码"
@@ -157,8 +158,32 @@
 #define cmModifyCustomerErrorStr "未能成功修改顾客资料，请重试。"
 #define cmAddCustomerErrorStr "未能成功新建顾客，请重试。"
 
-
+//stock management string
 #define stString "库存管理"
+#define stIdStr "商品代码"
+#define stTypeStr "商品种类"
+#define stNameStr "商品名"
+#define stBrandStr "品牌"
+#define stSpecificationStr "规格"
+#define stRatingStr "客户满意度"
+#define stDescriptionStr "备注"
+#define stBuysStr "总进货量"
+//#define stReturnsStr "总退货"
+#define stAverageCostStr "平均成本"
+#define stCostsStr "总成本"
+#define stStocksStr "库存量"
+#define stDiscountStr "当前销售折扣"
+#define stPriceStr "当前销售价"
+#define stSalesStr "总销售量"
+#define stSalesSumStr "总销售额"
+#define stAveragePriceStr "平均销售价"
+#define stStockInStr "进货"
+#define sttockOutStr "退货"
+#define stCommodityStr "商品浏览"
+#define stInventoryStr "盘点记录"
+#define stStockStr "进退货记录"
+
+
 #define rsString "报表系统"
 #define cfString "系统设置"
 

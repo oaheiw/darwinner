@@ -253,6 +253,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Inventory.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Job.cpp"
 				>
 			</File>
@@ -273,7 +277,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\systeminfo.cpp"
+				RelativePath=".\Stock.cpp"
 				>
 			</File>
 		</Filter>
@@ -335,6 +339,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Inventory.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Job.h"
 				>
 			</File>
@@ -363,7 +371,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\systeminfo.h"
+				RelativePath=".\Stock.h"
 				>
 			</File>
 			<File

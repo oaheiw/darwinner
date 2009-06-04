@@ -12,11 +12,16 @@
 #include <map>
 using namespace std;
 
+#if _WIN32
 typedef unsigned int uint32;
 typedef int int32;
 typedef unsigned char byte;
 typedef long long int64;
 typedef unsigned long long uint64;
+typedef double double64;
+typedef float double32;
+#else
+#endif
 
 typedef map<uint32, string> ArrayUint32String;
 typedef map<string, string> ArrayStringString;

@@ -15,7 +15,7 @@
 #include "SMHandler.h"
 #include "BMHandler.h"
 #include "CMHandler.h"
-#include "systeminfo.h"
+//#include "systeminfo.h"
 
 #ifdef _STATIC_RELEASE
 #include <QtPlugin>
@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 
 	QApplication* app = new QApplication(argc, argv);
 	
+
 	QStyle* style = QStyleFactory::
 		create(Singleton<AppParameter>::instance()->getAppStyle().c_str());
 	app->setStyle(style);

@@ -55,18 +55,18 @@ using namespace std;
 		case EVENT_SETJOBTYPE:
 		case EVENT_SETLEVELTYPE:
 		{
-			progressBar->setValue(++totalStep);
+			//progressBar->setRange(0, 0);
 			break;
 		}
 		case EVENT_INIT_FINISHED:
 		{
-			progressBar->setValue(++totalStep);
+			//progressBar->setRange(0, 0);
 			initData();
 			break;
 		}
 		case EVENT_SETSTATUSTYPE://wait for this to indicate guide finished
 		{
-			progressBar->setValue(++totalStep);
+			//progressBar->setRange(0, 0);
 			progressBar->close();
 			if(!isfinished) {
 				isfinished = true;
@@ -89,7 +89,8 @@ void Guide::accept()
 	button(QWizard::BackButton)->setDisabled(true);
 	button(QWizard::FinishButton)->setDisabled(true);
 	button(QWizard::CancelButton)->setDisabled(true);
-	progressBar = new ProgressWidget(LOCAL8BITSTR("正在初始化数据库，请稍候……"), 0, 6, this);
+	progressBar = 
+		new ProgressWidget(LOCAL8BITSTR(initDbStr), 0, 0, this);
 	progressBar->show();
 	totalStep = 0;
 	initDb();

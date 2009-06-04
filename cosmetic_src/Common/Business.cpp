@@ -23,6 +23,7 @@ Business::Business(){
 	m_type = 0;
 	m_rating = 60;
 	m_adjustable = 0;
+	m_saleSum = 0;
 	m_dualDiscoutn = false;
 }
 
@@ -217,4 +218,16 @@ bool Business::isDualDiscoutn() const{
 void Business::setDualDiscoutn(bool newVal){
 
 	m_dualDiscoutn = newVal;
+}
+
+
+uint64 Business::getSaleSum() const{
+
+	return m_saleSum;
+}
+
+
+void Business::setSaleSum(uint64 newVal){
+
+	m_saleSum = newVal;
 }

@@ -242,6 +242,38 @@
 #define GET_CUSTOMERIMAGE_BYID \
 	"SELECT data FROM customerImage WHERE id = %1"
 
+//**************stock management database items***************//
+#define DROP_INVENTORY_TABLE "DROP TABLE inventory"
+#define CREATE_INVENTORY_TABLE \
+	"CREATE TABLE inventory ("\
+	"id INTEGER PRIMARY KEY,"\
+	"commodityId INTEGER,"\
+	"actualInventory INTEGER DEFAULT 0,"\
+	"calculatedInventory INTEGER DEFAULT 0,"\
+	"date TIMESTAMP NOT NULL"\
+	")"
+#define GET_INVENTORY_ALL "SELECT * FROM inventory"
+#define GET_INVENTORY_BYCOMMODITYID \
+	"SELECT * FROM inventory WHERE commodityId = %1"
+#define GET_INVENTORY_DATE \
+	"SELECT * FROM inventory WHERE date >= '%1' AND date <= '%2'"
+
+#define DROP_STOCK_TABLE "DROP TABLE stock"
+#define CREATE_STOCK_TABLE \
+	"CREATE TABLE stock ( "\
+	"id INTEGER PRIMARY KEY,"\
+	"commodityId INTEGER NOT NULL,"\
+	"direction INTEGER,"\
+	"unitPrice REAL DEFAULT 0,"\
+	"amount INTEGER DEFAULT 0,"
+	"date TIMESTAMP NOT NULL"\
+	")"
+#define GET_STOCK_BYDIRECTION \
+	"SELECT * FROM stock WHERE direction = %1"
+#define GET_STOCK_BYCOMMODITYID \
+	"SELECT * FROM stock WHERE commodityId = %1"
+#define GET_STOCK_DATE \
+	"SELECT * FROM stock WHERE date >= '%1' AND date <= '%2'"
 
 //**************shop operation database items***************//
 
