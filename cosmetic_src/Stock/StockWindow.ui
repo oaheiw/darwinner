@@ -44,7 +44,7 @@
      <number>4</number>
     </property>
     <item>
-     <widget class="CustomerListView" name="itemView" native="true"/>
+     <widget class="CommodityView" name="itemView" native="true"/>
     </item>
     <item>
      <widget class="SideBar" name="sideBar" native="true"/>
@@ -325,9 +325,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>CustomerListView</class>
+   <class>CommodityView</class>
    <extends>QWidget</extends>
-   <header>CustomerListView.h</header>
+   <header>CommodityView.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

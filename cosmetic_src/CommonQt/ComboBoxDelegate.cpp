@@ -63,11 +63,14 @@ void ComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 								const QModelIndex &index) const
 {
 	uint32 value = index.data().toUInt();
-	DBDEC("index value:", value)
+	QStyleOptionViewItemV4 myOption = option;
 	QString text = LOCAL8BITSTR(undefineStr);
 	QMap<uint32, string>::const_iterator it = m_items.find(value);
 	if(m_items.end() != it)
 		text = LOCAL8BITSTR(it.value().c_str());
-	QApplication::style()->drawItemText(painter, option.rect, Qt::AlignLeft | Qt::AlignVCenter,
-																	option.palette, true, text);
+	myOption.text = text;
+	myOption.font.setBold(true);
+	QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &myOption, painter);
+//	QApplication::style()->drawItemText(painter, option.rect, Qt::AlignLeft | Qt::AlignVCenter,
+//																	option.palette, true, text);
 }

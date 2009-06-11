@@ -1,7 +1,7 @@
 #ifndef DARWINMAIN_H
 #define DARWINMAIN_H
 
-#include <QDialog>
+#include <QFrame>
 #include "ui_SSMainMenu.h"
 
 #include "DUIObserver.h"
@@ -18,6 +18,7 @@ public:
 
 private:
 	void createIcons();
+	void roundCorner();
 	Ui::SSMenuWindowClass ui;
 
 

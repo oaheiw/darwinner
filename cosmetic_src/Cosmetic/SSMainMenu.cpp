@@ -5,6 +5,8 @@
 #include "Staff.h"
 #include "messagedef.h"
 #include "UiStrings.h"
+#include <QPainter>
+#include <QBitmap>
 
 const short SM_X = 0;
 const short SM_Y = 0;
@@ -45,6 +47,7 @@ SSMainMenu::SSMainMenu(QWidget *parent)
 	const QIcon icon = 
 		QIcon(QString::fromUtf8(":/common/Resources/Cosmetic.png"));
     setWindowIcon(icon);
+	roundCorner();
 }
 
 SSMainMenu::~SSMainMenu()
@@ -142,4 +145,15 @@ void SSMainMenu::createIcons()
 	connect(ui.FunctionTableWidget, SIGNAL(cellActivated(int, int)), 
 		this, SLOT(startFunction(int, int)));
  }
+
+void SSMainMenu::roundCorner()
+{
+	QPixmap pixmap(size());
+	QPainter painter(&pixmap);
+	painter.fillRect(pixmap.rect(), Qt::white);
+	painter.setBrush(Qt::black);
+	//painter.drawRoundRect(pixmap.rect(), 10, 10);
+	painter.drawRoundedRect(pixmap.rect(), 10, 10,Qt::RelativeSize);
+	setMask(pixmap.createMaskFromColor(Qt::white));
+}
 

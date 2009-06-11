@@ -1,8 +1,8 @@
 #ifndef DBQUERY_H
 #define DBQUERY_H
 
-#define DBNAME "cosmeticdb"
-#define DBFILE "./cosmeticdb"
+#define DBNAME "cosmetic.db"
+#define DBFILE "./cosmetic.db"
 /*
 #define SQLITEMARK "SQLite format 3"
 #define SQLITEMARKLEN (15)
@@ -260,12 +260,12 @@
 
 #define DROP_STOCK_TABLE "DROP TABLE stock"
 #define CREATE_STOCK_TABLE \
-	"CREATE TABLE stock ( "\
+	"CREATE TABLE stock ("\
 	"id INTEGER PRIMARY KEY,"\
 	"commodityId INTEGER NOT NULL,"\
 	"direction INTEGER,"\
 	"unitPrice REAL DEFAULT 0,"\
-	"amount INTEGER DEFAULT 0,"
+	"amount INTEGER DEFAULT 0,"\
 	"date TIMESTAMP NOT NULL"\
 	")"
 #define GET_STOCK_BYDIRECTION \

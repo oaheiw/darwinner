@@ -62,7 +62,6 @@ void ProgressBarDelegate::paint
 (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	int progress = index.data().toInt();
-
 	QStyleOptionProgressBar progressBarOption;
 	progressBarOption.rect = option.rect;
 	progressBarOption.minimum = 0;
