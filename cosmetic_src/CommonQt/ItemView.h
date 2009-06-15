@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "ui_ItemView.h"
+#include <QString>
+#include <QRegExp>
+#include <QDate>
 class QAbstractItemModel;
 class QSortFilterProxyModel;
 class QAbstractItemDelegate;
@@ -12,7 +15,18 @@ class ItemView : public QWidget
 	Q_OBJECT
 
 public:
-	ItemView(QWidget *parent = 0);
+	enum VIEWMODE {
+		SIMPLEVIEW,
+		SIMPLEVIEW_SEARCH,
+		SIMPLEVIEW_DATEBOX,
+		SIMPLEVIEW_BOTH,
+		BUTTONVIEW,
+		BUTTONVIEW_SEARCH,
+		BUTTONVIEW_DATEBOX,
+		BUTTONVIEW_BOTH,
+		FULLVIEW
+	};
+	ItemView(QWidget *parent = 0, short mode = BUTTONVIEW_SEARCH);
 	~ItemView();
 
 	void clearData();
@@ -21,6 +35,7 @@ public:
 
 
 protected:
+	void changeMode(short mode);
 	void appendColumn(int column);
 	void addData(int row, int column, const QVariant& data);
 	void setHeaderData(int column, const QVariant& data);
@@ -31,9 +46,19 @@ protected:
 	Ui::ItemViewClass ui;
 
 private:
+	short m_mode;
 	int m_column;
 	QAbstractItemModel* m_DataModel;
 	QSortFilterProxyModel* m_sortProxyModel;
+	void setOperationBoxVisable(bool show);
+	void setSearchBoxVisable(bool show);
+	void setDateBoxVisable(bool show);
+	void setButtonsVisable(bool show);
+	QString m_keyword;
+	int m_filterColumn;
+	QRegExp m_searchRegExp;
+	QDate m_from;
+	QDate m_to;
 
 signals:
 	void itemActivated(int row, int column, QVariant& data);
@@ -42,7 +67,13 @@ private slots:
 	void changeRegExp(QRegExp & exp);
 	void changeFilterColumn(int col);
 	void changeSortCase(int caseSen);
+	void changeDateRange(QDate& from, QDate& to);
 	void getActivatedItem(const QModelIndex&);
+	//for own filters
+	void keywordChanged(QString keyword);
+	void filterItemChanged(int item);
+	void fromDateChanged(QDate from);
+	void toDateChanged(QDate to);
 };
 
 #endif // ITEMVIEW_H

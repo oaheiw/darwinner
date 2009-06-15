@@ -42,6 +42,7 @@
 #define imageSizeWarning "非常抱歉，照片文件大小不能超过%1兆，请重新选择。"
 #define percentStr "%"
 #define moneyStr "￥"
+#define allItemStr "全部项目"
 
 //common mgnt strings
 #define loginWindowTitle "登录错误"

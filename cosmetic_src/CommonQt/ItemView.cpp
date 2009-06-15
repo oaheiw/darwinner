@@ -3,15 +3,39 @@
 #include <QSortFilterProxyModel>
 #include <QModelIndex>
 #include "common.h"
+#include <QDate>
+#include "UiStrings.h"
 
-ItemView::ItemView(QWidget *parent)
-:QWidget(parent)
+ItemView::ItemView(QWidget *parent, short mode)
+:QWidget(parent),m_mode(mode),m_filterColumn(-1),m_keyword("")
+,m_to(QDateTime::currentDateTime().date())
 {
 	ui.setupUi(this);
+	changeMode(m_mode);
+	m_from = m_to.addMonths(-1);
+	ui.fromDateEdit->setDate(m_from);
+	ui.toDateEdit->setDate(m_to);
+	ui.itemComboBox->addItem(LOCAL8BITSTR(allItemStr), -1);
+	m_searchRegExp = QRegExp(m_keyword, Qt::CaseInsensitive, QRegExp::RegExp);
 	m_sortProxyModel = NULL;
-	m_DataModel =new QStandardItemModel(0, 0, this);
+
+	if(SIMPLEVIEW == m_mode || SIMPLEVIEW_SEARCH == m_mode || 
+		SIMPLEVIEW_DATEBOX == m_mode || SIMPLEVIEW_BOTH == m_mode) {
+			m_DataModel =new QStandardItemModel(0, 0, this);
+	} else {
+		m_DataModel =new QStandardItemModel(0, 0, this);
+	}
 	m_column = m_DataModel->columnCount();
 	ui.itemList->setModel(m_DataModel);
+
+	connect(ui.keywordLineEdit, SIGNAL(textChanged(QString)), 
+		this, SLOT(keywordChanged(QString)));
+	connect(ui.itemComboBox, SIGNAL(currentIndexChanged(int)), 
+		this, SLOT(filterItemChanged(int)));
+	connect(ui.fromDateEdit, SIGNAL(dateChanged(QDate)), 
+		this, SLOT(fromDateChanged(QDate)));
+	connect(ui.toDateEdit, SIGNAL(dateChanged(QDate)), 
+		this, SLOT(toDateChanged(QDate)));
 }
 
 ItemView::~ItemView()
@@ -19,6 +43,100 @@ ItemView::~ItemView()
 	clearData();
 	delete m_sortProxyModel;
 	delete m_DataModel;
+}
+
+void ItemView::changeMode(short mode)
+{
+	m_mode = mode;
+	switch(mode) {
+		case SIMPLEVIEW:
+			{
+				setOperationBoxVisable(false);
+				break;
+			}
+		case SIMPLEVIEW_SEARCH:
+			{
+				setButtonsVisable(false);
+				setDateBoxVisable(false);
+				setSearchBoxVisable(true);
+				break;
+			}
+		case SIMPLEVIEW_DATEBOX:
+			{
+				setButtonsVisable(false);
+				setDateBoxVisable(true);
+				setSearchBoxVisable(false);
+				break;
+			}
+		case SIMPLEVIEW_BOTH:
+			{
+				setButtonsVisable(false);
+				setDateBoxVisable(true);
+				setSearchBoxVisable(true);
+				break;
+			}
+		case BUTTONVIEW:
+			{
+				setButtonsVisable(true);
+				setSearchBoxVisable(false);
+				setDateBoxVisable(false);
+				break;
+			}
+		case BUTTONVIEW_SEARCH:
+			{
+				setButtonsVisable(true);
+				setSearchBoxVisable(true);
+				setDateBoxVisable(false);
+				break;
+			}
+		case BUTTONVIEW_DATEBOX:
+			{
+				setButtonsVisable(true);
+				setSearchBoxVisable(false);
+				setDateBoxVisable(true);
+				break;
+			}
+		case BUTTONVIEW_BOTH:
+		case FULLVIEW:
+		default:
+			{
+				setOperationBoxVisable(true);
+				setButtonsVisable(true);
+				setSearchBoxVisable(true);
+				setDateBoxVisable(true);
+				break;
+			}
+	}
+}
+
+void ItemView::setOperationBoxVisable(bool show)
+{
+	ui.operationBox->setVisible(show);
+}
+
+void ItemView::setSearchBoxVisable(bool show)
+{
+	ui.keywordLineEdit->setVisible(show);
+	ui.itemComboBox->setVisible(show);
+	ui.keywordLabel->setVisible(show);
+	ui.at1Label->setVisible(show);
+	ui.at2Label->setVisible(show);
+
+}
+void ItemView::setDateBoxVisable(bool show)
+{
+	ui.fromLabel->setVisible(show);
+	ui.fromDateEdit->setVisible(show);
+	ui.toLabel->setVisible(show);
+	ui.toDateEdit->setVisible(show);
+}
+
+void ItemView::setButtonsVisable(bool show)
+{
+	ui.selectAllcheckBox->setVisible(show);
+	ui.invertSlelctcheckBox->setVisible(show);
+	ui.exportButton->setVisible(show);
+	ui.printButton->setVisible(show);
 }
 
 void ItemView::appendColumn(int column)
@@ -34,8 +152,10 @@ void ItemView::setProxy(QSortFilterProxyModel* proxy)
 	m_sortProxyModel = proxy;
 	m_sortProxyModel->setSourceModel(m_DataModel);
 	m_sortProxyModel->setDynamicSortFilter(true);
-	m_sortProxyModel->setFilterKeyColumn(-1);
 	ui.itemList->setModel(m_sortProxyModel);
+	changeRegExp(m_searchRegExp);
+	changeFilterColumn(m_filterColumn);
+	changeSortCase(Qt::CaseInsensitive);
 }
 
 void ItemView::setTitle(QString& title)
@@ -55,10 +175,16 @@ void ItemView::changeFilterColumn(int col)
 	ASSERT_POINTER(m_sortProxyModel);
 	m_sortProxyModel->setFilterKeyColumn(col);
 }
+
 void ItemView::changeSortCase(int caseSen)
 {
 	ASSERT_POINTER(m_sortProxyModel);
 	m_sortProxyModel->setSortCaseSensitivity(Qt::CaseSensitivity(caseSen));
+}
+
+void ItemView::changeDateRange(QDate& from, QDate& to)
+{
+	ASSERT_POINTER(m_sortProxyModel);
 }
 
 void ItemView::addData(int row, int column, const QVariant& data)
@@ -75,6 +201,7 @@ void ItemView::setHeaderData(int column, const QVariant& data)
 {
 	if(column >= m_column) return;
 	m_DataModel->setHeaderData(column, Qt::Horizontal, data);
+	ui.itemComboBox->addItem(data.toString(), column);
 }
 
 void ItemView::clearData()
@@ -110,3 +237,41 @@ void ItemView::setDelegate(int column, QAbstractItemDelegate * delegate)
 	ui.itemList->setItemDelegateForColumn(column, delegate);
 }
 
+void ItemView::keywordChanged(QString keyword)
+{
+	m_keyword = keyword;
+	m_searchRegExp.setPattern(m_keyword);
+	changeRegExp(m_searchRegExp);
+}
+
+void ItemView::filterItemChanged(int item)
+{
+	m_filterColumn = ui.itemComboBox->itemData(item).toInt();
+	changeFilterColumn(m_filterColumn);
+}
+
+void ItemView::fromDateChanged(QDate date)
+{
+	if(date > QDateTime::currentDateTime().date())
+		date = QDateTime::currentDateTime().date();
+	if(date <= m_to) {
+		m_from = date;
+	} else {
+		m_from = ui.toDateEdit->date();
+	}
+	ui.fromDateEdit->setDate(m_from);
+	changeDateRange(m_from, m_to);
+}
+
+void ItemView::toDateChanged(QDate date)
+{
+	if(date > QDateTime::currentDateTime().date())
+		date = QDateTime::currentDateTime().date();
+	if(date >= m_from) {
+		m_to = date;
+	} else {
+		m_to = ui.fromDateEdit->date();
+	}
+	ui.toDateEdit->setDate(m_to);
+	changeDateRange(m_from, m_to);
+}

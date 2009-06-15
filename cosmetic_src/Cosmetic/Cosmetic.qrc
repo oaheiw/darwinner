@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/common" >
+    <file alias="filter" >Resources/filter.png</file>
     <file alias="lock" >Resources/locksystem.png</file>
     <file alias="logoff" >Resources/restart.png</file>
     <file>Resources/add_color.png</file>
