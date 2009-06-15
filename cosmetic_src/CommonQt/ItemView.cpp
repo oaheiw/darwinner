@@ -26,6 +26,7 @@ ItemView::ItemView(QWidget *parent, short mode)
 		m_DataModel =new QStandardItemModel(0, 0, this);
 	}
 	m_column = m_DataModel->columnCount();
+	//ui.itemList->header()->setResizeMode(QHeaderView::ResizeToContents);
 	ui.itemList->setModel(m_DataModel);
 
 	connect(ui.keywordLineEdit, SIGNAL(textChanged(QString)), 

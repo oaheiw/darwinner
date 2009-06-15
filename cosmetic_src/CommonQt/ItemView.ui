@@ -33,7 +33,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
       <property name="spacing">
-       <number>2</number>
+       <number>4</number>
       </property>
       <property name="leftMargin">
        <number>6</number>
@@ -90,13 +90,13 @@
          <enum>Qt::NoContextMenu</enum>
         </property>
         <property name="title">
-         <string>操作</string>
+         <string/>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
         <property name="flat">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,10,2,2">
          <property name="spacing">
@@ -106,13 +106,13 @@
           <number>0</number>
          </property>
          <property name="topMargin">
-          <number>0</number>
+          <number>2</number>
          </property>
          <property name="rightMargin">
           <number>0</number>
          </property>
          <property name="bottomMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <item>
           <widget class="QCheckBox" name="selectAllcheckBox">
@@ -286,7 +286,7 @@
           <widget class="QPushButton" name="exportButton">
            <property name="minimumSize">
             <size>
-             <width>70</width>
+             <width>60</width>
              <height>0</height>
             </size>
            </property>
@@ -301,12 +301,12 @@
            </property>
            <property name="icon">
             <iconset resource="../Cosmetic/Cosmetic.qrc">
-             <normaloff>:/common/Resources/2rightarrow.png</normaloff>:/common/Resources/2rightarrow.png</iconset>
+             <normaloff>:/common/Resources/export_color.png</normaloff>:/common/Resources/export_color.png</iconset>
            </property>
            <property name="iconSize">
             <size>
-             <width>24</width>
-             <height>24</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
            <property name="flat">
@@ -318,7 +318,7 @@
           <widget class="QPushButton" name="printButton">
            <property name="minimumSize">
             <size>
-             <width>70</width>
+             <width>60</width>
              <height>0</height>
             </size>
            </property>
@@ -333,12 +333,12 @@
            </property>
            <property name="icon">
             <iconset resource="../Cosmetic/Cosmetic.qrc">
-             <normaloff>:/common/Resources/printer.png</normaloff>:/common/Resources/printer.png</iconset>
+             <normaloff>:/common/printer</normaloff>:/common/printer</iconset>
            </property>
            <property name="iconSize">
             <size>
-             <width>24</width>
-             <height>24</height>
+             <width>20</width>
+             <height>20</height>
             </size>
            </property>
           </widget>
