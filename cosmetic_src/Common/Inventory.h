@@ -27,6 +27,7 @@ public:
 	void setDate(string newVal);
 	void setId(uint32 newVal);
 	void setSalesId(uint32 newVal);
+	int getDifference();
 
 private:
 	uint64 m_actualInventory;

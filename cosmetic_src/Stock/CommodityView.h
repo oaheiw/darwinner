@@ -8,7 +8,7 @@ class Business;
 class CommodityView : public ItemView
 {
 public:
-	CommodityView(/*int row,*/ QWidget *parent = 0);
+	CommodityView(QWidget *parent = 0);
 	~CommodityView();
 	void addBusiness(Business& data);
 	

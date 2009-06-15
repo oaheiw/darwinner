@@ -92,3 +92,15 @@ void Stock::setUnitPrice(double32 newVal){
 
 	m_unitPrice = newVal;
 }
+
+
+string& Stock::getDate(){
+
+	return m_date;
+}
+
+
+void Stock::setDate(string& newVal){
+
+	m_date = newVal;
+}

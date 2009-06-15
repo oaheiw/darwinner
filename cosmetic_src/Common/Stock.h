@@ -29,6 +29,8 @@ public:
 	void setSalesId(uint32 newVal);
 	void setStockingDate(string newVal);
 	void setUnitPrice(double32 newVal);
+	string& getDate();
+	void setDate(string& newVal);
 
 private:
 	uint64 m_amount;
@@ -37,6 +39,7 @@ private:
 	uint32 m_salesId;
 	string m_stockingDate;
 	double32 m_unitPrice;
+	string m_date;
 
 };
 #endif // !defined(EA_863C5A5D_BF26_4183_AAB7_6C9D2A3A22E4__INCLUDED_)

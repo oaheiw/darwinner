@@ -90,6 +90,7 @@ typedef map<string, string> ArrayStringString;
 #define SEXNAMES "sexnames"
 #define BUSINESSCATEGORE "businesscategore"
 #define CUSTOMERLEVEL "customerlevel"
+#define STOCKDIRECTION "stockdirection"
 
 #define STYLE_WIN98 "windows"
 #define STYLE_WINXP "windowsxp"
@@ -108,6 +109,12 @@ enum SEX {
     SEX_MALE,
     SEX_FEMALE,
     SEX_END
+};
+
+enum STOCKING_DIRECTION {
+	STOCKING_IN,
+	STOCKING_OUT,
+	STOCKING_END
 };
 
 enum BUSINESS_CATEGORY
@@ -131,6 +138,7 @@ enum GROUP {
 	GROUP_BUSINESSMGNT = 2,
 	GROUP_SHOPMGNT = 3,
 	GROUP_CUSTOMERMGNT = 4,
+	GROUP_STOCKMGNT = 5,
 	GROUP_END
 };
 
@@ -160,6 +168,14 @@ enum SUBGROUP_CM {
 	SUBGROUP_CM_RECORDMGNT, // 3
 	SUBGROUP_CM_ADVANCEDMGNT, // 4
 	SUBGROUP_CM_END
+};
+
+//SUBGROUP should be less than 255
+enum SUBGROUP_ST {
+	SUBGROUP_ST_BROWSE = 1,
+	SUBGROUP_ST_BROWSERECORDS, //2
+	SUBGROUP_ST_ADVANCEDMGNT, // 3
+	SUBGROUP_ST_END
 };
 
 enum ERROR {

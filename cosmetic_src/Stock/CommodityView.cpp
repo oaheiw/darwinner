@@ -10,7 +10,8 @@
 CommodityView::CommodityView(QWidget *parent)
 :ItemView(parent)
 {
-	m_businessTypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSTYPE);	
+	m_businessTypeNames = AnythingFactory<ArrayUint32String>::instance()->
+		createAnything(BUSINESSTYPE);	
 
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
 	setProxy(proxy);

@@ -43,6 +43,8 @@
 #define percentStr "%"
 #define moneyStr "￥"
 #define allItemStr "全部项目"
+#define stockInStr "进货"
+#define stockOutStr "退货"
 
 //common mgnt strings
 #define loginWindowTitle "登录错误"
@@ -181,9 +183,20 @@
 #define stStockInStr "进货"
 #define sttockOutStr "退货"
 #define stCommodityStr "商品浏览"
-#define stInventoryStr "盘点记录"
-#define stStockStr "进退货记录"
 
+#define stInventoryStr "盘点记录"
+#define stInventoryIdStr "盘点号"
+#define stActualInventoryStr "实际库存"
+#define stCalculatedInventoryStr "计算库存"
+#define stInventroyDiffStr "库存差额"
+#define stCheckingDateStr "盘点日期"
+
+#define stStockStr "进退货记录"
+#define stStockIdStr "作业号"
+#define stDirectionStr "方向"
+#define stAmountStr "数量"
+#define stUintPriceStr "单价"
+#define stStockDateStr "作业日期"
 
 #define rsString "报表系统"
 #define cfString "系统设置"

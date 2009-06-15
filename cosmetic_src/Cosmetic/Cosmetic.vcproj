@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="..\Customer;..\CommonQt\GeneratedFiles;..\Business;.\..\Worker;.\..\Staff\GeneratedFiles;.\..\Staff;.\..\CommonQt;.\..\Common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;."
+				AdditionalIncludeDirectories="..\Stock;..\Customer;..\CommonQt\GeneratedFiles;..\Business;.\..\Worker;.\..\Staff\GeneratedFiles;.\..\Staff;.\..\CommonQt;.\..\Common;.\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;."
 				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -63,7 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib qjpeg4.lib qgif4.lib qico4.lib Common.lib CommonQt.lib Worker.lib Staff.lib Business.lib Customer.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib qjpeg4.lib qgif4.lib qico4.lib Common.lib CommonQt.lib Worker.lib Staff.lib Business.lib Customer.lib Stock.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version=""
 				AdditionalLibraryDirectories="&quot;..\$(ConfigurationName)\lib&quot;;&quot;$(QTDIR)\plugins\imageformats&quot;;&quot;$(QTDIR)\lib&quot;"
@@ -288,7 +288,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB  -I&quot;.\..\Customer\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\..\Business\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\Staff\GeneratedFiles\.&quot; -I&quot;.\..\Staff\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; &quot;.\Guide.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB  -I&quot;.\..\Stock\.&quot; -I&quot;.\..\Customer\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\..\Business\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\Staff\GeneratedFiles\.&quot; -I&quot;.\..\Staff\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; &quot;.\Guide.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -329,7 +329,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB  -I&quot;.\..\Customer\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\..\Business\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\Staff\GeneratedFiles\.&quot; -I&quot;.\..\Staff\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; &quot;.\SSLoginWindow.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB  -I&quot;.\..\Stock\.&quot; -I&quot;.\..\Customer\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\..\Business\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\Staff\GeneratedFiles\.&quot; -I&quot;.\..\Staff\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; &quot;.\SSLoginWindow.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -370,7 +370,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputPath)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB  -I&quot;.\..\Customer\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\..\Business\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\Staff\GeneratedFiles\.&quot; -I&quot;.\..\Staff\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; &quot;.\SSMainMenu.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB  -I&quot;.\..\Stock\.&quot; -I&quot;.\..\Customer\.&quot; -I&quot;.\..\CommonQt\GeneratedFiles\.&quot; -I&quot;.\..\Business\.&quot; -I&quot;.\..\Worker\.&quot; -I&quot;.\..\Staff\GeneratedFiles\.&quot; -I&quot;.\..\Staff\.&quot; -I&quot;.\..\CommonQt\.&quot; -I&quot;.\..\Common\.&quot; -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; &quot;.\SSMainMenu.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -493,18 +493,6 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_Guide.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Release\moc_Guide.cpp"
 				>
 				<FileConfiguration
@@ -537,6 +525,18 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="ReleaseStatic|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\ReleaseStatic\moc_Guide.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -605,33 +605,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_SSMainMenu.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseStatic|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\GeneratedFiles\Debug\moc_SSMainMenu.cpp"
 				>
 				<FileConfiguration
@@ -678,6 +651,33 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="ReleaseStatic|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\Release\moc_SSMainMenu.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseStatic|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"

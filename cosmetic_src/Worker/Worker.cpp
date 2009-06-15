@@ -108,6 +108,22 @@ void Worker::StartAction(Message& Action) {
 				}
 		}
 	}
+	else if (GROUP_STOCKMGNT== Action.group()) {
+		switch(Action.type()) {
+			case ACTION_STOCKMGNT:
+				{
+					Message* ev = new Message(EVENT_STOCKMGNT);
+					BroadcastEvent(*ev);
+					delete ev;
+					break;
+				}
+			default:
+				{
+				//	m_cmDbThread->QueueAction(Action);
+					break;
+				}
+		}
+	}
 }
 
 bool Worker::event(QEvent * e) {

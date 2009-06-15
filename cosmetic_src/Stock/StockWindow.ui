@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>544</width>
+    <height>415</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="100,1">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
      <number>2</number>
     </property>
@@ -44,10 +44,19 @@
      <number>4</number>
     </property>
     <item>
-     <widget class="CommodityView" name="itemView" native="true"/>
-    </item>
-    <item>
-     <widget class="SideBar" name="sideBar" native="true"/>
+     <widget class="QSplitter" name="splitter_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="CommodityView" name="commodityList" native="true"/>
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="StockingView" name="StockingList" native="true"/>
+       <widget class="InventoryView" name="inventoryList" native="true"/>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -56,8 +65,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>20</height>
+     <width>544</width>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -319,15 +328,21 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SideBar</class>
-   <extends>QWidget</extends>
-   <header>SideBar.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>CommodityView</class>
    <extends>QWidget</extends>
    <header>CommodityView.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>InventoryView</class>
+   <extends>QWidget</extends>
+   <header>InventoryView.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>StockingView</class>
+   <extends>QWidget</extends>
+   <header>StockingView.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -15,6 +15,7 @@
 #include "SMHandler.h"
 #include "BMHandler.h"
 #include "CMHandler.h"
+#include "STHandler.h"
 //#include "systeminfo.h"
 
 #ifdef _STATIC_RELEASE
@@ -31,16 +32,19 @@ int main(int argc, char *argv[])
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
 	IEventObserver* sm = Singleton<SMHandler>::instance();
 	IEventObserver* bm = Singleton<BMHandler>::instance();
-	IEventObserver* cm = Singleton<CMHandler>::instance();
+	IEventObserver* cm = new CMHandler();//Singleton<CMHandler>::instance();
+	IEventObserver* st = new STHandler();
 	
 	worker->SetObserver(login);
 	worker->SetObserver(sm);
 	worker->SetObserver(bm);
 	worker->SetObserver(cm);
+	worker->SetObserver(st);
 	login->SetHandler(worker);
 	sm->SetHandler(worker);
 	bm->SetHandler(worker);
 	cm->SetHandler(worker);
+	st->SetHandler(worker);
 
 	QApplication* app = new QApplication(argc, argv);
 	

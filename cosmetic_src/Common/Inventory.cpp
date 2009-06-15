@@ -80,3 +80,9 @@ void Inventory::setSalesId(uint32 newVal){
 
 	m_salesId = newVal;
 }
+
+
+int Inventory::getDifference(){
+
+	return 0;
+}
