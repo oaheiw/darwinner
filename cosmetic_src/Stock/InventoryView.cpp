@@ -18,14 +18,17 @@ InventoryView::InventoryView(QWidget *parent)
 	setButtonsVisable(true);
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
 	setProxy(proxy);
-	appendColumn(5);
+	appendColumn(6);
 	setTitle(LOCAL8BITSTR(stInventoryStr));
 	int col = 0;
 	setHeaderData(col++, LOCAL8BITSTR(stInventoryIdStr));
 	setHeaderData(col++, LOCAL8BITSTR(stActualInventoryStr));
 	setHeaderData(col++, LOCAL8BITSTR(stCalculatedInventoryStr));
 	setHeaderData(col++, LOCAL8BITSTR(stInventroyDiffStr));
-	setHeaderData(col++, LOCAL8BITSTR(stCheckingDateStr));
+	setHeaderData(col++, LOCAL8BITSTR(stCheckingStartDateStr));
+	setHeaderData(col++, LOCAL8BITSTR(stCheckingFinishDateStr));
+
+	setAutoResize(true);
 }
 
 

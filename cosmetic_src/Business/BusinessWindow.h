@@ -32,7 +32,7 @@ protected:
     virtual void changeEvent(QEvent *e);
 	virtual bool eventFilter(QObject* obj, QEvent* ev);
 
-	private slots:
+private slots:
 	void submitBusiness(Business* data, QByteArray& picData, uint32 mode);
 	void dealAction(QAction* action);
 	void viewItemActivated(int row, int column, QVariant & data);

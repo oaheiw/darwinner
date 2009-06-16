@@ -23,15 +23,17 @@ StockingView::StockingView(QWidget *parent)
 
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
 	setProxy(proxy);
-	appendColumn(5);
+	appendColumn(6);
 	setTitle(LOCAL8BITSTR(stStockStr));
 	int col = 0;
 	setHeaderData(col++, LOCAL8BITSTR(stStockIdStr));
 	setHeaderData(col++, LOCAL8BITSTR(stDirectionStr));
 	setHeaderData(col++, LOCAL8BITSTR(stAmountStr));
 	setHeaderData(col++, LOCAL8BITSTR(stUintPriceStr));
+	setHeaderData(col++, LOCAL8BITSTR(stTotalPriceStr));
 	setHeaderData(col++, LOCAL8BITSTR(stStockDateStr));
 
+	setAutoResize(true);
 }
 
 

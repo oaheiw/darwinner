@@ -26,7 +26,6 @@ ItemView::ItemView(QWidget *parent, short mode)
 		m_DataModel =new QStandardItemModel(0, 0, this);
 	}
 	m_column = m_DataModel->columnCount();
-	//ui.itemList->header()->setResizeMode(QHeaderView::ResizeToContents);
 	ui.itemList->setModel(m_DataModel);
 
 	connect(ui.keywordLineEdit, SIGNAL(textChanged(QString)), 
@@ -181,6 +180,11 @@ void ItemView::setProxy(QSortFilterProxyModel* proxy)
 	changeSortCase(Qt::CaseInsensitive);
 }
 
+/**
+ * void ItemView::setDataModel(QAbstractItemModel* data) { m_DataModel = data;
+ * if(NULL != m_sortProxyModel) { ui.itemList->setModel(m_sortProxyModel); } else
+ * { ui.itemList->setModel(m_DataModel); } }
+ */
 void ItemView::setTitle(QString& title)
 {
 	ui.groupBox->setTitle(title);
@@ -297,4 +301,14 @@ void ItemView::toDateChanged(QDate date)
 	}
 	ui.toDateEdit->setDate(m_to);
 	changeDateRange(m_from, m_to);
+}
+
+
+
+void ItemView::setAutoResize(bool bAuto){
+	if(bAuto){
+		ui.itemList->header()->setResizeMode(QHeaderView::ResizeToContents);
+	} else{
+		ui.itemList->header()->setResizeMode(QHeaderView::Interactive);
+	}
 }

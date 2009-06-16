@@ -84,5 +84,5 @@ void Inventory::setSalesId(uint32 newVal){
 
 int Inventory::getDifference(){
 
-	return 0;
+	return m_calculatedInventory - m_actualInventory;
 }

@@ -21,7 +21,7 @@ public:
 
 	const string& brand() const;
 	uint32 buys() const;
-	uint32 cost() const;
+	double32 cost() const;
 	const string& description() const;
 	short discount() const;
 	uint32 id() const;
@@ -30,7 +30,7 @@ public:
 	uint32 sales() const;
 	void setBrand(string brand);
 	void setBuys(uint32 buys);
-	void setCost(uint32 cost);
+	void setCost(double32 cost);
 	void setDescription(string description);
 	void setDiscount(short discount);
 	void setId(uint32 id);
@@ -52,6 +52,11 @@ public:
 	uint64 getSaleSum()  const;
 	void setSaleSum(uint64 newVal);
 	void clear();
+	uint32 getReturns();
+	void setReturns(uint32 newVal);
+	int32 getActualBuys();
+	double32 getAverageCost();
+	double32 getAveragePrice();
 
 	inline bool operator==(const Business &x){
 		return ( m_brand== x.brand() &&
@@ -72,7 +77,6 @@ public:
 			);
 	}
 
-
 	class BusinessIdMatcher {
 	public:
 		BusinessIdMatcher(uint32 id):m_val(id) { }
@@ -88,7 +92,7 @@ public:
 private:
 	string m_brand;
 	uint32 m_buys;
-	uint32 m_cost;
+	double32 m_cost;
 	string m_description;
 	uint32 m_discount;
 	uint32 m_id;
@@ -102,6 +106,7 @@ private:
 	short m_rating;
 	bool m_dualDiscoutn;
 	uint64 m_saleSum;
+	uint32 m_returns;
 
 };
 #endif // !defined(EA_F40DCE33_D8D3_43b0_ABAF_0743D8FE2008__INCLUDED_)

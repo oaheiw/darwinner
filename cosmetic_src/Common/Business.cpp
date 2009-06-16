@@ -65,7 +65,7 @@ uint32 Business::buys() const{
 }
 
 
-uint32 Business::cost() const{
+double32 Business::cost() const{
 
 	return  m_cost;
 }
@@ -117,7 +117,7 @@ void Business::setBuys(uint32 buys){
 }
 
 
-void Business::setCost(uint32 cost){
+void Business::setCost(double32 cost){
 	m_cost = cost;
 }
 
@@ -230,4 +230,35 @@ uint64 Business::getSaleSum() const{
 void Business::setSaleSum(uint64 newVal){
 
 	m_saleSum = newVal;
+}
+
+
+uint32 Business::getReturns(){
+
+	return m_returns;
+}
+
+
+void Business::setReturns(uint32 newVal){
+
+	m_returns = newVal;
+}
+
+
+int32 Business::getActualBuys(){
+
+	return  m_buys - m_returns;
+}
+
+
+double32 Business::getAverageCost(){
+
+	return  m_cost/getActualBuys();
+}
+
+
+
+double32 Business::getAveragePrice(){
+
+	return  (double32)m_saleSum/(double32)m_sales;
 }

@@ -32,6 +32,7 @@ public:
 	void clearData();
 	QVariant sibling(int row, int column);
 	QVariant currentIndex(int &row, int &column);
+	void setAutoResize(bool bAuto);
 
 
 protected:
