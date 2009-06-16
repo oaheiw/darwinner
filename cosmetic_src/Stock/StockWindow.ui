@@ -82,11 +82,11 @@
     <property name="title">
      <string>操作(&amp;O)</string>
     </property>
-    <addaction name="actionQuery"/>
     <addaction name="actionAdd"/>
-    <addaction name="actionInventory"/>
     <addaction name="actionRemove"/>
-    <addaction name="actionLevelSetting"/>
+    <addaction name="actionInventory"/>
+    <addaction name="actionBatchCheck"/>
+    <addaction name="actionWarning"/>
    </widget>
    <widget class="QMenu" name="menuDisplay">
     <property name="title">
@@ -127,11 +127,11 @@
    <addaction name="actionMenu"/>
    <addaction name="actionLock"/>
    <addaction name="separator"/>
-   <addaction name="actionQuery"/>
    <addaction name="actionAdd"/>
    <addaction name="actionRemove"/>
    <addaction name="actionInventory"/>
-   <addaction name="actionLevelSetting"/>
+   <addaction name="actionBatchCheck"/>
+   <addaction name="actionWarning"/>
   </widget>
   <action name="actionMenu">
    <property name="icon">
@@ -193,7 +193,7 @@
   <action name="actionAdd">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/add_color.png</normaloff>:/common/Resources/add_color.png</iconset>
+     <normaloff>:/stock/in</normaloff>:/stock/in</iconset>
    </property>
    <property name="text">
     <string>进货</string>
@@ -208,7 +208,7 @@
   <action name="actionInventory">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/edit.png</normaloff>:/common/Resources/edit.png</iconset>
+     <normaloff>:/stock/check</normaloff>:/stock/check</iconset>
    </property>
    <property name="text">
     <string>盘点</string>
@@ -223,7 +223,7 @@
   <action name="actionRemove">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/common/Resources/substract_color.png</normaloff>:/common/Resources/substract_color.png</iconset>
+     <normaloff>:/stock/out</normaloff>:/stock/out</iconset>
    </property>
    <property name="text">
     <string>退货</string>
@@ -235,19 +235,20 @@
     <string>退掉选定商品</string>
    </property>
   </action>
-  <action name="actionQuery">
+  <action name="actionWarning">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/customer/records</normaloff>:/customer/records</iconset>
+     <normaloff>:/stock/warning</normaloff>:/stock/warning</iconset>
    </property>
    <property name="text">
-    <string>消费记录</string>
+    <string>库存警告</string>
    </property>
    <property name="toolTip">
-    <string>查询选定顾客的消费记录</string>
+    <string>设置最低库存警告。
+低于最低值的商品将显示为红色条目。</string>
    </property>
    <property name="statusTip">
-    <string>查询选定顾客的消费记录</string>
+    <string>设置最低库存警告。低于最低值的商品将显示为红色条目。</string>
    </property>
   </action>
   <action name="actionSmallIcon">
@@ -295,16 +296,16 @@
     <string>显示/隐藏工具栏</string>
    </property>
   </action>
-  <action name="actionLevelSetting">
+  <action name="actionBatchCheck">
    <property name="icon">
     <iconset resource="../Cosmetic/Cosmetic.qrc">
-     <normaloff>:/customer/customer</normaloff>:/customer/customer</iconset>
+     <normaloff>:/stock/batch</normaloff>:/stock/batch</iconset>
    </property>
    <property name="text">
-    <string>顾客等级设置</string>
+    <string>批量盘点</string>
    </property>
    <property name="toolTip">
-    <string>修改顾客等级的相关信息</string>
+    <string>批量盘点商品列表中复选的商品。</string>
    </property>
    <property name="statusTip">
     <string>修改顾客等级的相关信息</string>

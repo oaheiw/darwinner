@@ -23,7 +23,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>2</number>
+    <number>0</number>
    </property>
    <property name="margin">
     <number>0</number>
@@ -38,7 +38,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
      <property name="spacing">
-      <number>2</number>
+      <number>0</number>
      </property>
      <item>
       <spacer name="horizontalSpacer">
@@ -63,22 +63,31 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>60</width>
-         <height>20</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>70</width>
-         <height>16777215</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="text">
-        <string>添加</string>
+        <string/>
        </property>
        <property name="icon">
         <iconset resource="../Cosmetic/Cosmetic.qrc">
-         <normaloff>:/common/Resources/edit_add.png</normaloff>:/common/Resources/edit_add.png</iconset>
+         <normaloff>:/common/Resources/add_color.png</normaloff>:/common/Resources/add_color.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -92,22 +101,31 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>60</width>
-         <height>20</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>70</width>
-         <height>16777215</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="text">
-        <string>删除</string>
+        <string/>
        </property>
        <property name="icon">
         <iconset resource="../Cosmetic/Cosmetic.qrc">
-         <normaloff>:/common/Resources/edit_remove.png</normaloff>:/common/Resources/edit_remove.png</iconset>
+         <normaloff>:/common/Resources/substract_color.png</normaloff>:/common/Resources/substract_color.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -121,22 +139,31 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>80</width>
-         <height>20</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>100</width>
-         <height>16777215</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="text">
-        <string>提交职务</string>
+        <string/>
        </property>
        <property name="icon">
         <iconset resource="../Cosmetic/Cosmetic.qrc">
          <normaloff>:/common/Resources/ok.png</normaloff>:/common/Resources/ok.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>26</width>
+         <height>26</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

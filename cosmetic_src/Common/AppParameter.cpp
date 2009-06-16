@@ -9,7 +9,7 @@
 #include "common.h"
 
 AppParameter::AppParameter(){
-	m_appStyle = STYLE_PLASTIQUE;
+	m_appStyle = STYLE_CLEAN;
 	m_fontName = "SimSun";
 	m_fontSize = 9;
 	m_lastDir = "./";

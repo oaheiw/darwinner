@@ -30,7 +30,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="leftMargin">
        <number>4</number>
@@ -63,7 +63,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <property name="spacing">
-         <number>2</number>
+         <number>0</number>
         </property>
         <item>
          <spacer name="horizontalSpacer">
@@ -82,22 +82,34 @@
          <widget class="QPushButton" name="addButton">
           <property name="minimumSize">
            <size>
-            <width>60</width>
-            <height>20</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>80</width>
-            <height>30</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="text">
-           <string>添加</string>
+           <string/>
           </property>
           <property name="icon">
            <iconset resource="../Cosmetic/Cosmetic.qrc">
-            <normaloff>:/common/Resources/gtk-add.png</normaloff>:/common/Resources/gtk-add.png</iconset>
+            <normaloff>:/common/Resources/add_color.png</normaloff>:/common/Resources/add_color.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="shortcut">
+           <string>+</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -105,22 +117,34 @@
          <widget class="QPushButton" name="removeButton">
           <property name="minimumSize">
            <size>
-            <width>60</width>
-            <height>20</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>80</width>
-            <height>30</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="text">
-           <string>移除</string>
+           <string/>
           </property>
           <property name="icon">
            <iconset resource="../Cosmetic/Cosmetic.qrc">
-            <normaloff>:/common/Resources/gtk-remove.png</normaloff>:/common/Resources/gtk-remove.png</iconset>
+            <normaloff>:/common/Resources/substract_color.png</normaloff>:/common/Resources/substract_color.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="shortcut">
+           <string>-</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -128,22 +152,31 @@
          <widget class="QPushButton" name="submitButton">
           <property name="minimumSize">
            <size>
-            <width>60</width>
-            <height>20</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>80</width>
-            <height>30</height>
+            <width>32</width>
+            <height>32</height>
            </size>
           </property>
           <property name="text">
-           <string>提交</string>
+           <string/>
           </property>
           <property name="icon">
            <iconset resource="../Cosmetic/Cosmetic.qrc">
             <normaloff>:/common/Resources/ok.png</normaloff>:/common/Resources/ok.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>26</width>
+            <height>26</height>
+           </size>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
