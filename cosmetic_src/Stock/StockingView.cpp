@@ -13,8 +13,9 @@
 #include "UiStrings.h"
 
 StockingView::StockingView(QWidget *parent)
-:ItemView(parent, ItemView::BUTTONVIEW_DATEBOX)
+:ItemView(parent, ItemView::SIMPLEVIEW_DATEBOX)
 {
+	setButtonsVisable(true);
 	m_directionNames = AnythingFactory<ArrayUint32String>::instance()->
 		createAnything(STOCKDIRECTION);	
 	(*m_directionNames)[STOCKING_IN] = stockInStr;

@@ -20,13 +20,13 @@ public:
 		SIMPLEVIEW_SEARCH,
 		SIMPLEVIEW_DATEBOX,
 		SIMPLEVIEW_BOTH,
-		BUTTONVIEW,
-		BUTTONVIEW_SEARCH,
-		BUTTONVIEW_DATEBOX,
-		BUTTONVIEW_BOTH,
+		CHECKBOXVIEW,
+		CHECKBOXVIEW_SEARCH,
+		CHECKBOXVIEW_DATEBOX,
+		CHECKBOXVIEW_BOTH,
 		FULLVIEW
 	};
-	ItemView(QWidget *parent = 0, short mode = BUTTONVIEW_SEARCH);
+	ItemView(QWidget *parent = 0, short mode = CHECKBOXVIEW_SEARCH);
 	~ItemView();
 
 	void clearData();
@@ -43,6 +43,7 @@ protected:
 	void setTitle(QString& title);
 	void setColumnWidth(int column, int width);
 	void setDelegate(int column, QAbstractItemDelegate* delegate);
+	void setButtonsVisable(bool show);
 	Ui::ItemViewClass ui;
 
 private:
@@ -53,7 +54,7 @@ private:
 	void setOperationBoxVisable(bool show);
 	void setSearchBoxVisable(bool show);
 	void setDateBoxVisable(bool show);
-	void setButtonsVisable(bool show);
+	void setCheckBoxVisable(bool show);
 	QString m_keyword;
 	int m_filterColumn;
 	QRegExp m_searchRegExp;

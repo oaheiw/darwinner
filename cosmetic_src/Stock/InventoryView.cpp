@@ -13,8 +13,9 @@
 
 
 InventoryView::InventoryView(QWidget *parent)
-:ItemView(parent, ItemView::BUTTONVIEW_DATEBOX)
+:ItemView(parent, ItemView::SIMPLEVIEW_DATEBOX)
 {
+	setButtonsVisable(true);
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
 	setProxy(proxy);
 	appendColumn(5);

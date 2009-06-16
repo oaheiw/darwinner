@@ -58,3 +58,14 @@ void SpinBoxDelegate::setSuffix(const string& newVal){
 
 	m_suffix = newVal;
 }
+
+void SpinBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
+							 const QModelIndex &index) const
+{
+	QStyleOptionViewItemV4 myOption = option;
+	QString text = QString::number(index.data().toInt());
+	myOption.text = 
+		LOCAL8BITSTR(m_prefix.c_str()) + text + LOCAL8BITSTR(m_suffix.c_str());
+
+	QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &myOption, painter);
+}

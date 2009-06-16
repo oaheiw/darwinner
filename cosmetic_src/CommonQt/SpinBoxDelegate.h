@@ -19,6 +19,8 @@ public:
 	void setRange(int32 min, int32 max);
 	void setPrefix(const string& newVal);
 	void setSuffix(const string& newVal);
+	void paint(QPainter *painter, const QStyleOptionViewItem &option,
+		const QModelIndex &index) const;
 
 private:
 	int32 m_max;

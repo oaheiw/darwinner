@@ -10,6 +10,7 @@
 StaffListView::StaffListView(QWidget *parent)
 : ItemView(parent)
 {
+	setButtonsVisable(true);
 	m_LevelNames = AnythingFactory<ArrayUint32String>::
 		instance()->createAnything(STAFFLEVEL);
 	m_TypeNames = AnythingFactory<ArrayUint32String>::

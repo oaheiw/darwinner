@@ -10,6 +10,7 @@
 BusinessItemView::BusinessItemView(QWidget *parent)
 :ItemView(parent)
 {
+	setButtonsVisable(true);
 	m_businessTypeNames = AnythingFactory<ArrayUint32String>::instance()->createAnything(BUSINESSTYPE);	
 
 	QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);

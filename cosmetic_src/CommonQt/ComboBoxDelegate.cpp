@@ -69,7 +69,7 @@ void ComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 	if(m_items.end() != it)
 		text = LOCAL8BITSTR(it.value().c_str());
 	myOption.text = text;
-	myOption.font.setBold(true);
+	//myOption.font.setBold(true);
 	QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &myOption, painter);
 //	QApplication::style()->drawItemText(painter, option.rect, Qt::AlignLeft | Qt::AlignVCenter,
 //																	option.palette, true, text);

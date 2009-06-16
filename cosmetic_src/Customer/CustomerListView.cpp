@@ -15,6 +15,7 @@
 
 CustomerListView::CustomerListView(QWidget *parent)
 :ItemView(parent){
+	setButtonsVisable(true);
 	setTitle(LOCAL8BITSTR(cmCustomerBrowseStr));
 
 	m_customerLevelNames = AnythingFactory<ArrayUint32String>::

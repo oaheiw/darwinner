@@ -10,8 +10,8 @@ LevelWidget::LevelWidget(QWidget *parent, int mode)
 {
 	ui.setupUi(this);
 	ui.addPushButton->setDefault(true);
-	QFont font = QFont("SimSun", 9);
-	settingFont(font);
+//	QFont font = QFont("SimSun", 9);
+//	settingFont(font);
 	int col = 0;
 	m_mode = mode;
 

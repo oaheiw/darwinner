@@ -57,51 +57,65 @@ void ItemView::changeMode(short mode)
 			}
 		case SIMPLEVIEW_SEARCH:
 			{
-				setButtonsVisable(false);
+				setOperationBoxVisable(true);
+				setCheckBoxVisable(false);
 				setDateBoxVisable(false);
 				setSearchBoxVisable(true);
 				break;
 			}
 		case SIMPLEVIEW_DATEBOX:
 			{
-				setButtonsVisable(false);
+				setOperationBoxVisable(true);
+				setCheckBoxVisable(false);
 				setDateBoxVisable(true);
 				setSearchBoxVisable(false);
 				break;
 			}
 		case SIMPLEVIEW_BOTH:
 			{
-				setButtonsVisable(false);
+				setOperationBoxVisable(true);
+				setCheckBoxVisable(false);
 				setDateBoxVisable(true);
 				setSearchBoxVisable(true);
 				break;
 			}
-		case BUTTONVIEW:
+		case CHECKBOXVIEW:
 			{
-				setButtonsVisable(true);
+				setOperationBoxVisable(true);
+				setCheckBoxVisable(true);
 				setSearchBoxVisable(false);
 				setDateBoxVisable(false);
 				break;
 			}
-		case BUTTONVIEW_SEARCH:
+		case CHECKBOXVIEW_SEARCH:
 			{
-				setButtonsVisable(true);
+				setOperationBoxVisable(true);
+				setCheckBoxVisable(true);
 				setSearchBoxVisable(true);
 				setDateBoxVisable(false);
 				break;
 			}
-		case BUTTONVIEW_DATEBOX:
+		case CHECKBOXVIEW_DATEBOX:
 			{
-				setButtonsVisable(true);
+				setOperationBoxVisable(true);
+				setCheckBoxVisable(true);
 				setSearchBoxVisable(false);
 				setDateBoxVisable(true);
 				break;
 			}
-		case BUTTONVIEW_BOTH:
+		case CHECKBOXVIEW_BOTH:
+			{
+				setOperationBoxVisable(true);
+				setCheckBoxVisable(true);
+				setSearchBoxVisable(true);
+				setDateBoxVisable(true);
+				break;
+			}
 		case FULLVIEW:
 		default:
 			{
 				setOperationBoxVisable(true);
+				setCheckBoxVisable(true);
 				setButtonsVisable(true);
 				setSearchBoxVisable(true);
 				setDateBoxVisable(true);
@@ -122,6 +136,10 @@ void ItemView::setSearchBoxVisable(bool show)
 	ui.keywordLabel->setVisible(show);
 	ui.at1Label->setVisible(show);
 	ui.at2Label->setVisible(show);
+	if(show)
+		ui.horizontalSpacer_2->changeSize(10, 20);
+	else
+		ui.horizontalSpacer_2->changeSize(0, 20);
 
 }
 void ItemView::setDateBoxVisable(bool show)
@@ -132,10 +150,14 @@ void ItemView::setDateBoxVisable(bool show)
 	ui.toDateEdit->setVisible(show);
 }
 
-void ItemView::setButtonsVisable(bool show)
+void ItemView::setCheckBoxVisable(bool show)
 {
 	ui.selectAllcheckBox->setVisible(show);
 	ui.invertSlelctcheckBox->setVisible(show);
+}
+
+void ItemView::setButtonsVisable(bool show)
+{
 	ui.exportButton->setVisible(show);
 	ui.printButton->setVisible(show);
 }

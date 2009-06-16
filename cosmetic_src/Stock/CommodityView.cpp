@@ -10,6 +10,7 @@
 CommodityView::CommodityView(QWidget *parent)
 :ItemView(parent)
 {
+	setButtonsVisable(true);
 	m_businessTypeNames = AnythingFactory<ArrayUint32String>::instance()->
 		createAnything(BUSINESSTYPE);	
 

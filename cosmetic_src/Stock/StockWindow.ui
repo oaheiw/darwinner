@@ -45,13 +45,31 @@
     </property>
     <item>
      <widget class="QSplitter" name="splitter_2">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="handleWidth">
+       <number>8</number>
+      </property>
       <widget class="CommodityView" name="commodityList" native="true"/>
       <widget class="QSplitter" name="splitter">
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="handleWidth">
+        <number>8</number>
        </property>
        <widget class="StockingView" name="StockingList" native="true"/>
        <widget class="InventoryView" name="inventoryList" native="true"/>

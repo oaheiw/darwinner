@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>635</width>
+    <width>637</width>
     <height>403</height>
    </rect>
   </property>
@@ -208,18 +208,6 @@
          </item>
          <item>
           <widget class="QDateEdit" name="fromDateEdit">
-           <property name="minimumSize">
-            <size>
-             <width>80</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>80</width>
-             <height>16777215</height>
-            </size>
-           </property>
            <property name="displayFormat">
             <string>yyyy-M-d</string>
            </property>
@@ -245,18 +233,6 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>70</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>80</width>
-             <height>16777215</height>
-            </size>
            </property>
            <property name="readOnly">
             <bool>false</bool>

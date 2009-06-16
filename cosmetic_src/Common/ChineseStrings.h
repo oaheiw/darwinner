@@ -64,7 +64,7 @@
 #define staffDescriptionStr "备注"
 #define staffJobSalaryStr "职务工资"
 #define staffLevelSalaryStr "级别工资"
-#define staffProfitStr "提成(%)"
+#define staffProfitStr "提成"
 #define staffBrowseStr "员工浏览"
 #define staffJobSettingStr "职务设置"
 #define staffLevelSettingStr "级别设置"
