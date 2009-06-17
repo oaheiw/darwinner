@@ -36,6 +36,7 @@ public:
 
 
 protected:
+	virtual bool eventFilter(QObject* obj, QEvent* ev);
 	void changeMode(short mode);
 	void appendColumn(int column);
 	void addData(int row, int column, const QVariant& data);

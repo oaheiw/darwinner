@@ -25,23 +25,23 @@ MessageBox::~MessageBox()
 	if(QMessageBox::Information == icon) {
 		messageBox.setStandardButtons(QMessageBox::Ok);
 		messageBox.setDefaultButton(QMessageBox::Ok);
-		messageBox.button(QMessageBox::Ok)->setText(LOCAL8BITSTR(backStr));
+		//messageBox.button(QMessageBox::Ok)->setText(LOCAL8BITSTR(backStr));
 	}
 	if(QMessageBox::Question == icon) {
 		messageBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
 		messageBox.setDefaultButton(QMessageBox::No);
-		messageBox.button(QMessageBox::Yes)->setText(LOCAL8BITSTR(okStr));
-		messageBox.button(QMessageBox::No)->setText(LOCAL8BITSTR(cancleStr));
+		//messageBox.button(QMessageBox::Yes)->setText(LOCAL8BITSTR(okStr));
+		//messageBox.button(QMessageBox::No)->setText(LOCAL8BITSTR(cancleStr));
 	}
 	if(QMessageBox::Critical == icon) {
 		messageBox.setStandardButtons(QMessageBox::Ok);
 		messageBox.setDefaultButton(QMessageBox::Ok);
-		messageBox.button(QMessageBox::Ok)->setText(LOCAL8BITSTR(backStr));
+		//messageBox.button(QMessageBox::Ok)->setText(LOCAL8BITSTR(backStr));
 	}
 	if(QMessageBox::Warning== icon) {
 		messageBox.setStandardButtons(QMessageBox::Ok);
 		messageBox.setDefaultButton(QMessageBox::Ok);
-		messageBox.button(QMessageBox::Ok)->setText(LOCAL8BITSTR(backStr));
+		//messageBox.button(QMessageBox::Ok)->setText(LOCAL8BITSTR(backStr));
 	}
 	return (QMessageBox::StandardButton)messageBox.exec();
  }

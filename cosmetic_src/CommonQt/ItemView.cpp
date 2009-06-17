@@ -11,6 +11,8 @@ ItemView::ItemView(QWidget *parent, short mode)
 ,m_to(QDateTime::currentDateTime().date())
 {
 	ui.setupUi(this);
+	ui.itemList->installEventFilter(this);
+	ui.operationBox->installEventFilter(this);
 	changeMode(m_mode);
 	m_from = m_to.addMonths(-1);
 	ui.fromDateEdit->setDate(m_from);
@@ -121,6 +123,20 @@ void ItemView::changeMode(short mode)
 				break;
 			}
 	}
+}
+
+bool ItemView::eventFilter(QObject* obj, QEvent* ev)
+{
+	switch(ev->type()) {
+		case QEvent::ContextMenu:
+			{
+				if(ui.itemList != obj) {
+					ev->accept();
+					return true;
+				}
+			}
+	}
+	return QObject::eventFilter(obj, ev);
 }
 
 void ItemView::setOperationBoxVisable(bool show)

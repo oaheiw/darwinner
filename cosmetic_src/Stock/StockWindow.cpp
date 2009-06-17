@@ -4,11 +4,24 @@
 #include <QContextMenuEvent>
 #include "UiStrings.h"
 #include "MessageBox.h"
+#include "DUIHandler.h"
+#include "Business.h"
+#include "Stock.h"
+#include "Inventory.h"
 
 StockWindow::StockWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
+	ui.commodityList->installEventFilter(this);
+	ui.StockingList->installEventFilter(this);
+	ui.inventoryList->installEventFilter(this);
+	ui.menubar->installEventFilter(this);
+	ui.toolBar->installEventFilter(this);
+
+	connect(ui.commodityList, SIGNAL(itemActivated(int, int, QVariant &)), 
+		this, SLOT(viewItemActivated(int, int, QVariant &)));
 }
 
 StockWindow::~StockWindow()
@@ -61,15 +74,21 @@ bool StockWindow::eventFilter(QObject* obj, QEvent* ev){
 		case QEvent::ContextMenu:
 			{
 				QMenu menu(this);
-				if(ui.toolBar == obj || ui.menubar == obj) {
+				if(ui.commodityList == obj) {
+					menu.addAction(ui.actionAdd);
+					menu.addAction(ui.actionRemove);
+					menu.addAction(ui.actionInventory);
+				} else if(ui.toolBar == obj || ui.menubar == obj) {
 					menu.addAction(ui.actionSmallIcon);
 					menu.addAction(ui.actionTextLabel);
 					menu.addAction(ui.actionToolBar);
+				} else {
+					ev->accept();
+					return true;
 				}
 				menu.exec(dynamic_cast<QContextMenuEvent*>(ev)->globalPos());
 				ev->accept();
 				return true;
-				break;
 			}
 	}
 	return QMainWindow::eventFilter(obj, ev);
@@ -198,7 +217,11 @@ void StockWindow::newInventory()
 }
 
 void StockWindow::newBatchInventory(){
-	TOBE_REALIZIED;
+	//batch action here
+	uint32* id = new uint32(0);
+	Message* action = new Message(ACTION_CHECKINVENTORY, id);
+	GetHandler()->StartAction(*action);
+	delete action;
 }
 
 void StockWindow::submitStock(Stock* data){
@@ -224,8 +247,21 @@ void StockWindow::submitInventory(Inventory* data)
 	GetHandler()->StartAction(*action);
 	delete action;
 }
-void StockWindow::submitWarningLevel(uint32 value){}
-void StockWindow::submitCheckDate(short date){}
+void StockWindow::submitWarningLevel(uint32 value)
+{
+	uint32* data = new uint32(value);
+	Message* action = new Message(ACTION_SETSTOCKWARNINGLEVEL, data);
+	GetHandler()->StartAction(*action);
+	delete action;
+}
+
+void StockWindow::submitCheckDate(short date)
+{
+	uint32* data = new uint32(date);
+	Message* action = new Message(ACTION_SETCHECKDATE, data);
+	GetHandler()->StartAction(*action);
+	delete action;
+}
 
 void StockWindow::Menu()
 {

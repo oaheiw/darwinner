@@ -5,11 +5,12 @@
 #include "DUIObserver.h"
 #include "common.h"
 #include "ui_StockWindow.h"
-#include "Stock.h"
-#include "Inventory.h"
+class Stock;
+class Inventory;
 class Message;
+class Business;
 
-class StockWindow : public DUIObserver, public QMainWindow
+class StockWindow : public QMainWindow, public DUIObserver
 {
 	Q_OBJECT
 

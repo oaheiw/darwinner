@@ -337,7 +337,7 @@ void CustomerWindow::removeCustomer()
 	uint32 currentID = ui.itemView->sibling(row, 0).toUInt();
 	if(0 != currentID) {
 		string  currentName = 
-			string(ui.itemView->sibling(row, 2).toString().toLocal8Bit().data());
+			string(ui.itemView->sibling(row, 1).toString().toLocal8Bit().data());
 		QString confirm =LOCAL8BITSTR(cmRemoveCustomerConfirm).
 			arg(LOCAL8BITSTR(currentName.c_str()));
 		if(QMessageBox::No == MessageBox::

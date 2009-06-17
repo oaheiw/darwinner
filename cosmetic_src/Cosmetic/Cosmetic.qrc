@@ -1,60 +1,63 @@
 <RCC>
-  <qresource prefix="/common" >
-    <file alias="filter" >Resources/filter.png</file>
-    <file alias="lock" >Resources/locksystem.png</file>
-    <file alias="logoff" >Resources/restart.png</file>
-    <file>Resources/add_color.png</file>
-    <file>Resources/export_color.png</file>
-    <file>Resources/substract_color.png</file>
-    <file>Resources/mainmenu.png</file>
-    <file>Resources/ok.png</file>
-    <file>Resources/no.png</file>
-    <file alias="printer" >Resources/printer.png</file>
-    <file>Resources/2rightarrow.png</file>
-    <file alias="quit" >Resources/quit.png</file>
-    <file alias="shop" >Resources/home.png</file>
-    <file>Resources/cosmetic.png</file>
-    <file>Resources/cosmetic-text.png</file>
-    <file>Resources/banner.png</file>
-    <file>Resources/watermark.png</file>
-    <file>Resources/1downarrow.png</file>
-    <file>Resources/2uparrow.png</file>
-    <file>Resources/2downarrow.png</file>
-    <file>Resources/1uparrow.png</file>
-    <file>Resources/find.png</file>
-    <file>Resources/edit.png</file>
-    <file>Resources/settings.png</file>
-  </qresource>
-  <qresource prefix="/customer" >
-    <file alias="records" >../Customer/icons/consumeration.png</file>
-    <file alias="customer" >../Customer/icons/customer.png</file>
-  </qresource>
-  <qresource prefix="/business" >
-    <file alias="business" >../Business/icons/business.png</file>
-    <file alias="records" >../Business/icons/businessrecords.png</file>
-  </qresource>
-  <qresource prefix="/staff" >
-    <file alias="job" >../Staff/icons/level.png</file>
-    <file alias="level" >../Staff/icons/job.png</file>
-    <file alias="rights" >../Staff/icons/right.png</file>
-    <file alias="password" >../Staff/icons/key.png</file>
-    <file alias="staff" >../Staff/icons/staff.png</file>
-    <file alias="salary" >../Staff/icons/salary.png</file>
-    <file alias="info" >../Staff/icons/info.png</file>
-    <file alias="records" >../Staff/icons/personalrecords.png</file>
-  </qresource>
-  <qresource prefix="/shop" >
-    <file alias="shop" >../Shop/icons/shop.png</file>
-  </qresource>
-  <qresource prefix="/report" >
-    <file alias="report" >../Report/icons/report.png</file>
-  </qresource>
-  <qresource prefix="/stock" >
-    <file alias="warning" >../Stock/icons/warning.png</file>
-    <file alias="batch" >../Stock/icons/batchcheck.png</file>
-    <file alias="check" >../Stock/icons/check.png</file>
-    <file alias="in" >../Stock/icons/stockin.png</file>
-    <file alias="out" >../Stock/icons/stockout.png</file>
-    <file alias="stock" >../Stock/icons/stock.png</file>
-  </qresource>
+    <qresource prefix="/common" >
+        <file alias="filter" >Resources/filter.png</file>
+        <file alias="lock" >Resources/locksystem.png</file>
+        <file alias="logoff" >Resources/restart.png</file>
+        <file>Resources/add_color.png</file>
+        <file>Resources/export_color.png</file>
+        <file>Resources/substract_color.png</file>
+        <file>Resources/mainmenu.png</file>
+        <file>Resources/ok.png</file>
+        <file>Resources/no.png</file>
+        <file alias="printer" >Resources/printer.png</file>
+        <file>Resources/2rightarrow.png</file>
+        <file alias="quit" >Resources/quit.png</file>
+        <file alias="shop" >Resources/home.png</file>
+        <file>Resources/cosmetic.png</file>
+        <file>Resources/cosmetic-text.png</file>
+        <file>Resources/banner.png</file>
+        <file>Resources/watermark.png</file>
+        <file>Resources/1downarrow.png</file>
+        <file>Resources/2uparrow.png</file>
+        <file>Resources/2downarrow.png</file>
+        <file>Resources/1uparrow.png</file>
+        <file>Resources/find.png</file>
+        <file>Resources/edit.png</file>
+        <file>Resources/settings.png</file>
+    </qresource>
+    <qresource prefix="/customer" >
+        <file alias="records" >../Customer/icons/consumeration.png</file>
+        <file alias="customer" >../Customer/icons/customer.png</file>
+    </qresource>
+    <qresource prefix="/business" >
+        <file alias="business" >../Business/icons/business.png</file>
+        <file alias="records" >../Business/icons/businessrecords.png</file>
+    </qresource>
+    <qresource prefix="/staff" >
+        <file alias="job" >../Staff/icons/level.png</file>
+        <file alias="level" >../Staff/icons/job.png</file>
+        <file alias="rights" >../Staff/icons/right.png</file>
+        <file alias="password" >../Staff/icons/key.png</file>
+        <file alias="staff" >../Staff/icons/staff.png</file>
+        <file alias="salary" >../Staff/icons/salary.png</file>
+        <file alias="info" >../Staff/icons/info.png</file>
+        <file alias="records" >../Staff/icons/personalrecords.png</file>
+    </qresource>
+    <qresource prefix="/shop" >
+        <file alias="shop" >../Shop/icons/shop.png</file>
+    </qresource>
+    <qresource prefix="/report" >
+        <file alias="report" >../Report/icons/report.png</file>
+    </qresource>
+    <qresource prefix="/stock" >
+        <file alias="warning" >../Stock/icons/warning.png</file>
+        <file alias="batch" >../Stock/icons/batchcheck.png</file>
+        <file alias="check" >../Stock/icons/check.png</file>
+        <file alias="in" >../Stock/icons/stockin.png</file>
+        <file alias="out" >../Stock/icons/stockout.png</file>
+        <file alias="stock" >../Stock/icons/stock.png</file>
+    </qresource>
+    <qresource prefix="/translations" >
+        <file alias="zh_CN" >Resources/qt_zh_CN.qm</file>
+    </qresource>
 </RCC>
