@@ -47,7 +47,7 @@ SSMainMenu::SSMainMenu(QWidget *parent)
 	const QIcon icon = 
 		QIcon(QString::fromUtf8(":/common/Resources/Cosmetic.png"));
     setWindowIcon(icon);
-	roundCorner();
+//	roundCorner();
 }
 
 SSMainMenu::~SSMainMenu()
