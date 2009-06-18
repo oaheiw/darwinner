@@ -92,7 +92,7 @@ bool CommonDbThread::initDb()
 		return false;
 	}
 	
-	DBHEX("initializing database...", "");
+	DBHEX("initializing database", "...");
 
 	m_tempMsg = new Message(EVENT_INIT);
 	if(NULL != m_tempMsg) {
@@ -181,7 +181,7 @@ string CommonDbThread::getPassword(uint32 id)
 	if(!openDb(DBNAME)){
 		return password;
 	}
-	DBHEX("getting password for: ", id);
+	DBDEC("getting password for: ", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
 	QString query = QString(GET_STAFFPASSWORD_BYID).arg(id);
 	if(q.exec(query)){
@@ -227,7 +227,7 @@ bool CommonDbThread::getLoggedStaff(uint32 id)
 		return r;
 	}
 
-	DBHEX("getting logged staff...", id);
+	DBDEC("getting logged staff...", id);
 	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
 	QString query = QString(SELECT_STAFF_BYID_NOIMAGE).arg(id);
 	if(q.exec(query)){
@@ -255,7 +255,7 @@ bool CommonDbThread::getLoggedStaff(uint32 id)
 	}
 	
 	closeDb();
-	DBHEX("get logged staff completed:", id);
+	DBDEC("get logged staff completed:", id);
 	return r;
 }
 
