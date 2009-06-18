@@ -32,8 +32,8 @@ int main(int argc, char *argv[])
 	IEventObserver* login = Singleton<SSMainHandler>::instance();
 	IEventObserver* sm = Singleton<SMHandler>::instance();
 	IEventObserver* bm = Singleton<BMHandler>::instance();
-	IEventObserver* cm = new CMHandler();//Singleton<CMHandler>::instance();
-	IEventObserver* st = new STHandler();
+	IEventObserver* cm = Singleton<CMHandler>::instance();
+	IEventObserver* st = Singleton<STHandler>::instance();
 	
 	worker->SetObserver(login);
 	worker->SetObserver(sm);
