@@ -2,9 +2,13 @@
 #include "common.h"
 
 PasswordWidget::PasswordWidget(QWidget *parent)
-	: QWidget(parent, Qt::Popup)
+	: QWidget(parent, Qt::Tool)
 {
 	setupUi(this);
+	if(NULL != parent) {
+		move(parent->pos().x() + parent->width()/2 - width()/2, 
+			parent->pos().y() + parent->height()/2 - height()/2);
+	}
 	oldLineEdit->setMaxLength(PW_MAX_LEN);
 	newLineEdit->setMaxLength(PW_MAX_LEN);
 	confirmLineEdit->setMaxLength(PW_MAX_LEN);

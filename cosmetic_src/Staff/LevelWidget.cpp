@@ -9,6 +9,10 @@ LevelWidget::LevelWidget(QWidget *parent, int mode)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	if(NULL != parent) {
+		move(parent->pos().x() + parent->width()/2 - width()/2, 
+			parent->pos().y() + parent->height()/2 - height()/2);
+	}
 	ui.addPushButton->setDefault(true);
 //	QFont font = QFont("SimSun", 9);
 //	settingFont(font);

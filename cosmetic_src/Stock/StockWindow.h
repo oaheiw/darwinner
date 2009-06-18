@@ -9,6 +9,7 @@ class Stock;
 class Inventory;
 class Message;
 class Business;
+class StockSetting;
 
 class StockWindow : public QMainWindow, public DUIObserver
 {
@@ -26,6 +27,7 @@ protected:
 
 private:
 	bool m_started;
+	StockSetting* m_settingPage;
 	Ui::StockWindowClass ui;
 
 	void getAllCommodities();
@@ -53,6 +55,7 @@ private slots:
 	void submitInventory(Inventory* data);
 	void submitWarningLevel(uint32 value);
 	void submitCheckDate(short date);
+	void submitSettings(uint32 value, short date);
 };
 
 #endif // STOCKWINDOW_H

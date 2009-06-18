@@ -31,7 +31,10 @@ class Message;
 	ProgressWidget* progressBar;
 	bool isfinished;
 	void initDb();
-	void initData();
+	void initSuperStaff();
+	void initStaffJob();
+	void initStaffLevel();
+	void initStaffStatus();
 	int totalStep;
  };
 

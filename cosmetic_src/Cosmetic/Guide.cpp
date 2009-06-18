@@ -29,12 +29,6 @@ using namespace std;
 	addPage(new StaffInfoPage(level, job, this));
 	addPage(new StaffRightsPage);
 	addPage(new ConclusionPage);
-	setButtonText(QWizard::BackButton, LOCAL8BITSTR("上一步"));
-	setButtonText(QWizard::NextButton, LOCAL8BITSTR("下一步"));
-	setButtonText(QWizard::CommitButton, LOCAL8BITSTR("确定"));
-	setButtonText(QWizard::FinishButton, LOCAL8BITSTR("结束"));
-	setButtonText(QWizard::CancelButton, LOCAL8BITSTR("取消"));
-	setButtonText(QWizard::HelpButton, LOCAL8BITSTR("帮助"));
 
 	setPixmap(QWizard::BannerPixmap, QPixmap(":/common/Resources/banner.png"));
 	setPixmap(QWizard::LogoPixmap, QPixmap(":/common/Resources/cosmetic-text.png").scaled(100, 100,Qt::KeepAspectRatio ,Qt::SmoothTransformation));
@@ -51,22 +45,31 @@ using namespace std;
 			break;
 		}
 		case EVENT_INIT:
+			{
+				break;
+			}
 		case EVENT_SETSUPERUSER:
+			{
+				 initStaffJob();
+				 break;
+			}
 		case EVENT_SETJOBTYPE:
+			{
+				initStaffLevel();
+				break;
+			}
 		case EVENT_SETLEVELTYPE:
 		{
-			//progressBar->setRange(0, 0);
+			initStaffStatus();
 			break;
 		}
 		case EVENT_INIT_FINISHED:
 		{
-			//progressBar->setRange(0, 0);
-			initData();
+			initSuperStaff();
 			break;
 		}
 		case EVENT_SETSTATUSTYPE://wait for this to indicate guide finished
 		{
-			//progressBar->setRange(0, 0);
 			progressBar->close();
 			if(!isfinished) {
 				isfinished = true;
@@ -103,58 +106,63 @@ void Guide::accept()
 	delete m_message;
  }
 
- void Guide::initData()
+ void Guide::initSuperStaff()
  {
- //*********************init super staff*************************//
-	Staff* staff = new Staff();
-	staff->setpassword(field("password").toString().toLocal8Bit().data());	
-	m_message = new Message(ACTION_SETSUPERUSER, staff);
-	GetHandler()->StartAction(*m_message);
-	delete m_message;
+	 Staff* staff = new Staff();
+	 staff->setpassword(field("password").toString().toLocal8Bit().data());	
+	 m_message = new Message(ACTION_SETSUPERUSER, staff);
+	 GetHandler()->StartAction(*m_message);
+	 delete m_message;
+ }
 
-//*********************init staff job*************************//
-	list<Job>* jobList = job->getJobList();
-//	if(jobList->empty())
-	{
-		Job temp;
-		temp.setName("未设定");
-		temp.setDescription("系统默认职务");
-		jobList->push_front(temp);
-	}
-	m_message = new Message(ACTION_SETJOBTYPE, (void*)jobList);
-	GetHandler()->StartAction(*m_message);
-	delete m_message;
+ void Guide::initStaffJob()
+ {
+	 list<Job>* jobList = job->getJobList();
+	 //	if(jobList->empty())
+	 {
+		 Job temp;
+		 temp.setName("未设定");
+		 temp.setDescription("系统默认职务");
+		 jobList->push_front(temp);
+	 }
+	 m_message = new Message(ACTION_SETJOBTYPE, (void*)jobList);
+	 GetHandler()->StartAction(*m_message);
+	 delete m_message;
+ }
 
-//*********************init staff level*************************//
-	list<Level>* levelList = level->getLevelList();
-//	if(levelList->empty())
-	{
-		Level temp;
-		temp.setName("未设定");
-		temp.setDescription("系统默认等级");
-		levelList->push_front(temp);
-	}
-	m_message = new Message(ACTION_SETLEVELTYPE, (void*)levelList);
-	GetHandler()->StartAction(*m_message);
-	delete m_message;
+ void Guide::initStaffLevel()
+ {
+	 list<Level>* levelList = level->getLevelList();
+	 //	if(levelList->empty())
+	 {
+		 Level temp;
+		 temp.setName("未设定");
+		 temp.setDescription("系统默认等级");
+		 levelList->push_front(temp);
+	 }
+	 m_message = new Message(ACTION_SETLEVELTYPE, (void*)levelList);
+	 GetHandler()->StartAction(*m_message);
+	 delete m_message;
+ }
 
-//*********************init staff status*************************//
-	list<Status>* statusList = new list<Status>;
-	Status temp;
-	temp.setName("在职");
-	statusList->push_back(temp);
-	temp.setName("休假");
-	statusList->push_back(temp);
-	temp.setName("空闲");
-	statusList->push_back(temp);
-	temp.setName("忙碌");
-	statusList->push_back(temp);
-	temp.setName("离职");
-	statusList->push_back(temp);
+ void Guide::initStaffStatus()
+ {
+	 list<Status>* statusList = new list<Status>;
+	 Status temp;
+	 temp.setName("在职");
+	 statusList->push_back(temp);
+	 temp.setName("休假");
+	 statusList->push_back(temp);
+	 temp.setName("空闲");
+	 statusList->push_back(temp);
+	 temp.setName("忙碌");
+	 statusList->push_back(temp);
+	 temp.setName("离职");
+	 statusList->push_back(temp);
 
-	m_message = new Message(ACTION_SETSTATUSTYPE, (void*)statusList);
-	GetHandler()->StartAction(*m_message);
-	delete m_message;
+	 m_message = new Message(ACTION_SETSTATUSTYPE, (void*)statusList);
+	 GetHandler()->StartAction(*m_message);
+	 delete m_message;
  }
 
 

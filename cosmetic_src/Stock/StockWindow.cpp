@@ -8,9 +8,10 @@
 #include "Business.h"
 #include "Stock.h"
 #include "Inventory.h"
+#include "StockSetting.h"
 
 StockWindow::StockWindow(QWidget *parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent),m_started(false),m_settingPage(NULL)
 {
 	ui.setupUi(this);
 
@@ -26,7 +27,7 @@ StockWindow::StockWindow(QWidget *parent)
 
 StockWindow::~StockWindow()
 {
-
+	delete m_settingPage;
 }
 
 void StockWindow::changeEvent(QEvent *e)
@@ -197,7 +198,18 @@ void StockWindow::addInventory2View(list<Inventory>* data)
 
 void StockWindow::stockSetting()
 {
-	TOBE_REALIZIED;
+	if(NULL == m_settingPage) {
+		m_settingPage = new StockSetting(5, 25, this);
+		connect(m_settingPage, SIGNAL(settingsSubmitted(uint32, short)), 
+			this, SLOT(submitSettings(uint32, short)));
+	}
+	m_settingPage->show();
+}
+
+void StockWindow::submitSettings(uint32 value, short date)
+{
+	submitWarningLevel(value);
+	submitCheckDate(date);
 }
 
 void StockWindow::newStock(STOCKING_DIRECTION direction)

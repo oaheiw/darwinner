@@ -117,18 +117,7 @@ bool CommonDbThread::initDb()
 	q.exec(CREATE_CUSTOMERLEVEL_TABLE);
 	q.exec(CREATE_CUSTOMER_TABLE);
 	q.exec(CREATE_CUSTOMERIMAGE_TABLE);
-/*
-	q.prepare(INSERTINTO_SEX_TABLE);
-	q.bindValue(":id", 0);
-	q.bindValue(":name", "未设定");
-	q.exec();
-	q.bindValue(":id", 1);
-	q.bindValue(":name", "男");
-	q.exec();
-	q.bindValue(":id", 2);
-	q.bindValue(":name", "女");
-	q.exec();
-*/	
+
 	closeDb();
 
 	m_tempMsg = new Message(EVENT_INIT_FINISHED);
@@ -143,6 +132,7 @@ bool CommonDbThread::initDb()
 bool CommonDbThread::checkDd()
 {
 	bool re = false;
+#ifndef _DEMO
 	bool exist;
 	int length= 0;
 	char* SQLiteMark;
@@ -182,6 +172,20 @@ bool CommonDbThread::checkDd()
 		}
 		closeDb();
 	}
+#else
+	DBHEX("database name", DBNAME);
+	openDb(DBNAME);
+	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
+	QString query = QString("SELECT id FROM staff WHERE id = %1").arg(SUPERUSERID);
+	q.exec(query);
+	if(!q.next()) {
+		re = false;
+	}
+	else {
+		re = true;
+	}
+	closeDb();
+#endif
 	return re;
 }
 
@@ -224,8 +228,8 @@ bool CommonDbThread::addSupperStaff(Staff* staff)
 	q.bindValue(":status", 1);
 	q.bindValue(":cell", "88888888");
 	q.bindValue(":phone", "66666666");
-	q.bindValue(":address", "中华人民共和国");
-	q.bindValue(":description", "这是科思美系统超级账户，请不用将此账户用作日常运作账户。");
+	q.bindValue(":address", "思索软件工作室");
+	q.bindValue(":description", "这是科思美系统超级账户，请不要将此账户用作日常运作账户。");
 	r = q.exec();
 	DBHEX("create super user complete!", r);
 	return r;

@@ -3,9 +3,14 @@
 #include "common.h"
 
 ItemEditor::ItemEditor(QWidget *parent)
-	: QWidget(parent)
+: QWidget(parent)
 {
 	ui.setupUi(this);
+	if(NULL != parent) {
+		move(parent->pos().x() + parent->width()/2 - width()/2, 
+			parent->pos().y() + parent->height()/2 - height()/2);
+	}
+	
 	m_DataModel = new QStandardItemModel(0, 0, this);
 	m_column = m_DataModel->columnCount();
 	ui.itemTable->setModel(m_DataModel);
@@ -33,8 +38,8 @@ void ItemEditor::changeMode(ItemEditorMode mode)
 			ui.addButton->show();
 			ui.removeButton->show();
 			ui.itemTable->setEditTriggers(QAbstractItemView::DoubleClicked |
-																QAbstractItemView::SelectedClicked |
-																QAbstractItemView::EditKeyPressed);
+										QAbstractItemView::SelectedClicked |
+										QAbstractItemView::EditKeyPressed);
 			ui.itemTable->hideColumn(0);
 			break;
 		}
@@ -44,8 +49,8 @@ void ItemEditor::changeMode(ItemEditorMode mode)
 			ui.addButton->hide();
 			ui.removeButton->hide();
 			ui.itemTable->setEditTriggers(QAbstractItemView::DoubleClicked |
-																QAbstractItemView::SelectedClicked |
-																QAbstractItemView::EditKeyPressed);
+										QAbstractItemView::SelectedClicked |
+										QAbstractItemView::EditKeyPressed);
 			ui.itemTable->showColumn(0);
 			break;
 		}
