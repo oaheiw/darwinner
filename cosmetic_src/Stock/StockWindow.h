@@ -18,8 +18,8 @@ class StockWindow : public QMainWindow, public DUIObserver
 public:
 	StockWindow(QWidget *parent = 0);
 	~StockWindow();
-	bool event(QEvent* ev);
-	void OnEvent(Message& Msg);
+	virtual bool event(QEvent* ev);
+	virtual void OnEvent(Message& Msg);
 
 protected:
 	virtual void changeEvent(QEvent *e);

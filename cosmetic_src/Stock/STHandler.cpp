@@ -12,7 +12,8 @@
 #include "Singleton.h"
 #include "StockWindow.h"
 
-STHandler::STHandler(){
+STHandler::STHandler()
+:m_mainWindow(NULL){
 
 }
 
@@ -47,8 +48,7 @@ void STHandler::StartAction(Message& act){
 void STHandler::OnEvent(Message &ev)
 {
 	if(ev.isEvent()) {
-		switch(ev.type())
-		{
+		switch(ev.type()) {
 			case EVENT_STOCKMGNT:
 			{
 				if(NULL == m_mainWindow) {

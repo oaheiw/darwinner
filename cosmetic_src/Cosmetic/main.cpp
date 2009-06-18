@@ -17,7 +17,6 @@
 #include "BMHandler.h"
 #include "CMHandler.h"
 #include "STHandler.h"
-//#include "systeminfo.h"
 
 #ifdef _STATIC_RELEASE
 #include <QtPlugin>
