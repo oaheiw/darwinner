@@ -132,7 +132,6 @@ bool CommonDbThread::initDb()
 bool CommonDbThread::checkDd()
 {
 	bool re = false;
-#ifndef _DEMO
 	bool exist;
 	int length= 0;
 	char* SQLiteMark;
@@ -172,20 +171,6 @@ bool CommonDbThread::checkDd()
 		}
 		closeDb();
 	}
-#else
-	DBHEX("database name", DBNAME);
-	openDb(DBNAME);
-	QSqlQuery q = QSqlQuery(getDb(DBCONNECTION_COMMON));
-	QString query = QString("SELECT id FROM staff WHERE id = %1").arg(SUPERUSERID);
-	q.exec(query);
-	if(!q.next()) {
-		re = false;
-	}
-	else {
-		re = true;
-	}
-	closeDb();
-#endif
 	return re;
 }
 

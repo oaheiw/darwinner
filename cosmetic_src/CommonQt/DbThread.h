@@ -4,12 +4,6 @@
 #include "WorkerThread.h"
 #include <QSqlDatabase>
 
-#if defined(_BASIC) | defined(_ADVANCED) | defined(_DEMO)
-#define DBTYPE "QSQLITE"
-#else
-#define DBTYPE "QMYSQL"
-#endif
-
 class DbThread : public WorkerThread
 {
 public:

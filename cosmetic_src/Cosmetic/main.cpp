@@ -49,9 +49,9 @@ int main(int argc, char *argv[])
 
 	QApplication* app = new QApplication(argc, argv);
 	
-	QTranslator translator;
-	translator.load(":/translations/zh_CN");
-	app->installTranslator(&translator);
+	QTranslator* translator = new QTranslator(app);
+	translator->load(":/translations/zh_CN");
+	app->installTranslator(translator);	
 
 	QStyle* style = QStyleFactory::
 		create(Singleton<AppParameter>::instance()->getAppStyle().c_str());
@@ -63,8 +63,9 @@ int main(int argc, char *argv[])
 	delete StartUp;
 	
 	app->exec();
+	app->removeTranslator(translator);
+	delete translator;
 	delete app;
-//	delete translator;
 
 	return 0;
 }
